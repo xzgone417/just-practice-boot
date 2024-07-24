@@ -1,4 +1,4 @@
-package com.example.bootdemo1.pojo;
+package com.example.bootdemo1.goal;
 
 public class Recommend {
     private int ID;

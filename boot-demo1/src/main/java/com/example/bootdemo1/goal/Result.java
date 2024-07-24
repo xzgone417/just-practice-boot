@@ -1,4 +1,4 @@
-package com.example.bootdemo1.pojo;
+package com.example.bootdemo1.goal;
 import java.util.List;
 
 public class Result {
