@@ -1,0 +1,791 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.ISysCarUsedStorageDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.SysCarUsedStorageEntity" >
+    INSERT INTO t_sys_car_used_storage 
+       (
+          storage_id,
+          storage_name,
+          storage_address,
+          storage_code,
+          manager_name,
+          manager_phone,
+          city,
+          city_id,
+          province,
+          province_id,
+          district,
+          district_id,
+          inventory_capacity,
+          default_move_address,
+          org_id,
+          remarks,
+          is_manual_creation,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date,
+          is_enable,
+          is_delete
+        ) VALUES (
+          #{storageId, jdbcType=BIGINT},
+          #{storageName, jdbcType=VARCHAR},
+          #{storageAddress, jdbcType=VARCHAR},
+          #{storageCode, jdbcType=VARCHAR},
+          #{managerName, jdbcType=VARCHAR},
+          #{managerPhone, jdbcType=VARCHAR},
+          #{city, jdbcType=VARCHAR},
+          #{cityId, jdbcType=VARCHAR},
+          #{province, jdbcType=VARCHAR},
+          #{provinceId, jdbcType=VARCHAR},
+          #{district, jdbcType=VARCHAR},
+          #{districtId, jdbcType=VARCHAR},
+          #{inventoryCapacity, jdbcType=INTEGER},
+          #{defaultMoveAddress, jdbcType=VARCHAR},
+          #{orgId, jdbcType=BIGINT},
+          #{remarks, jdbcType=VARCHAR},
+          #{isManualCreation, jdbcType=VARCHAR},
+          #{createdBy, jdbcType=BIGINT},
+          #{createdDate, jdbcType=TIMESTAMP},
+          #{updatedBy, jdbcType=BIGINT},
+          #{updatedDate, jdbcType=TIMESTAMP},
+          #{isEnable, jdbcType=VARCHAR},
+          #{isDelete, jdbcType=VARCHAR}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.SysCarUsedStorageEntity" >
+    INSERT INTO t_sys_car_used_storage
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="storageId != null" >
+          storage_id,
+          </if>
+        <if test="storageName != null" >
+          storage_name,
+          </if>
+        <if test="storageAddress != null" >
+          storage_address,
+          </if>
+        <if test="storageCode != null" >
+          storage_code,
+          </if>
+        <if test="managerName != null" >
+          manager_name,
+          </if>
+        <if test="managerPhone != null" >
+          manager_phone,
+          </if>
+        <if test="city != null" >
+          city,
+          </if>
+        <if test="cityId != null" >
+          city_id,
+          </if>
+        <if test="province != null" >
+          province,
+          </if>
+        <if test="provinceId != null" >
+          province_id,
+          </if>
+        <if test="district != null" >
+          district,
+          </if>
+        <if test="districtId != null" >
+          district_id,
+          </if>
+        <if test="inventoryCapacity != null" >
+          inventory_capacity,
+          </if>
+        <if test="defaultMoveAddress != null" >
+          default_move_address,
+          </if>
+        <if test="orgId != null" >
+          org_id,
+          </if>
+        <if test="remarks != null" >
+          remarks,
+          </if>
+        <if test="isManualCreation != null" >
+          is_manual_creation,
+          </if>
+        <if test="createdBy != null" >
+          created_by,
+          </if>
+        <if test="createdDate != null" >
+          created_date,
+          </if>
+        <if test="updatedBy != null" >
+          updated_by,
+          </if>
+        <if test="updatedDate != null" >
+          updated_date,
+          </if>
+        <if test="isEnable != null" >
+          is_enable,
+          </if>
+        <if test="isDelete != null" >
+          is_delete,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="storageId != null" >
+          #{storageId, jdbcType=BIGINT},
+          </if>
+        <if test="storageName != null" >
+          #{storageName, jdbcType=VARCHAR},
+          </if>
+        <if test="storageAddress != null" >
+          #{storageAddress, jdbcType=VARCHAR},
+          </if>
+        <if test="storageCode != null" >
+          #{storageCode, jdbcType=VARCHAR},
+          </if>
+        <if test="managerName != null" >
+          #{managerName, jdbcType=VARCHAR},
+          </if>
+        <if test="managerPhone != null" >
+          #{managerPhone, jdbcType=VARCHAR},
+          </if>
+        <if test="city != null" >
+          #{city, jdbcType=VARCHAR},
+          </if>
+        <if test="cityId != null" >
+          #{cityId, jdbcType=VARCHAR},
+          </if>
+        <if test="province != null" >
+          #{province, jdbcType=VARCHAR},
+          </if>
+        <if test="provinceId != null" >
+          #{provinceId, jdbcType=VARCHAR},
+          </if>
+        <if test="district != null" >
+          #{district, jdbcType=VARCHAR},
+          </if>
+        <if test="districtId != null" >
+          #{districtId, jdbcType=VARCHAR},
+          </if>
+        <if test="inventoryCapacity != null" >
+          #{inventoryCapacity, jdbcType=INTEGER},
+          </if>
+        <if test="defaultMoveAddress != null" >
+          #{defaultMoveAddress, jdbcType=VARCHAR},
+          </if>
+        <if test="orgId != null" >
+          #{orgId, jdbcType=BIGINT},
+          </if>
+        <if test="remarks != null" >
+          #{remarks, jdbcType=VARCHAR},
+          </if>
+        <if test="isManualCreation != null" >
+          #{isManualCreation, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="isEnable != null" >
+          #{isEnable, jdbcType=VARCHAR},
+          </if>
+        <if test="isDelete != null" >
+          #{isDelete, jdbcType=VARCHAR},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_sys_car_used_storage 
+       (
+          storage_id,
+          storage_name,
+          storage_address,
+          storage_code,
+          manager_name,
+          manager_phone,
+          city,
+          city_id,
+          province,
+          province_id,
+          district,
+          district_id,
+          inventory_capacity,
+          default_move_address,
+          org_id,
+          remarks,
+          is_manual_creation,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date,
+          is_enable,
+          is_delete
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.storageId, jdbcType=BIGINT},
+	          #{item.storageName, jdbcType=VARCHAR},
+	          #{item.storageAddress, jdbcType=VARCHAR},
+	          #{item.storageCode, jdbcType=VARCHAR},
+	          #{item.managerName, jdbcType=VARCHAR},
+	          #{item.managerPhone, jdbcType=VARCHAR},
+	          #{item.city, jdbcType=VARCHAR},
+	          #{item.cityId, jdbcType=VARCHAR},
+	          #{item.province, jdbcType=VARCHAR},
+	          #{item.provinceId, jdbcType=VARCHAR},
+	          #{item.district, jdbcType=VARCHAR},
+	          #{item.districtId, jdbcType=VARCHAR},
+	          #{item.inventoryCapacity, jdbcType=INTEGER},
+	          #{item.defaultMoveAddress, jdbcType=VARCHAR},
+	          #{item.orgId, jdbcType=BIGINT},
+	          #{item.remarks, jdbcType=VARCHAR},
+	          #{item.isManualCreation, jdbcType=VARCHAR},
+	          #{item.createdBy, jdbcType=BIGINT},
+	          #{item.createdDate, jdbcType=TIMESTAMP},
+	          #{item.updatedBy, jdbcType=BIGINT},
+	          #{item.updatedDate, jdbcType=TIMESTAMP},
+	          #{item.isEnable, jdbcType=VARCHAR},
+	          #{item.isDelete, jdbcType=VARCHAR}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.SysCarUsedStorageEntity" >
+    UPDATE t_sys_car_used_storage SET 
+          storage_name = #{storageName, jdbcType=VARCHAR},
+          storage_address = #{storageAddress, jdbcType=VARCHAR},
+          storage_code = #{storageCode, jdbcType=VARCHAR},
+          manager_name = #{managerName, jdbcType=VARCHAR},
+          manager_phone = #{managerPhone, jdbcType=VARCHAR},
+          city = #{city, jdbcType=VARCHAR},
+          city_id = #{cityId, jdbcType=VARCHAR},
+          province = #{province, jdbcType=VARCHAR},
+          province_id = #{provinceId, jdbcType=VARCHAR},
+          district = #{district, jdbcType=VARCHAR},
+          district_id = #{districtId, jdbcType=VARCHAR},
+          inventory_capacity = #{inventoryCapacity, jdbcType=INTEGER},
+          default_move_address = #{defaultMoveAddress, jdbcType=VARCHAR},
+          org_id = #{orgId, jdbcType=BIGINT},
+          remarks = #{remarks, jdbcType=VARCHAR},
+          is_manual_creation = #{isManualCreation, jdbcType=VARCHAR},
+          created_by = #{createdBy, jdbcType=BIGINT},
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          is_enable = #{isEnable, jdbcType=VARCHAR},
+          is_delete = #{isDelete, jdbcType=VARCHAR}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND storage_id = #{storageId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.SysCarUsedStorageEntity" >
+    UPDATE t_sys_car_used_storage
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="storageName != null" >
+          storage_name = #{storageName, jdbcType=VARCHAR},
+          </if>
+        <if test="storageAddress != null" >
+          storage_address = #{storageAddress, jdbcType=VARCHAR},
+          </if>
+        <if test="storageCode != null" >
+          storage_code = #{storageCode, jdbcType=VARCHAR},
+          </if>
+        <if test="managerName != null" >
+          manager_name = #{managerName, jdbcType=VARCHAR},
+          </if>
+        <if test="managerPhone != null" >
+          manager_phone = #{managerPhone, jdbcType=VARCHAR},
+          </if>
+        <if test="city != null" >
+          city = #{city, jdbcType=VARCHAR},
+          </if>
+        <if test="cityId != null" >
+          city_id = #{cityId, jdbcType=VARCHAR},
+          </if>
+        <if test="province != null" >
+          province = #{province, jdbcType=VARCHAR},
+          </if>
+        <if test="provinceId != null" >
+          province_id = #{provinceId, jdbcType=VARCHAR},
+          </if>
+        <if test="district != null" >
+          district = #{district, jdbcType=VARCHAR},
+          </if>
+        <if test="districtId != null" >
+          district_id = #{districtId, jdbcType=VARCHAR},
+          </if>
+        <if test="inventoryCapacity != null" >
+          inventory_capacity = #{inventoryCapacity, jdbcType=INTEGER},
+          </if>
+        <if test="defaultMoveAddress != null" >
+          default_move_address = #{defaultMoveAddress, jdbcType=VARCHAR},
+          </if>
+        <if test="orgId != null" >
+          org_id = #{orgId, jdbcType=BIGINT},
+          </if>
+        <if test="remarks != null" >
+          remarks = #{remarks, jdbcType=VARCHAR},
+          </if>
+        <if test="isManualCreation != null" >
+          is_manual_creation = #{isManualCreation, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          created_by = #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="isEnable != null" >
+          is_enable = #{isEnable, jdbcType=VARCHAR},
+          </if>
+        <if test="isDelete != null" >
+          is_delete = #{isDelete, jdbcType=VARCHAR},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND storage_id = #{storageId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_sys_car_used_storage SET 
+	          storage_name = #{item.storageName, jdbcType=VARCHAR},
+	          storage_address = #{item.storageAddress, jdbcType=VARCHAR},
+	          storage_code = #{item.storageCode, jdbcType=VARCHAR},
+	          manager_name = #{item.managerName, jdbcType=VARCHAR},
+	          manager_phone = #{item.managerPhone, jdbcType=VARCHAR},
+	          city = #{item.city, jdbcType=VARCHAR},
+	          city_id = #{item.cityId, jdbcType=VARCHAR},
+	          province = #{item.province, jdbcType=VARCHAR},
+	          province_id = #{item.provinceId, jdbcType=VARCHAR},
+	          district = #{item.district, jdbcType=VARCHAR},
+	          district_id = #{item.districtId, jdbcType=VARCHAR},
+	          inventory_capacity = #{item.inventoryCapacity, jdbcType=INTEGER},
+	          default_move_address = #{item.defaultMoveAddress, jdbcType=VARCHAR},
+	          org_id = #{item.orgId, jdbcType=BIGINT},
+	          remarks = #{item.remarks, jdbcType=VARCHAR},
+	          is_manual_creation = #{item.isManualCreation, jdbcType=VARCHAR},
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          is_enable = #{item.isEnable, jdbcType=VARCHAR},
+	          is_delete = #{item.isDelete, jdbcType=VARCHAR}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND storage_id = #{item.storageId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_sys_car_used_storage
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.storageName != null" >
+	          storage_name = #{item.storageName, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.storageAddress != null" >
+	          storage_address = #{item.storageAddress, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.storageCode != null" >
+	          storage_code = #{item.storageCode, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.managerName != null" >
+	          manager_name = #{item.managerName, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.managerPhone != null" >
+	          manager_phone = #{item.managerPhone, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.city != null" >
+	          city = #{item.city, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.cityId != null" >
+	          city_id = #{item.cityId, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.province != null" >
+	          province = #{item.province, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.provinceId != null" >
+	          province_id = #{item.provinceId, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.district != null" >
+	          district = #{item.district, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.districtId != null" >
+	          district_id = #{item.districtId, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.inventoryCapacity != null" >
+	          inventory_capacity = #{item.inventoryCapacity, jdbcType=INTEGER},
+	          </if>
+	        <if test="item.defaultMoveAddress != null" >
+	          default_move_address = #{item.defaultMoveAddress, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.orgId != null" >
+	          org_id = #{item.orgId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.remarks != null" >
+	          remarks = #{item.remarks, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.isManualCreation != null" >
+	          is_manual_creation = #{item.isManualCreation, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.createdBy != null" >
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.createdDate != null" >
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.updatedBy != null" >
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.updatedDate != null" >
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.isEnable != null" >
+	          is_enable = #{item.isEnable, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.isDelete != null" >
+	          is_delete = #{item.isDelete, jdbcType=VARCHAR},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND storage_id = #{item.storageId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.SysCarUsedStoragePk" >
+    DELETE FROM t_sys_car_used_storage
+    WHERE
+     <trim prefixOverrides="AND">
+           AND storage_id = #{storageId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.SysCarUsedStorageEntity" >
+    DELETE FROM t_sys_car_used_storage
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="storageId != null" >
+          AND storage_id = #{storageId, jdbcType=BIGINT}
+        </if>
+        <if test="storageName != null and storageName != ''" >
+          AND storage_name = #{storageName, jdbcType=VARCHAR}
+        </if>
+        <if test="storageAddress != null and storageAddress != ''" >
+          AND storage_address = #{storageAddress, jdbcType=VARCHAR}
+        </if>
+        <if test="storageCode != null and storageCode != ''" >
+          AND storage_code = #{storageCode, jdbcType=VARCHAR}
+        </if>
+        <if test="managerName != null and managerName != ''" >
+          AND manager_name = #{managerName, jdbcType=VARCHAR}
+        </if>
+        <if test="managerPhone != null and managerPhone != ''" >
+          AND manager_phone = #{managerPhone, jdbcType=VARCHAR}
+        </if>
+        <if test="city != null and city != ''" >
+          AND city = #{city, jdbcType=VARCHAR}
+        </if>
+        <if test="cityId != null and cityId != ''" >
+          AND city_id = #{cityId, jdbcType=VARCHAR}
+        </if>
+        <if test="province != null and province != ''" >
+          AND province = #{province, jdbcType=VARCHAR}
+        </if>
+        <if test="provinceId != null and provinceId != ''" >
+          AND province_id = #{provinceId, jdbcType=VARCHAR}
+        </if>
+        <if test="district != null and district != ''" >
+          AND district = #{district, jdbcType=VARCHAR}
+        </if>
+        <if test="districtId != null and districtId != ''" >
+          AND district_id = #{districtId, jdbcType=VARCHAR}
+        </if>
+        <if test="inventoryCapacity != null" >
+          AND inventory_capacity = #{inventoryCapacity, jdbcType=INTEGER}
+        </if>
+        <if test="defaultMoveAddress != null and defaultMoveAddress != ''" >
+          AND default_move_address = #{defaultMoveAddress, jdbcType=VARCHAR}
+        </if>
+        <if test="orgId != null" >
+          AND org_id = #{orgId, jdbcType=BIGINT}
+        </if>
+        <if test="remarks != null and remarks != ''" >
+          AND remarks = #{remarks, jdbcType=VARCHAR}
+        </if>
+        <if test="isManualCreation != null and isManualCreation != ''" >
+          AND is_manual_creation = #{isManualCreation, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="sysCarUsedStorageResultMap" type="com.exp.ucmp.entity.SysCarUsedStorageEntity" >
+      <constructor>
+       <idArg column="storage_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="storage_name" property="storageName" jdbcType="VARCHAR" />
+    <result column="storage_address" property="storageAddress" jdbcType="VARCHAR" />
+    <result column="storage_code" property="storageCode" jdbcType="VARCHAR" />
+    <result column="manager_name" property="managerName" jdbcType="VARCHAR" />
+    <result column="manager_phone" property="managerPhone" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="city_id" property="cityId" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="province_id" property="provinceId" jdbcType="VARCHAR" />
+    <result column="district" property="district" jdbcType="VARCHAR" />
+    <result column="district_id" property="districtId" jdbcType="VARCHAR" />
+    <result column="inventory_capacity" property="inventoryCapacity" jdbcType="INTEGER" />
+    <result column="default_move_address" property="defaultMoveAddress" jdbcType="VARCHAR" />
+    <result column="org_id" property="orgId" jdbcType="BIGINT" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="is_manual_creation" property="isManualCreation" jdbcType="VARCHAR" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="is_enable" property="isEnable" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="t_sys_car_used_storage_Column_List" >
+    a.storage_id,
+    a.storage_name,
+    a.storage_address,
+    a.storage_code,
+    a.manager_name,
+    a.manager_phone,
+    a.city,
+    a.city_id,
+    a.province,
+    a.province_id,
+    a.district,
+    a.district_id,
+    a.inventory_capacity,
+    a.default_move_address,
+    a.org_id,
+    a.remarks,
+    a.is_manual_creation,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date,
+    a.is_enable,
+    a.is_delete
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.SysCarUsedStoragePk" resultMap="sysCarUsedStorageResultMap">
+    SELECT 
+    <include refid="t_sys_car_used_storage_Column_List" />
+      FROM t_sys_car_used_storage a
+     WHERE 1 = 1
+       AND a.storage_id = #{storageId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.SysCarUsedStorageEntity" resultMap="sysCarUsedStorageResultMap">
+    SELECT 
+    <include refid="t_sys_car_used_storage_Column_List" />
+      FROM t_sys_car_used_storage a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="storageId != null" >
+          AND a.storage_id = #{storageId, jdbcType=BIGINT}
+        </if>
+        <if test="storageName != null and storageName != ''" >
+          AND a.storage_name = #{storageName, jdbcType=VARCHAR}
+        </if>
+        <if test="storageAddress != null and storageAddress != ''" >
+          AND a.storage_address = #{storageAddress, jdbcType=VARCHAR}
+        </if>
+        <if test="storageCode != null and storageCode != ''" >
+          AND a.storage_code = #{storageCode, jdbcType=VARCHAR}
+        </if>
+        <if test="managerName != null and managerName != ''" >
+          AND a.manager_name = #{managerName, jdbcType=VARCHAR}
+        </if>
+        <if test="managerPhone != null and managerPhone != ''" >
+          AND a.manager_phone = #{managerPhone, jdbcType=VARCHAR}
+        </if>
+        <if test="city != null and city != ''" >
+          AND a.city = #{city, jdbcType=VARCHAR}
+        </if>
+        <if test="cityId != null and cityId != ''" >
+          AND a.city_id = #{cityId, jdbcType=VARCHAR}
+        </if>
+        <if test="province != null and province != ''" >
+          AND a.province = #{province, jdbcType=VARCHAR}
+        </if>
+        <if test="provinceId != null and provinceId != ''" >
+          AND a.province_id = #{provinceId, jdbcType=VARCHAR}
+        </if>
+        <if test="district != null and district != ''" >
+          AND a.district = #{district, jdbcType=VARCHAR}
+        </if>
+        <if test="districtId != null and districtId != ''" >
+          AND a.district_id = #{districtId, jdbcType=VARCHAR}
+        </if>
+        <if test="inventoryCapacity != null" >
+          AND a.inventory_capacity = #{inventoryCapacity, jdbcType=INTEGER}
+        </if>
+        <if test="defaultMoveAddress != null and defaultMoveAddress != ''" >
+          AND a.default_move_address = #{defaultMoveAddress, jdbcType=VARCHAR}
+        </if>
+        <if test="orgId != null" >
+          AND a.org_id = #{orgId, jdbcType=BIGINT}
+        </if>
+        <if test="remarks != null and remarks != ''" >
+          AND a.remarks = #{remarks, jdbcType=VARCHAR}
+        </if>
+        <if test="isManualCreation != null and isManualCreation != ''" >
+          AND a.is_manual_creation = #{isManualCreation, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND a.is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND a.is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.SysCarUsedStorageEntity" resultType="int">
+    SELECT count(1) FROM t_sys_car_used_storage a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="storageId != null" >
+          AND a.storage_id = #{storageId, jdbcType=BIGINT}
+        </if>
+        <if test="storageName != null and storageName != ''" >
+          AND a.storage_name = #{storageName, jdbcType=VARCHAR}
+        </if>
+        <if test="storageAddress != null and storageAddress != ''" >
+          AND a.storage_address = #{storageAddress, jdbcType=VARCHAR}
+        </if>
+        <if test="storageCode != null and storageCode != ''" >
+          AND a.storage_code = #{storageCode, jdbcType=VARCHAR}
+        </if>
+        <if test="managerName != null and managerName != ''" >
+          AND a.manager_name = #{managerName, jdbcType=VARCHAR}
+        </if>
+        <if test="managerPhone != null and managerPhone != ''" >
+          AND a.manager_phone = #{managerPhone, jdbcType=VARCHAR}
+        </if>
+        <if test="city != null and city != ''" >
+          AND a.city = #{city, jdbcType=VARCHAR}
+        </if>
+        <if test="cityId != null and cityId != ''" >
+          AND a.city_id = #{cityId, jdbcType=VARCHAR}
+        </if>
+        <if test="province != null and province != ''" >
+          AND a.province = #{province, jdbcType=VARCHAR}
+        </if>
+        <if test="provinceId != null and provinceId != ''" >
+          AND a.province_id = #{provinceId, jdbcType=VARCHAR}
+        </if>
+        <if test="district != null and district != ''" >
+          AND a.district = #{district, jdbcType=VARCHAR}
+        </if>
+        <if test="districtId != null and districtId != ''" >
+          AND a.district_id = #{districtId, jdbcType=VARCHAR}
+        </if>
+        <if test="inventoryCapacity != null" >
+          AND a.inventory_capacity = #{inventoryCapacity, jdbcType=INTEGER}
+        </if>
+        <if test="defaultMoveAddress != null and defaultMoveAddress != ''" >
+          AND a.default_move_address = #{defaultMoveAddress, jdbcType=VARCHAR}
+        </if>
+        <if test="orgId != null" >
+          AND a.org_id = #{orgId, jdbcType=BIGINT}
+        </if>
+        <if test="remarks != null and remarks != ''" >
+          AND a.remarks = #{remarks, jdbcType=VARCHAR}
+        </if>
+        <if test="isManualCreation != null and isManualCreation != ''" >
+          AND a.is_manual_creation = #{isManualCreation, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND a.is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND a.is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+      </trim>
+  </select>
+  
+  <select id="queryList" resultType="com.exp.ucmp.usedstorage.dto.UsedStorageInfoDto">
+  select
+		tus.storage_id storageId,
+		tus.storage_code storageCode,
+		tus.storage_name storageName,
+		tus.province_id provinceId,
+		tus.province,
+		tus.city_id cityId,
+		tus.city
+	from
+		t_sys_car_used_storage tus
+	where
+		tus.is_delete = '00'
+		and tus.is_enable = '01'
+		<if test="usedstorageName != null">
+		and tus.storage_name like concat( '%', #{usedstorageName}, '%' )
+		</if>
+  </select>
+</mapper>

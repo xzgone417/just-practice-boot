@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.pricing.dao.PricingStrategyDao">
+
+    <select id="selectPricingStrategy" resultType="com.exp.ucmp.pricing.PricingStrategyDto">
+        SELECT
+            a.strategy_id strategyId,
+            a.strategy_name strategyName,
+            a.strategy_type strategyType,
+            a.strategy_no strategyNo,
+            a.value_type valueType,
+            b.strategy_details_id strategyDetailsId,
+            b.details_name detailsName,
+            b.details_type detailsType,
+            b.details_value detailsValue
+        FROM
+            t_sys_pricing_strategy a
+        left JOIN
+            t_sys_pricing_strategy_details b
+        ON
+            a.strategy_id = b.strategy_id
+        WHERE
+            a.is_enable = '01'
+		and a.is_delete='00'
+          and a.value_type ='00'
+    </select>
+
+    <select id="selectPricingStrategySection" resultType="com.exp.ucmp.pricing.PricingStrategySectionDto">
+        SELECT
+            a.strategy_id strategyId,
+            a.strategy_name strategyName,
+            a.strategy_type strategyType,
+            a.strategy_no strategyNo,
+            a.value_type valueType,
+            b.strategy_details_id strategyDetailsId,
+            b.details_type detailsType,
+            b.left_value leftValue,
+            b.right_value rightValue,
+            b.details_value detailsValue,
+            (case when b.is_source=0 then 2 else 1 end) isSource
+        FROM
+            t_sys_pricing_strategy a
+        left JOIN
+            t_sys_pricing_strategy_details_section b
+        ON
+            a.strategy_id = b.strategy_id
+        WHERE
+            a.is_enable = '01'
+        and a.is_delete='00'
+        and a.value_type ='01'
+        ORDER BY
+            a.strategy_type asc,b.left_value asc
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT
+            (SELECT count(*) FROM t_sys_pricing_strategy_details_section WHERE details_type = #{type} AND left_value &lt;= a.left_value) num
+        FROM
+            t_sys_pricing_strategy_details_section a
+        where
+            a.details_type = #{type}
+          AND a.left_value &lt;= #{value} AND a.right_value &gt; #{value}
+    </select>
+
+</mapper>

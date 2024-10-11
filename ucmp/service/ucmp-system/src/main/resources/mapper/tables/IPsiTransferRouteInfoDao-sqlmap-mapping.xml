@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.IPsiTransferRouteInfoDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.PsiTransferRouteInfoEntity" >
+    INSERT INTO t_psi_transfer_route_info 
+       (
+          route_id,
+          dispatch_info_id,
+          current_address,
+          record_time,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date,
+          is_enable,
+          is_delete
+        ) VALUES (
+          #{routeId, jdbcType=BIGINT},
+          #{dispatchInfoId, jdbcType=BIGINT},
+          #{currentAddress, jdbcType=VARCHAR},
+          #{recordTime, jdbcType=TIMESTAMP},
+          #{createdBy, jdbcType=BIGINT},
+          #{createdDate, jdbcType=TIMESTAMP},
+          #{updatedBy, jdbcType=BIGINT},
+          #{updatedDate, jdbcType=TIMESTAMP},
+          #{isEnable, jdbcType=VARCHAR},
+          #{isDelete, jdbcType=VARCHAR}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.PsiTransferRouteInfoEntity" >
+    INSERT INTO t_psi_transfer_route_info
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="routeId != null" >
+          route_id,
+          </if>
+        <if test="dispatchInfoId != null" >
+          dispatch_info_id,
+          </if>
+        <if test="currentAddress != null" >
+          current_address,
+          </if>
+        <if test="recordTime != null" >
+          record_time,
+          </if>
+        <if test="createdBy != null" >
+          created_by,
+          </if>
+        <if test="createdDate != null" >
+          created_date,
+          </if>
+        <if test="updatedBy != null" >
+          updated_by,
+          </if>
+        <if test="updatedDate != null" >
+          updated_date,
+          </if>
+        <if test="isEnable != null" >
+          is_enable,
+          </if>
+        <if test="isDelete != null" >
+          is_delete,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="routeId != null" >
+          #{routeId, jdbcType=BIGINT},
+          </if>
+        <if test="dispatchInfoId != null" >
+          #{dispatchInfoId, jdbcType=BIGINT},
+          </if>
+        <if test="currentAddress != null" >
+          #{currentAddress, jdbcType=VARCHAR},
+          </if>
+        <if test="recordTime != null" >
+          #{recordTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="createdBy != null" >
+          #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="isEnable != null" >
+          #{isEnable, jdbcType=VARCHAR},
+          </if>
+        <if test="isDelete != null" >
+          #{isDelete, jdbcType=VARCHAR},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_psi_transfer_route_info 
+       (
+          route_id,
+          dispatch_info_id,
+          current_address,
+          record_time,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date,
+          is_enable,
+          is_delete
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.routeId, jdbcType=BIGINT},
+	          #{item.dispatchInfoId, jdbcType=BIGINT},
+	          #{item.currentAddress, jdbcType=VARCHAR},
+	          #{item.recordTime, jdbcType=TIMESTAMP},
+	          #{item.createdBy, jdbcType=BIGINT},
+	          #{item.createdDate, jdbcType=TIMESTAMP},
+	          #{item.updatedBy, jdbcType=BIGINT},
+	          #{item.updatedDate, jdbcType=TIMESTAMP},
+	          #{item.isEnable, jdbcType=VARCHAR},
+	          #{item.isDelete, jdbcType=VARCHAR}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.PsiTransferRouteInfoEntity" >
+    UPDATE t_psi_transfer_route_info SET 
+          dispatch_info_id = #{dispatchInfoId, jdbcType=BIGINT},
+          current_address = #{currentAddress, jdbcType=VARCHAR},
+          record_time = #{recordTime, jdbcType=TIMESTAMP},
+          created_by = #{createdBy, jdbcType=BIGINT},
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          is_enable = #{isEnable, jdbcType=VARCHAR},
+          is_delete = #{isDelete, jdbcType=VARCHAR}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND route_id = #{routeId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.PsiTransferRouteInfoEntity" >
+    UPDATE t_psi_transfer_route_info
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="dispatchInfoId != null" >
+          dispatch_info_id = #{dispatchInfoId, jdbcType=BIGINT},
+          </if>
+        <if test="currentAddress != null" >
+          current_address = #{currentAddress, jdbcType=VARCHAR},
+          </if>
+        <if test="recordTime != null" >
+          record_time = #{recordTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="createdBy != null" >
+          created_by = #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="isEnable != null" >
+          is_enable = #{isEnable, jdbcType=VARCHAR},
+          </if>
+        <if test="isDelete != null" >
+          is_delete = #{isDelete, jdbcType=VARCHAR},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND route_id = #{routeId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_transfer_route_info SET 
+	          dispatch_info_id = #{item.dispatchInfoId, jdbcType=BIGINT},
+	          current_address = #{item.currentAddress, jdbcType=VARCHAR},
+	          record_time = #{item.recordTime, jdbcType=TIMESTAMP},
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          is_enable = #{item.isEnable, jdbcType=VARCHAR},
+	          is_delete = #{item.isDelete, jdbcType=VARCHAR}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND route_id = #{item.routeId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_transfer_route_info
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.dispatchInfoId != null" >
+	          dispatch_info_id = #{item.dispatchInfoId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.currentAddress != null" >
+	          current_address = #{item.currentAddress, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.recordTime != null" >
+	          record_time = #{item.recordTime, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.createdBy != null" >
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.createdDate != null" >
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.updatedBy != null" >
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.updatedDate != null" >
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.isEnable != null" >
+	          is_enable = #{item.isEnable, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.isDelete != null" >
+	          is_delete = #{item.isDelete, jdbcType=VARCHAR},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND route_id = #{item.routeId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.PsiTransferRouteInfoPk" >
+    DELETE FROM t_psi_transfer_route_info
+    WHERE
+     <trim prefixOverrides="AND">
+           AND route_id = #{routeId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.PsiTransferRouteInfoEntity" >
+    DELETE FROM t_psi_transfer_route_info
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="routeId != null" >
+          AND route_id = #{routeId, jdbcType=BIGINT}
+        </if>
+        <if test="dispatchInfoId != null" >
+          AND dispatch_info_id = #{dispatchInfoId, jdbcType=BIGINT}
+        </if>
+        <if test="currentAddress != null and currentAddress != ''" >
+          AND current_address = #{currentAddress, jdbcType=VARCHAR}
+        </if>
+        <if test="recordTime != null" >
+          AND record_time = #{recordTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="createdBy != null" >
+          AND created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="psiTransferRouteInfoResultMap" type="com.exp.ucmp.entity.PsiTransferRouteInfoEntity" >
+      <constructor>
+       <idArg column="route_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="dispatch_info_id" property="dispatchInfoId" jdbcType="BIGINT" />
+    <result column="current_address" property="currentAddress" jdbcType="VARCHAR" />
+    <result column="record_time" property="recordTime" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="is_enable" property="isEnable" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="t_psi_transfer_route_info_Column_List" >
+    a.route_id,
+    a.dispatch_info_id,
+    a.current_address,
+    a.record_time,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date,
+    a.is_enable,
+    a.is_delete
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.PsiTransferRouteInfoPk" resultMap="psiTransferRouteInfoResultMap">
+    SELECT 
+    <include refid="t_psi_transfer_route_info_Column_List" />
+      FROM t_psi_transfer_route_info a
+     WHERE 1 = 1
+       AND a.route_id = #{routeId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.PsiTransferRouteInfoEntity" resultMap="psiTransferRouteInfoResultMap">
+    SELECT 
+    <include refid="t_psi_transfer_route_info_Column_List" />
+      FROM t_psi_transfer_route_info a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="routeId != null" >
+          AND a.route_id = #{routeId, jdbcType=BIGINT}
+        </if>
+        <if test="dispatchInfoId != null" >
+          AND a.dispatch_info_id = #{dispatchInfoId, jdbcType=BIGINT}
+        </if>
+        <if test="currentAddress != null and currentAddress != ''" >
+          AND a.current_address = #{currentAddress, jdbcType=VARCHAR}
+        </if>
+        <if test="recordTime != null" >
+          AND a.record_time = #{recordTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND a.is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND a.is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.PsiTransferRouteInfoEntity" resultType="int">
+    SELECT count(1) FROM t_psi_transfer_route_info a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="routeId != null" >
+          AND a.route_id = #{routeId, jdbcType=BIGINT}
+        </if>
+        <if test="dispatchInfoId != null" >
+          AND a.dispatch_info_id = #{dispatchInfoId, jdbcType=BIGINT}
+        </if>
+        <if test="currentAddress != null and currentAddress != ''" >
+          AND a.current_address = #{currentAddress, jdbcType=VARCHAR}
+        </if>
+        <if test="recordTime != null" >
+          AND a.record_time = #{recordTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND a.is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND a.is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+      </trim>
+  </select>
+</mapper>

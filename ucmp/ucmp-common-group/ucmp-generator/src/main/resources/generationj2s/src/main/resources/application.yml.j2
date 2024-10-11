@@ -1,0 +1,9 @@
+server:
+  port: ${port:${PORT:{{server_port}}}}
+  
+spring:
+  application:
+    name: '{{project_artifact_id}}'
+
+logging:
+  config: classpath:logback-spring.xml

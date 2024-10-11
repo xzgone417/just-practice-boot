@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.ISysParamConfigDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.SysParamConfigEntity" >
+    INSERT INTO t_sys_param_config 
+       (
+          param_id,
+          param_type,
+          param_profile,
+          param_details,
+          param_values,
+          param_unit,
+          param_unit_details,
+          param_sort,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date,
+          is_enable,
+          is_delete
+        ) VALUES (
+          #{paramId, jdbcType=BIGINT},
+          #{paramType, jdbcType=VARCHAR},
+          #{paramProfile, jdbcType=VARCHAR},
+          #{paramDetails, jdbcType=VARCHAR},
+          #{paramValues, jdbcType=VARCHAR},
+          #{paramUnit, jdbcType=VARCHAR},
+          #{paramUnitDetails, jdbcType=VARCHAR},
+          #{paramSort, jdbcType=TINYINT},
+          #{createdBy, jdbcType=BIGINT},
+          #{createdDate, jdbcType=TIMESTAMP},
+          #{updatedBy, jdbcType=BIGINT},
+          #{updatedDate, jdbcType=TIMESTAMP},
+          #{isEnable, jdbcType=VARCHAR},
+          #{isDelete, jdbcType=VARCHAR}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.SysParamConfigEntity" >
+    INSERT INTO t_sys_param_config
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="paramId != null" >
+          param_id,
+          </if>
+        <if test="paramType != null" >
+          param_type,
+          </if>
+        <if test="paramProfile != null" >
+          param_profile,
+          </if>
+        <if test="paramDetails != null" >
+          param_details,
+          </if>
+        <if test="paramValues != null" >
+          param_values,
+          </if>
+        <if test="paramUnit != null" >
+          param_unit,
+          </if>
+        <if test="paramUnitDetails != null" >
+          param_unit_details,
+          </if>
+        <if test="paramSort != null" >
+          param_sort,
+          </if>
+        <if test="createdBy != null" >
+          created_by,
+          </if>
+        <if test="createdDate != null" >
+          created_date,
+          </if>
+        <if test="updatedBy != null" >
+          updated_by,
+          </if>
+        <if test="updatedDate != null" >
+          updated_date,
+          </if>
+        <if test="isEnable != null" >
+          is_enable,
+          </if>
+        <if test="isDelete != null" >
+          is_delete,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="paramId != null" >
+          #{paramId, jdbcType=BIGINT},
+          </if>
+        <if test="paramType != null" >
+          #{paramType, jdbcType=VARCHAR},
+          </if>
+        <if test="paramProfile != null" >
+          #{paramProfile, jdbcType=VARCHAR},
+          </if>
+        <if test="paramDetails != null" >
+          #{paramDetails, jdbcType=VARCHAR},
+          </if>
+        <if test="paramValues != null" >
+          #{paramValues, jdbcType=VARCHAR},
+          </if>
+        <if test="paramUnit != null" >
+          #{paramUnit, jdbcType=VARCHAR},
+          </if>
+        <if test="paramUnitDetails != null" >
+          #{paramUnitDetails, jdbcType=VARCHAR},
+          </if>
+        <if test="paramSort != null" >
+          #{paramSort, jdbcType=TINYINT},
+          </if>
+        <if test="createdBy != null" >
+          #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="isEnable != null" >
+          #{isEnable, jdbcType=VARCHAR},
+          </if>
+        <if test="isDelete != null" >
+          #{isDelete, jdbcType=VARCHAR},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_sys_param_config 
+       (
+          param_id,
+          param_type,
+          param_profile,
+          param_details,
+          param_values,
+          param_unit,
+          param_unit_details,
+          param_sort,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date,
+          is_enable,
+          is_delete
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.paramId, jdbcType=BIGINT},
+	          #{item.paramType, jdbcType=VARCHAR},
+	          #{item.paramProfile, jdbcType=VARCHAR},
+	          #{item.paramDetails, jdbcType=VARCHAR},
+	          #{item.paramValues, jdbcType=VARCHAR},
+	          #{item.paramUnit, jdbcType=VARCHAR},
+	          #{item.paramUnitDetails, jdbcType=VARCHAR},
+	          #{item.paramSort, jdbcType=TINYINT},
+	          #{item.createdBy, jdbcType=BIGINT},
+	          #{item.createdDate, jdbcType=TIMESTAMP},
+	          #{item.updatedBy, jdbcType=BIGINT},
+	          #{item.updatedDate, jdbcType=TIMESTAMP},
+	          #{item.isEnable, jdbcType=VARCHAR},
+	          #{item.isDelete, jdbcType=VARCHAR}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.SysParamConfigEntity" >
+    UPDATE t_sys_param_config SET 
+          param_type = #{paramType, jdbcType=VARCHAR},
+          param_profile = #{paramProfile, jdbcType=VARCHAR},
+          param_details = #{paramDetails, jdbcType=VARCHAR},
+          param_values = #{paramValues, jdbcType=VARCHAR},
+          param_unit = #{paramUnit, jdbcType=VARCHAR},
+          param_unit_details = #{paramUnitDetails, jdbcType=VARCHAR},
+          param_sort = #{paramSort, jdbcType=TINYINT},
+          created_by = #{createdBy, jdbcType=BIGINT},
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          is_enable = #{isEnable, jdbcType=VARCHAR},
+          is_delete = #{isDelete, jdbcType=VARCHAR}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND param_id = #{paramId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.SysParamConfigEntity" >
+    UPDATE t_sys_param_config
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="paramType != null" >
+          param_type = #{paramType, jdbcType=VARCHAR},
+          </if>
+        <if test="paramProfile != null" >
+          param_profile = #{paramProfile, jdbcType=VARCHAR},
+          </if>
+        <if test="paramDetails != null" >
+          param_details = #{paramDetails, jdbcType=VARCHAR},
+          </if>
+        <if test="paramValues != null" >
+          param_values = #{paramValues, jdbcType=VARCHAR},
+          </if>
+        <if test="paramUnit != null" >
+          param_unit = #{paramUnit, jdbcType=VARCHAR},
+          </if>
+        <if test="paramUnitDetails != null" >
+          param_unit_details = #{paramUnitDetails, jdbcType=VARCHAR},
+          </if>
+        <if test="paramSort != null" >
+          param_sort = #{paramSort, jdbcType=TINYINT},
+          </if>
+        <if test="createdBy != null" >
+          created_by = #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="isEnable != null" >
+          is_enable = #{isEnable, jdbcType=VARCHAR},
+          </if>
+        <if test="isDelete != null" >
+          is_delete = #{isDelete, jdbcType=VARCHAR},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND param_id = #{paramId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_sys_param_config SET 
+	          param_type = #{item.paramType, jdbcType=VARCHAR},
+	          param_profile = #{item.paramProfile, jdbcType=VARCHAR},
+	          param_details = #{item.paramDetails, jdbcType=VARCHAR},
+	          param_values = #{item.paramValues, jdbcType=VARCHAR},
+	          param_unit = #{item.paramUnit, jdbcType=VARCHAR},
+	          param_unit_details = #{item.paramUnitDetails, jdbcType=VARCHAR},
+	          param_sort = #{item.paramSort, jdbcType=TINYINT},
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          is_enable = #{item.isEnable, jdbcType=VARCHAR},
+	          is_delete = #{item.isDelete, jdbcType=VARCHAR}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND param_id = #{item.paramId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_sys_param_config
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.paramType != null" >
+	          param_type = #{item.paramType, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.paramProfile != null" >
+	          param_profile = #{item.paramProfile, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.paramDetails != null" >
+	          param_details = #{item.paramDetails, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.paramValues != null" >
+	          param_values = #{item.paramValues, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.paramUnit != null" >
+	          param_unit = #{item.paramUnit, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.paramUnitDetails != null" >
+	          param_unit_details = #{item.paramUnitDetails, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.paramSort != null" >
+	          param_sort = #{item.paramSort, jdbcType=TINYINT},
+	          </if>
+	        <if test="item.createdBy != null" >
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.createdDate != null" >
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.updatedBy != null" >
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.updatedDate != null" >
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.isEnable != null" >
+	          is_enable = #{item.isEnable, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.isDelete != null" >
+	          is_delete = #{item.isDelete, jdbcType=VARCHAR},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND param_id = #{item.paramId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.SysParamConfigPk" >
+    DELETE FROM t_sys_param_config
+    WHERE
+     <trim prefixOverrides="AND">
+           AND param_id = #{paramId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.SysParamConfigEntity" >
+    DELETE FROM t_sys_param_config
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="paramId != null" >
+          AND param_id = #{paramId, jdbcType=BIGINT}
+        </if>
+        <if test="paramType != null and paramType != ''" >
+          AND param_type = #{paramType, jdbcType=VARCHAR}
+        </if>
+        <if test="paramProfile != null and paramProfile != ''" >
+          AND param_profile = #{paramProfile, jdbcType=VARCHAR}
+        </if>
+        <if test="paramDetails != null and paramDetails != ''" >
+          AND param_details = #{paramDetails, jdbcType=VARCHAR}
+        </if>
+        <if test="paramValues != null and paramValues != ''" >
+          AND param_values = #{paramValues, jdbcType=VARCHAR}
+        </if>
+        <if test="paramUnit != null and paramUnit != ''" >
+          AND param_unit = #{paramUnit, jdbcType=VARCHAR}
+        </if>
+        <if test="paramUnitDetails != null and paramUnitDetails != ''" >
+          AND param_unit_details = #{paramUnitDetails, jdbcType=VARCHAR}
+        </if>
+        <if test="paramSort != null" >
+          AND param_sort = #{paramSort, jdbcType=TINYINT}
+        </if>
+        <if test="createdBy != null" >
+          AND created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="sysParamConfigResultMap" type="com.exp.ucmp.entity.SysParamConfigEntity" >
+      <constructor>
+       <idArg column="param_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="param_type" property="paramType" jdbcType="VARCHAR" />
+    <result column="param_profile" property="paramProfile" jdbcType="VARCHAR" />
+    <result column="param_details" property="paramDetails" jdbcType="VARCHAR" />
+    <result column="param_values" property="paramValues" jdbcType="VARCHAR" />
+    <result column="param_unit" property="paramUnit" jdbcType="VARCHAR" />
+    <result column="param_unit_details" property="paramUnitDetails" jdbcType="VARCHAR" />
+    <result column="param_sort" property="paramSort" jdbcType="TINYINT" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="is_enable" property="isEnable" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="t_sys_param_config_Column_List" >
+    a.param_id,
+    a.param_type,
+    a.param_profile,
+    a.param_details,
+    a.param_values,
+    a.param_unit,
+    a.param_unit_details,
+    a.param_sort,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date,
+    a.is_enable,
+    a.is_delete
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.SysParamConfigPk" resultMap="sysParamConfigResultMap">
+    SELECT 
+    <include refid="t_sys_param_config_Column_List" />
+      FROM t_sys_param_config a
+     WHERE 1 = 1
+       AND a.param_id = #{paramId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.SysParamConfigEntity" resultMap="sysParamConfigResultMap">
+    SELECT 
+    <include refid="t_sys_param_config_Column_List" />
+      FROM t_sys_param_config a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="paramId != null" >
+          AND a.param_id = #{paramId, jdbcType=BIGINT}
+        </if>
+        <if test="paramType != null and paramType != ''" >
+          AND a.param_type = #{paramType, jdbcType=VARCHAR}
+        </if>
+        <if test="paramProfile != null and paramProfile != ''" >
+          AND a.param_profile = #{paramProfile, jdbcType=VARCHAR}
+        </if>
+        <if test="paramDetails != null and paramDetails != ''" >
+          AND a.param_details = #{paramDetails, jdbcType=VARCHAR}
+        </if>
+        <if test="paramValues != null and paramValues != ''" >
+          AND a.param_values = #{paramValues, jdbcType=VARCHAR}
+        </if>
+        <if test="paramUnit != null and paramUnit != ''" >
+          AND a.param_unit = #{paramUnit, jdbcType=VARCHAR}
+        </if>
+        <if test="paramUnitDetails != null and paramUnitDetails != ''" >
+          AND a.param_unit_details = #{paramUnitDetails, jdbcType=VARCHAR}
+        </if>
+        <if test="paramSort != null" >
+          AND a.param_sort = #{paramSort, jdbcType=TINYINT}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND a.is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND a.is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.SysParamConfigEntity" resultType="int">
+    SELECT count(1) FROM t_sys_param_config a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="paramId != null" >
+          AND a.param_id = #{paramId, jdbcType=BIGINT}
+        </if>
+        <if test="paramType != null and paramType != ''" >
+          AND a.param_type = #{paramType, jdbcType=VARCHAR}
+        </if>
+        <if test="paramProfile != null and paramProfile != ''" >
+          AND a.param_profile = #{paramProfile, jdbcType=VARCHAR}
+        </if>
+        <if test="paramDetails != null and paramDetails != ''" >
+          AND a.param_details = #{paramDetails, jdbcType=VARCHAR}
+        </if>
+        <if test="paramValues != null and paramValues != ''" >
+          AND a.param_values = #{paramValues, jdbcType=VARCHAR}
+        </if>
+        <if test="paramUnit != null and paramUnit != ''" >
+          AND a.param_unit = #{paramUnit, jdbcType=VARCHAR}
+        </if>
+        <if test="paramUnitDetails != null and paramUnitDetails != ''" >
+          AND a.param_unit_details = #{paramUnitDetails, jdbcType=VARCHAR}
+        </if>
+        <if test="paramSort != null" >
+          AND a.param_sort = #{paramSort, jdbcType=TINYINT}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND a.is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND a.is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+      </trim>
+  </select>
+</mapper>

@@ -1,0 +1,1295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.IPsiCarDealerInquiryDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.PsiCarDealerInquiryEntity" >
+    INSERT INTO t_psi_car_dealer_inquiry 
+       (
+          inquiry_id,
+          reservation_id,
+          customer_id,
+          store_id,
+          car_dealer_id,
+          car_dealer_staff_id,
+          business_order_no,
+          make_order_person_id,
+          make_order_person_name,
+          make_order_person_iphone,
+          make_order_person_role,
+          customer_name,
+          customer_iphone,
+          issued_car_dealer_date,
+          order_receiving_date,
+          order_receiving_deadline,
+          quote_end_price,
+          quote_end_date,
+          sign_in_date,
+          quote_deadline,
+          vehicle_registration_file_id,
+          is_delete,
+          order_abandoned_reason,
+          customer_intention,
+          deal_price_end,
+          estimated_transfer_time,
+          inquiry_status,
+          approval_status,
+          upload_file_time,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date,
+          generate_acquisitions_time,
+          first_escalation_time,
+          second_escalation_time,
+          old_car_confirmation_time,
+          approved_time,
+          overrule_time,
+          close_time,
+          remarks
+        ) VALUES (
+          #{inquiryId, jdbcType=BIGINT},
+          #{reservationId, jdbcType=BIGINT},
+          #{customerId, jdbcType=BIGINT},
+          #{storeId, jdbcType=BIGINT},
+          #{carDealerId, jdbcType=BIGINT},
+          #{carDealerStaffId, jdbcType=BIGINT},
+          #{businessOrderNo, jdbcType=VARCHAR},
+          #{makeOrderPersonId, jdbcType=BIGINT},
+          #{makeOrderPersonName, jdbcType=VARCHAR},
+          #{makeOrderPersonIphone, jdbcType=VARCHAR},
+          #{makeOrderPersonRole, jdbcType=VARCHAR},
+          #{customerName, jdbcType=VARCHAR},
+          #{customerIphone, jdbcType=VARCHAR},
+          #{issuedCarDealerDate, jdbcType=TIMESTAMP},
+          #{orderReceivingDate, jdbcType=TIMESTAMP},
+          #{orderReceivingDeadline, jdbcType=TIMESTAMP},
+          #{quoteEndPrice, jdbcType=BIGINT},
+          #{quoteEndDate, jdbcType=TIMESTAMP},
+          #{signInDate, jdbcType=TIMESTAMP},
+          #{quoteDeadline, jdbcType=TIMESTAMP},
+          #{vehicleRegistrationFileId, jdbcType=BIGINT},
+          #{isDelete, jdbcType=VARCHAR},
+          #{orderAbandonedReason, jdbcType=VARCHAR},
+          #{customerIntention, jdbcType=VARCHAR},
+          #{dealPriceEnd, jdbcType=BIGINT},
+          #{estimatedTransferTime, jdbcType=TIMESTAMP},
+          #{inquiryStatus, jdbcType=VARCHAR},
+          #{approvalStatus, jdbcType=VARCHAR},
+          #{uploadFileTime, jdbcType=TIMESTAMP},
+          #{createdBy, jdbcType=BIGINT},
+          #{createdDate, jdbcType=TIMESTAMP},
+          #{updatedBy, jdbcType=BIGINT},
+          #{updatedDate, jdbcType=TIMESTAMP},
+          #{generateAcquisitionsTime, jdbcType=TIMESTAMP},
+          #{firstEscalationTime, jdbcType=TIMESTAMP},
+          #{secondEscalationTime, jdbcType=TIMESTAMP},
+          #{oldCarConfirmationTime, jdbcType=TIMESTAMP},
+          #{approvedTime, jdbcType=TIMESTAMP},
+          #{overruleTime, jdbcType=TIMESTAMP},
+          #{closeTime, jdbcType=TIMESTAMP},
+          #{remarks, jdbcType=VARCHAR}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.PsiCarDealerInquiryEntity" >
+    INSERT INTO t_psi_car_dealer_inquiry
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="inquiryId != null" >
+          inquiry_id,
+          </if>
+        <if test="reservationId != null" >
+          reservation_id,
+          </if>
+        <if test="customerId != null" >
+          customer_id,
+          </if>
+        <if test="storeId != null" >
+          store_id,
+          </if>
+        <if test="carDealerId != null" >
+          car_dealer_id,
+          </if>
+        <if test="carDealerStaffId != null" >
+          car_dealer_staff_id,
+          </if>
+        <if test="businessOrderNo != null" >
+          business_order_no,
+          </if>
+        <if test="makeOrderPersonId != null" >
+          make_order_person_id,
+          </if>
+        <if test="makeOrderPersonName != null" >
+          make_order_person_name,
+          </if>
+        <if test="makeOrderPersonIphone != null" >
+          make_order_person_iphone,
+          </if>
+        <if test="makeOrderPersonRole != null" >
+          make_order_person_role,
+          </if>
+        <if test="customerName != null" >
+          customer_name,
+          </if>
+        <if test="customerIphone != null" >
+          customer_iphone,
+          </if>
+        <if test="issuedCarDealerDate != null" >
+          issued_car_dealer_date,
+          </if>
+        <if test="orderReceivingDate != null" >
+          order_receiving_date,
+          </if>
+        <if test="orderReceivingDeadline != null" >
+          order_receiving_deadline,
+          </if>
+        <if test="quoteEndPrice != null" >
+          quote_end_price,
+          </if>
+        <if test="quoteEndDate != null" >
+          quote_end_date,
+          </if>
+        <if test="signInDate != null" >
+          sign_in_date,
+          </if>
+        <if test="quoteDeadline != null" >
+          quote_deadline,
+          </if>
+        <if test="vehicleRegistrationFileId != null" >
+          vehicle_registration_file_id,
+          </if>
+        <if test="isDelete != null" >
+          is_delete,
+          </if>
+        <if test="orderAbandonedReason != null" >
+          order_abandoned_reason,
+          </if>
+        <if test="customerIntention != null" >
+          customer_intention,
+          </if>
+        <if test="dealPriceEnd != null" >
+          deal_price_end,
+          </if>
+        <if test="estimatedTransferTime != null" >
+          estimated_transfer_time,
+          </if>
+        <if test="inquiryStatus != null" >
+          inquiry_status,
+          </if>
+        <if test="approvalStatus != null" >
+          approval_status,
+          </if>
+        <if test="uploadFileTime != null" >
+          upload_file_time,
+          </if>
+        <if test="createdBy != null" >
+          created_by,
+          </if>
+        <if test="createdDate != null" >
+          created_date,
+          </if>
+        <if test="updatedBy != null" >
+          updated_by,
+          </if>
+        <if test="updatedDate != null" >
+          updated_date,
+          </if>
+        <if test="generateAcquisitionsTime != null" >
+          generate_acquisitions_time,
+          </if>
+        <if test="firstEscalationTime != null" >
+          first_escalation_time,
+          </if>
+        <if test="secondEscalationTime != null" >
+          second_escalation_time,
+          </if>
+        <if test="oldCarConfirmationTime != null" >
+          old_car_confirmation_time,
+          </if>
+        <if test="approvedTime != null" >
+          approved_time,
+          </if>
+        <if test="overruleTime != null" >
+          overrule_time,
+          </if>
+        <if test="closeTime != null" >
+          close_time,
+          </if>
+        <if test="remarks != null" >
+          remarks,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="inquiryId != null" >
+          #{inquiryId, jdbcType=BIGINT},
+          </if>
+        <if test="reservationId != null" >
+          #{reservationId, jdbcType=BIGINT},
+          </if>
+        <if test="customerId != null" >
+          #{customerId, jdbcType=BIGINT},
+          </if>
+        <if test="storeId != null" >
+          #{storeId, jdbcType=BIGINT},
+          </if>
+        <if test="carDealerId != null" >
+          #{carDealerId, jdbcType=BIGINT},
+          </if>
+        <if test="carDealerStaffId != null" >
+          #{carDealerStaffId, jdbcType=BIGINT},
+          </if>
+        <if test="businessOrderNo != null" >
+          #{businessOrderNo, jdbcType=VARCHAR},
+          </if>
+        <if test="makeOrderPersonId != null" >
+          #{makeOrderPersonId, jdbcType=BIGINT},
+          </if>
+        <if test="makeOrderPersonName != null" >
+          #{makeOrderPersonName, jdbcType=VARCHAR},
+          </if>
+        <if test="makeOrderPersonIphone != null" >
+          #{makeOrderPersonIphone, jdbcType=VARCHAR},
+          </if>
+        <if test="makeOrderPersonRole != null" >
+          #{makeOrderPersonRole, jdbcType=VARCHAR},
+          </if>
+        <if test="customerName != null" >
+          #{customerName, jdbcType=VARCHAR},
+          </if>
+        <if test="customerIphone != null" >
+          #{customerIphone, jdbcType=VARCHAR},
+          </if>
+        <if test="issuedCarDealerDate != null" >
+          #{issuedCarDealerDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="orderReceivingDate != null" >
+          #{orderReceivingDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="orderReceivingDeadline != null" >
+          #{orderReceivingDeadline, jdbcType=TIMESTAMP},
+          </if>
+        <if test="quoteEndPrice != null" >
+          #{quoteEndPrice, jdbcType=BIGINT},
+          </if>
+        <if test="quoteEndDate != null" >
+          #{quoteEndDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="signInDate != null" >
+          #{signInDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="quoteDeadline != null" >
+          #{quoteDeadline, jdbcType=TIMESTAMP},
+          </if>
+        <if test="vehicleRegistrationFileId != null" >
+          #{vehicleRegistrationFileId, jdbcType=BIGINT},
+          </if>
+        <if test="isDelete != null" >
+          #{isDelete, jdbcType=VARCHAR},
+          </if>
+        <if test="orderAbandonedReason != null" >
+          #{orderAbandonedReason, jdbcType=VARCHAR},
+          </if>
+        <if test="customerIntention != null" >
+          #{customerIntention, jdbcType=VARCHAR},
+          </if>
+        <if test="dealPriceEnd != null" >
+          #{dealPriceEnd, jdbcType=BIGINT},
+          </if>
+        <if test="estimatedTransferTime != null" >
+          #{estimatedTransferTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="inquiryStatus != null" >
+          #{inquiryStatus, jdbcType=VARCHAR},
+          </if>
+        <if test="approvalStatus != null" >
+          #{approvalStatus, jdbcType=VARCHAR},
+          </if>
+        <if test="uploadFileTime != null" >
+          #{uploadFileTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="createdBy != null" >
+          #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="generateAcquisitionsTime != null" >
+          #{generateAcquisitionsTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="firstEscalationTime != null" >
+          #{firstEscalationTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="secondEscalationTime != null" >
+          #{secondEscalationTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="oldCarConfirmationTime != null" >
+          #{oldCarConfirmationTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="approvedTime != null" >
+          #{approvedTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="overruleTime != null" >
+          #{overruleTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="closeTime != null" >
+          #{closeTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="remarks != null" >
+          #{remarks, jdbcType=VARCHAR},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_psi_car_dealer_inquiry 
+       (
+          inquiry_id,
+          reservation_id,
+          customer_id,
+          store_id,
+          car_dealer_id,
+          car_dealer_staff_id,
+          business_order_no,
+          make_order_person_id,
+          make_order_person_name,
+          make_order_person_iphone,
+          make_order_person_role,
+          customer_name,
+          customer_iphone,
+          issued_car_dealer_date,
+          order_receiving_date,
+          order_receiving_deadline,
+          quote_end_price,
+          quote_end_date,
+          sign_in_date,
+          quote_deadline,
+          vehicle_registration_file_id,
+          is_delete,
+          order_abandoned_reason,
+          customer_intention,
+          deal_price_end,
+          estimated_transfer_time,
+          inquiry_status,
+          approval_status,
+          upload_file_time,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date,
+          generate_acquisitions_time,
+          first_escalation_time,
+          second_escalation_time,
+          old_car_confirmation_time,
+          approved_time,
+          overrule_time,
+          close_time,
+          remarks
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.inquiryId, jdbcType=BIGINT},
+	          #{item.reservationId, jdbcType=BIGINT},
+	          #{item.customerId, jdbcType=BIGINT},
+	          #{item.storeId, jdbcType=BIGINT},
+	          #{item.carDealerId, jdbcType=BIGINT},
+	          #{item.carDealerStaffId, jdbcType=BIGINT},
+	          #{item.businessOrderNo, jdbcType=VARCHAR},
+	          #{item.makeOrderPersonId, jdbcType=BIGINT},
+	          #{item.makeOrderPersonName, jdbcType=VARCHAR},
+	          #{item.makeOrderPersonIphone, jdbcType=VARCHAR},
+	          #{item.makeOrderPersonRole, jdbcType=VARCHAR},
+	          #{item.customerName, jdbcType=VARCHAR},
+	          #{item.customerIphone, jdbcType=VARCHAR},
+	          #{item.issuedCarDealerDate, jdbcType=TIMESTAMP},
+	          #{item.orderReceivingDate, jdbcType=TIMESTAMP},
+	          #{item.orderReceivingDeadline, jdbcType=TIMESTAMP},
+	          #{item.quoteEndPrice, jdbcType=BIGINT},
+	          #{item.quoteEndDate, jdbcType=TIMESTAMP},
+	          #{item.signInDate, jdbcType=TIMESTAMP},
+	          #{item.quoteDeadline, jdbcType=TIMESTAMP},
+	          #{item.vehicleRegistrationFileId, jdbcType=BIGINT},
+	          #{item.isDelete, jdbcType=VARCHAR},
+	          #{item.orderAbandonedReason, jdbcType=VARCHAR},
+	          #{item.customerIntention, jdbcType=VARCHAR},
+	          #{item.dealPriceEnd, jdbcType=BIGINT},
+	          #{item.estimatedTransferTime, jdbcType=TIMESTAMP},
+	          #{item.inquiryStatus, jdbcType=VARCHAR},
+	          #{item.approvalStatus, jdbcType=VARCHAR},
+	          #{item.uploadFileTime, jdbcType=TIMESTAMP},
+	          #{item.createdBy, jdbcType=BIGINT},
+	          #{item.createdDate, jdbcType=TIMESTAMP},
+	          #{item.updatedBy, jdbcType=BIGINT},
+	          #{item.updatedDate, jdbcType=TIMESTAMP},
+	          #{item.generateAcquisitionsTime, jdbcType=TIMESTAMP},
+	          #{item.firstEscalationTime, jdbcType=TIMESTAMP},
+	          #{item.secondEscalationTime, jdbcType=TIMESTAMP},
+	          #{item.oldCarConfirmationTime, jdbcType=TIMESTAMP},
+	          #{item.approvedTime, jdbcType=TIMESTAMP},
+	          #{item.overruleTime, jdbcType=TIMESTAMP},
+	          #{item.closeTime, jdbcType=TIMESTAMP},
+	          #{item.remarks, jdbcType=VARCHAR}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.PsiCarDealerInquiryEntity" >
+    UPDATE t_psi_car_dealer_inquiry SET 
+          reservation_id = #{reservationId, jdbcType=BIGINT},
+          customer_id = #{customerId, jdbcType=BIGINT},
+          store_id = #{storeId, jdbcType=BIGINT},
+          car_dealer_id = #{carDealerId, jdbcType=BIGINT},
+          car_dealer_staff_id = #{carDealerStaffId, jdbcType=BIGINT},
+          business_order_no = #{businessOrderNo, jdbcType=VARCHAR},
+          make_order_person_id = #{makeOrderPersonId, jdbcType=BIGINT},
+          make_order_person_name = #{makeOrderPersonName, jdbcType=VARCHAR},
+          make_order_person_iphone = #{makeOrderPersonIphone, jdbcType=VARCHAR},
+          make_order_person_role = #{makeOrderPersonRole, jdbcType=VARCHAR},
+          customer_name = #{customerName, jdbcType=VARCHAR},
+          customer_iphone = #{customerIphone, jdbcType=VARCHAR},
+          issued_car_dealer_date = #{issuedCarDealerDate, jdbcType=TIMESTAMP},
+          order_receiving_date = #{orderReceivingDate, jdbcType=TIMESTAMP},
+          order_receiving_deadline = #{orderReceivingDeadline, jdbcType=TIMESTAMP},
+          quote_end_price = #{quoteEndPrice, jdbcType=BIGINT},
+          quote_end_date = #{quoteEndDate, jdbcType=TIMESTAMP},
+          sign_in_date = #{signInDate, jdbcType=TIMESTAMP},
+          quote_deadline = #{quoteDeadline, jdbcType=TIMESTAMP},
+          vehicle_registration_file_id = #{vehicleRegistrationFileId, jdbcType=BIGINT},
+          is_delete = #{isDelete, jdbcType=VARCHAR},
+          order_abandoned_reason = #{orderAbandonedReason, jdbcType=VARCHAR},
+          customer_intention = #{customerIntention, jdbcType=VARCHAR},
+          deal_price_end = #{dealPriceEnd, jdbcType=BIGINT},
+          estimated_transfer_time = #{estimatedTransferTime, jdbcType=TIMESTAMP},
+          inquiry_status = #{inquiryStatus, jdbcType=VARCHAR},
+          approval_status = #{approvalStatus, jdbcType=VARCHAR},
+          upload_file_time = #{uploadFileTime, jdbcType=TIMESTAMP},
+          created_by = #{createdBy, jdbcType=BIGINT},
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          generate_acquisitions_time = #{generateAcquisitionsTime, jdbcType=TIMESTAMP},
+          first_escalation_time = #{firstEscalationTime, jdbcType=TIMESTAMP},
+          second_escalation_time = #{secondEscalationTime, jdbcType=TIMESTAMP},
+          old_car_confirmation_time = #{oldCarConfirmationTime, jdbcType=TIMESTAMP},
+          approved_time = #{approvedTime, jdbcType=TIMESTAMP},
+          overrule_time = #{overruleTime, jdbcType=TIMESTAMP},
+          close_time = #{closeTime, jdbcType=TIMESTAMP},
+          remarks = #{remarks, jdbcType=VARCHAR}
+          
+     WHERE
+     <trim prefixOverrides="AND">
+           AND inquiry_id = #{inquiryId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.PsiCarDealerInquiryEntity" >
+    UPDATE t_psi_car_dealer_inquiry
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="reservationId != null" >
+          reservation_id = #{reservationId, jdbcType=BIGINT},
+          </if>
+        <if test="customerId != null" >
+          customer_id = #{customerId, jdbcType=BIGINT},
+          </if>
+        <if test="storeId != null" >
+          store_id = #{storeId, jdbcType=BIGINT},
+          </if>
+        <if test="carDealerId != null" >
+          car_dealer_id = #{carDealerId, jdbcType=BIGINT},
+          </if>
+        <if test="carDealerStaffId != null" >
+          car_dealer_staff_id = #{carDealerStaffId, jdbcType=BIGINT},
+          </if>
+        <if test="businessOrderNo != null" >
+          business_order_no = #{businessOrderNo, jdbcType=VARCHAR},
+          </if>
+        <if test="makeOrderPersonId != null" >
+          make_order_person_id = #{makeOrderPersonId, jdbcType=BIGINT},
+          </if>
+        <if test="makeOrderPersonName != null" >
+          make_order_person_name = #{makeOrderPersonName, jdbcType=VARCHAR},
+          </if>
+        <if test="makeOrderPersonIphone != null" >
+          make_order_person_iphone = #{makeOrderPersonIphone, jdbcType=VARCHAR},
+          </if>
+        <if test="makeOrderPersonRole != null" >
+          make_order_person_role = #{makeOrderPersonRole, jdbcType=VARCHAR},
+          </if>
+        <if test="customerName != null" >
+          customer_name = #{customerName, jdbcType=VARCHAR},
+          </if>
+        <if test="customerIphone != null" >
+          customer_iphone = #{customerIphone, jdbcType=VARCHAR},
+          </if>
+        <if test="issuedCarDealerDate != null" >
+          issued_car_dealer_date = #{issuedCarDealerDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="orderReceivingDate != null" >
+          order_receiving_date = #{orderReceivingDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="orderReceivingDeadline != null" >
+          order_receiving_deadline = #{orderReceivingDeadline, jdbcType=TIMESTAMP},
+          </if>
+        <if test="quoteEndPrice != null" >
+          quote_end_price = #{quoteEndPrice, jdbcType=BIGINT},
+          </if>
+        <if test="quoteEndDate != null" >
+          quote_end_date = #{quoteEndDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="signInDate != null" >
+          sign_in_date = #{signInDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="quoteDeadline != null" >
+          quote_deadline = #{quoteDeadline, jdbcType=TIMESTAMP},
+          </if>
+        <if test="vehicleRegistrationFileId != null" >
+          vehicle_registration_file_id = #{vehicleRegistrationFileId, jdbcType=BIGINT},
+          </if>
+        <if test="isDelete != null" >
+          is_delete = #{isDelete, jdbcType=VARCHAR},
+          </if>
+        <if test="orderAbandonedReason != null" >
+          order_abandoned_reason = #{orderAbandonedReason, jdbcType=VARCHAR},
+          </if>
+        <if test="customerIntention != null" >
+          customer_intention = #{customerIntention, jdbcType=VARCHAR},
+          </if>
+        <if test="dealPriceEnd != null" >
+          deal_price_end = #{dealPriceEnd, jdbcType=BIGINT},
+          </if>
+        <if test="estimatedTransferTime != null" >
+          estimated_transfer_time = #{estimatedTransferTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="inquiryStatus != null" >
+          inquiry_status = #{inquiryStatus, jdbcType=VARCHAR},
+          </if>
+        <if test="approvalStatus != null" >
+          approval_status = #{approvalStatus, jdbcType=VARCHAR},
+          </if>
+        <if test="uploadFileTime != null" >
+          upload_file_time = #{uploadFileTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="createdBy != null" >
+          created_by = #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="generateAcquisitionsTime != null" >
+          generate_acquisitions_time = #{generateAcquisitionsTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="firstEscalationTime != null" >
+          first_escalation_time = #{firstEscalationTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="secondEscalationTime != null" >
+          second_escalation_time = #{secondEscalationTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="oldCarConfirmationTime != null" >
+          old_car_confirmation_time = #{oldCarConfirmationTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="approvedTime != null" >
+          approved_time = #{approvedTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="overruleTime != null" >
+          overrule_time = #{overruleTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="closeTime != null" >
+          close_time = #{closeTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="remarks != null" >
+          remarks = #{remarks, jdbcType=VARCHAR},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND inquiry_id = #{inquiryId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_car_dealer_inquiry SET 
+	          reservation_id = #{item.reservationId, jdbcType=BIGINT},
+	          customer_id = #{item.customerId, jdbcType=BIGINT},
+	          store_id = #{item.storeId, jdbcType=BIGINT},
+	          car_dealer_id = #{item.carDealerId, jdbcType=BIGINT},
+	          car_dealer_staff_id = #{item.carDealerStaffId, jdbcType=BIGINT},
+	          business_order_no = #{item.businessOrderNo, jdbcType=VARCHAR},
+	          make_order_person_id = #{item.makeOrderPersonId, jdbcType=BIGINT},
+	          make_order_person_name = #{item.makeOrderPersonName, jdbcType=VARCHAR},
+	          make_order_person_iphone = #{item.makeOrderPersonIphone, jdbcType=VARCHAR},
+	          make_order_person_role = #{item.makeOrderPersonRole, jdbcType=VARCHAR},
+	          customer_name = #{item.customerName, jdbcType=VARCHAR},
+	          customer_iphone = #{item.customerIphone, jdbcType=VARCHAR},
+	          issued_car_dealer_date = #{item.issuedCarDealerDate, jdbcType=TIMESTAMP},
+	          order_receiving_date = #{item.orderReceivingDate, jdbcType=TIMESTAMP},
+	          order_receiving_deadline = #{item.orderReceivingDeadline, jdbcType=TIMESTAMP},
+	          quote_end_price = #{item.quoteEndPrice, jdbcType=BIGINT},
+	          quote_end_date = #{item.quoteEndDate, jdbcType=TIMESTAMP},
+	          sign_in_date = #{item.signInDate, jdbcType=TIMESTAMP},
+	          quote_deadline = #{item.quoteDeadline, jdbcType=TIMESTAMP},
+	          vehicle_registration_file_id = #{item.vehicleRegistrationFileId, jdbcType=BIGINT},
+	          is_delete = #{item.isDelete, jdbcType=VARCHAR},
+	          order_abandoned_reason = #{item.orderAbandonedReason, jdbcType=VARCHAR},
+	          customer_intention = #{item.customerIntention, jdbcType=VARCHAR},
+	          deal_price_end = #{item.dealPriceEnd, jdbcType=BIGINT},
+	          estimated_transfer_time = #{item.estimatedTransferTime, jdbcType=TIMESTAMP},
+	          inquiry_status = #{item.inquiryStatus, jdbcType=VARCHAR},
+	          approval_status = #{item.approvalStatus, jdbcType=VARCHAR},
+	          upload_file_time = #{item.uploadFileTime, jdbcType=TIMESTAMP},
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          generate_acquisitions_time = #{item.generateAcquisitionsTime, jdbcType=TIMESTAMP},
+	          first_escalation_time = #{item.firstEscalationTime, jdbcType=TIMESTAMP},
+	          second_escalation_time = #{item.secondEscalationTime, jdbcType=TIMESTAMP},
+	          old_car_confirmation_time = #{item.oldCarConfirmationTime, jdbcType=TIMESTAMP},
+	          approved_time = #{item.approvedTime, jdbcType=TIMESTAMP},
+	          overrule_time = #{item.overruleTime, jdbcType=TIMESTAMP},
+	          close_time = #{item.closeTime, jdbcType=TIMESTAMP},
+	          remarks = #{item.remarks, jdbcType=VARCHAR}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND inquiry_id = #{item.inquiryId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_car_dealer_inquiry
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.reservationId != null" >
+	          reservation_id = #{item.reservationId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.customerId != null" >
+	          customer_id = #{item.customerId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.storeId != null" >
+	          store_id = #{item.storeId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.carDealerId != null" >
+	          car_dealer_id = #{item.carDealerId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.carDealerStaffId != null" >
+	          car_dealer_staff_id = #{item.carDealerStaffId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.businessOrderNo != null" >
+	          business_order_no = #{item.businessOrderNo, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.makeOrderPersonId != null" >
+	          make_order_person_id = #{item.makeOrderPersonId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.makeOrderPersonName != null" >
+	          make_order_person_name = #{item.makeOrderPersonName, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.makeOrderPersonIphone != null" >
+	          make_order_person_iphone = #{item.makeOrderPersonIphone, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.makeOrderPersonRole != null" >
+	          make_order_person_role = #{item.makeOrderPersonRole, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.customerName != null" >
+	          customer_name = #{item.customerName, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.customerIphone != null" >
+	          customer_iphone = #{item.customerIphone, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.issuedCarDealerDate != null" >
+	          issued_car_dealer_date = #{item.issuedCarDealerDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.orderReceivingDate != null" >
+	          order_receiving_date = #{item.orderReceivingDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.orderReceivingDeadline != null" >
+	          order_receiving_deadline = #{item.orderReceivingDeadline, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.quoteEndPrice != null" >
+	          quote_end_price = #{item.quoteEndPrice, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.quoteEndDate != null" >
+	          quote_end_date = #{item.quoteEndDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.signInDate != null" >
+	          sign_in_date = #{item.signInDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.quoteDeadline != null" >
+	          quote_deadline = #{item.quoteDeadline, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.vehicleRegistrationFileId != null" >
+	          vehicle_registration_file_id = #{item.vehicleRegistrationFileId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.isDelete != null" >
+	          is_delete = #{item.isDelete, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.orderAbandonedReason != null" >
+	          order_abandoned_reason = #{item.orderAbandonedReason, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.customerIntention != null" >
+	          customer_intention = #{item.customerIntention, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.dealPriceEnd != null" >
+	          deal_price_end = #{item.dealPriceEnd, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.estimatedTransferTime != null" >
+	          estimated_transfer_time = #{item.estimatedTransferTime, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.inquiryStatus != null" >
+	          inquiry_status = #{item.inquiryStatus, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.approvalStatus != null" >
+	          approval_status = #{item.approvalStatus, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.uploadFileTime != null" >
+	          upload_file_time = #{item.uploadFileTime, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.createdBy != null" >
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.createdDate != null" >
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.updatedBy != null" >
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.updatedDate != null" >
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.generateAcquisitionsTime != null" >
+	          generate_acquisitions_time = #{item.generateAcquisitionsTime, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.firstEscalationTime != null" >
+	          first_escalation_time = #{item.firstEscalationTime, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.secondEscalationTime != null" >
+	          second_escalation_time = #{item.secondEscalationTime, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.oldCarConfirmationTime != null" >
+	          old_car_confirmation_time = #{item.oldCarConfirmationTime, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.approvedTime != null" >
+	          approved_time = #{item.approvedTime, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.overruleTime != null" >
+	          overrule_time = #{item.overruleTime, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.closeTime != null" >
+	          close_time = #{item.closeTime, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.remarks != null" >
+	          remarks = #{item.remarks, jdbcType=VARCHAR},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND inquiry_id = #{item.inquiryId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.PsiCarDealerInquiryPk" >
+    DELETE FROM t_psi_car_dealer_inquiry
+    WHERE
+     <trim prefixOverrides="AND">
+           AND inquiry_id = #{inquiryId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.PsiCarDealerInquiryEntity" >
+    DELETE FROM t_psi_car_dealer_inquiry
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="inquiryId != null" >
+          AND inquiry_id = #{inquiryId, jdbcType=BIGINT}
+        </if>
+        <if test="reservationId != null" >
+          AND reservation_id = #{reservationId, jdbcType=BIGINT}
+        </if>
+        <if test="customerId != null" >
+          AND customer_id = #{customerId, jdbcType=BIGINT}
+        </if>
+        <if test="storeId != null" >
+          AND store_id = #{storeId, jdbcType=BIGINT}
+        </if>
+        <if test="carDealerId != null" >
+          AND car_dealer_id = #{carDealerId, jdbcType=BIGINT}
+        </if>
+        <if test="carDealerStaffId != null" >
+          AND car_dealer_staff_id = #{carDealerStaffId, jdbcType=BIGINT}
+        </if>
+        <if test="businessOrderNo != null and businessOrderNo != ''" >
+          AND business_order_no = #{businessOrderNo, jdbcType=VARCHAR}
+        </if>
+        <if test="makeOrderPersonId != null" >
+          AND make_order_person_id = #{makeOrderPersonId, jdbcType=BIGINT}
+        </if>
+        <if test="makeOrderPersonName != null and makeOrderPersonName != ''" >
+          AND make_order_person_name = #{makeOrderPersonName, jdbcType=VARCHAR}
+        </if>
+        <if test="makeOrderPersonIphone != null and makeOrderPersonIphone != ''" >
+          AND make_order_person_iphone = #{makeOrderPersonIphone, jdbcType=VARCHAR}
+        </if>
+        <if test="makeOrderPersonRole != null and makeOrderPersonRole != ''" >
+          AND make_order_person_role = #{makeOrderPersonRole, jdbcType=VARCHAR}
+        </if>
+        <if test="customerName != null and customerName != ''" >
+          AND customer_name = #{customerName, jdbcType=VARCHAR}
+        </if>
+        <if test="customerIphone != null and customerIphone != ''" >
+          AND customer_iphone = #{customerIphone, jdbcType=VARCHAR}
+        </if>
+        <if test="issuedCarDealerDate != null" >
+          AND issued_car_dealer_date = #{issuedCarDealerDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="orderReceivingDate != null" >
+          AND order_receiving_date = #{orderReceivingDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="orderReceivingDeadline != null" >
+          AND order_receiving_deadline = #{orderReceivingDeadline, jdbcType=TIMESTAMP}
+        </if>
+        <if test="quoteEndPrice != null" >
+          AND quote_end_price = #{quoteEndPrice, jdbcType=BIGINT}
+        </if>
+        <if test="quoteEndDate != null" >
+          AND quote_end_date = #{quoteEndDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="signInDate != null" >
+          AND sign_in_date = #{signInDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="quoteDeadline != null" >
+          AND quote_deadline = #{quoteDeadline, jdbcType=TIMESTAMP}
+        </if>
+        <if test="vehicleRegistrationFileId != null" >
+          AND vehicle_registration_file_id = #{vehicleRegistrationFileId, jdbcType=BIGINT}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+        <if test="orderAbandonedReason != null and orderAbandonedReason != ''" >
+          AND order_abandoned_reason = #{orderAbandonedReason, jdbcType=VARCHAR}
+        </if>
+        <if test="customerIntention != null and customerIntention != ''" >
+          AND customer_intention = #{customerIntention, jdbcType=VARCHAR}
+        </if>
+        <if test="dealPriceEnd != null" >
+          AND deal_price_end = #{dealPriceEnd, jdbcType=BIGINT}
+        </if>
+        <if test="estimatedTransferTime != null" >
+          AND estimated_transfer_time = #{estimatedTransferTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="inquiryStatus != null and inquiryStatus != ''" >
+          AND inquiry_status = #{inquiryStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="approvalStatus != null and approvalStatus != ''" >
+          AND approval_status = #{approvalStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="uploadFileTime != null" >
+          AND upload_file_time = #{uploadFileTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="createdBy != null" >
+          AND created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="generateAcquisitionsTime != null" >
+          AND generate_acquisitions_time = #{generateAcquisitionsTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="firstEscalationTime != null" >
+          AND first_escalation_time = #{firstEscalationTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="secondEscalationTime != null" >
+          AND second_escalation_time = #{secondEscalationTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="oldCarConfirmationTime != null" >
+          AND old_car_confirmation_time = #{oldCarConfirmationTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="approvedTime != null" >
+          AND approved_time = #{approvedTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="overruleTime != null" >
+          AND overrule_time = #{overruleTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="closeTime != null" >
+          AND close_time = #{closeTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="remarks != null and remarks != ''" >
+          AND remarks = #{remarks, jdbcType=VARCHAR}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="psiCarDealerInquiryResultMap" type="com.exp.ucmp.entity.PsiCarDealerInquiryEntity" >
+      <constructor>
+       <idArg column="inquiry_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="reservation_id" property="reservationId" jdbcType="BIGINT" />
+    <result column="customer_id" property="customerId" jdbcType="BIGINT" />
+    <result column="store_id" property="storeId" jdbcType="BIGINT" />
+    <result column="car_dealer_id" property="carDealerId" jdbcType="BIGINT" />
+    <result column="car_dealer_staff_id" property="carDealerStaffId" jdbcType="BIGINT" />
+    <result column="business_order_no" property="businessOrderNo" jdbcType="VARCHAR" />
+    <result column="make_order_person_id" property="makeOrderPersonId" jdbcType="BIGINT" />
+    <result column="make_order_person_name" property="makeOrderPersonName" jdbcType="VARCHAR" />
+    <result column="make_order_person_iphone" property="makeOrderPersonIphone" jdbcType="VARCHAR" />
+    <result column="make_order_person_role" property="makeOrderPersonRole" jdbcType="VARCHAR" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="customer_iphone" property="customerIphone" jdbcType="VARCHAR" />
+    <result column="issued_car_dealer_date" property="issuedCarDealerDate" jdbcType="TIMESTAMP" />
+    <result column="order_receiving_date" property="orderReceivingDate" jdbcType="TIMESTAMP" />
+    <result column="order_receiving_deadline" property="orderReceivingDeadline" jdbcType="TIMESTAMP" />
+    <result column="quote_end_price" property="quoteEndPrice" jdbcType="BIGINT" />
+    <result column="quote_end_date" property="quoteEndDate" jdbcType="TIMESTAMP" />
+    <result column="sign_in_date" property="signInDate" jdbcType="TIMESTAMP" />
+    <result column="quote_deadline" property="quoteDeadline" jdbcType="TIMESTAMP" />
+    <result column="vehicle_registration_file_id" property="vehicleRegistrationFileId" jdbcType="BIGINT" />
+    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+    <result column="order_abandoned_reason" property="orderAbandonedReason" jdbcType="VARCHAR" />
+    <result column="customer_intention" property="customerIntention" jdbcType="VARCHAR" />
+    <result column="deal_price_end" property="dealPriceEnd" jdbcType="BIGINT" />
+    <result column="estimated_transfer_time" property="estimatedTransferTime" jdbcType="TIMESTAMP" />
+    <result column="inquiry_status" property="inquiryStatus" jdbcType="VARCHAR" />
+    <result column="approval_status" property="approvalStatus" jdbcType="VARCHAR" />
+    <result column="upload_file_time" property="uploadFileTime" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="generate_acquisitions_time" property="generateAcquisitionsTime" jdbcType="TIMESTAMP" />
+    <result column="first_escalation_time" property="firstEscalationTime" jdbcType="TIMESTAMP" />
+    <result column="second_escalation_time" property="secondEscalationTime" jdbcType="TIMESTAMP" />
+    <result column="old_car_confirmation_time" property="oldCarConfirmationTime" jdbcType="TIMESTAMP" />
+    <result column="approved_time" property="approvedTime" jdbcType="TIMESTAMP" />
+    <result column="overrule_time" property="overruleTime" jdbcType="TIMESTAMP" />
+    <result column="close_time" property="closeTime" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="t_psi_car_dealer_inquiry_Column_List" >
+    a.inquiry_id,
+    a.reservation_id,
+    a.customer_id,
+    a.store_id,
+    a.car_dealer_id,
+    a.car_dealer_staff_id,
+    a.business_order_no,
+    a.make_order_person_id,
+    a.make_order_person_name,
+    a.make_order_person_iphone,
+    a.make_order_person_role,
+    a.customer_name,
+    a.customer_iphone,
+    a.issued_car_dealer_date,
+    a.order_receiving_date,
+    a.order_receiving_deadline,
+    a.quote_end_price,
+    a.quote_end_date,
+    a.sign_in_date,
+    a.quote_deadline,
+    a.vehicle_registration_file_id,
+    a.is_delete,
+    a.order_abandoned_reason,
+    a.customer_intention,
+    a.deal_price_end,
+    a.estimated_transfer_time,
+    a.inquiry_status,
+    a.approval_status,
+    a.upload_file_time,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date,
+    a.generate_acquisitions_time,
+    a.first_escalation_time,
+    a.second_escalation_time,
+    a.old_car_confirmation_time,
+    a.approved_time,
+    a.overrule_time,
+    a.close_time,
+    a.remarks
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.PsiCarDealerInquiryPk" resultMap="psiCarDealerInquiryResultMap">
+    SELECT 
+    <include refid="t_psi_car_dealer_inquiry_Column_List" />
+      FROM t_psi_car_dealer_inquiry a
+     WHERE 1 = 1
+       AND a.inquiry_id = #{inquiryId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.PsiCarDealerInquiryEntity" resultMap="psiCarDealerInquiryResultMap">
+    SELECT 
+    <include refid="t_psi_car_dealer_inquiry_Column_List" />
+      FROM t_psi_car_dealer_inquiry a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="inquiryId != null" >
+          AND a.inquiry_id = #{inquiryId, jdbcType=BIGINT}
+        </if>
+        <if test="reservationId != null" >
+          AND a.reservation_id = #{reservationId, jdbcType=BIGINT}
+        </if>
+        <if test="customerId != null" >
+          AND a.customer_id = #{customerId, jdbcType=BIGINT}
+        </if>
+        <if test="storeId != null" >
+          AND a.store_id = #{storeId, jdbcType=BIGINT}
+        </if>
+        <if test="carDealerId != null" >
+          AND a.car_dealer_id = #{carDealerId, jdbcType=BIGINT}
+        </if>
+        <if test="carDealerStaffId != null" >
+          AND a.car_dealer_staff_id = #{carDealerStaffId, jdbcType=BIGINT}
+        </if>
+        <if test="businessOrderNo != null and businessOrderNo != ''" >
+          AND a.business_order_no = #{businessOrderNo, jdbcType=VARCHAR}
+        </if>
+        <if test="makeOrderPersonId != null" >
+          AND a.make_order_person_id = #{makeOrderPersonId, jdbcType=BIGINT}
+        </if>
+        <if test="makeOrderPersonName != null and makeOrderPersonName != ''" >
+          AND a.make_order_person_name = #{makeOrderPersonName, jdbcType=VARCHAR}
+        </if>
+        <if test="makeOrderPersonIphone != null and makeOrderPersonIphone != ''" >
+          AND a.make_order_person_iphone = #{makeOrderPersonIphone, jdbcType=VARCHAR}
+        </if>
+        <if test="makeOrderPersonRole != null and makeOrderPersonRole != ''" >
+          AND a.make_order_person_role = #{makeOrderPersonRole, jdbcType=VARCHAR}
+        </if>
+        <if test="customerName != null and customerName != ''" >
+          AND a.customer_name = #{customerName, jdbcType=VARCHAR}
+        </if>
+        <if test="customerIphone != null and customerIphone != ''" >
+          AND a.customer_iphone = #{customerIphone, jdbcType=VARCHAR}
+        </if>
+        <if test="issuedCarDealerDate != null" >
+          AND a.issued_car_dealer_date = #{issuedCarDealerDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="orderReceivingDate != null" >
+          AND a.order_receiving_date = #{orderReceivingDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="orderReceivingDeadline != null" >
+          AND a.order_receiving_deadline = #{orderReceivingDeadline, jdbcType=TIMESTAMP}
+        </if>
+        <if test="quoteEndPrice != null" >
+          AND a.quote_end_price = #{quoteEndPrice, jdbcType=BIGINT}
+        </if>
+        <if test="quoteEndDate != null" >
+          AND a.quote_end_date = #{quoteEndDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="signInDate != null" >
+          AND a.sign_in_date = #{signInDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="quoteDeadline != null" >
+          AND a.quote_deadline = #{quoteDeadline, jdbcType=TIMESTAMP}
+        </if>
+        <if test="vehicleRegistrationFileId != null" >
+          AND a.vehicle_registration_file_id = #{vehicleRegistrationFileId, jdbcType=BIGINT}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND a.is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+        <if test="orderAbandonedReason != null and orderAbandonedReason != ''" >
+          AND a.order_abandoned_reason = #{orderAbandonedReason, jdbcType=VARCHAR}
+        </if>
+        <if test="customerIntention != null and customerIntention != ''" >
+          AND a.customer_intention = #{customerIntention, jdbcType=VARCHAR}
+        </if>
+        <if test="dealPriceEnd != null" >
+          AND a.deal_price_end = #{dealPriceEnd, jdbcType=BIGINT}
+        </if>
+        <if test="estimatedTransferTime != null" >
+          AND a.estimated_transfer_time = #{estimatedTransferTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="inquiryStatus != null and inquiryStatus != ''" >
+          AND a.inquiry_status = #{inquiryStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="approvalStatus != null and approvalStatus != ''" >
+          AND a.approval_status = #{approvalStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="uploadFileTime != null" >
+          AND a.upload_file_time = #{uploadFileTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="generateAcquisitionsTime != null" >
+          AND a.generate_acquisitions_time = #{generateAcquisitionsTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="firstEscalationTime != null" >
+          AND a.first_escalation_time = #{firstEscalationTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="secondEscalationTime != null" >
+          AND a.second_escalation_time = #{secondEscalationTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="oldCarConfirmationTime != null" >
+          AND a.old_car_confirmation_time = #{oldCarConfirmationTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="approvedTime != null" >
+          AND a.approved_time = #{approvedTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="overruleTime != null" >
+          AND a.overrule_time = #{overruleTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="closeTime != null" >
+          AND a.close_time = #{closeTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="remarks != null and remarks != ''" >
+          AND a.remarks = #{remarks, jdbcType=VARCHAR}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.PsiCarDealerInquiryEntity" resultType="int">
+    SELECT count(1) FROM t_psi_car_dealer_inquiry a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="inquiryId != null" >
+          AND a.inquiry_id = #{inquiryId, jdbcType=BIGINT}
+        </if>
+        <if test="reservationId != null" >
+          AND a.reservation_id = #{reservationId, jdbcType=BIGINT}
+        </if>
+        <if test="customerId != null" >
+          AND a.customer_id = #{customerId, jdbcType=BIGINT}
+        </if>
+        <if test="storeId != null" >
+          AND a.store_id = #{storeId, jdbcType=BIGINT}
+        </if>
+        <if test="carDealerId != null" >
+          AND a.car_dealer_id = #{carDealerId, jdbcType=BIGINT}
+        </if>
+        <if test="carDealerStaffId != null" >
+          AND a.car_dealer_staff_id = #{carDealerStaffId, jdbcType=BIGINT}
+        </if>
+        <if test="businessOrderNo != null and businessOrderNo != ''" >
+          AND a.business_order_no = #{businessOrderNo, jdbcType=VARCHAR}
+        </if>
+        <if test="makeOrderPersonId != null" >
+          AND a.make_order_person_id = #{makeOrderPersonId, jdbcType=BIGINT}
+        </if>
+        <if test="makeOrderPersonName != null and makeOrderPersonName != ''" >
+          AND a.make_order_person_name = #{makeOrderPersonName, jdbcType=VARCHAR}
+        </if>
+        <if test="makeOrderPersonIphone != null and makeOrderPersonIphone != ''" >
+          AND a.make_order_person_iphone = #{makeOrderPersonIphone, jdbcType=VARCHAR}
+        </if>
+        <if test="makeOrderPersonRole != null and makeOrderPersonRole != ''" >
+          AND a.make_order_person_role = #{makeOrderPersonRole, jdbcType=VARCHAR}
+        </if>
+        <if test="customerName != null and customerName != ''" >
+          AND a.customer_name = #{customerName, jdbcType=VARCHAR}
+        </if>
+        <if test="customerIphone != null and customerIphone != ''" >
+          AND a.customer_iphone = #{customerIphone, jdbcType=VARCHAR}
+        </if>
+        <if test="issuedCarDealerDate != null" >
+          AND a.issued_car_dealer_date = #{issuedCarDealerDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="orderReceivingDate != null" >
+          AND a.order_receiving_date = #{orderReceivingDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="orderReceivingDeadline != null" >
+          AND a.order_receiving_deadline = #{orderReceivingDeadline, jdbcType=TIMESTAMP}
+        </if>
+        <if test="quoteEndPrice != null" >
+          AND a.quote_end_price = #{quoteEndPrice, jdbcType=BIGINT}
+        </if>
+        <if test="quoteEndDate != null" >
+          AND a.quote_end_date = #{quoteEndDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="signInDate != null" >
+          AND a.sign_in_date = #{signInDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="quoteDeadline != null" >
+          AND a.quote_deadline = #{quoteDeadline, jdbcType=TIMESTAMP}
+        </if>
+        <if test="vehicleRegistrationFileId != null" >
+          AND a.vehicle_registration_file_id = #{vehicleRegistrationFileId, jdbcType=BIGINT}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND a.is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+        <if test="orderAbandonedReason != null and orderAbandonedReason != ''" >
+          AND a.order_abandoned_reason = #{orderAbandonedReason, jdbcType=VARCHAR}
+        </if>
+        <if test="customerIntention != null and customerIntention != ''" >
+          AND a.customer_intention = #{customerIntention, jdbcType=VARCHAR}
+        </if>
+        <if test="dealPriceEnd != null" >
+          AND a.deal_price_end = #{dealPriceEnd, jdbcType=BIGINT}
+        </if>
+        <if test="estimatedTransferTime != null" >
+          AND a.estimated_transfer_time = #{estimatedTransferTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="inquiryStatus != null and inquiryStatus != ''" >
+          AND a.inquiry_status = #{inquiryStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="approvalStatus != null and approvalStatus != ''" >
+          AND a.approval_status = #{approvalStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="uploadFileTime != null" >
+          AND a.upload_file_time = #{uploadFileTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="generateAcquisitionsTime != null" >
+          AND a.generate_acquisitions_time = #{generateAcquisitionsTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="firstEscalationTime != null" >
+          AND a.first_escalation_time = #{firstEscalationTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="secondEscalationTime != null" >
+          AND a.second_escalation_time = #{secondEscalationTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="oldCarConfirmationTime != null" >
+          AND a.old_car_confirmation_time = #{oldCarConfirmationTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="approvedTime != null" >
+          AND a.approved_time = #{approvedTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="overruleTime != null" >
+          AND a.overrule_time = #{overruleTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="closeTime != null" >
+          AND a.close_time = #{closeTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="remarks != null and remarks != ''" >
+          AND a.remarks = #{remarks, jdbcType=VARCHAR}
+        </if>
+      </trim>
+  </select>
+</mapper>

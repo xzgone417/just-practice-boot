@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.IPsiCarServiceInquiryHistoryDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.PsiCarServiceInquiryHistoryEntity" >
+    INSERT INTO t_psi_car_service_inquiry_history 
+       (
+          inquiry_history_id,
+          service_id,
+          approval_date,
+          approval_result,
+          approval_people,
+          approval_mark,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date,
+          is_enable,
+          is_delete
+        ) VALUES (
+          #{inquiryHistoryId, jdbcType=BIGINT},
+          #{serviceId, jdbcType=BIGINT},
+          #{approvalDate, jdbcType=TIMESTAMP},
+          #{approvalResult, jdbcType=VARCHAR},
+          #{approvalPeople, jdbcType=VARCHAR},
+          #{approvalMark, jdbcType=VARCHAR},
+          #{createdBy, jdbcType=BIGINT},
+          #{createdDate, jdbcType=TIMESTAMP},
+          #{updatedBy, jdbcType=BIGINT},
+          #{updatedDate, jdbcType=TIMESTAMP},
+          #{isEnable, jdbcType=VARCHAR},
+          #{isDelete, jdbcType=VARCHAR}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.PsiCarServiceInquiryHistoryEntity" >
+    INSERT INTO t_psi_car_service_inquiry_history
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="inquiryHistoryId != null" >
+          inquiry_history_id,
+          </if>
+        <if test="serviceId != null" >
+          service_id,
+          </if>
+        <if test="approvalDate != null" >
+          approval_date,
+          </if>
+        <if test="approvalResult != null" >
+          approval_result,
+          </if>
+        <if test="approvalPeople != null" >
+          approval_people,
+          </if>
+        <if test="approvalMark != null" >
+          approval_mark,
+          </if>
+        <if test="createdBy != null" >
+          created_by,
+          </if>
+        <if test="createdDate != null" >
+          created_date,
+          </if>
+        <if test="updatedBy != null" >
+          updated_by,
+          </if>
+        <if test="updatedDate != null" >
+          updated_date,
+          </if>
+        <if test="isEnable != null" >
+          is_enable,
+          </if>
+        <if test="isDelete != null" >
+          is_delete,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="inquiryHistoryId != null" >
+          #{inquiryHistoryId, jdbcType=BIGINT},
+          </if>
+        <if test="serviceId != null" >
+          #{serviceId, jdbcType=BIGINT},
+          </if>
+        <if test="approvalDate != null" >
+          #{approvalDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="approvalResult != null" >
+          #{approvalResult, jdbcType=VARCHAR},
+          </if>
+        <if test="approvalPeople != null" >
+          #{approvalPeople, jdbcType=VARCHAR},
+          </if>
+        <if test="approvalMark != null" >
+          #{approvalMark, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="isEnable != null" >
+          #{isEnable, jdbcType=VARCHAR},
+          </if>
+        <if test="isDelete != null" >
+          #{isDelete, jdbcType=VARCHAR},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_psi_car_service_inquiry_history 
+       (
+          inquiry_history_id,
+          service_id,
+          approval_date,
+          approval_result,
+          approval_people,
+          approval_mark,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date,
+          is_enable,
+          is_delete
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.inquiryHistoryId, jdbcType=BIGINT},
+	          #{item.serviceId, jdbcType=BIGINT},
+	          #{item.approvalDate, jdbcType=TIMESTAMP},
+	          #{item.approvalResult, jdbcType=VARCHAR},
+	          #{item.approvalPeople, jdbcType=VARCHAR},
+	          #{item.approvalMark, jdbcType=VARCHAR},
+	          #{item.createdBy, jdbcType=BIGINT},
+	          #{item.createdDate, jdbcType=TIMESTAMP},
+	          #{item.updatedBy, jdbcType=BIGINT},
+	          #{item.updatedDate, jdbcType=TIMESTAMP},
+	          #{item.isEnable, jdbcType=VARCHAR},
+	          #{item.isDelete, jdbcType=VARCHAR}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.PsiCarServiceInquiryHistoryEntity" >
+    UPDATE t_psi_car_service_inquiry_history SET 
+          service_id = #{serviceId, jdbcType=BIGINT},
+          approval_date = #{approvalDate, jdbcType=TIMESTAMP},
+          approval_result = #{approvalResult, jdbcType=VARCHAR},
+          approval_people = #{approvalPeople, jdbcType=VARCHAR},
+          approval_mark = #{approvalMark, jdbcType=VARCHAR},
+          created_by = #{createdBy, jdbcType=BIGINT},
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          is_enable = #{isEnable, jdbcType=VARCHAR},
+          is_delete = #{isDelete, jdbcType=VARCHAR}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND inquiry_history_id = #{inquiryHistoryId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.PsiCarServiceInquiryHistoryEntity" >
+    UPDATE t_psi_car_service_inquiry_history
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="serviceId != null" >
+          service_id = #{serviceId, jdbcType=BIGINT},
+          </if>
+        <if test="approvalDate != null" >
+          approval_date = #{approvalDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="approvalResult != null" >
+          approval_result = #{approvalResult, jdbcType=VARCHAR},
+          </if>
+        <if test="approvalPeople != null" >
+          approval_people = #{approvalPeople, jdbcType=VARCHAR},
+          </if>
+        <if test="approvalMark != null" >
+          approval_mark = #{approvalMark, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          created_by = #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="isEnable != null" >
+          is_enable = #{isEnable, jdbcType=VARCHAR},
+          </if>
+        <if test="isDelete != null" >
+          is_delete = #{isDelete, jdbcType=VARCHAR},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND inquiry_history_id = #{inquiryHistoryId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_car_service_inquiry_history SET 
+	          service_id = #{item.serviceId, jdbcType=BIGINT},
+	          approval_date = #{item.approvalDate, jdbcType=TIMESTAMP},
+	          approval_result = #{item.approvalResult, jdbcType=VARCHAR},
+	          approval_people = #{item.approvalPeople, jdbcType=VARCHAR},
+	          approval_mark = #{item.approvalMark, jdbcType=VARCHAR},
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          is_enable = #{item.isEnable, jdbcType=VARCHAR},
+	          is_delete = #{item.isDelete, jdbcType=VARCHAR}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND inquiry_history_id = #{item.inquiryHistoryId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_car_service_inquiry_history
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.serviceId != null" >
+	          service_id = #{item.serviceId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.approvalDate != null" >
+	          approval_date = #{item.approvalDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.approvalResult != null" >
+	          approval_result = #{item.approvalResult, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.approvalPeople != null" >
+	          approval_people = #{item.approvalPeople, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.approvalMark != null" >
+	          approval_mark = #{item.approvalMark, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.createdBy != null" >
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.createdDate != null" >
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.updatedBy != null" >
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.updatedDate != null" >
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.isEnable != null" >
+	          is_enable = #{item.isEnable, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.isDelete != null" >
+	          is_delete = #{item.isDelete, jdbcType=VARCHAR},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND inquiry_history_id = #{item.inquiryHistoryId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.PsiCarServiceInquiryHistoryPk" >
+    DELETE FROM t_psi_car_service_inquiry_history
+    WHERE
+     <trim prefixOverrides="AND">
+           AND inquiry_history_id = #{inquiryHistoryId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.PsiCarServiceInquiryHistoryEntity" >
+    DELETE FROM t_psi_car_service_inquiry_history
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="inquiryHistoryId != null" >
+          AND inquiry_history_id = #{inquiryHistoryId, jdbcType=BIGINT}
+        </if>
+        <if test="serviceId != null" >
+          AND service_id = #{serviceId, jdbcType=BIGINT}
+        </if>
+        <if test="approvalDate != null" >
+          AND approval_date = #{approvalDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="approvalResult != null and approvalResult != ''" >
+          AND approval_result = #{approvalResult, jdbcType=VARCHAR}
+        </if>
+        <if test="approvalPeople != null and approvalPeople != ''" >
+          AND approval_people = #{approvalPeople, jdbcType=VARCHAR}
+        </if>
+        <if test="approvalMark != null and approvalMark != ''" >
+          AND approval_mark = #{approvalMark, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="psiCarServiceInquiryHistoryResultMap" type="com.exp.ucmp.entity.PsiCarServiceInquiryHistoryEntity" >
+      <constructor>
+       <idArg column="inquiry_history_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="service_id" property="serviceId" jdbcType="BIGINT" />
+    <result column="approval_date" property="approvalDate" jdbcType="TIMESTAMP" />
+    <result column="approval_result" property="approvalResult" jdbcType="VARCHAR" />
+    <result column="approval_people" property="approvalPeople" jdbcType="VARCHAR" />
+    <result column="approval_mark" property="approvalMark" jdbcType="VARCHAR" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="is_enable" property="isEnable" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="t_psi_car_service_inquiry_history_Column_List" >
+    a.inquiry_history_id,
+    a.service_id,
+    a.approval_date,
+    a.approval_result,
+    a.approval_people,
+    a.approval_mark,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date,
+    a.is_enable,
+    a.is_delete
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.PsiCarServiceInquiryHistoryPk" resultMap="psiCarServiceInquiryHistoryResultMap">
+    SELECT 
+    <include refid="t_psi_car_service_inquiry_history_Column_List" />
+      FROM t_psi_car_service_inquiry_history a
+     WHERE 1 = 1
+       AND a.inquiry_history_id = #{inquiryHistoryId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.PsiCarServiceInquiryHistoryEntity" resultMap="psiCarServiceInquiryHistoryResultMap">
+    SELECT 
+    <include refid="t_psi_car_service_inquiry_history_Column_List" />
+      FROM t_psi_car_service_inquiry_history a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="inquiryHistoryId != null" >
+          AND a.inquiry_history_id = #{inquiryHistoryId, jdbcType=BIGINT}
+        </if>
+        <if test="serviceId != null" >
+          AND a.service_id = #{serviceId, jdbcType=BIGINT}
+        </if>
+        <if test="approvalDate != null" >
+          AND a.approval_date = #{approvalDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="approvalResult != null and approvalResult != ''" >
+          AND a.approval_result = #{approvalResult, jdbcType=VARCHAR}
+        </if>
+        <if test="approvalPeople != null and approvalPeople != ''" >
+          AND a.approval_people = #{approvalPeople, jdbcType=VARCHAR}
+        </if>
+        <if test="approvalMark != null and approvalMark != ''" >
+          AND a.approval_mark = #{approvalMark, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND a.is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND a.is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.PsiCarServiceInquiryHistoryEntity" resultType="int">
+    SELECT count(1) FROM t_psi_car_service_inquiry_history a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="inquiryHistoryId != null" >
+          AND a.inquiry_history_id = #{inquiryHistoryId, jdbcType=BIGINT}
+        </if>
+        <if test="serviceId != null" >
+          AND a.service_id = #{serviceId, jdbcType=BIGINT}
+        </if>
+        <if test="approvalDate != null" >
+          AND a.approval_date = #{approvalDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="approvalResult != null and approvalResult != ''" >
+          AND a.approval_result = #{approvalResult, jdbcType=VARCHAR}
+        </if>
+        <if test="approvalPeople != null and approvalPeople != ''" >
+          AND a.approval_people = #{approvalPeople, jdbcType=VARCHAR}
+        </if>
+        <if test="approvalMark != null and approvalMark != ''" >
+          AND a.approval_mark = #{approvalMark, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND a.is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND a.is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+      </trim>
+  </select>
+</mapper>

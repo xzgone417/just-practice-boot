@@ -1,0 +1,11 @@
+server:
+  port: ${port:${PORT:18060}}
+
+spring:
+  application:
+    name: 'ucmp-psi'
+
+logging:
+  config: classpath:logback-spring.xml
+
+

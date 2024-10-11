@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.inventory.dao.PsiCarStockHistoryDao">
+
+    <select id="selectStorageHistoryList" resultType="com.exp.ucmp.servicing.dto.StorageHistoryListInfoDto">
+        SELECT
+            history_id AS historyId,
+            storage_name AS storageName,
+            stock_type AS stockType,
+            stock_date AS stockDate,
+            create_name AS createName
+        FROM
+            t_psi_car_stock_history
+        WHERE
+            stock_id = #{stockId}
+        ORDER BY
+            stock_date DESC
+    </select>
+
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/service/ucmp-build/pom.xml" />
+        <option value="$PROJECT_DIR$/ucmp-common-group/ucmp-entity/pom.xml" />
+        <option value="$PROJECT_DIR$/ucmp-common-group/pom.xml" />
+        <option value="$PROJECT_DIR$/ucmp-common-group/ucmp-dto/pom.xml" />
+        <option value="$PROJECT_DIR$/ucmp-common-group/ucmp-web/pom.xml" />
+        <option value="$PROJECT_DIR$/service/ucmp-psi/pom.xml" />
+        <option value="$PROJECT_DIR$/service/ucmp-replace/pom.xml" />
+        <option value="$PROJECT_DIR$/service/ucmp-system/pom.xml" />
+        <option value="$PROJECT_DIR$/service/ucmp-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/service/ucmp-auth/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

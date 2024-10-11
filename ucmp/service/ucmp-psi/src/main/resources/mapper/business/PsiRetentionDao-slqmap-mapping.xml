@@ -1,0 +1,1140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.mall.dao.PsiRetentionDao">
+	<update id="batchUpdateCustomer" parameterType="java.util.List" >
+		<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+			UPDATE t_psi_sales_customer SET
+			store_id = #{item.storeId, jdbcType=BIGINT},
+			party_id = #{item.partyId, jdbcType=BIGINT},
+			model_code = #{item.modelCode, jdbcType=VARCHAR},
+			model_name = #{item.modelName, jdbcType=VARCHAR},
+			delivery_place = #{item.deliveryPlace, jdbcType=VARCHAR},
+			vin = #{item.vin, jdbcType=VARCHAR},
+			follow_time = #{item.followTime, jdbcType=TIMESTAMP},
+			follow_by = #{item.followBy, jdbcType=BIGINT},
+			follow_name = #{item.followName, jdbcType=VARCHAR},
+			customer_character = #{item.customerCharacter, jdbcType=VARCHAR},
+			purchase_time = #{item.purchaseTime, jdbcType=VARCHAR},
+			family = #{item.family, jdbcType=VARCHAR},
+			updated_by = #{item.updatedBy, jdbcType=BIGINT},
+			updated_date = #{item.updatedDate, jdbcType=TIMESTAMP}
+			WHERE
+			<trim prefixOverrides="AND">
+				AND customer_id = #{item.customerId, jdbcType=BIGINT}
+			</trim>
+		</foreach>
+	</update>
+	<update id="redistributionCustomerId" parameterType="java.util.List" >
+		<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+			UPDATE t_psi_sales_customer
+			SET
+			party_id = NULL,
+			updated_date = NOW()
+			WHERE
+			 party_id = #{item, jdbcType=BIGINT}
+		</foreach>
+	</update>
+	<update id="redistributionClues" parameterType="java.util.List" >
+		<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+			UPDATE t_psi_retention_clues
+			SET
+				follow_person = NULL,
+				updated_date = NOW()
+			WHERE
+				is_delete = '00'
+				AND is_enable = '01'
+			  	AND follow_status IN ('7801','7802')
+				AND follow_person = #{item, jdbcType=BIGINT}
+		</foreach>
+	</update>
+	<update id="redistributionOrder">
+		<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+			UPDATE t_psi_order_info
+			SET
+				follow_person = NULL,
+				updated_date = NOW()
+			WHERE
+				follow_person = #{item, jdbcType=BIGINT}
+		</foreach>
+	</update>
+	<update id="updateStoreClues">
+		UPDATE t_psi_retention_clues
+		<trim prefix="SET" suffixOverrides="," >
+				follow_store = #{changeFollowStore, jdbcType=BIGINT},
+				follow_person = #{changeFollowPerson, jdbcType=BIGINT},
+				updated_by = #{updatedBy, jdbcType=BIGINT},
+				updated_date = now()
+		</trim>
+		WHERE
+			is_delete = '00'
+			AND follow_status IN ('7801','7802')
+			<if test="followStore != null">
+				AND follow_store = #{followStore, jdbcType=BIGINT}
+			</if>
+			<if test="customerId != null">
+				AND customer_id = #{customerId, jdbcType=BIGINT}
+			</if>
+	</update>
+	<update id="updateStoreOrder">
+		UPDATE t_psi_order_info
+		<trim prefix="SET" suffixOverrides="," >
+			sales_store = #{changeFollowStore, jdbcType=BIGINT},
+			follow_person = #{changeFollowPerson, jdbcType=BIGINT},
+			updated_by = #{updatedBy, jdbcType=BIGINT},
+			updated_date = now()
+		</trim>
+		WHERE
+		is_delete = '00'
+		AND order_status IN ('7401','7402','7408')
+		AND order_info_id not in (SELECT order_info_id FROM t_psi_sales_modify_config where approve_result = 1 and order_status IN
+		('7401','7402'))
+		<if test="followStore != null">
+			AND sales_store = #{followStore, jdbcType=BIGINT}
+		</if>
+		<if test="customerId != null">
+			AND customer_id = #{customerId, jdbcType=BIGINT}
+		</if>
+	</update>
+	<update id="updatePhoneFollowPerson">
+		UPDATE t_psi_retention_clues
+		<trim prefix="SET" suffixOverrides="," >
+			customer_id = #{customerId, jdbcType=BIGINT},
+			follow_store = #{followStore, jdbcType=BIGINT},
+			follow_person = #{followPerson, jdbcType=BIGINT},
+			updated_by = #{updatedBy, jdbcType=BIGINT},
+			updated_date = now()
+		</trim>
+		WHERE
+		is_delete = '00'
+		AND follow_status IN ('7801','7802')
+		AND customer_phone = #{customerPhone, jdbcType=VARCHAR}
+	</update>
+	<update id="redistributionStoreCustomer">
+		UPDATE t_psi_sales_customer
+		SET
+		store_id = NULL,
+		party_id = NULL,
+		updated_date = NOW()
+		WHERE
+		store_id = #{storeId, jdbcType=BIGINT}
+	</update>
+	<update id="batchUpdateStockState" parameterType="java.util.List" >
+		<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+			UPDATE t_psi_car_stock_info
+			SET
+				stock_state = #{item.stockState, jdbcType=VARCHAR}
+			WHERE
+			vin_code = #{item.vinCode, jdbcType=VARCHAR}
+			AND stock_id = #{item.stockId, jdbcType=BIGINT}
+		</foreach>
+	</update>
+
+
+	<select id="queryRetentionCluesList" resultType="com.exp.ucmp.clues.dto.RetentionCluesDto">
+		SELECT
+			a.clues_id cluesId,
+			a.customer_name customerName,
+			a.customer_phone customerPhone,
+			a.retention_time retentionTime,
+			b.vin_code vin,
+			b.car_series_name carSeriesName,
+			b.base_car_type_name baseCarTypeName,
+			b.storage_name storageName,
+			a.sale_price salePrice,
+			ssd.staff_name followPerson,
+			a.follow_time followTime,
+			a.clues_source cluesSource,
+			a.follow_status followStatus,
+			a.delivery_place deliveryPlace
+		FROM
+			t_psi_retention_clues a
+		LEFT JOIN t_psi_car_stock_info b ON a.stock_id = b.stock_id
+		LEFT JOIN t_sys_store_staff_details ssd ON ssd.party_id = a.follow_person
+		WHERE
+			 a.is_enable = '01'
+			AND a.is_delete = '00'
+		<if test="isShow=='01'">
+			AND	a.is_show = '00'
+		</if>
+		<if test="isEmpower == '01'">
+			AND (((a.clues_source = #{empowerCluesSource} OR a.created_by = #{empowerCreatedBy} ) AND a.follow_store IS NULL)
+
+				<if test="empowerStoreIds != null and empowerStoreIds.size > 0">
+					OR a.follow_store IN (
+			         <foreach collection="empowerStoreIds" item="empowerStoreId" separator=",">
+						 #{empowerStoreId}
+					 </foreach>
+					)
+				</if>
+			    )
+		</if>
+		<if test="customerName != null and customerName != ''" >
+			AND a.customer_name like concat('%',#{customerName, jdbcType=VARCHAR},'%')
+		</if>
+		<if test="customerPhone != null and customerPhone != ''" >
+			AND a.customer_phone = #{customerPhone}
+		</if>
+		<if test="startRetentionTime!=null and startRetentionTime!=''">
+			and a.retention_time &gt;=#{startRetentionTime, jdbcType=TIMESTAMP}
+		</if>
+		<if test="endRetentionTime!=null and endRetentionTime!=''">
+			and a.retention_time &lt;DATE_ADD(#{endRetentionTime, jdbcType=TIMESTAMP},INTERVAL 1 DAY)
+		</if>
+		<if test="storageName != null and storageName != ''" >
+			AND b.storage_name = #{storageName}
+		</if>
+		<if test="startSalePrice != null and startSalePrice != ''" >
+			and a.sale_price &gt;= #{startSalePrice}
+		</if>
+		<if test="endSalePrice != null and endSalePrice != ''" >
+			AND a.sale_price = #{endSalePrice}
+		</if>
+		<if test="followStatus != null and followStatus != ''" >
+			AND a.follow_status = #{followStatus}
+		</if>
+		order by a.retention_time DESC
+    </select>
+	<select id="selectPersonName" resultType="java.lang.String">
+		select staff_name from t_sys_store_staff_details where party_id = #{partyId}
+	</select>
+
+	<select id="queryCluesCustomerInfo" resultType="com.exp.ucmp.clues.dto.CustomerInfoDto">
+		SELECT
+			prc.customer_id AS customerId,
+			prc.customer_name AS customerName,
+			prc.customer_phone AS customerPhone,
+			prc.last_follow_time AS lastFollowTime,
+			prc.next_follow_time AS nextFollowTime,
+			prc.customer_character AS customerCharacter,
+			prc.purchase_time AS purchaseTime,
+			prc.family_situation AS familySituation,
+			prc.follow_person AS followPerson,
+			prc.delivery_place deliveryPlace,
+			ssd.staff_name followPersonName
+		FROM t_psi_retention_clues prc
+		LEFT JOIN t_sys_store_staff_details ssd ON ssd.party_id = prc.follow_person
+		WHERE
+			prc.clues_id = #{cluesId, jdbcType=BIGINT}
+	</select>
+
+	<select id="queryOrderList" resultType="com.exp.ucmp.clues.dto.OrderInfoDto">
+		SELECT
+			poi.order_info_id orderInfoId,
+			poi.order_no orderNo,
+			poi.car_vin vin,
+			pcsi.product_code productCode,
+			poi.order_price orderPrice,
+		    poi.intention_pay_time,
+			poi.customer_name customerName,
+			poi.customer_phone customerPhone,
+			poi.licensing_city licensingCity,
+		    poi.sales_store salesStore,
+			(select tsi.org_name from t_sys_store_info tsi where tsi.store_id = poi.sales_store) salesStoreName,
+			poi.delivery_store deliveryStore,
+			(select tsi.org_name from t_sys_store_info tsi where tsi.store_id = poi.delivery_store) deliveryStoreName,
+		    poi.follow_person followPerson,
+			(select staff_name from t_sys_store_staff_details where party_id = poi.follow_person ) followPersonName,
+			poi.delivery_store deliveryStore,
+			tsi.org_name deliveryStoreName,
+			poi.delivery_person deliveryPerson,
+			(select staff_name from t_sys_store_staff_details where party_id = poi.delivery_person ) deliveryPersonName,
+		    poi.order_status orderStatus,
+			pcsi.storage_code storageCode,
+			pcsi.storage_name storageName,
+			pcsi.car_series_name carSeriesName,
+			pcsi.base_car_type_name baseCarTypeName,
+			poi.created_date createdDate,
+		    poi.car_owner_type carOwnerType,
+			poi.type_id typeId,
+		    poi.owner_card_no ownerCardNo,
+		    poi.intention_pay_time intentionPayTime,
+		    poi.legal_right legalRight,
+			pcsi.right_pack_id rightPackId,
+			tccpr.approve_status approveStatus,
+			(case when tccpr.approve_status = 0 then '审核中' when tccpr.approve_status = 1 then '审核通过' when tccpr.approve_status = 2 then '审核驳回' else null end) approveStatusName
+		FROM
+			t_psi_order_info poi
+		left JOIN t_psi_sales_customer psc on poi.customer_id = psc.customer_id
+		left JOIN t_psi_car_stock_info pcsi on poi.stock_id = pcsi.stock_id
+		left join t_sys_store_info tsi on tsi.store_id = poi.delivery_store
+		left join t_psi_car_change_price_record tccpr on pcsi.change_price_record_id = tccpr.record_id
+		<where>
+			poi.is_delete = '00'
+			AND poi.is_enable = '01'
+			<if test="customerId != null and customerId != ''">
+				AND poi.customer_id = #{customerId}
+			</if>
+			<if test="customerPhone != null and customerPhone != ''">
+				AND poi.customer_phone = #{customerPhone}
+			</if>
+			<if test="customerName != null and customerName != ''">
+				AND poi.customer_name LIKE concat('%',#{customerName, jdbcType=VARCHAR},'%')
+			</if>
+			<if test="startCreatedDate != null and startCreatedDate != ''">
+				AND poi.created_date >= #{startCreatedDate, jdbcType=TIMESTAMP}
+			</if>
+			<if test="endCreatedDate != null and endCreatedDate != ''">
+				AND poi.created_date &lt;= DATE_ADD(#{endCreatedDate, jdbcType=TIMESTAMP},INTERVAL 1 DAY)
+			</if>
+			<if test="carVin != null and carVin != ''">
+				AND poi.car_vin = #{carVin}
+			</if>
+			<if test="deliveryStore != null and deliveryStore != ''">
+				AND poi.delivery_store = #{deliveryStore}
+			</if>
+			<if test="storeId != null and storeId != ''">
+				AND psc.store_id = #{storeId}
+			</if>
+			<if test="partyId != null and partyId != ''">
+				<choose>
+					<when test="otherPartyId == '01'">
+						AND (psc.party_id != #{partyId, jdbcType=BIGINT} OR psc.party_id is null)
+					</when>
+					<otherwise>
+						AND psc.party_id = #{partyId, jdbcType=BIGINT}
+					</otherwise>
+				</choose>
+			</if>
+			<if test="salesStore != null and salesStore != ''">
+				AND poi.sales_store = #{salesStore}
+			</if>
+			<if test="salesStoreList != null and salesStoreList.size > 0">
+				AND poi.sales_store in (
+				<foreach collection="salesStoreList" item="salesStore" separator=",">
+					#{salesStore}
+				</foreach>
+				)
+			</if>
+			<if test="storageCode != null and storageCode != ''">
+				AND pcsi.storage_code = #{storageCode}
+			</if>
+			<if test="orderStatus != null and orderStatus != ''">
+				AND poi.order_status = #{orderStatus}
+			</if>
+
+		</where>
+		ORDER BY poi.created_date DESC
+	</select>
+	<select id="queryDetails" resultType="com.exp.ucmp.clues.dto.PsiOrderInfoDto">
+		SELECT
+		poi.order_info_id orderInfoId,
+		poi.order_no orderNo,
+		poi.car_vin carVin,
+		poi.order_price orderPrice,
+		poi.intention_pay_time intentionPayTime,
+		poi.customer_id customerId,
+		poi.stock_id stockId,
+		poi.customer_name customerName,
+		poi.customer_phone encryptionCustomerPhone,
+		poi.licensing_city licensingCity,
+		poi.follow_person followPerson,
+		poi.exterior_color exteriorColor,
+		poi.interior_color interiorColor,
+		(select staff_name from t_sys_store_staff_details where party_id = poi.follow_person ) followPersonName,
+		poi.delivery_store deliveryStore,
+		tsi.org_name deliveryStoreName,
+		poi.delivery_person deliveryPerson,
+		(select staff_name from t_sys_store_staff_details where party_id = poi.delivery_person ) deliveryPersonName,
+		poi.order_status orderStatus,
+		pcsi.storage_code storageCode,
+		pcsi.storage_name storageName,
+		pcsi.car_series_name carSeriesName,
+		pcsi.base_car_type_name baseCarTypeName,
+		poi.created_date createdDate,
+		pcsi.car_type carType,
+		poi.order_remark orderRemark,
+		poi.owner_card_no ownerCardNo,
+		pcsi.car_series_name carSeriesName,
+		poi.legal_right legalRight,
+		poi.car_owner_type carOwnerType,
+		poi.type_id typeId,
+		poi.sales_store salesStore,
+		(select tsi.org_name from t_sys_store_info tsi where tsi.store_id = poi.sales_store) salesStoreName,
+		poi.main_user_name mainUserName,
+		poi.main_user_phone mainUserPhone,
+		poi.main_card_no mainCardNo,
+		pcsi.revert_body revertBody,
+		poi.deposit deposit,
+		(select con.reject_reasons from t_psi_sales_modify_config con where con.order_info_id = poi.order_info_id order by con.apply_id desc limit 1)rejectReasons
+		FROM
+		t_psi_order_info poi
+		JOIN t_psi_car_stock_info pcsi on poi.stock_id = pcsi.stock_id
+		left join t_sys_store_info tsi on tsi.store_id = poi.delivery_store
+		<where>
+			poi.is_delete = '00'
+			AND poi.is_enable = '01'
+			AND poi.order_info_id = #{orderInfoId, jdbcType=VARCHAR}
+		</where>
+
+	</select>
+
+	<select id="queryVinList" resultType="String">
+		SELECT
+		vin_code
+		from t_psi_car_stock_info a
+		where a.stock_state = '5104'
+		and a.is_enable = '01'
+		and a.is_delete ='00'
+	</select>
+
+	<select id="findNewOddNumbers" resultType="String">
+	SELECT
+		order_no
+	FROM
+		t_psi_order_info
+	WHERE
+		order_info_id = (
+		SELECT
+			MAX( order_info_id )
+		FROM
+		t_psi_order_info
+		)
+	</select>
+	<select id="queryCluesFollowRecord" resultType="com.exp.ucmp.clues.dto.PsiCluesFollowRecordDto">
+		SELECT
+			pcfr.follow_id AS followId,
+			pcfr.clues_id AS cluesId,
+			pcfr.follow_time AS followTime,
+			pcfr.follow_info AS followInfo,
+			pcfr.last_follow_time AS lastFollowTime,
+			pcfr.follow_type AS followType,
+			pcfr.is_arrival AS isArrival,
+			pcfr.follow_status AS followStatus,
+			pcfr.follow_person AS followPerson,
+			pcfr.created_by AS createdBy,
+			pcfr.created_date AS createdDate,
+			pcfr.updated_by AS updatedBy,
+			pcfr.updated_date AS updatedDate,
+			ssd.staff_name AS followPersonName,
+		    ssi.org_name AS followStoreName
+		FROM t_psi_clues_follow_record pcfr
+		LEFT JOIN t_sys_store_staff_details ssd ON ssd.party_id = pcfr.follow_person
+		LEFT JOIN t_sys_store_info ssi ON ssi.store_id = pcfr.follow_store
+		<trim prefix="WHERE" prefixOverrides="AND" >
+			pcfr.is_delete = '00'
+			<if test="followId != null" >
+				AND pcfr.follow_id = #{followId, jdbcType=BIGINT}
+			</if>
+			<if test="cluesId != null" >
+				AND pcfr.clues_id = #{cluesId, jdbcType=BIGINT}
+			</if>
+			<if test="followTime != null" >
+				AND pcfr.follow_time = #{followTime, jdbcType=TIMESTAMP}
+			</if>
+			<if test="followInfo != null and followInfo != ''" >
+				AND pcfr.follow_info = #{followInfo, jdbcType=VARCHAR}
+			</if>
+			<if test="lastFollowTime != null" >
+				AND pcfr.last_follow_time = #{lastFollowTime, jdbcType=TIMESTAMP}
+			</if>
+			<if test="followType != null and followType != ''" >
+				AND pcfr.follow_type = #{followType, jdbcType=VARCHAR}
+			</if>
+			<if test="isArrival != null and isArrival != ''" >
+				AND pcfr.is_arrival = #{isArrival, jdbcType=VARCHAR}
+			</if>
+			<if test="followStatus != null and followStatus != ''" >
+				AND pcfr.follow_status = #{followStatus, jdbcType=VARCHAR}
+			</if>
+			<if test="followPerson != null" >
+				AND pcfr.follow_person = #{followPerson, jdbcType=BIGINT}
+			</if>
+			<if test="createdBy != null" >
+				AND pcfr.created_by = #{createdBy, jdbcType=BIGINT}
+			</if>
+			<if test="createdDate != null" >
+				AND pcfr.created_date = #{createdDate, jdbcType=TIMESTAMP}
+			</if>
+			<if test="updatedBy != null" >
+				AND pcfr.updated_by = #{updatedBy, jdbcType=BIGINT}
+			</if>
+			<if test="updatedDate != null" >
+				AND pcfr.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+			</if>
+			<if test="isEnable != null and isEnable != ''" >
+				AND pcfr.is_enable = #{isEnable, jdbcType=VARCHAR}
+			</if>
+		</trim>
+		order by pcfr.follow_time desc
+	</select>
+    <select id="querySalesCluesList" resultType="com.exp.ucmp.clues.dto.SalesRetentionCluesDto">
+		SELECT
+			prc.clues_id AS cluesId,
+			psc.customer_id customerId,
+			psc.customer_name customerName,
+			psc.customer_phone encryptionCustomerPhone,
+			pcsi.stock_id AS stockId,
+			pcsi.storage_id AS storageId,
+			pcsi.vin_code AS vin,
+			prc.follow_status AS followStatus,
+			prc.model_name AS modelName,
+			pcfr.follow_id AS followId,
+			pcfr.follow_time AS followTime,
+			pcfr.follow_info AS followInfo,
+			pcfr.follow_type AS followType,
+			pcfr.is_arrival AS isArrival,
+			prc.follow_store AS followStore,
+			(select staff_name from t_sys_store_staff_details where party_id = pcfr.follow_person) AS followRecordPersonName,
+			prc.follow_person followPerson
+		FROM
+			t_psi_retention_clues AS prc
+			LEFT JOIN (
+				SELECT
+				pcfr.*
+				FROM
+				( SELECT MAX( follow_time ) AS follow_time FROM t_psi_clues_follow_record WHERE is_enable = '01' AND is_delete = '00' GROUP BY clues_id ) AS maxFollowId
+				LEFT JOIN t_psi_clues_follow_record AS pcfr ON maxFollowId.follow_time = pcfr.follow_time AND is_enable = '01' AND is_delete = '00'
+			) AS pcfr ON pcfr.clues_id = prc.clues_id
+		LEFT JOIN t_psi_sales_customer psc ON prc.customer_id = psc.customer_id
+		LEFT JOIN t_psi_car_stock_info pcsi ON prc.stock_id = pcsi.stock_id
+		<where>
+			prc.is_enable = '01' and prc.is_delete = '00'
+			<if test="storeId != null and storeId != ''">
+				AND psc.store_id = #{storeId, jdbcType=BIGINT}
+			</if>
+			<if test="partyId != null and partyId != ''">
+				<choose>
+					<when test="otherPartyId == '01'">
+						AND (psc.party_id != #{partyId, jdbcType=BIGINT} or psc.party_id is null)
+					</when>
+					<otherwise>
+						AND psc.party_id = #{partyId, jdbcType=BIGINT}
+					</otherwise>
+				</choose>
+			</if>
+			<if test="customerId != null and customerId != ''">
+				AND prc.customer_id = #{customerId, jdbcType=BIGINT}
+			</if>
+			<if test="emptyFollowPerson == '01'">
+				AND psc.party_id IS NULL
+				AND prc.follow_person IS NULL
+				AND prc.follow_status IN ('7801','7802')
+			</if>
+			<if test="multiField != null and multiField != ''">
+				<!--vin查询最新的-->
+				AND (psc.customer_phone = #{encryptionMultiField, jdbcType=VARCHAR}
+				or prc.customer_name LIKE  CONCAT('%',#{multiField, jdbcType=VARCHAR},'%')
+				or pcsi.vin_code LIKE CONCAT('%',#{multiField, jdbcType=VARCHAR},'%')
+				)
+			</if>
+		</where>
+		ORDER BY prc.retention_time DESC
+	</select>
+	<select id="selectLastClues" resultType="com.exp.ucmp.entity.PsiRetentionCluesEntity">
+		SELECT
+			a.clues_id AS cluesId,
+			a.storage_id AS storageId,
+			a.stock_id AS stockId,
+			a.customer_id AS customerId,
+			a.model_code AS modelCode,
+			a.model_name AS modelName,
+			a.shape_code AS shapeCode,
+			a.shape_name AS shapeName,
+			a.sale_price AS salePrice,
+			a.customer_name AS customerName,
+			a.customer_phone AS customerPhone,
+			a.retention_time AS retentionTime,
+			a.follow_person AS followPerson,
+			a.follow_time AS followTime,
+			a.clues_source AS cluesSource,
+			a.follow_status AS followStatus,
+			a.last_follow_time AS lastFollowTime,
+			a.next_follow_time AS nextFollowTime,
+			a.customer_character AS customerCharacter,
+			a.purchase_time AS purchaseTime,
+			a.family_situation AS familySituation,
+			a.is_show AS isShow,
+			a.created_by AS createdBy,
+			a.created_date AS createdDate,
+			a.updated_by AS updatedBy,
+			a.updated_date AS updatedDate,
+			a.is_enable AS isEnable,
+			a.is_delete AS isDelete,
+			a.delivery_place deliveryPlace
+		FROM t_psi_retention_clues a
+		WHERE a.is_enable = '01'
+			AND a.is_delete = '00'
+			AND a.customer_id = #{customerId, jdbcType=BIGINT}
+		  	AND a.follow_store = #{storeId, jdbcType=BIGINT}
+			<if test="partyId != null and partyId != ''">
+				<choose>
+					<when test="otherPartyId == '01'">
+						AND a.follow_person != #{partyId, jdbcType=BIGINT}
+					</when>
+					<otherwise>
+						AND a.follow_person = #{partyId, jdbcType=BIGINT}
+					</otherwise>
+				</choose>
+			</if>
+		ORDER BY a.retention_time DESC
+		LIMIT 1
+	</select>
+	<select id="salesConsultantList" resultType="com.exp.ucmp.clues.dto.SalesConsultantDto">
+		SELECT
+			ssr.store_id AS storeId,
+			u.party_id AS partyId,
+			u.staff_code AS staffCode,
+			u.staff_name AS staffName,
+			u.staff_iphone AS encryptionStaffIphone,
+			u.staff_status AS staffStatus,
+			u.qualification_status AS qualificationStatus,
+			storeStaff.role_name AS roleName,
+			ssi.org_name storeName
+		FROM
+			t_sys_store_staff_rela ssr
+		INNER JOIN t_sys_store_staff_details u ON ssr.party_id = u.party_id
+		LEFT JOIN t_sys_store_info ssi ON ssi.store_id = ssr.store_id
+		LEFT JOIN (
+		SELECT
+		prr.party_id,
+		group_concat( prr.role_name ) AS 'role_name'
+		FROM
+		t_sys_store_staff_info prr
+		<where>
+			<if test="storeId != null and storeId!= ''">
+				AND prr.store_id = #{storeId}
+			</if>
+			<if test="storeIdList != null and storeIdList.size > 0">
+				AND prr.store_id IN (<foreach collection="storeIdList" item="storeId" separator=",">
+				#{storeId}
+				</foreach>)
+			</if>
+		</where>
+		GROUP BY
+		prr.party_id
+		) AS storeStaff ON ssr.party_id = storeStaff.party_id
+		where
+		      u.is_delete = '00'
+		<if test="partyId != null and partyId != ''">
+			AND u.party_id = #{partyId}
+		</if>
+		<if test="partyIdList != null and partyIdList.size > 0">
+			AND u.party_id IN (
+			    <foreach collection="partyIdList" item="partyId" separator=",">
+					#{partyId}
+				</foreach>
+			)
+		</if>
+		<if test="staffStatus != null and staffStatus != ''">
+			AND u.staff_status = #{staffStatus}
+		</if>
+		<if test="qualificationStatus != null and qualificationStatus != ''">
+		  	AND u.qualification_status = #{qualificationStatus}
+		</if>
+		<if test="role != null and role != ''">
+		  	AND storeStaff.role_name = #{role}
+		</if>
+		<if test="roleList != null and roleList.size > 0">
+			AND storeStaff.role_name in (
+			    <foreach collection="roleList" item="role" separator=",">
+					#{role}
+				</foreach>
+			)
+		</if>
+		<if test="storeId != null and storeId!= ''">
+			AND ssr.store_id = #{storeId}
+		</if>
+		<if test="storeIdList != null and storeIdList.size > 0">
+			AND ssr.store_id IN (<foreach collection="storeIdList" item="storeId" separator=",">
+			#{storeId}
+		</foreach>)
+		</if>
+		<if test="multiField != null and multiField!= ''">
+			AND (u.staff_name LIKE concat('%',#{multiField},'%') or u.staff_iphone = #{encryptionMultiField})
+		</if>
+	</select>
+	<select id="selectByVinCode" resultType="com.exp.ucmp.entity.PsiCarStockInfoEntity">
+		SELECT
+			a.stock_id AS stockId,
+			a.storage_id AS storageId,
+			a.storage_name AS storageName,
+			a.storage_code AS storageCode,
+			a.car_source AS carSource,
+			a.car_type AS carType,
+			a.stock_type AS stockType,
+			a.source_batch AS sourceBatch,
+			a.revert_body AS revertBody,
+			a.vin_code AS vinCode,
+			a.purchase_price AS purchasePrice,
+			a.sale_price AS salePrice,
+			a.decision_type AS decisionType,
+			a.decision_time AS decisionTime,
+			a.grounding_time AS groundingTime,
+			a.warehous_date AS warehousDate,
+			a.refund_sign AS refundSign,
+			a.refund_warehous_date AS refundWarehousDate,
+			a.deliver_date AS deliverDate,
+			a.car_series_name AS carSeriesName,
+			a.base_car_type_code AS baseCarTypeCode,
+			a.car_series_code AS carSeriesCode,
+			a.base_car_type_name AS baseCarTypeName,
+			a.interior_color AS interiorColor,
+			a.car_colour AS carColour,
+			a.car_nature AS carNature,
+			a.license_place AS licensePlace,
+			a.license_number AS licenseNumber,
+			a.first_license_date AS firstLicenseDate,
+			a.accident_insurance_end_date AS accidentInsuranceEndDate,
+			a.yearly_inspection_end_date AS yearlyInspectionEndDate,
+			a.invoicing_date AS invoicingDate,
+			a.transfer_count AS transferCount,
+			a.stock_state AS stockState,
+			a.repeal_is AS repealIs,
+			a.repeal_date AS repealDate,
+			a.repeal_reason AS repealReason,
+			a.right_pack_id AS rightPackId,
+			a.stock_mileage AS stockMileage,
+			a.battery_capacity AS batteryCapacity,
+			a.item_no AS itemNo,
+			a.created_by AS createdBy,
+			a.created_date AS createdDate,
+			a.updated_by AS updatedBy,
+			a.updated_date AS updatedDate,
+			a.is_enable AS isEnable,
+			a.is_delete AS isDelete,
+			a.manufacture_date AS manufactureDate,
+			a.comprehensive_range AS comprehensiveRange,
+			a.active_time AS activeTime,
+			a.cur_active_status AS curActiveStatus,
+			a.new_car_price AS newCarPrice,
+			a.car_level AS carLevel
+		FROM t_psi_car_stock_info a
+		WHERE
+		<if test="type == 1">
+		a.stock_state != '5106'
+		</if>
+		<if test="type == 0">
+			a.stock_state not in ('5105','5106')
+		</if>
+		  and a.is_enable = '01'
+		  and a.is_delete ='00'
+		  and vin_code = #{vin, jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectAllPerson" resultType="com.exp.ucmp.entity.PsiSalesCustomerEntity">
+		SELECT
+			customer_id AS customerId,
+				uid AS uid,
+				store_id AS storeId,
+				party_id AS partyId,
+				customer_name AS customerName,
+				customer_phone AS customerPhone,
+				model_code AS modelCode,
+				model_name AS modelName,
+				delivery_place AS deliveryPlace,
+				vin AS vin,
+				follow_time AS followTime,
+				follow_by AS followBy,
+				follow_name AS followName,
+				customer_character AS customerCharacter,
+				purchase_time AS purchaseTime,
+				family AS family,
+				created_by AS createdBy,
+				created_date AS createdDate,
+				updated_by AS updatedBy,
+				updated_date AS updatedDate
+		FROM
+			t_psi_sales_customer
+		<where>
+		<if test="notStoreId == '01'">
+			AND store_id is not null
+		</if>
+		<if test="notPartyId == '01'">
+			and party_id is not null
+		</if>
+		<if test = "customerPhoneList != null and customerPhoneList.size > 0">
+			AND customer_phone IN (
+			<foreach collection="customerPhoneList" item="customerPhone" separator=",">
+				#{customerPhone, jdbcType=VARCHAR}
+			</foreach>
+			)
+		</if>
+		</where>
+		<!-- GROUP BY party_id -->
+	</select>
+	<select id="selectByCluesList" parameterType="com.exp.ucmp.clues.dto.PsiRetentionCluesParamDto" resultType="com.exp.ucmp.entity.PsiRetentionCluesEntity">
+		SELECT
+		a.clues_id AS cluesId,
+		a.storage_id AS storageId,
+		a.stock_id AS stockId,
+		a.customer_id AS customerId,
+		a.model_code AS modelCode,
+		a.model_name AS modelName,
+		a.shape_code AS shapeCode,
+		a.shape_name AS shapeName,
+		a.sale_price AS salePrice,
+		a.customer_name AS customerName,
+		a.customer_phone AS customerPhone,
+		a.retention_time AS retentionTime,
+		a.follow_store AS followStore,
+		a.follow_person AS followPerson,
+		a.follow_time AS followTime,
+		a.clues_source AS cluesSource,
+		a.follow_status AS followStatus,
+		a.last_follow_time AS lastFollowTime,
+		a.next_follow_time AS nextFollowTime,
+		a.customer_character AS customerCharacter,
+		a.purchase_time AS purchaseTime,
+		a.family_situation AS familySituation,
+		a.is_show AS isShow,
+		a.created_by AS createdBy,
+		a.created_date AS createdDate,
+		a.updated_by AS updatedBy,
+		a.updated_date AS updatedDate,
+		a.is_enable AS isEnable,
+		a.is_delete AS isDelete,
+		a.delivery_place deliveryPlace
+		FROM t_psi_retention_clues a
+
+		<trim prefix="WHERE" prefixOverrides="AND" >
+			AND a.is_delete = '00'
+			AND a.is_enable = '01'
+			<if test="followStatusList != null and followStatusList.size > 0">
+				AND a.follow_status IN (
+				<foreach collection="followStatusList" item="followStatus" separator=",">
+				#{followStatus}
+				</foreach> )
+			</if>
+			<if test="isEmptyFollowStore == '01'">
+				AND a.follow_store IS NULL
+			</if>
+			<if test="isEmptyFollowStore == '00'">
+				AND a.follow_store IS NOT NULL
+			</if>
+			<if test="isEmptyFollowPerson == '01'">
+				AND a.follow_person IS NULL
+			</if>
+			<if test="isEmptyFollowPerson == '00'">
+				AND a.follow_person IS NOT NULL
+			</if>
+			<if test="retentionTime != null">
+				AND DATE_FORMAT(a.retention_time,'%Y-%m-%d') >= DATE_FORMAT(#{retentionTime},'%Y-%m-%d')
+			</if>
+			<if test="updatedDate != null">
+				AND DATE_FORMAT(a.updated_date,'%Y-%m-%d') &lt;= DATE_FORMAT(#{updatedDate},'%Y-%m-%d')
+			</if>
+			<if test="lastFollowTime != null">
+				AND (DATE_FORMAT(a.last_follow_time,'%Y-%m-%d') &lt;= DATE_FORMAT(#{lastFollowTime},'%Y-%m-%d') OR
+				(a.last_follow_time is null AND DATE_FORMAT(a.created_date,'%Y-%m-%d') &lt;= DATE_FORMAT(#{lastFollowTime},'%Y-%m-%d') ))
+			</if>
+		</trim>
+	</select>
+	<select id="queryUsedCarSupervisor" resultType="com.exp.ucmp.clues.dto.UsedCarSupervisorDto">
+	SELECT * from (
+		SELECT DISTINCT ssr.store_id AS storeId,
+		                ssr.party_id AS partyId,
+		                ssd.staff_name AS staffName,
+		                (case when ssd.staff_iphone is null then tssi.phone_number else ssd.staff_iphone end) as staffIphone
+		FROM t_sys_role_details as ri
+				 LEFT JOIN t_party_role_rela as prr ON ri.role_id = prr.role_id
+				 LEFT JOIN t_sys_staff_details as ssd ON prr.party_id = ssd.party_id
+				 LEFT JOIN t_sys_store_staff_rela as ssr ON ssd.party_id = ssr.party_id
+				 left join t_sys_store_staff_info tssi on ssd.party_id = tssi.party_id
+		WHERE ri.role_code = 'UR0103'
+		  AND ssd.is_delete = 0
+		  AND ssd.staff_status = '01'
+		  AND ssd.staff_type = '0010'
+		  and ssd.staff_iphone is not null
+		<if test="storeId != null">
+			AND ssr.store_id = #{storeId}
+		</if>
+		<if test="partyId != null">
+			AND ssr.party_id = #{partyId}
+		</if>
+	)a where a.staffIphone is not null
+	</select>
+	<select id="selectCustomerList" resultType="com.exp.ucmp.entity.PsiSalesCustomerEntity">
+		SELECT
+		    customer_id customerId,
+			uid uid,
+			store_id storeId,
+			customer_name customerName,
+			customer_phone customerPhone,
+			model_code modelCode,
+			model_name modelName,
+			delivery_place deliveryPlace,
+			vin vin,
+			follow_time followTime,
+			follow_by followBy,
+			follow_name followName,
+			customer_character customerCharacter,
+			purchase_time purchaseTime,
+			family family,
+			created_by createdBy,
+			created_date createdDate,
+			updated_by updatedBy,
+			updated_date updatedDate
+		FROM t_psi_sales_customer a
+		<trim prefix="WHERE" prefixOverrides="AND" >
+			AND a.customer_id IN (
+			<foreach collection="customerIds" item="customerId" separator=",">
+				#{customerId, jdbcType=BIGINT}
+			</foreach>
+			)
+		</trim>
+	</select>
+	<select id="listByOrder" resultType="com.exp.ucmp.entity.PsiOrderInfoEntity">
+		SELECT
+		order_info_id orderInfoId,
+		a.customer_id AS customerId,
+		a.clues_id AS cluesId,
+		a.order_no AS orderNo,
+		a.stock_id AS stockId,
+		a.car_vin AS carVin,
+		a.licensing_city AS licensingCity,
+		a.order_price AS orderPrice,
+		a.deposit AS deposit,
+		a.order_status AS orderStatus,
+		a.set_payment_time AS setPaymentTime,
+		a.set_payment_sum AS setPaymentSum,
+		a.intention_pay_time AS intentionPayTime,
+		a.intention_pay_sum AS intentionPaySum,
+		a.balance_payment_sum AS balancePaymentSum,
+		a.financial_loan AS financialLoan,
+		a.other_payments AS otherPayments,
+		a.car_price AS carPrice,
+		a.sales_store AS salesStore,
+		a.delivery_store AS deliveryStore,
+		a.delivery_person AS deliveryPerson,
+		a.customer_name AS customerName,
+		a.customer_phone AS customerPhone,
+		a.owner_card_no AS ownerCardNo,
+		a.follow_person AS followPerson,
+		a.car_owner_type AS carOwnerType,
+		a.type_id AS typeId,
+		a.receivable_price AS receivablePrice,
+		a.received_price AS receivedPrice,
+		a.not_received_price AS notReceivedPrice,
+		a.balance_payment_time AS balancePaymentTime,
+		a.base_car_type_name AS baseCarTypeName,
+		a.exterior_color AS exteriorColor,
+		a.interior_color AS interiorColor,
+		a.order_remark AS orderRemark,
+		a.cancel_remark AS cancelRemark,
+		a.legal_right AS legalRight,
+		a.pdi_status AS pdiStatus,
+		a.pdi_result AS pdiResult,
+		a.main_user_name AS mainUserName,
+		a.main_user_phone AS mainUserPhone,
+		a.main_card_no AS mainCardNo,
+		a.created_by AS createdBy,
+		a.created_date AS createdDate,
+		a.updated_by AS updatedBy,
+		a.updated_date AS updatedDate,
+		a.is_enable AS isEnable,
+		a.is_delete AS isDelete
+		FROM t_psi_order_info a
+		<trim prefix="WHERE" prefixOverrides="AND" >
+			<if test="orderInfoId != null" >
+				AND a.order_info_id = #{orderInfoId, jdbcType=BIGINT}
+			</if>
+			<if test="updatedDate != null" >
+				AND DATE_FORMAT(a.updated_date,'%Y-%m-%d') &lt;= DATE_FORMAT(#{updatedDate},'%Y-%m-%d')
+			</if>
+			<if test="isEnable != null and isEnable != ''" >
+				AND a.is_enable = #{isEnable, jdbcType=VARCHAR}
+			</if>
+			<if test="isDelete != null and isDelete != ''" >
+				AND a.is_delete = #{isDelete, jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</select>
+	<select id="selectClues" resultType="com.exp.ucmp.entity.PsiRetentionCluesEntity">
+		SELECT DISTINCT
+			customer_phone,
+			customer_id,
+			follow_store,
+			follow_person
+		FROM
+			t_psi_retention_clues
+		WHERE
+			is_delete = '00'
+		  AND customer_id IS NOT NULL
+		  AND follow_store IS NOT NULL
+		<if test="customerPhoneList != null and customerPhoneList.size > 0">
+			AND customer_phone IN (
+			    <foreach collection="customerPhoneList" item="customerPhone" separator=",">
+					#{customerPhone, jdbcType=VARCHAR}
+				</foreach>
+			)
+		</if>
+	</select>
+	
+	<select id="queryPayRecords" resultType="com.exp.ucmp.clues.dto.PayRecordDto">
+		select
+			tspr.record_code recordCode,
+			tspr.pay_status payStatus,
+			(select td.dict_value from t_sys_datadict td where td.dict_code=tspr.pay_status)payStatusName,
+			tspr.payment_item paymentItem,
+			(select td.dict_value from t_sys_datadict td where td.dict_code=tspr.payment_item) paymentItemName,
+			tspr.payment_method paymentMethod,
+			(select td.dict_value from t_sys_datadict td where td.dict_code=tspr.payment_method) paymentMethodName,
+			(select tsd.staff_name from t_sys_store_staff_details tsd where tsd.party_id = tspr.proceeds_by) payee,
+			tspr.payment_amount amount,
+			tspr.create_date createDate,
+			(select con.merchant_number from t_psi_car_stock_info tcsi,t_sys_pay_config con 
+				where tcsi.stock_id=toi.stock_id and tcsi.revert_body=con.revert_body)merchantNumber,
+			(case when tspr.pay_status = '2801' and tspr.payment_method in ('2506','2507') then tfmr.zbiiln 
+				else tspr.serial_number end)zbiiln,
+			(case when tspr.pay_status = '2801' and tspr.payment_method in ('2506','2507')
+				then (select td.dict_value from t_sys_datadict td where td.dict_code=tfmr.received_method) 
+				else (select td.dict_value from t_sys_datadict td where td.dict_code=tspr.payment_method) end)receiptMethod,
+			(case when tspr.pay_status = '2801' then tfmr.zdbankn else tspr.account_name end)zdbankn,
+			(case when tspr.pay_status = '2801' then tfmr.zdname else tspr.payment_account end)zdname,
+			(case when tspr.payment_method in ('2506','2507') and tspr.matching_id is null then null 
+				else tspr.payment_amount end)receiptAmount,
+			(case when tspr.pay_status = '2801' and tspr.payment_method in ('2506','2507') then tfmr.received_date 
+				else tspr.create_date end) receiptDate
+		from
+			t_psi_sales_payment_record tspr 
+		left join t_psi_order_info toi on tspr.order_info_id = toi.order_info_id
+		left join t_sys_flow_matching_record tfmr on tspr.matching_id = tfmr.record_id and tfmr.approval_operation != '03'
+		where toi.is_enable = '01'
+		and toi.is_delete = '00'
+		and tspr.pay_status !='2800'
+		and toi.order_info_id = #{orderInfoId}
+		order by tspr.create_date asc
+	</select>
+	
+	<update id="changeOrderPrice" parameterType="com.exp.ucmp.clues.dto.OrderChangePriceDto">
+	update
+		t_psi_order_info toi
+	set
+		toi.order_price = #{newPrice},
+		toi.receivable_price = #{newPrice},
+		toi.not_received_price = #{newPrice} - toi.received_price,
+		toi.updated_by = #{partyId},
+		toi.updated_date = now()
+	where
+		toi.order_info_id = #{orderInfoId}
+	</update>
+	
+	<update id="changeCarSalePrice" parameterType="com.exp.ucmp.clues.dto.OrderChangePriceDto">
+	update
+		t_psi_car_stock_info tcsi
+	set
+		tcsi.sale_price = #{newPrice},
+		tcsi.updated_by = #{partyId},
+		tcsi.updated_date = now()
+	where
+		tcsi.stock_id = (select toi.stock_id from t_psi_order_info toi where toi.order_info_id=#{orderInfoId})
+	</update>
+	
+	<insert id="addChangPriceRecord" parameterType="com.exp.ucmp.clues.dto.OrderChangePriceDto">
+	insert
+		into
+			t_psi_order_change_price_record ( record_id,
+			order_info_id,
+			older_price,
+			new_price,
+			change_reasons,
+			oa_code,
+			create_by,
+			create_date,
+			is_enable)
+		values( #{recordId},
+		#{orderInfoId},
+		#{olderPrice},
+		#{newPrice},
+		#{changeReasons},
+		#{oaCode},
+		#{partyId},
+		now(),
+		#{isEnable})
+	</insert>
+	
+	<select id="queryChangePrice" resultType="com.exp.ucmp.clues.dto.OrderChangePriceDto">
+	select
+		tcpr.record_id recordId,
+		tcpr.order_info_id orderInfoId,
+		tcpr.older_price olderPrice,
+		tcpr.new_price newPrice,
+		tcpr.change_reasons changeReasons,
+		tsi.suggested_price suggestedPrice,
+		tccpr.approve_status approveStatus,
+		(case when tccpr.approve_status = 0 then '审核中' when tccpr.approve_status = 1 then '审核通过' when tccpr.approve_status = 2 then '审核驳回' else null end) approveStatusName
+	from
+		t_psi_order_change_price_record tcpr
+	inner join t_psi_order_info toi on tcpr.order_info_id = toi.order_info_id
+	inner join t_psi_car_stock_info tsi on toi.stock_id = tsi.stock_id
+	left join t_psi_car_change_price_record tccpr on tsi.change_price_record_id = tccpr.record_id
+	where
+		tcpr.order_info_id = #{orderInfoId}
+		and tcpr.is_enable = '01'
+		order by tcpr.create_date desc limit 1
+	</select>
+	
+	<insert id="addChangPriceFile" parameterType="java.util.List">
+	INSERT INTO t_psi_change_price_material 
+       (
+          material_id,
+          record_id,
+          material_type,
+          upload_person,
+          upload_date
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.materialId, jdbcType=BIGINT},
+	          #{item.recordId, jdbcType=BIGINT},
+	          #{item.materialType, jdbcType=VARCHAR},
+	          #{item.partyId, jdbcType=BIGINT},
+	          now()
+        )
+       </foreach>
+	</insert>
+	
+	<select id="queryFileList" resultType="com.exp.ucmp.clues.dto.OrderChangeFileDto">
+	select
+		tpm.material_id materialId,
+		tmf.material_order materialOrder,
+		tmf.thumbnail,
+		tpm.material_type materialType,
+		td.dict_value materialTypeName,
+		tfm.file_path fileUrl
+	from
+		t_psi_change_price_material tpm,
+		t_sys_material_file tmf,
+		t_sys_file_msg tfm,
+		t_sys_datadict td
+	where
+		tpm.material_id = tmf.material_file_id
+		and tmf.file_id = tfm.file_id
+		and td.dict_code = tpm.material_type
+		and tpm.material_type='3301'
+		and tpm.record_id = #{recordId}
+	</select>
+	
+	<select id="queryStockId" resultType="java.lang.Long">
+	select
+		tsi.stock_id
+	from
+		t_psi_car_stock_info tsi,
+		t_psi_order_info toi
+	where
+		tsi.stock_id = toi.stock_id
+		and toi.order_info_id = #{orderInfoId}
+	</select>
+	
+	<select id="querySuggestedPrice" resultType="java.lang.Double">
+	select
+		tsi.suggested_price
+	from
+		t_psi_car_stock_info tsi
+	where
+		tsi.stock_id = #{stockId}
+	</select>
+	
+	<update id="updateChangPriceRecord">
+	update
+		t_psi_order_change_price_record tcpr
+	set
+		tcpr.is_enable='01'
+	where
+		tcpr.record_id = #{orderRecordId}
+	</update>
+	
+	<select id="queryOrderId" resultType="java.lang.Long">
+	select tcpr.order_info_id from t_psi_order_change_price_record tcpr where tcpr.record_id = #{orderRecordId}
+	</select>
+</mapper>

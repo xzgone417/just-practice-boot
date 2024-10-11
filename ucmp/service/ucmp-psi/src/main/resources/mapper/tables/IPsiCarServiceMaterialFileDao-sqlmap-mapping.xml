@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.IPsiCarServiceMaterialFileDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.PsiCarServiceMaterialFileEntity" >
+    INSERT INTO t_psi_car_service_material_file 
+       (
+          material_file_id,
+          material_id,
+          material_file_type,
+          file_sort,
+          approval_people_id,
+          approval_date,
+          reject_reason,
+          chinese_description,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date,
+          is_enable,
+          is_delete,
+          thumbnail
+        ) VALUES (
+          #{materialFileId, jdbcType=BIGINT},
+          #{materialId, jdbcType=BIGINT},
+          #{materialFileType, jdbcType=VARCHAR},
+          #{fileSort, jdbcType=TINYINT},
+          #{approvalPeopleId, jdbcType=BIGINT},
+          #{approvalDate, jdbcType=TIMESTAMP},
+          #{rejectReason, jdbcType=VARCHAR},
+          #{chineseDescription, jdbcType=VARCHAR},
+          #{createdBy, jdbcType=BIGINT},
+          #{createdDate, jdbcType=TIMESTAMP},
+          #{updatedBy, jdbcType=BIGINT},
+          #{updatedDate, jdbcType=TIMESTAMP},
+          #{isEnable, jdbcType=VARCHAR},
+          #{isDelete, jdbcType=VARCHAR},
+          #{thumbnail, jdbcType=LONGVARCHAR}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.PsiCarServiceMaterialFileEntity" >
+    INSERT INTO t_psi_car_service_material_file
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="materialFileId != null" >
+          material_file_id,
+          </if>
+        <if test="materialId != null" >
+          material_id,
+          </if>
+        <if test="materialFileType != null" >
+          material_file_type,
+          </if>
+        <if test="fileSort != null" >
+          file_sort,
+          </if>
+        <if test="approvalPeopleId != null" >
+          approval_people_id,
+          </if>
+        <if test="approvalDate != null" >
+          approval_date,
+          </if>
+        <if test="rejectReason != null" >
+          reject_reason,
+          </if>
+        <if test="chineseDescription != null" >
+          chinese_description,
+          </if>
+        <if test="createdBy != null" >
+          created_by,
+          </if>
+        <if test="createdDate != null" >
+          created_date,
+          </if>
+        <if test="updatedBy != null" >
+          updated_by,
+          </if>
+        <if test="updatedDate != null" >
+          updated_date,
+          </if>
+        <if test="isEnable != null" >
+          is_enable,
+          </if>
+        <if test="isDelete != null" >
+          is_delete,
+          </if>
+        <if test="thumbnail != null" >
+          thumbnail,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="materialFileId != null" >
+          #{materialFileId, jdbcType=BIGINT},
+          </if>
+        <if test="materialId != null" >
+          #{materialId, jdbcType=BIGINT},
+          </if>
+        <if test="materialFileType != null" >
+          #{materialFileType, jdbcType=VARCHAR},
+          </if>
+        <if test="fileSort != null" >
+          #{fileSort, jdbcType=TINYINT},
+          </if>
+        <if test="approvalPeopleId != null" >
+          #{approvalPeopleId, jdbcType=BIGINT},
+          </if>
+        <if test="approvalDate != null" >
+          #{approvalDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="rejectReason != null" >
+          #{rejectReason, jdbcType=VARCHAR},
+          </if>
+        <if test="chineseDescription != null" >
+          #{chineseDescription, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="isEnable != null" >
+          #{isEnable, jdbcType=VARCHAR},
+          </if>
+        <if test="isDelete != null" >
+          #{isDelete, jdbcType=VARCHAR},
+          </if>
+        <if test="thumbnail != null" >
+          #{thumbnail, jdbcType=LONGVARCHAR},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_psi_car_service_material_file 
+       (
+          material_file_id,
+          material_id,
+          material_file_type,
+          file_sort,
+          approval_people_id,
+          approval_date,
+          reject_reason,
+          chinese_description,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date,
+          is_enable,
+          is_delete,
+          thumbnail
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.materialFileId, jdbcType=BIGINT},
+	          #{item.materialId, jdbcType=BIGINT},
+	          #{item.materialFileType, jdbcType=VARCHAR},
+	          #{item.fileSort, jdbcType=TINYINT},
+	          #{item.approvalPeopleId, jdbcType=BIGINT},
+	          #{item.approvalDate, jdbcType=TIMESTAMP},
+	          #{item.rejectReason, jdbcType=VARCHAR},
+	          #{item.chineseDescription, jdbcType=VARCHAR},
+	          #{item.createdBy, jdbcType=BIGINT},
+	          #{item.createdDate, jdbcType=TIMESTAMP},
+	          #{item.updatedBy, jdbcType=BIGINT},
+	          #{item.updatedDate, jdbcType=TIMESTAMP},
+	          #{item.isEnable, jdbcType=VARCHAR},
+	          #{item.isDelete, jdbcType=VARCHAR},
+	          #{item.thumbnail, jdbcType=LONGVARCHAR}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.PsiCarServiceMaterialFileEntity" >
+    UPDATE t_psi_car_service_material_file SET 
+          material_id = #{materialId, jdbcType=BIGINT},
+          material_file_type = #{materialFileType, jdbcType=VARCHAR},
+          file_sort = #{fileSort, jdbcType=TINYINT},
+          approval_people_id = #{approvalPeopleId, jdbcType=BIGINT},
+          approval_date = #{approvalDate, jdbcType=TIMESTAMP},
+          reject_reason = #{rejectReason, jdbcType=VARCHAR},
+          chinese_description = #{chineseDescription, jdbcType=VARCHAR},
+          created_by = #{createdBy, jdbcType=BIGINT},
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          is_enable = #{isEnable, jdbcType=VARCHAR},
+          is_delete = #{isDelete, jdbcType=VARCHAR},
+          thumbnail = #{thumbnail, jdbcType=LONGVARCHAR}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND material_file_id = #{materialFileId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.PsiCarServiceMaterialFileEntity" >
+    UPDATE t_psi_car_service_material_file
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="materialId != null" >
+          material_id = #{materialId, jdbcType=BIGINT},
+          </if>
+        <if test="materialFileType != null" >
+          material_file_type = #{materialFileType, jdbcType=VARCHAR},
+          </if>
+        <if test="fileSort != null" >
+          file_sort = #{fileSort, jdbcType=TINYINT},
+          </if>
+        <if test="approvalPeopleId != null" >
+          approval_people_id = #{approvalPeopleId, jdbcType=BIGINT},
+          </if>
+        <if test="approvalDate != null" >
+          approval_date = #{approvalDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="rejectReason != null" >
+          reject_reason = #{rejectReason, jdbcType=VARCHAR},
+          </if>
+        <if test="chineseDescription != null" >
+          chinese_description = #{chineseDescription, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          created_by = #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="isEnable != null" >
+          is_enable = #{isEnable, jdbcType=VARCHAR},
+          </if>
+        <if test="isDelete != null" >
+          is_delete = #{isDelete, jdbcType=VARCHAR},
+          </if>
+        <if test="thumbnail != null" >
+          thumbnail = #{thumbnail, jdbcType=LONGVARCHAR},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND material_file_id = #{materialFileId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_car_service_material_file SET 
+	          material_id = #{item.materialId, jdbcType=BIGINT},
+	          material_file_type = #{item.materialFileType, jdbcType=VARCHAR},
+	          file_sort = #{item.fileSort, jdbcType=TINYINT},
+	          approval_people_id = #{item.approvalPeopleId, jdbcType=BIGINT},
+	          approval_date = #{item.approvalDate, jdbcType=TIMESTAMP},
+	          reject_reason = #{item.rejectReason, jdbcType=VARCHAR},
+	          chinese_description = #{item.chineseDescription, jdbcType=VARCHAR},
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          is_enable = #{item.isEnable, jdbcType=VARCHAR},
+	          is_delete = #{item.isDelete, jdbcType=VARCHAR},
+	          thumbnail = #{item.thumbnail, jdbcType=LONGVARCHAR}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND material_file_id = #{item.materialFileId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_car_service_material_file
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.materialId != null" >
+	          material_id = #{item.materialId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.materialFileType != null" >
+	          material_file_type = #{item.materialFileType, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.fileSort != null" >
+	          file_sort = #{item.fileSort, jdbcType=TINYINT},
+	          </if>
+	        <if test="item.approvalPeopleId != null" >
+	          approval_people_id = #{item.approvalPeopleId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.approvalDate != null" >
+	          approval_date = #{item.approvalDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.rejectReason != null" >
+	          reject_reason = #{item.rejectReason, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.chineseDescription != null" >
+	          chinese_description = #{item.chineseDescription, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.createdBy != null" >
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.createdDate != null" >
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.updatedBy != null" >
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.updatedDate != null" >
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.isEnable != null" >
+	          is_enable = #{item.isEnable, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.isDelete != null" >
+	          is_delete = #{item.isDelete, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.thumbnail != null" >
+	          thumbnail = #{item.thumbnail, jdbcType=LONGVARCHAR},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND material_file_id = #{item.materialFileId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.PsiCarServiceMaterialFilePk" >
+    DELETE FROM t_psi_car_service_material_file
+    WHERE
+     <trim prefixOverrides="AND">
+           AND material_file_id = #{materialFileId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.PsiCarServiceMaterialFileEntity" >
+    DELETE FROM t_psi_car_service_material_file
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="materialFileId != null" >
+          AND material_file_id = #{materialFileId, jdbcType=BIGINT}
+        </if>
+        <if test="materialId != null" >
+          AND material_id = #{materialId, jdbcType=BIGINT}
+        </if>
+        <if test="materialFileType != null and materialFileType != ''" >
+          AND material_file_type = #{materialFileType, jdbcType=VARCHAR}
+        </if>
+        <if test="fileSort != null" >
+          AND file_sort = #{fileSort, jdbcType=TINYINT}
+        </if>
+        <if test="approvalPeopleId != null" >
+          AND approval_people_id = #{approvalPeopleId, jdbcType=BIGINT}
+        </if>
+        <if test="approvalDate != null" >
+          AND approval_date = #{approvalDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="rejectReason != null and rejectReason != ''" >
+          AND reject_reason = #{rejectReason, jdbcType=VARCHAR}
+        </if>
+        <if test="chineseDescription != null and chineseDescription != ''" >
+          AND chinese_description = #{chineseDescription, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+        <if test="thumbnail != null" >
+          AND thumbnail = #{thumbnail, jdbcType=LONGVARCHAR}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="psiCarServiceMaterialFileResultMap" type="com.exp.ucmp.entity.PsiCarServiceMaterialFileEntity" >
+      <constructor>
+       <idArg column="material_file_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="material_id" property="materialId" jdbcType="BIGINT" />
+    <result column="material_file_type" property="materialFileType" jdbcType="VARCHAR" />
+    <result column="file_sort" property="fileSort" jdbcType="TINYINT" />
+    <result column="approval_people_id" property="approvalPeopleId" jdbcType="BIGINT" />
+    <result column="approval_date" property="approvalDate" jdbcType="TIMESTAMP" />
+    <result column="reject_reason" property="rejectReason" jdbcType="VARCHAR" />
+    <result column="chinese_description" property="chineseDescription" jdbcType="VARCHAR" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="is_enable" property="isEnable" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+    <result column="thumbnail" property="thumbnail" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <sql id="t_psi_car_service_material_file_Column_List" >
+    a.material_file_id,
+    a.material_id,
+    a.material_file_type,
+    a.file_sort,
+    a.approval_people_id,
+    a.approval_date,
+    a.reject_reason,
+    a.chinese_description,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date,
+    a.is_enable,
+    a.is_delete,
+    a.thumbnail
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.PsiCarServiceMaterialFilePk" resultMap="psiCarServiceMaterialFileResultMap">
+    SELECT 
+    <include refid="t_psi_car_service_material_file_Column_List" />
+      FROM t_psi_car_service_material_file a
+     WHERE 1 = 1
+       AND a.material_file_id = #{materialFileId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.PsiCarServiceMaterialFileEntity" resultMap="psiCarServiceMaterialFileResultMap">
+    SELECT 
+    <include refid="t_psi_car_service_material_file_Column_List" />
+      FROM t_psi_car_service_material_file a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="materialFileId != null" >
+          AND a.material_file_id = #{materialFileId, jdbcType=BIGINT}
+        </if>
+        <if test="materialId != null" >
+          AND a.material_id = #{materialId, jdbcType=BIGINT}
+        </if>
+        <if test="materialFileType != null and materialFileType != ''" >
+          AND a.material_file_type = #{materialFileType, jdbcType=VARCHAR}
+        </if>
+        <if test="fileSort != null" >
+          AND a.file_sort = #{fileSort, jdbcType=TINYINT}
+        </if>
+        <if test="approvalPeopleId != null" >
+          AND a.approval_people_id = #{approvalPeopleId, jdbcType=BIGINT}
+        </if>
+        <if test="approvalDate != null" >
+          AND a.approval_date = #{approvalDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="rejectReason != null and rejectReason != ''" >
+          AND a.reject_reason = #{rejectReason, jdbcType=VARCHAR}
+        </if>
+        <if test="chineseDescription != null and chineseDescription != ''" >
+          AND a.chinese_description = #{chineseDescription, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND a.is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND a.is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+        <if test="thumbnail != null" >
+          AND a.thumbnail = #{thumbnail, jdbcType=LONGVARCHAR}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.PsiCarServiceMaterialFileEntity" resultType="int">
+    SELECT count(1) FROM t_psi_car_service_material_file a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="materialFileId != null" >
+          AND a.material_file_id = #{materialFileId, jdbcType=BIGINT}
+        </if>
+        <if test="materialId != null" >
+          AND a.material_id = #{materialId, jdbcType=BIGINT}
+        </if>
+        <if test="materialFileType != null and materialFileType != ''" >
+          AND a.material_file_type = #{materialFileType, jdbcType=VARCHAR}
+        </if>
+        <if test="fileSort != null" >
+          AND a.file_sort = #{fileSort, jdbcType=TINYINT}
+        </if>
+        <if test="approvalPeopleId != null" >
+          AND a.approval_people_id = #{approvalPeopleId, jdbcType=BIGINT}
+        </if>
+        <if test="approvalDate != null" >
+          AND a.approval_date = #{approvalDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="rejectReason != null and rejectReason != ''" >
+          AND a.reject_reason = #{rejectReason, jdbcType=VARCHAR}
+        </if>
+        <if test="chineseDescription != null and chineseDescription != ''" >
+          AND a.chinese_description = #{chineseDescription, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND a.is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND a.is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+        <if test="thumbnail != null" >
+          AND a.thumbnail = #{thumbnail, jdbcType=LONGVARCHAR}
+        </if>
+      </trim>
+  </select>
+</mapper>

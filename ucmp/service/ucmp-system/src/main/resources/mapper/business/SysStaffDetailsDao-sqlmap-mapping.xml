@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.staff.dao.SysStaffDetailsDao">
+
+
+    <resultMap id="sysStaffDetailsResultMap" type="com.exp.ucmp.entity.SysStaffDetailsEntity">
+        <constructor>
+            <idArg column="party_id" javaType="Long" jdbcType="BIGINT"/>
+        </constructor>
+        <result column="staff_code" property="staffCode" jdbcType="VARCHAR"/>
+        <result column="staff_name" property="staffName" jdbcType="VARCHAR"/>
+        <result column="staff_iphone" property="staffIphone" jdbcType="VARCHAR"/>
+        <result column="staff_status" property="staffStatus" jdbcType="VARCHAR"/>
+        <result column="created_by" property="createdBy" jdbcType="BIGINT"/>
+        <result column="created_date" property="createdDate" jdbcType="TIMESTAMP"/>
+        <result column="updated_by" property="updatedBy" jdbcType="BIGINT"/>
+        <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="t_sys_staff_details_Column_List">
+        a
+        .
+        party_id
+        ,
+    a.staff_code,
+    a.staff_name,
+    a.staff_iphone,
+    a.staff_status,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date
+    </sql>
+
+    <select id="load" parameterType="com.exp.ucmp.pk.SysStaffDetailsPk" resultMap="sysStaffDetailsResultMap">
+        SELECT
+        <include refid="t_sys_staff_details_Column_List"/>
+        FROM t_sys_staff_details a
+        WHERE 1 = 1
+        AND a.party_id = #{partyId, jdbcType=BIGINT}
+    </select>
+
+    <select id="selectStoreStaffRole" parameterType="com.exp.ucmp.staff.dto.SysStaffDetailsRoleQueryDto"
+            resultType="com.exp.ucmp.staff.dto.SysStaffDetailsRoleQueryDto">
+        SELECT
+        a.role_id AS roleId,
+        a.role_code AS roleCode,
+        a.role_details_type AS roleType,
+        a.role_details_name AS roleName,
+        res.party_id AS partyId
+        FROM
+        t_sys_role_details a
+        LEFT JOIN
+        (SELECT
+        re.party_id, re.role_id
+        FROM
+        t_store_party_role_rela re
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="partyId != null">
+                AND re.party_id = #{partyId, jdbcType=BIGINT}
+            </if>
+        </trim>
+        ) res ON a.role_id = res.role_id
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="roleName != null and roleName != ''">
+                AND a.role_details_name like concat('%',#{roleName, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="roleType != null and roleType != ''">
+                AND a.role_details_type = #{roleType, jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </select>
+
+    <select id="selectStaffRole" parameterType="com.exp.ucmp.staff.dto.SysStaffDetailsRoleQueryDto"
+            resultType="com.exp.ucmp.staff.dto.SysStaffDetailsRoleQueryDto">
+        SELECT
+        a.role_id AS roleId,
+        a.role_code AS roleCode,
+        a.role_details_type AS roleType,
+        a.role_details_name AS roleName,
+        res.party_id AS partyId
+        FROM
+        t_sys_role_details a
+        LEFT JOIN
+        (SELECT
+        re.party_id, re.role_id
+        FROM
+        t_party_role_rela re
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="partyId != null">
+                AND re.party_id = #{partyId, jdbcType=BIGINT}
+            </if>
+        </trim>
+        ) res ON a.role_id = res.role_id
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="roleName != null and roleName != ''">
+                AND a.role_details_name like concat('%',#{roleName, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="roleType != null and roleType != ''">
+                AND a.role_details_type = #{roleType, jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </select>
+    <select id="selectStaffMsg" parameterType="com.exp.ucmp.staff.dto.SysStaffDetailsDto"
+            resultType="com.exp.ucmp.staff.dto.SysStaffDetailsDto">
+        SELECT
+        u.party_id AS partyId,
+        u.staff_code AS staffCode,
+        u.staff_name AS staffName,
+        u.staff_iphone AS staffIphone,
+        di.department_name AS departmentName,
+        role_details_name AS roleName,
+        u.staff_status AS staffStatus
+        FROM
+        t_sys_staff_details u
+        LEFT JOIN t_sys_department_staff_rela dsr ON u.party_id = dsr.party_id
+        LEFT JOIN t_sys_department_info di ON dsr.department_id = di.department_id
+        LEFT JOIN (
+        SELECT
+        prr.party_id,
+        group_concat( srd.role_details_name ) AS 'role_details_name'
+        FROM
+        t_party_role_rela prr
+        LEFT JOIN t_sys_role_details srd ON prr.role_id = srd.role_id
+        GROUP BY
+        prr.party_id
+        ) AS role ON role.party_id = u.party_id
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="staffType != null and staffType != ''">
+                AND u.staff_type = #{staffType}
+            </if>
+            <if test="staffName != null and staffName != ''">
+                AND u.staff_name like concat('%',#{staffName, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="staffIphone != null and staffIphone != ''">
+                AND u.staff_iphone = #{staffIphone, jdbcType=VARCHAR}
+            </if>
+            <if test="departmentName != null and departmentName != ''">
+                AND di.department_name = #{departmentName, jdbcType=VARCHAR}
+            </if>
+            <if test="staffStatus != null and staffStatus != ''">
+                AND u.staff_status = #{staffStatus, jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </select>
+
+    <!--
+    <select id="selectStaffMsg" parameterType="com.exp.ucmp.staff.dto.SysStaffDetailsDto"
+            resultType="com.exp.ucmp.staff.dto.SysStaffDetailsDto">
+        SELECT
+        u.party_id AS partyId,
+        u.staff_code AS staffCode,
+        u.staff_name AS staffName,
+        u.staff_iphone AS staffIphone,
+        dept.department_name AS departmentName,
+        roleInfo.role_details_name AS roleName,
+        u.staff_status AS staffStatus,
+        log.login_id AS loginId,
+        areaInfo.area_name AS areaName
+        FROM
+        t_sys_staff_details u
+        LEFT JOIN
+        (SELECT
+        ds.party_id,
+        GROUP_CONCAT(d.department_name, ':', d.department_id
+        SEPARATOR ',') AS department_name
+        FROM
+        t_sys_department_info d
+        INNER JOIN t_sys_department_staff_rela ds ON d.department_id = ds.department_id
+        GROUP BY ds.party_id) AS dept ON u.party_id = dept.party_id
+        LEFT JOIN
+        (SELECT
+        rr.party_id,
+        GROUP_CONCAT(rd.role_details_name
+        SEPARATOR ',') AS role_details_name
+        FROM
+        t_sys_role_details rd
+        INNER JOIN t_party_role_rela rr ON rd.role_id = rr.role_id
+        GROUP BY rr.party_id) AS roleInfo ON u.party_id = roleInfo.party_id
+        LEFT JOIN
+        (SELECT
+        GROUP_CONCAT(ll.login_id
+        SEPARATOR ',') AS login_id,
+        ll.party_id
+        FROM
+        t_login_info ll
+        GROUP BY ll.party_id) AS log ON u.party_id = log.party_id
+        LEFT JOIN
+        (SELECT
+        art.party_id,
+        GROUP_CONCAT(ar.area_id, ':', ar.area_name
+        SEPARATOR ',') AS area_name
+        FROM
+        t_sys_area_info ar
+        INNER JOIN t_sys_staff_area_rela art ON ar.area_id = art.area_id
+        GROUP BY art.party_id) AS areaInfo ON u.party_id = areaInfo.party_id
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="staffName != null">
+                AND u.staff_name like concat('%',#{staffName, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="staffIphone != null">
+                AND u.staff_iphone = #{staffIphone, jdbcType=VARCHAR}
+            </if>
+            <if test="departmentName != null">
+                AND dept.department_name = #{departmentName, jdbcType=VARCHAR}
+            </if>
+            <if test="staffStatus != null">
+                AND u.staff_status = #{staffStatus, jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </select>
+    -->
+
+    <select id="selectStaffStatus" resultType="java.lang.String">
+        SELECT dict_code
+        FROM t_sys_datadict
+        where dict_tag = '3'
+    </select>
+
+
+    <select id="selectAddStaffMsg" parameterType="com.exp.ucmp.staff.dto.SysStaffDetailsDto"
+            resultType="com.exp.ucmp.staff.dto.SysStaffDetailsDto">
+        SELECT
+        a.party_id AS partyId,
+        a.staff_code AS staffCode,
+        a.staff_name AS staffName,
+        a.staff_department AS departmentName,
+        a.staff_role AS roleName,
+        a.staff_iphone AS staffIphone
+        FROM
+        t_sys_staff_provisional a
+        <where>
+            <if test="staffName!=null and staffName!=''">
+                AND a.staff_name like concat('%',#{staffName, jdbcType=VARCHAR},'%')
+            </if>
+        </where>
+    </select>
+
+
+    <select id="selectStaffArea" parameterType="com.exp.ucmp.staff.dto.SysAreaInfoQueryDto"
+            resultType="com.exp.ucmp.area.dto.SysAreaInfoDto">
+        SELECT re.area_id   AS areaId,
+               re.area_code AS areaCode,
+               re.area_name AS areaName
+        FROM t_sys_area_info re
+    </select>
+
+
+</mapper>

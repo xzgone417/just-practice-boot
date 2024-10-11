@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.IUserInfoDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.UserInfoEntity" >
+    INSERT INTO t_user_info 
+       (
+          party_id,
+          login_password,
+          login_salt,
+          is_lock,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date
+        ) VALUES (
+          #{partyId, jdbcType=BIGINT},
+          #{loginPassword, jdbcType=VARCHAR},
+          #{loginSalt, jdbcType=VARCHAR},
+          #{isLock, jdbcType=VARCHAR},
+          #{createdBy, jdbcType=BIGINT},
+          #{createdDate, jdbcType=TIMESTAMP},
+          #{updatedBy, jdbcType=BIGINT},
+          #{updatedDate, jdbcType=TIMESTAMP}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.UserInfoEntity" >
+    INSERT INTO t_user_info
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="partyId != null" >
+          party_id,
+          </if>
+        <if test="loginPassword != null" >
+          login_password,
+          </if>
+        <if test="loginSalt != null" >
+          login_salt,
+          </if>
+        <if test="isLock != null" >
+          is_lock,
+          </if>
+        <if test="createdBy != null" >
+          created_by,
+          </if>
+        <if test="createdDate != null" >
+          created_date,
+          </if>
+        <if test="updatedBy != null" >
+          updated_by,
+          </if>
+        <if test="updatedDate != null" >
+          updated_date,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="partyId != null" >
+          #{partyId, jdbcType=BIGINT},
+          </if>
+        <if test="loginPassword != null" >
+          #{loginPassword, jdbcType=VARCHAR},
+          </if>
+        <if test="loginSalt != null" >
+          #{loginSalt, jdbcType=VARCHAR},
+          </if>
+        <if test="isLock != null" >
+          #{isLock, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_user_info 
+       (
+          party_id,
+          login_password,
+          login_salt,
+          is_lock,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.partyId, jdbcType=BIGINT},
+	          #{item.loginPassword, jdbcType=VARCHAR},
+	          #{item.loginSalt, jdbcType=VARCHAR},
+	          #{item.isLock, jdbcType=VARCHAR},
+	          #{item.createdBy, jdbcType=BIGINT},
+	          #{item.createdDate, jdbcType=TIMESTAMP},
+	          #{item.updatedBy, jdbcType=BIGINT},
+	          #{item.updatedDate, jdbcType=TIMESTAMP}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.UserInfoEntity" >
+    UPDATE t_user_info SET 
+          login_password = #{loginPassword, jdbcType=VARCHAR},
+          login_salt = #{loginSalt, jdbcType=VARCHAR},
+          is_lock = #{isLock, jdbcType=VARCHAR},
+          created_by = #{createdBy, jdbcType=BIGINT},
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND party_id = #{partyId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.UserInfoEntity" >
+    UPDATE t_user_info
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="loginPassword != null" >
+          login_password = #{loginPassword, jdbcType=VARCHAR},
+          </if>
+        <if test="loginSalt != null" >
+          login_salt = #{loginSalt, jdbcType=VARCHAR},
+          </if>
+        <if test="isLock != null" >
+          is_lock = #{isLock, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          created_by = #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND party_id = #{partyId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_user_info SET 
+	          login_password = #{item.loginPassword, jdbcType=VARCHAR},
+	          login_salt = #{item.loginSalt, jdbcType=VARCHAR},
+	          is_lock = #{item.isLock, jdbcType=VARCHAR},
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND party_id = #{item.partyId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_user_info
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.loginPassword != null" >
+	          login_password = #{item.loginPassword, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.loginSalt != null" >
+	          login_salt = #{item.loginSalt, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.isLock != null" >
+	          is_lock = #{item.isLock, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.createdBy != null" >
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.createdDate != null" >
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.updatedBy != null" >
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.updatedDate != null" >
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND party_id = #{item.partyId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.UserInfoPk" >
+    DELETE FROM t_user_info
+    WHERE
+     <trim prefixOverrides="AND">
+           AND party_id = #{partyId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.UserInfoEntity" >
+    DELETE FROM t_user_info
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="partyId != null" >
+          AND party_id = #{partyId, jdbcType=BIGINT}
+        </if>
+        <if test="loginPassword != null and loginPassword != ''" >
+          AND login_password = #{loginPassword, jdbcType=VARCHAR}
+        </if>
+        <if test="loginSalt != null and loginSalt != ''" >
+          AND login_salt = #{loginSalt, jdbcType=VARCHAR}
+        </if>
+        <if test="isLock != null and isLock != ''" >
+          AND is_lock = #{isLock, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="userInfoResultMap" type="com.exp.ucmp.entity.UserInfoEntity" >
+      <constructor>
+       <idArg column="party_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="login_password" property="loginPassword" jdbcType="VARCHAR" />
+    <result column="login_salt" property="loginSalt" jdbcType="VARCHAR" />
+    <result column="is_lock" property="isLock" jdbcType="VARCHAR" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="t_user_info_Column_List" >
+    a.party_id,
+    a.login_password,
+    a.login_salt,
+    a.is_lock,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.UserInfoPk" resultMap="userInfoResultMap">
+    SELECT 
+    <include refid="t_user_info_Column_List" />
+      FROM t_user_info a
+     WHERE 1 = 1
+       AND a.party_id = #{partyId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.UserInfoEntity" resultMap="userInfoResultMap">
+    SELECT 
+    <include refid="t_user_info_Column_List" />
+      FROM t_user_info a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="partyId != null" >
+          AND a.party_id = #{partyId, jdbcType=BIGINT}
+        </if>
+        <if test="loginPassword != null and loginPassword != ''" >
+          AND a.login_password = #{loginPassword, jdbcType=VARCHAR}
+        </if>
+        <if test="loginSalt != null and loginSalt != ''" >
+          AND a.login_salt = #{loginSalt, jdbcType=VARCHAR}
+        </if>
+        <if test="isLock != null and isLock != ''" >
+          AND a.is_lock = #{isLock, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.UserInfoEntity" resultType="int">
+    SELECT count(1) FROM t_user_info a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="partyId != null" >
+          AND a.party_id = #{partyId, jdbcType=BIGINT}
+        </if>
+        <if test="loginPassword != null and loginPassword != ''" >
+          AND a.login_password = #{loginPassword, jdbcType=VARCHAR}
+        </if>
+        <if test="loginSalt != null and loginSalt != ''" >
+          AND a.login_salt = #{loginSalt, jdbcType=VARCHAR}
+        </if>
+        <if test="isLock != null and isLock != ''" >
+          AND a.is_lock = #{isLock, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+</mapper>

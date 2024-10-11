@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.servicing.dao.PsiServicingDao">
+
+    <select id="queryServicingList" resultType="com.exp.ucmp.servicing.dto.QueryServicingDto">
+        SELECT
+        a.storage_name storageName,
+        (select dict_value from t_sys_datadict  where dict_code = a.car_source) carSource,
+        (select dict_value from t_sys_datadict  where dict_code = a.stock_type) stockType,
+        (select dict_value from t_sys_datadict  where dict_code = a.decision_type) decisionType,
+        (select staff_name from t_sys_staff_details  where party_id = b.warehous_people_id) warehousPeople,
+        a.source_batch sourceBatch,
+        (select dict_value from t_sys_datadict  where dict_code = a.revert_body) revertBody,
+        a.vin_code vin,
+        b.start_date startDate,
+        b.start_people startPeople,
+        b.service_place servicePlace,
+        a.car_series_name carSeriesName,
+        a.base_car_type_name baseCarTypeName,
+        a.car_colour carColour,
+        b.complete_date completeDate,
+        b.warehous_date warehousDate,
+        b.service_state serviceStates,
+        b.service_id serviceId,
+        a.stock_id stockId,
+        b.approval_result approvalResult,
+        b.wait_acceptance waitAcceptance
+        FROM
+        t_psi_car_stock_info a
+        INNER JOIN t_psi_car_service_info b on a.stock_id = b.stock_id
+        left join t_sys_car_used_storage c on a.storage_id = c.storage_id
+        where 1=1
+        <if test="type == 1">
+            and ((b.service_state in ('5301','5302','5309')) or (b.service_state = '5308' and b.pre_approval_status='5302'))
+        </if>
+        <if test="type == 2">
+            and ((b.service_state in ('5303','5304')) or (b.service_state = '5308' and b.pre_approval_status='5304'))
+        </if>
+        <if test="type == 3">
+            and b.service_state in ('5306','5311')
+        </if>
+        <if test="vin != null and vin != ''">
+            AND a.vin_code =#{vin}
+        </if>
+        <if test="storageName != null and storageName != ''">
+            AND a.storage_name =#{storageName}
+        </if>
+        <if test="storageId != null and storageId.size()>0">
+        AND a.storage_id in (<foreach collection="storageId" item="sta" separator=",">#{sta}</foreach>)
+        </if>
+        <if test="sourceBatch != null and sourceBatch != ''">
+            AND a.source_batch =#{sourceBatch}
+        </if>
+        <if test="startPeople != null and startPeople != ''">
+            AND b.start_people =#{startPeople}
+        </if>
+        <if test="servicePlace != null and servicePlace != ''">
+            AND  b.service_place =#{servicePlace}
+        </if>
+        <if test="startCompleteDate!=null and startCompleteDate!=''">
+            and date_format(b.complete_date, '%Y-%m-%d') &gt;= date_format(#{startCompleteDate}, '%Y-%m-%d')
+        </if>
+        <if test="endCompleteDate!=null and endCompleteDate!=''">
+            and date_format(b.complete_date, '%Y-%m-%d') &lt;= date_format(#{endCompleteDate}, '%Y-%m-%d')
+        </if>
+    </select>
+
+    <select id="queryServicingApprovalList" resultType="com.exp.ucmp.servicing.dto.QueryServicingDto">
+        SELECT
+        a.storage_name storageName, -- 仓储点
+        a.car_source carSource, -- 车辆来源
+        a.stock_type stockType,
+        a.decision_type decisionType,
+        (select staff_name from t_sys_staff_details  where party_id = b.warehous_people_id) warehousPeople,
+        a.source_batch sourceBatch,
+        a.revert_body revertBody,
+        a.vin_code vin,
+        a.car_series_name carSeriesName,
+        a.base_car_type_name baseCarTypeName,
+        a.car_colour carColour,
+        b.start_date startDate,
+        b.start_people startPeople,
+        b.service_place servicePlace,
+        b.single_number_feedback_date singleNumberFeedbackDate,
+        b.service_number serviceNumber,
+        b.single_number singleNumber,
+        b.plan_start_date plan_start_date,
+        b.plan_end_date plan_end_date,
+        b.service_id serviceId,
+        ((select dict_value from t_sys_datadict  where dict_code = b.service_state)) serviceStart
+        FROM
+        t_psi_car_service_info b
+        JOIN t_psi_car_stock_info a on a.stock_id = b.stock_id
+        where b.is_enable = '01'
+        AND b.is_delete = '00'
+        <if test="type == 1"> --  customerId项目反馈
+--  5301:待反馈 5302:已反馈待审批 5303:已通过-待生成工单  5307:驳回 5308:放弃整备-转批售 5309:取消整备
+            and b.service_state in ('5301','5302','5303','5309','5307','5308')
+        </if>
+--         5304:已生成工单-审批 5305:实施完成 5306:已验收入库 11已生成工单 10审批通过
+        <if test="type == 2"> --  维修工单反馈
+            and b.service_state in ('5304','5305','5306','5307','5310','5311')
+        </if>
+        <if test="vin != null and vin != ''">
+            AND a.vin_code =#{vin}
+        </if>
+        <if test="storageCode != null and storageCode != ''">
+            AND a.storage_code =#{storageCode}
+        </if>
+        <if test="singleNumber != null and singleNumber != ''">
+            AND b.single_number =#{singleNumber}
+        </if>
+        <if test="startPeople != null and startPeople != ''">
+            AND b.start_people like concat('%',#{startPeople},'%')
+        </if>
+        <if test="serviceNumber != null and serviceNumber != ''">
+            AND  b.service_number =#{serviceNumber}
+        </if>
+        <if test="startDate!=null and startDate!=''">
+            and date_format(b.start_date, '%Y-%m-%d') &gt;= date_format(#{startDate}, '%Y-%m-%d')
+        </if>
+        <if test="endDate!=null and endDate!='' ">
+            and date_format(b.start_date, '%Y-%m-%d') &lt;= date_format(#{endDate}, '%Y-%m-%d')
+        </if>
+        <if test="status!=null and status!='' ">
+            and b.service_state = #{status}
+        </if>
+    </select>
+
+
+    <select id="queryServicingCarInfo" resultType="com.exp.ucmp.servicing.dto.ServicingCarInfoDto">
+        SELECT
+            a.service_number serviceNumber,
+            a.start_date startDate,
+            (select staff_name from t_sys_staff_details where party_id = a.start_people_id) startPeople,
+            a.estimated_delivery_time estimatedDeliveryTime,
+            a.service_place servicePlace,
+            a.place_type placeType,
+            a.plan_start_date planStartDate,
+            a.plan_end_date planEndDate,
+            a.plan_repair_start_date planRepairStartDate,
+            a.plan_repair_end_date planRepairEndDate,
+            a.feedback_date feedbackDate,
+            a.expect_end_time expectEndTime,
+            a.single_number singleNumber,
+            a.single_number_feedback_date singleNumberFeedbackDate,
+            a.plan_complete_date planCompleteDate,
+            a.complete_date completeDate,
+            a.warehous_date warehousDate,
+            (select staff_name from t_sys_staff_details where party_id = a.warehous_people_id) warehousPeopleName,
+            b.base_car_type_name baseCarTypeName,
+            b.car_series_name carSeriesName,
+            b.vin_code vinCode,
+            b.car_type carType,
+            b.storage_name storageName
+        FROM
+            t_psi_car_service_info a
+            JOIN t_psi_car_stock_info b ON a.stock_id = b.stock_id
+        WHERE
+            a.is_enable = '01'
+            AND a.is_delete = '00'
+            and a.service_id = #{serviceId}
+    </select>
+
+    <select id="queryMaintenanceItems" resultType="com.exp.ucmp.servicing.dto.MaintenanceItemsDto">
+        SELECT
+            a.service_id serviceId,
+            a.project_id projectId,
+            a.repair_project_type repairProjectType,
+            a.repair_project_code repairProjectCode,
+            a.repair_project_name repairProjectName,
+            a.time_price timePrice,
+            a.is_component isComponent,
+            a.is_repair isRepair,
+            a.change_operate changeOperate
+        FROM
+            t_psi_car_service_repair_project a
+        WHERE
+            a.service_id = #{serviceId}
+    </select>
+
+    <select id="queryRepairParts" resultType="com.exp.ucmp.servicing.dto.RepairPartsDto">
+        SELECT
+            a.component_id componentId,
+            a.project_id projectId,
+            a.component_code componentCode,
+            a.component_name componentName,
+            a.component_price componentPrice,
+            a.is_repair isRepair
+        FROM
+            t_psi_car_service_repair_project_component a
+        WHERE
+            a.project_id = #{projectId}
+    </select>
+
+    <select id="queryApprovalRecord" resultType="com.exp.ucmp.servicing.dto.ServiceApprovalRecordDto">
+        SELECT
+            a.service_id serviceId,
+            a.approval_date approvalDate,
+            a.approval_result approvalResult,
+            a.approval_people approvalPeople,
+            a.approval_mark approvalMark
+        FROM
+            <if test="type==1">
+                t_psi_car_service_inquiry_history a
+            </if>
+            <if test="type==2">
+                t_psi_work_order_approval_history a
+            </if>
+        WHERE
+            a.service_id = #{serviceId}
+        ORDER BY a.created_date DESC
+    </select>
+
+    <update id="batchUpdateSelective" parameterType="map">
+        <foreach collection="list" item="item" open="" close="" separator=";">
+            UPDATE
+            <if test="type == 1">
+                t_psi_car_service_repair_project
+            </if>
+            <if test="type == 2">
+                t_psi_car_service_repair_project_component
+            </if>
+                  set is_repair = #{isRepair},
+                      updated_date = now(),
+                      updated_by = #{party}
+            WHERE
+                <if test="type == 1">
+                    project_id = #{item}
+                </if>
+                <if test="type == 2">
+                    component_id = #{item}
+                </if>
+        </foreach>
+    </update>
+    
+    <update id="updateParts" parameterType="com.exp.ucmp.servicing.dto.ApprovalItemsPartsDto">
+	    update
+			t_psi_car_service_repair_project_component
+		   set
+			is_repair = #{isRepair},
+			updated_date = now(),
+			updated_by = #{updateBy}
+		 where
+			component_id = #{componentId}
+    </update>
+
+
+	<update id="updateItems" parameterType="com.exp.ucmp.servicing.dto.ApprovalItemsDto">
+	    update
+			t_psi_car_service_repair_project
+		   set
+			is_repair = #{isRepair},
+			updated_date = now(),
+			updated_by = #{updateBy}
+		 where
+			project_id = #{projectId}
+    </update>
+    
+    <select id="queryStorageIdList" resultType="java.lang.Long">
+    select
+		tcus.storage_id
+	from
+		t_sys_store_staff_info tssi,
+		t_sys_store_info tsi,
+		t_sys_car_used_storage tcus
+	where
+		tssi.store_id = tsi.store_id
+		and tcus.org_id = tsi.org_id
+		and tssi.party_id = #{partyId}
+    </select>
+</mapper>

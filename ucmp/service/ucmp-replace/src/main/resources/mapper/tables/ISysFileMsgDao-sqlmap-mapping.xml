@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.ISysFileMsgDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.SysFileMsgEntity" >
+    INSERT INTO t_sys_file_msg 
+       (
+          file_id,
+          file_type,
+          file_name,
+          file_path,
+          file_statuss,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date
+        ) VALUES (
+          #{fileId, jdbcType=BIGINT},
+          #{fileType, jdbcType=VARCHAR},
+          #{fileName, jdbcType=VARCHAR},
+          #{filePath, jdbcType=VARCHAR},
+          #{fileStatuss, jdbcType=VARCHAR},
+          #{createdBy, jdbcType=BIGINT},
+          #{createdDate, jdbcType=TIMESTAMP},
+          #{updatedBy, jdbcType=BIGINT},
+          #{updatedDate, jdbcType=TIMESTAMP}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.SysFileMsgEntity" >
+    INSERT INTO t_sys_file_msg
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="fileId != null" >
+          file_id,
+          </if>
+        <if test="fileType != null" >
+          file_type,
+          </if>
+        <if test="fileName != null" >
+          file_name,
+          </if>
+        <if test="filePath != null" >
+          file_path,
+          </if>
+        <if test="fileStatuss != null" >
+          file_statuss,
+          </if>
+        <if test="createdBy != null" >
+          created_by,
+          </if>
+        <if test="createdDate != null" >
+          created_date,
+          </if>
+        <if test="updatedBy != null" >
+          updated_by,
+          </if>
+        <if test="updatedDate != null" >
+          updated_date,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="fileId != null" >
+          #{fileId, jdbcType=BIGINT},
+          </if>
+        <if test="fileType != null" >
+          #{fileType, jdbcType=VARCHAR},
+          </if>
+        <if test="fileName != null" >
+          #{fileName, jdbcType=VARCHAR},
+          </if>
+        <if test="filePath != null" >
+          #{filePath, jdbcType=VARCHAR},
+          </if>
+        <if test="fileStatuss != null" >
+          #{fileStatuss, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_sys_file_msg 
+       (
+          file_id,
+          file_type,
+          file_name,
+          file_path,
+          file_statuss,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.fileId, jdbcType=BIGINT},
+	          #{item.fileType, jdbcType=VARCHAR},
+	          #{item.fileName, jdbcType=VARCHAR},
+	          #{item.filePath, jdbcType=VARCHAR},
+	          #{item.fileStatuss, jdbcType=VARCHAR},
+	          #{item.createdBy, jdbcType=BIGINT},
+	          #{item.createdDate, jdbcType=TIMESTAMP},
+	          #{item.updatedBy, jdbcType=BIGINT},
+	          #{item.updatedDate, jdbcType=TIMESTAMP}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.SysFileMsgEntity" >
+    UPDATE t_sys_file_msg SET 
+          file_type = #{fileType, jdbcType=VARCHAR},
+          file_name = #{fileName, jdbcType=VARCHAR},
+          file_path = #{filePath, jdbcType=VARCHAR},
+          file_statuss = #{fileStatuss, jdbcType=VARCHAR},
+          created_by = #{createdBy, jdbcType=BIGINT},
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND file_id = #{fileId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.SysFileMsgEntity" >
+    UPDATE t_sys_file_msg
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="fileType != null" >
+          file_type = #{fileType, jdbcType=VARCHAR},
+          </if>
+        <if test="fileName != null" >
+          file_name = #{fileName, jdbcType=VARCHAR},
+          </if>
+        <if test="filePath != null" >
+          file_path = #{filePath, jdbcType=VARCHAR},
+          </if>
+        <if test="fileStatuss != null" >
+          file_statuss = #{fileStatuss, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          created_by = #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND file_id = #{fileId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_sys_file_msg SET 
+	          file_type = #{item.fileType, jdbcType=VARCHAR},
+	          file_name = #{item.fileName, jdbcType=VARCHAR},
+	          file_path = #{item.filePath, jdbcType=VARCHAR},
+	          file_statuss = #{item.fileStatuss, jdbcType=VARCHAR},
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND file_id = #{item.fileId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_sys_file_msg
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.fileType != null" >
+	          file_type = #{item.fileType, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.fileName != null" >
+	          file_name = #{item.fileName, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.filePath != null" >
+	          file_path = #{item.filePath, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.fileStatuss != null" >
+	          file_statuss = #{item.fileStatuss, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.createdBy != null" >
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.createdDate != null" >
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.updatedBy != null" >
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.updatedDate != null" >
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND file_id = #{item.fileId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.SysFileMsgPk" >
+    DELETE FROM t_sys_file_msg
+    WHERE
+     <trim prefixOverrides="AND">
+           AND file_id = #{fileId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.SysFileMsgEntity" >
+    DELETE FROM t_sys_file_msg
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="fileId != null" >
+          AND file_id = #{fileId, jdbcType=BIGINT}
+        </if>
+        <if test="fileType != null and fileType != ''" >
+          AND file_type = #{fileType, jdbcType=VARCHAR}
+        </if>
+        <if test="fileName != null and fileName != ''" >
+          AND file_name = #{fileName, jdbcType=VARCHAR}
+        </if>
+        <if test="filePath != null and filePath != ''" >
+          AND file_path = #{filePath, jdbcType=VARCHAR}
+        </if>
+        <if test="fileStatuss != null and fileStatuss != ''" >
+          AND file_statuss = #{fileStatuss, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="sysFileMsgResultMap" type="com.exp.ucmp.entity.SysFileMsgEntity" >
+      <constructor>
+       <idArg column="file_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="file_type" property="fileType" jdbcType="VARCHAR" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="file_path" property="filePath" jdbcType="VARCHAR" />
+    <result column="file_statuss" property="fileStatuss" jdbcType="VARCHAR" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="t_sys_file_msg_Column_List" >
+    a.file_id,
+    a.file_type,
+    a.file_name,
+    a.file_path,
+    a.file_statuss,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.SysFileMsgPk" resultMap="sysFileMsgResultMap">
+    SELECT 
+    <include refid="t_sys_file_msg_Column_List" />
+      FROM t_sys_file_msg a
+     WHERE 1 = 1
+       AND a.file_id = #{fileId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.SysFileMsgEntity" resultMap="sysFileMsgResultMap">
+    SELECT 
+    <include refid="t_sys_file_msg_Column_List" />
+      FROM t_sys_file_msg a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="fileId != null" >
+          AND a.file_id = #{fileId, jdbcType=BIGINT}
+        </if>
+        <if test="fileType != null and fileType != ''" >
+          AND a.file_type = #{fileType, jdbcType=VARCHAR}
+        </if>
+        <if test="fileName != null and fileName != ''" >
+          AND a.file_name = #{fileName, jdbcType=VARCHAR}
+        </if>
+        <if test="filePath != null and filePath != ''" >
+          AND a.file_path = #{filePath, jdbcType=VARCHAR}
+        </if>
+        <if test="fileStatuss != null and fileStatuss != ''" >
+          AND a.file_statuss = #{fileStatuss, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.SysFileMsgEntity" resultType="int">
+    SELECT count(1) FROM t_sys_file_msg a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="fileId != null" >
+          AND a.file_id = #{fileId, jdbcType=BIGINT}
+        </if>
+        <if test="fileType != null and fileType != ''" >
+          AND a.file_type = #{fileType, jdbcType=VARCHAR}
+        </if>
+        <if test="fileName != null and fileName != ''" >
+          AND a.file_name = #{fileName, jdbcType=VARCHAR}
+        </if>
+        <if test="filePath != null and filePath != ''" >
+          AND a.file_path = #{filePath, jdbcType=VARCHAR}
+        </if>
+        <if test="fileStatuss != null and fileStatuss != ''" >
+          AND a.file_statuss = #{fileStatuss, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+</mapper>

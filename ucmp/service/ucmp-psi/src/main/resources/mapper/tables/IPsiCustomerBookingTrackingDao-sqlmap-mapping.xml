@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.IPsiCustomerBookingTrackingDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.PsiCustomerBookingTrackingEntity" >
+    INSERT INTO t_psi_customer_booking_tracking 
+       (
+          booking_id,
+          clues_id,
+          customer_id,
+          store_id,
+          adviser_id,
+          driving_file_id,
+          business_type,
+          business_number,
+          scheduled_test_time,
+          scheduled_test_address,
+          customer_expected_price,
+          receiving_orders_deadline,
+          track_status,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date
+        ) VALUES (
+          #{bookingId, jdbcType=BIGINT},
+          #{cluesId, jdbcType=BIGINT},
+          #{customerId, jdbcType=BIGINT},
+          #{storeId, jdbcType=BIGINT},
+          #{adviserId, jdbcType=BIGINT},
+          #{drivingFileId, jdbcType=BIGINT},
+          #{businessType, jdbcType=VARCHAR},
+          #{businessNumber, jdbcType=VARCHAR},
+          #{scheduledTestTime, jdbcType=TIMESTAMP},
+          #{scheduledTestAddress, jdbcType=VARCHAR},
+          #{customerExpectedPrice, jdbcType=VARCHAR},
+          #{receivingOrdersDeadline, jdbcType=TIMESTAMP},
+          #{trackStatus, jdbcType=VARCHAR},
+          #{createdBy, jdbcType=BIGINT},
+          #{createdDate, jdbcType=TIMESTAMP},
+          #{updatedBy, jdbcType=BIGINT},
+          #{updatedDate, jdbcType=TIMESTAMP}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.PsiCustomerBookingTrackingEntity" >
+    INSERT INTO t_psi_customer_booking_tracking
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="bookingId != null" >
+          booking_id,
+          </if>
+        <if test="cluesId != null" >
+          clues_id,
+          </if>
+        <if test="customerId != null" >
+          customer_id,
+          </if>
+        <if test="storeId != null" >
+          store_id,
+          </if>
+        <if test="adviserId != null" >
+          adviser_id,
+          </if>
+        <if test="drivingFileId != null" >
+          driving_file_id,
+          </if>
+        <if test="businessType != null" >
+          business_type,
+          </if>
+        <if test="businessNumber != null" >
+          business_number,
+          </if>
+        <if test="scheduledTestTime != null" >
+          scheduled_test_time,
+          </if>
+        <if test="scheduledTestAddress != null" >
+          scheduled_test_address,
+          </if>
+        <if test="customerExpectedPrice != null" >
+          customer_expected_price,
+          </if>
+        <if test="receivingOrdersDeadline != null" >
+          receiving_orders_deadline,
+          </if>
+        <if test="trackStatus != null" >
+          track_status,
+          </if>
+        <if test="createdBy != null" >
+          created_by,
+          </if>
+        <if test="createdDate != null" >
+          created_date,
+          </if>
+        <if test="updatedBy != null" >
+          updated_by,
+          </if>
+        <if test="updatedDate != null" >
+          updated_date,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="bookingId != null" >
+          #{bookingId, jdbcType=BIGINT},
+          </if>
+        <if test="cluesId != null" >
+          #{cluesId, jdbcType=BIGINT},
+          </if>
+        <if test="customerId != null" >
+          #{customerId, jdbcType=BIGINT},
+          </if>
+        <if test="storeId != null" >
+          #{storeId, jdbcType=BIGINT},
+          </if>
+        <if test="adviserId != null" >
+          #{adviserId, jdbcType=BIGINT},
+          </if>
+        <if test="drivingFileId != null" >
+          #{drivingFileId, jdbcType=BIGINT},
+          </if>
+        <if test="businessType != null" >
+          #{businessType, jdbcType=VARCHAR},
+          </if>
+        <if test="businessNumber != null" >
+          #{businessNumber, jdbcType=VARCHAR},
+          </if>
+        <if test="scheduledTestTime != null" >
+          #{scheduledTestTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="scheduledTestAddress != null" >
+          #{scheduledTestAddress, jdbcType=VARCHAR},
+          </if>
+        <if test="customerExpectedPrice != null" >
+          #{customerExpectedPrice, jdbcType=VARCHAR},
+          </if>
+        <if test="receivingOrdersDeadline != null" >
+          #{receivingOrdersDeadline, jdbcType=TIMESTAMP},
+          </if>
+        <if test="trackStatus != null" >
+          #{trackStatus, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_psi_customer_booking_tracking 
+       (
+          booking_id,
+          clues_id,
+          customer_id,
+          store_id,
+          adviser_id,
+          driving_file_id,
+          business_type,
+          business_number,
+          scheduled_test_time,
+          scheduled_test_address,
+          customer_expected_price,
+          receiving_orders_deadline,
+          track_status,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.bookingId, jdbcType=BIGINT},
+	          #{item.cluesId, jdbcType=BIGINT},
+	          #{item.customerId, jdbcType=BIGINT},
+	          #{item.storeId, jdbcType=BIGINT},
+	          #{item.adviserId, jdbcType=BIGINT},
+	          #{item.drivingFileId, jdbcType=BIGINT},
+	          #{item.businessType, jdbcType=VARCHAR},
+	          #{item.businessNumber, jdbcType=VARCHAR},
+	          #{item.scheduledTestTime, jdbcType=TIMESTAMP},
+	          #{item.scheduledTestAddress, jdbcType=VARCHAR},
+	          #{item.customerExpectedPrice, jdbcType=VARCHAR},
+	          #{item.receivingOrdersDeadline, jdbcType=TIMESTAMP},
+	          #{item.trackStatus, jdbcType=VARCHAR},
+	          #{item.createdBy, jdbcType=BIGINT},
+	          #{item.createdDate, jdbcType=TIMESTAMP},
+	          #{item.updatedBy, jdbcType=BIGINT},
+	          #{item.updatedDate, jdbcType=TIMESTAMP}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.PsiCustomerBookingTrackingEntity" >
+    UPDATE t_psi_customer_booking_tracking SET 
+          clues_id = #{cluesId, jdbcType=BIGINT},
+          customer_id = #{customerId, jdbcType=BIGINT},
+          store_id = #{storeId, jdbcType=BIGINT},
+          adviser_id = #{adviserId, jdbcType=BIGINT},
+          driving_file_id = #{drivingFileId, jdbcType=BIGINT},
+          business_type = #{businessType, jdbcType=VARCHAR},
+          business_number = #{businessNumber, jdbcType=VARCHAR},
+          scheduled_test_time = #{scheduledTestTime, jdbcType=TIMESTAMP},
+          scheduled_test_address = #{scheduledTestAddress, jdbcType=VARCHAR},
+          customer_expected_price = #{customerExpectedPrice, jdbcType=VARCHAR},
+          receiving_orders_deadline = #{receivingOrdersDeadline, jdbcType=TIMESTAMP},
+          track_status = #{trackStatus, jdbcType=VARCHAR},
+          created_by = #{createdBy, jdbcType=BIGINT},
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND booking_id = #{bookingId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.PsiCustomerBookingTrackingEntity" >
+    UPDATE t_psi_customer_booking_tracking
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="cluesId != null" >
+          clues_id = #{cluesId, jdbcType=BIGINT},
+          </if>
+        <if test="customerId != null" >
+          customer_id = #{customerId, jdbcType=BIGINT},
+          </if>
+        <if test="storeId != null" >
+          store_id = #{storeId, jdbcType=BIGINT},
+          </if>
+        <if test="adviserId != null" >
+          adviser_id = #{adviserId, jdbcType=BIGINT},
+          </if>
+        <if test="drivingFileId != null" >
+          driving_file_id = #{drivingFileId, jdbcType=BIGINT},
+          </if>
+        <if test="businessType != null" >
+          business_type = #{businessType, jdbcType=VARCHAR},
+          </if>
+        <if test="businessNumber != null" >
+          business_number = #{businessNumber, jdbcType=VARCHAR},
+          </if>
+        <if test="scheduledTestTime != null" >
+          scheduled_test_time = #{scheduledTestTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="scheduledTestAddress != null" >
+          scheduled_test_address = #{scheduledTestAddress, jdbcType=VARCHAR},
+          </if>
+        <if test="customerExpectedPrice != null" >
+          customer_expected_price = #{customerExpectedPrice, jdbcType=VARCHAR},
+          </if>
+        <if test="receivingOrdersDeadline != null" >
+          receiving_orders_deadline = #{receivingOrdersDeadline, jdbcType=TIMESTAMP},
+          </if>
+        <if test="trackStatus != null" >
+          track_status = #{trackStatus, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          created_by = #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND booking_id = #{bookingId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_customer_booking_tracking SET 
+	          clues_id = #{item.cluesId, jdbcType=BIGINT},
+	          customer_id = #{item.customerId, jdbcType=BIGINT},
+	          store_id = #{item.storeId, jdbcType=BIGINT},
+	          adviser_id = #{item.adviserId, jdbcType=BIGINT},
+	          driving_file_id = #{item.drivingFileId, jdbcType=BIGINT},
+	          business_type = #{item.businessType, jdbcType=VARCHAR},
+	          business_number = #{item.businessNumber, jdbcType=VARCHAR},
+	          scheduled_test_time = #{item.scheduledTestTime, jdbcType=TIMESTAMP},
+	          scheduled_test_address = #{item.scheduledTestAddress, jdbcType=VARCHAR},
+	          customer_expected_price = #{item.customerExpectedPrice, jdbcType=VARCHAR},
+	          receiving_orders_deadline = #{item.receivingOrdersDeadline, jdbcType=TIMESTAMP},
+	          track_status = #{item.trackStatus, jdbcType=VARCHAR},
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND booking_id = #{item.bookingId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_customer_booking_tracking
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.cluesId != null" >
+	          clues_id = #{item.cluesId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.customerId != null" >
+	          customer_id = #{item.customerId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.storeId != null" >
+	          store_id = #{item.storeId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.adviserId != null" >
+	          adviser_id = #{item.adviserId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.drivingFileId != null" >
+	          driving_file_id = #{item.drivingFileId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.businessType != null" >
+	          business_type = #{item.businessType, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.businessNumber != null" >
+	          business_number = #{item.businessNumber, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.scheduledTestTime != null" >
+	          scheduled_test_time = #{item.scheduledTestTime, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.scheduledTestAddress != null" >
+	          scheduled_test_address = #{item.scheduledTestAddress, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.customerExpectedPrice != null" >
+	          customer_expected_price = #{item.customerExpectedPrice, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.receivingOrdersDeadline != null" >
+	          receiving_orders_deadline = #{item.receivingOrdersDeadline, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.trackStatus != null" >
+	          track_status = #{item.trackStatus, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.createdBy != null" >
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.createdDate != null" >
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.updatedBy != null" >
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.updatedDate != null" >
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND booking_id = #{item.bookingId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.PsiCustomerBookingTrackingPk" >
+    DELETE FROM t_psi_customer_booking_tracking
+    WHERE
+     <trim prefixOverrides="AND">
+           AND booking_id = #{bookingId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.PsiCustomerBookingTrackingEntity" >
+    DELETE FROM t_psi_customer_booking_tracking
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="bookingId != null" >
+          AND booking_id = #{bookingId, jdbcType=BIGINT}
+        </if>
+        <if test="cluesId != null" >
+          AND clues_id = #{cluesId, jdbcType=BIGINT}
+        </if>
+        <if test="customerId != null" >
+          AND customer_id = #{customerId, jdbcType=BIGINT}
+        </if>
+        <if test="storeId != null" >
+          AND store_id = #{storeId, jdbcType=BIGINT}
+        </if>
+        <if test="adviserId != null" >
+          AND adviser_id = #{adviserId, jdbcType=BIGINT}
+        </if>
+        <if test="drivingFileId != null" >
+          AND driving_file_id = #{drivingFileId, jdbcType=BIGINT}
+        </if>
+        <if test="businessType != null and businessType != ''" >
+          AND business_type = #{businessType, jdbcType=VARCHAR}
+        </if>
+        <if test="businessNumber != null and businessNumber != ''" >
+          AND business_number = #{businessNumber, jdbcType=VARCHAR}
+        </if>
+        <if test="scheduledTestTime != null" >
+          AND scheduled_test_time = #{scheduledTestTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="scheduledTestAddress != null and scheduledTestAddress != ''" >
+          AND scheduled_test_address = #{scheduledTestAddress, jdbcType=VARCHAR}
+        </if>
+        <if test="customerExpectedPrice != null and customerExpectedPrice != ''" >
+          AND customer_expected_price = #{customerExpectedPrice, jdbcType=VARCHAR}
+        </if>
+        <if test="receivingOrdersDeadline != null" >
+          AND receiving_orders_deadline = #{receivingOrdersDeadline, jdbcType=TIMESTAMP}
+        </if>
+        <if test="trackStatus != null and trackStatus != ''" >
+          AND track_status = #{trackStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="psiCustomerBookingTrackingResultMap" type="com.exp.ucmp.entity.PsiCustomerBookingTrackingEntity" >
+      <constructor>
+       <idArg column="booking_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="clues_id" property="cluesId" jdbcType="BIGINT" />
+    <result column="customer_id" property="customerId" jdbcType="BIGINT" />
+    <result column="store_id" property="storeId" jdbcType="BIGINT" />
+    <result column="adviser_id" property="adviserId" jdbcType="BIGINT" />
+    <result column="driving_file_id" property="drivingFileId" jdbcType="BIGINT" />
+    <result column="business_type" property="businessType" jdbcType="VARCHAR" />
+    <result column="business_number" property="businessNumber" jdbcType="VARCHAR" />
+    <result column="scheduled_test_time" property="scheduledTestTime" jdbcType="TIMESTAMP" />
+    <result column="scheduled_test_address" property="scheduledTestAddress" jdbcType="VARCHAR" />
+    <result column="customer_expected_price" property="customerExpectedPrice" jdbcType="VARCHAR" />
+    <result column="receiving_orders_deadline" property="receivingOrdersDeadline" jdbcType="TIMESTAMP" />
+    <result column="track_status" property="trackStatus" jdbcType="VARCHAR" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="t_psi_customer_booking_tracking_Column_List" >
+    a.booking_id,
+    a.clues_id,
+    a.customer_id,
+    a.store_id,
+    a.adviser_id,
+    a.driving_file_id,
+    a.business_type,
+    a.business_number,
+    a.scheduled_test_time,
+    a.scheduled_test_address,
+    a.customer_expected_price,
+    a.receiving_orders_deadline,
+    a.track_status,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.PsiCustomerBookingTrackingPk" resultMap="psiCustomerBookingTrackingResultMap">
+    SELECT 
+    <include refid="t_psi_customer_booking_tracking_Column_List" />
+      FROM t_psi_customer_booking_tracking a
+     WHERE 1 = 1
+       AND a.booking_id = #{bookingId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.PsiCustomerBookingTrackingEntity" resultMap="psiCustomerBookingTrackingResultMap">
+    SELECT 
+    <include refid="t_psi_customer_booking_tracking_Column_List" />
+      FROM t_psi_customer_booking_tracking a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="bookingId != null" >
+          AND a.booking_id = #{bookingId, jdbcType=BIGINT}
+        </if>
+        <if test="cluesId != null" >
+          AND a.clues_id = #{cluesId, jdbcType=BIGINT}
+        </if>
+        <if test="customerId != null" >
+          AND a.customer_id = #{customerId, jdbcType=BIGINT}
+        </if>
+        <if test="storeId != null" >
+          AND a.store_id = #{storeId, jdbcType=BIGINT}
+        </if>
+        <if test="adviserId != null" >
+          AND a.adviser_id = #{adviserId, jdbcType=BIGINT}
+        </if>
+        <if test="drivingFileId != null" >
+          AND a.driving_file_id = #{drivingFileId, jdbcType=BIGINT}
+        </if>
+        <if test="businessType != null and businessType != ''" >
+          AND a.business_type = #{businessType, jdbcType=VARCHAR}
+        </if>
+        <if test="businessNumber != null and businessNumber != ''" >
+          AND a.business_number = #{businessNumber, jdbcType=VARCHAR}
+        </if>
+        <if test="scheduledTestTime != null" >
+          AND a.scheduled_test_time = #{scheduledTestTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="scheduledTestAddress != null and scheduledTestAddress != ''" >
+          AND a.scheduled_test_address = #{scheduledTestAddress, jdbcType=VARCHAR}
+        </if>
+        <if test="customerExpectedPrice != null and customerExpectedPrice != ''" >
+          AND a.customer_expected_price = #{customerExpectedPrice, jdbcType=VARCHAR}
+        </if>
+        <if test="receivingOrdersDeadline != null" >
+          AND a.receiving_orders_deadline = #{receivingOrdersDeadline, jdbcType=TIMESTAMP}
+        </if>
+        <if test="trackStatus != null and trackStatus != ''" >
+          AND a.track_status = #{trackStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.PsiCustomerBookingTrackingEntity" resultType="int">
+    SELECT count(1) FROM t_psi_customer_booking_tracking a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="bookingId != null" >
+          AND a.booking_id = #{bookingId, jdbcType=BIGINT}
+        </if>
+        <if test="cluesId != null" >
+          AND a.clues_id = #{cluesId, jdbcType=BIGINT}
+        </if>
+        <if test="customerId != null" >
+          AND a.customer_id = #{customerId, jdbcType=BIGINT}
+        </if>
+        <if test="storeId != null" >
+          AND a.store_id = #{storeId, jdbcType=BIGINT}
+        </if>
+        <if test="adviserId != null" >
+          AND a.adviser_id = #{adviserId, jdbcType=BIGINT}
+        </if>
+        <if test="drivingFileId != null" >
+          AND a.driving_file_id = #{drivingFileId, jdbcType=BIGINT}
+        </if>
+        <if test="businessType != null and businessType != ''" >
+          AND a.business_type = #{businessType, jdbcType=VARCHAR}
+        </if>
+        <if test="businessNumber != null and businessNumber != ''" >
+          AND a.business_number = #{businessNumber, jdbcType=VARCHAR}
+        </if>
+        <if test="scheduledTestTime != null" >
+          AND a.scheduled_test_time = #{scheduledTestTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="scheduledTestAddress != null and scheduledTestAddress != ''" >
+          AND a.scheduled_test_address = #{scheduledTestAddress, jdbcType=VARCHAR}
+        </if>
+        <if test="customerExpectedPrice != null and customerExpectedPrice != ''" >
+          AND a.customer_expected_price = #{customerExpectedPrice, jdbcType=VARCHAR}
+        </if>
+        <if test="receivingOrdersDeadline != null" >
+          AND a.receiving_orders_deadline = #{receivingOrdersDeadline, jdbcType=TIMESTAMP}
+        </if>
+        <if test="trackStatus != null and trackStatus != ''" >
+          AND a.track_status = #{trackStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+</mapper>

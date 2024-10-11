@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.department.dao.SysDepartmentDao">
+
+
+    <resultMap id="sysDepartmentInfoResultMap" type="com.exp.ucmp.entity.SysDepartmentInfoEntity">
+        <constructor>
+            <idArg column="department_id" javaType="Long" jdbcType="BIGINT"/>
+        </constructor>
+        <result column="department_code" property="departmentCode" jdbcType="VARCHAR"/>
+        <result column="department_name" property="departmentName" jdbcType="VARCHAR"/>
+        <result column="department_type" property="departmentType" jdbcType="VARCHAR"/>
+        <result column="is_delete" property="isDelete" jdbcType="VARCHAR"/>
+        <result column="created_by" property="createdBy" jdbcType="BIGINT"/>
+        <result column="created_date" property="createdDate" jdbcType="TIMESTAMP"/>
+        <result column="updated_by" property="updatedBy" jdbcType="BIGINT"/>
+        <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="t_sys_department_info_Column_List">
+        a
+        .
+        department_id
+        ,
+    a.department_code,
+    a.department_name,
+    a.department_type,
+    a.is_delete,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date
+    </sql>
+
+    <select id="load" parameterType="com.exp.ucmp.pk.SysDepartmentInfoPk" resultMap="sysDepartmentInfoResultMap">
+        SELECT
+        <include refid="t_sys_department_info_Column_List"/>
+        FROM t_sys_department_info a
+        WHERE 1 = 1
+        AND a.department_id = #{departmentId, jdbcType=BIGINT}
+    </select>
+
+    <select id="selectDepartmentMsg" parameterType="com.exp.ucmp.department.dto.SysDepartmentInfoDto"
+            resultMap="sysDepartmentInfoResultMap">
+        SELECT
+        <include refid="t_sys_department_info_Column_List"/>
+        FROM t_sys_department_info a
+        WHERE 1 = 1
+        AND a.is_delete = '01'
+        AND a.department_type = '0010'
+        <if test="departmentCode != null and departmentCode != ''">
+            AND a.department_code like concat('%',#{departmentCode, jdbcType=VARCHAR},'%')
+        </if>
+        <if test="departmentName != null and departmentName != ''">
+            AND a.department_name like concat('%',#{departmentName, jdbcType=VARCHAR},'%')
+        </if>
+    </select>
+
+    <select id="selectDepartmentType" resultType="java.util.Map">
+        SELECT department_id,
+               department_name
+        FROM t_sys_department_info
+        where is_delete = '01'
+        group by department_id
+    </select>
+</mapper>

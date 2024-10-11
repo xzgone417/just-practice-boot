@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.carDealer.dao.ScheduledTasksDao">
+
+    <select id="selectMsgByDetectionDate"
+            resultType="com.exp.ucmp.carDealer.dto.DetectionCustomerDto">
+        SELECT
+        a.reservation_id as reservationId,
+        a.reservation_detection_date as reservationDetectionDate,
+        a.reservation_detection_address as reservationDetectionAddress,
+        b.business_order_no as businessOrderNo,
+        c.customer_iphone as customerIphone
+        FROM t_psi_customer_reservation_msg a,t_psi_customer_reservation_track b,t_psi_customer_basic_information c
+        where a.reservation_id = b.reservation_id
+        and b.customer_id = c.customer_id
+        <if test="detectionDate != null">
+            AND a.reservation_detection_date <![CDATA[ <=]]> #{detectionDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="status != null">
+            AND b.track_status in
+            <foreach item="item" index="index" collection="status" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        AND b.is_delete != '00'
+    </select>
+
+    <!-- 根据预约id和状态查询询价单-->
+    <select id="selectByReservationId"
+            resultMap="com.exp.ucmp.dao.IPsiCarDealerInquiryDao.psiCarDealerInquiryResultMap">
+        SELECT
+        <include refid="com.exp.ucmp.dao.IPsiCarDealerInquiryDao.t_psi_car_dealer_inquiry_Column_List"/>
+        FROM t_psi_car_dealer_inquiry a
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="reservationId != null">
+                and a.reservation_id = #{reservationId, jdbcType=BIGINT}
+            </if>
+            <if test="receivingDeadline != null">
+                AND a.order_receiving_deadline <![CDATA[ <= ]]> #{receivingDeadline, jdbcType=TIMESTAMP}
+            </if>
+            <if test="quoteDeadline != null">
+                AND a.quote_deadline <![CDATA[ <= ]]> #{quoteDeadline, jdbcType=TIMESTAMP}
+            </if>
+            <if test="estimatedTransferTime != null">
+                AND DATE_FORMAT(a.estimated_transfer_time,'%Y-%m-%d')= #{estimatedTransferTime, jdbcType=TIMESTAMP}
+            </if>
+            <if test="status != null">
+                and a.inquiry_status in
+                <foreach item="item" index="index" collection="status" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            AND a.is_delete != '00'
+        </trim>
+    </select>
+
+
+</mapper>

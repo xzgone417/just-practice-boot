@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.IPsiMessageInfoDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.PsiMessageInfoEntity" >
+    INSERT INTO t_psi_message_info 
+       (
+          message_id,
+          message_type,
+          template_id,
+          reservation_id,
+          Recipient,
+          status,
+          reception_time
+        ) VALUES (
+          #{messageId, jdbcType=BIGINT},
+          #{messageType, jdbcType=VARCHAR},
+          #{templateId, jdbcType=VARCHAR},
+          #{reservationId, jdbcType=BIGINT},
+          #{recipient, jdbcType=VARCHAR},
+          #{status, jdbcType=VARCHAR},
+          #{receptionTime, jdbcType=TIMESTAMP}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.PsiMessageInfoEntity" >
+    INSERT INTO t_psi_message_info
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="messageId != null" >
+          message_id,
+          </if>
+        <if test="messageType != null" >
+          message_type,
+          </if>
+        <if test="templateId != null" >
+          template_id,
+          </if>
+        <if test="reservationId != null" >
+          reservation_id,
+          </if>
+        <if test="recipient != null" >
+          Recipient,
+          </if>
+        <if test="status != null" >
+          status,
+          </if>
+        <if test="receptionTime != null" >
+          reception_time,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="messageId != null" >
+          #{messageId, jdbcType=BIGINT},
+          </if>
+        <if test="messageType != null" >
+          #{messageType, jdbcType=VARCHAR},
+          </if>
+        <if test="templateId != null" >
+          #{templateId, jdbcType=VARCHAR},
+          </if>
+        <if test="reservationId != null" >
+          #{reservationId, jdbcType=BIGINT},
+          </if>
+        <if test="recipient != null" >
+          #{recipient, jdbcType=VARCHAR},
+          </if>
+        <if test="status != null" >
+          #{status, jdbcType=VARCHAR},
+          </if>
+        <if test="receptionTime != null" >
+          #{receptionTime, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_psi_message_info 
+       (
+          message_id,
+          message_type,
+          template_id,
+          reservation_id,
+          Recipient,
+          status,
+          reception_time
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.messageId, jdbcType=BIGINT},
+	          #{item.messageType, jdbcType=VARCHAR},
+	          #{item.templateId, jdbcType=VARCHAR},
+	          #{item.reservationId, jdbcType=BIGINT},
+	          #{item.recipient, jdbcType=VARCHAR},
+	          #{item.status, jdbcType=VARCHAR},
+	          #{item.receptionTime, jdbcType=TIMESTAMP}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.PsiMessageInfoEntity" >
+    UPDATE t_psi_message_info SET 
+          message_type = #{messageType, jdbcType=VARCHAR},
+          template_id = #{templateId, jdbcType=VARCHAR},
+          reservation_id = #{reservationId, jdbcType=BIGINT},
+          Recipient = #{recipient, jdbcType=VARCHAR},
+          status = #{status, jdbcType=VARCHAR},
+          reception_time = #{receptionTime, jdbcType=TIMESTAMP}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND message_id = #{messageId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.PsiMessageInfoEntity" >
+    UPDATE t_psi_message_info
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="messageType != null" >
+          message_type = #{messageType, jdbcType=VARCHAR},
+          </if>
+        <if test="templateId != null" >
+          template_id = #{templateId, jdbcType=VARCHAR},
+          </if>
+        <if test="reservationId != null" >
+          reservation_id = #{reservationId, jdbcType=BIGINT},
+          </if>
+        <if test="recipient != null" >
+          Recipient = #{recipient, jdbcType=VARCHAR},
+          </if>
+        <if test="status != null" >
+          status = #{status, jdbcType=VARCHAR},
+          </if>
+        <if test="receptionTime != null" >
+          reception_time = #{receptionTime, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND message_id = #{messageId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_message_info SET 
+	          message_type = #{item.messageType, jdbcType=VARCHAR},
+	          template_id = #{item.templateId, jdbcType=VARCHAR},
+	          reservation_id = #{item.reservationId, jdbcType=BIGINT},
+	          Recipient = #{item.recipient, jdbcType=VARCHAR},
+	          status = #{item.status, jdbcType=VARCHAR},
+	          reception_time = #{item.receptionTime, jdbcType=TIMESTAMP}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND message_id = #{item.messageId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_message_info
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.messageType != null" >
+	          message_type = #{item.messageType, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.templateId != null" >
+	          template_id = #{item.templateId, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.reservationId != null" >
+	          reservation_id = #{item.reservationId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.recipient != null" >
+	          Recipient = #{item.recipient, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.status != null" >
+	          status = #{item.status, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.receptionTime != null" >
+	          reception_time = #{item.receptionTime, jdbcType=TIMESTAMP},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND message_id = #{item.messageId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.PsiMessageInfoPk" >
+    DELETE FROM t_psi_message_info
+    WHERE
+     <trim prefixOverrides="AND">
+           AND message_id = #{messageId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.PsiMessageInfoEntity" >
+    DELETE FROM t_psi_message_info
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="messageId != null" >
+          AND message_id = #{messageId, jdbcType=BIGINT}
+        </if>
+        <if test="messageType != null and messageType != ''" >
+          AND message_type = #{messageType, jdbcType=VARCHAR}
+        </if>
+        <if test="templateId != null and templateId != ''" >
+          AND template_id = #{templateId, jdbcType=VARCHAR}
+        </if>
+        <if test="reservationId != null" >
+          AND reservation_id = #{reservationId, jdbcType=BIGINT}
+        </if>
+        <if test="recipient != null and recipient != ''" >
+          AND Recipient = #{recipient, jdbcType=VARCHAR}
+        </if>
+        <if test="status != null and status != ''" >
+          AND status = #{status, jdbcType=VARCHAR}
+        </if>
+        <if test="receptionTime != null" >
+          AND reception_time = #{receptionTime, jdbcType=TIMESTAMP}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="psiMessageInfoResultMap" type="com.exp.ucmp.entity.PsiMessageInfoEntity" >
+      <constructor>
+       <idArg column="message_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="message_type" property="messageType" jdbcType="VARCHAR" />
+    <result column="template_id" property="templateId" jdbcType="VARCHAR" />
+    <result column="reservation_id" property="reservationId" jdbcType="BIGINT" />
+    <result column="Recipient" property="recipient" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="reception_time" property="receptionTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="t_psi_message_info_Column_List" >
+    a.message_id,
+    a.message_type,
+    a.template_id,
+    a.reservation_id,
+    a.Recipient,
+    a.status,
+    a.reception_time
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.PsiMessageInfoPk" resultMap="psiMessageInfoResultMap">
+    SELECT 
+    <include refid="t_psi_message_info_Column_List" />
+      FROM t_psi_message_info a
+     WHERE 1 = 1
+       AND a.message_id = #{messageId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.PsiMessageInfoEntity" resultMap="psiMessageInfoResultMap">
+    SELECT 
+    <include refid="t_psi_message_info_Column_List" />
+      FROM t_psi_message_info a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="messageId != null" >
+          AND a.message_id = #{messageId, jdbcType=BIGINT}
+        </if>
+        <if test="messageType != null and messageType != ''" >
+          AND a.message_type = #{messageType, jdbcType=VARCHAR}
+        </if>
+        <if test="templateId != null and templateId != ''" >
+          AND a.template_id = #{templateId, jdbcType=VARCHAR}
+        </if>
+        <if test="reservationId != null" >
+          AND a.reservation_id = #{reservationId, jdbcType=BIGINT}
+        </if>
+        <if test="recipient != null and recipient != ''" >
+          AND a.Recipient = #{recipient, jdbcType=VARCHAR}
+        </if>
+        <if test="status != null and status != ''" >
+          AND a.status = #{status, jdbcType=VARCHAR}
+        </if>
+        <if test="receptionTime != null" >
+          AND a.reception_time = #{receptionTime, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.PsiMessageInfoEntity" resultType="int">
+    SELECT count(1) FROM t_psi_message_info a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="messageId != null" >
+          AND a.message_id = #{messageId, jdbcType=BIGINT}
+        </if>
+        <if test="messageType != null and messageType != ''" >
+          AND a.message_type = #{messageType, jdbcType=VARCHAR}
+        </if>
+        <if test="templateId != null and templateId != ''" >
+          AND a.template_id = #{templateId, jdbcType=VARCHAR}
+        </if>
+        <if test="reservationId != null" >
+          AND a.reservation_id = #{reservationId, jdbcType=BIGINT}
+        </if>
+        <if test="recipient != null and recipient != ''" >
+          AND a.Recipient = #{recipient, jdbcType=VARCHAR}
+        </if>
+        <if test="status != null and status != ''" >
+          AND a.status = #{status, jdbcType=VARCHAR}
+        </if>
+        <if test="receptionTime != null" >
+          AND a.reception_time = #{receptionTime, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+</mapper>

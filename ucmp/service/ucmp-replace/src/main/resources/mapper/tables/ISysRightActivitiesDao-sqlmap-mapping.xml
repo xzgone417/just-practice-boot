@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.ISysRightActivitiesDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.SysRightActivitiesEntity" >
+    INSERT INTO t_sys_right_activities 
+       (
+          right_id,
+          right_pack_id,
+          campaign_name,
+          campaign_type,
+          campaign_describe,
+          campaign_code,
+          model_code,
+          model_name,
+          shape_code,
+          shape_name,
+          conditions,
+          start_date,
+          end_date,
+          is_enable,
+          is_delete,
+          created_by,
+          created_person_name,
+          created_date,
+          updated_by,
+          updated_date
+        ) VALUES (
+          #{rightId, jdbcType=BIGINT},
+          #{rightPackId, jdbcType=BIGINT},
+          #{campaignName, jdbcType=VARCHAR},
+          #{campaignType, jdbcType=VARCHAR},
+          #{campaignDescribe, jdbcType=VARCHAR},
+          #{campaignCode, jdbcType=VARCHAR},
+          #{modelCode, jdbcType=VARCHAR},
+          #{modelName, jdbcType=VARCHAR},
+          #{shapeCode, jdbcType=VARCHAR},
+          #{shapeName, jdbcType=VARCHAR},
+          #{conditions, jdbcType=VARCHAR},
+          #{startDate, jdbcType=TIMESTAMP},
+          #{endDate, jdbcType=TIMESTAMP},
+          #{isEnable, jdbcType=VARCHAR},
+          #{isDelete, jdbcType=VARCHAR},
+          #{createdBy, jdbcType=BIGINT},
+          #{createdPersonName, jdbcType=VARCHAR},
+          #{createdDate, jdbcType=TIMESTAMP},
+          #{updatedBy, jdbcType=BIGINT},
+          #{updatedDate, jdbcType=TIMESTAMP}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.SysRightActivitiesEntity" >
+    INSERT INTO t_sys_right_activities
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="rightId != null" >
+          right_id,
+          </if>
+        <if test="rightPackId != null" >
+          right_pack_id,
+          </if>
+        <if test="campaignName != null" >
+          campaign_name,
+          </if>
+        <if test="campaignType != null" >
+          campaign_type,
+          </if>
+        <if test="campaignDescribe != null" >
+          campaign_describe,
+          </if>
+        <if test="campaignCode != null" >
+          campaign_code,
+          </if>
+        <if test="modelCode != null" >
+          model_code,
+          </if>
+        <if test="modelName != null" >
+          model_name,
+          </if>
+        <if test="shapeCode != null" >
+          shape_code,
+          </if>
+        <if test="shapeName != null" >
+          shape_name,
+          </if>
+        <if test="conditions != null" >
+          conditions,
+          </if>
+        <if test="startDate != null" >
+          start_date,
+          </if>
+        <if test="endDate != null" >
+          end_date,
+          </if>
+        <if test="isEnable != null" >
+          is_enable,
+          </if>
+        <if test="isDelete != null" >
+          is_delete,
+          </if>
+        <if test="createdBy != null" >
+          created_by,
+          </if>
+        <if test="createdPersonName != null" >
+          created_person_name,
+          </if>
+        <if test="createdDate != null" >
+          created_date,
+          </if>
+        <if test="updatedBy != null" >
+          updated_by,
+          </if>
+        <if test="updatedDate != null" >
+          updated_date,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="rightId != null" >
+          #{rightId, jdbcType=BIGINT},
+          </if>
+        <if test="rightPackId != null" >
+          #{rightPackId, jdbcType=BIGINT},
+          </if>
+        <if test="campaignName != null" >
+          #{campaignName, jdbcType=VARCHAR},
+          </if>
+        <if test="campaignType != null" >
+          #{campaignType, jdbcType=VARCHAR},
+          </if>
+        <if test="campaignDescribe != null" >
+          #{campaignDescribe, jdbcType=VARCHAR},
+          </if>
+        <if test="campaignCode != null" >
+          #{campaignCode, jdbcType=VARCHAR},
+          </if>
+        <if test="modelCode != null" >
+          #{modelCode, jdbcType=VARCHAR},
+          </if>
+        <if test="modelName != null" >
+          #{modelName, jdbcType=VARCHAR},
+          </if>
+        <if test="shapeCode != null" >
+          #{shapeCode, jdbcType=VARCHAR},
+          </if>
+        <if test="shapeName != null" >
+          #{shapeName, jdbcType=VARCHAR},
+          </if>
+        <if test="conditions != null" >
+          #{conditions, jdbcType=VARCHAR},
+          </if>
+        <if test="startDate != null" >
+          #{startDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="endDate != null" >
+          #{endDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="isEnable != null" >
+          #{isEnable, jdbcType=VARCHAR},
+          </if>
+        <if test="isDelete != null" >
+          #{isDelete, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdPersonName != null" >
+          #{createdPersonName, jdbcType=VARCHAR},
+          </if>
+        <if test="createdDate != null" >
+          #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_sys_right_activities 
+       (
+          right_id,
+          right_pack_id,
+          campaign_name,
+          campaign_type,
+          campaign_describe,
+          campaign_code,
+          model_code,
+          model_name,
+          shape_code,
+          shape_name,
+          conditions,
+          start_date,
+          end_date,
+          is_enable,
+          is_delete,
+          created_by,
+          created_person_name,
+          created_date,
+          updated_by,
+          updated_date
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.rightId, jdbcType=BIGINT},
+	          #{item.rightPackId, jdbcType=BIGINT},
+	          #{item.campaignName, jdbcType=VARCHAR},
+	          #{item.campaignType, jdbcType=VARCHAR},
+	          #{item.campaignDescribe, jdbcType=VARCHAR},
+	          #{item.campaignCode, jdbcType=VARCHAR},
+	          #{item.modelCode, jdbcType=VARCHAR},
+	          #{item.modelName, jdbcType=VARCHAR},
+	          #{item.shapeCode, jdbcType=VARCHAR},
+	          #{item.shapeName, jdbcType=VARCHAR},
+	          #{item.conditions, jdbcType=VARCHAR},
+	          #{item.startDate, jdbcType=TIMESTAMP},
+	          #{item.endDate, jdbcType=TIMESTAMP},
+	          #{item.isEnable, jdbcType=VARCHAR},
+	          #{item.isDelete, jdbcType=VARCHAR},
+	          #{item.createdBy, jdbcType=BIGINT},
+	          #{item.createdPersonName, jdbcType=VARCHAR},
+	          #{item.createdDate, jdbcType=TIMESTAMP},
+	          #{item.updatedBy, jdbcType=BIGINT},
+	          #{item.updatedDate, jdbcType=TIMESTAMP}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.SysRightActivitiesEntity" >
+    UPDATE t_sys_right_activities SET 
+          right_pack_id = #{rightPackId, jdbcType=BIGINT},
+          campaign_name = #{campaignName, jdbcType=VARCHAR},
+          campaign_type = #{campaignType, jdbcType=VARCHAR},
+          campaign_describe = #{campaignDescribe, jdbcType=VARCHAR},
+          campaign_code = #{campaignCode, jdbcType=VARCHAR},
+          model_code = #{modelCode, jdbcType=VARCHAR},
+          model_name = #{modelName, jdbcType=VARCHAR},
+          shape_code = #{shapeCode, jdbcType=VARCHAR},
+          shape_name = #{shapeName, jdbcType=VARCHAR},
+          conditions = #{conditions, jdbcType=VARCHAR},
+          start_date = #{startDate, jdbcType=TIMESTAMP},
+          end_date = #{endDate, jdbcType=TIMESTAMP},
+          is_enable = #{isEnable, jdbcType=VARCHAR},
+          is_delete = #{isDelete, jdbcType=VARCHAR},
+          created_by = #{createdBy, jdbcType=BIGINT},
+          created_person_name = #{createdPersonName, jdbcType=VARCHAR},
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND right_id = #{rightId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.SysRightActivitiesEntity" >
+    UPDATE t_sys_right_activities
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="rightPackId != null" >
+          right_pack_id = #{rightPackId, jdbcType=BIGINT},
+          </if>
+        <if test="campaignName != null" >
+          campaign_name = #{campaignName, jdbcType=VARCHAR},
+          </if>
+        <if test="campaignType != null" >
+          campaign_type = #{campaignType, jdbcType=VARCHAR},
+          </if>
+        <if test="campaignDescribe != null" >
+          campaign_describe = #{campaignDescribe, jdbcType=VARCHAR},
+          </if>
+        <if test="campaignCode != null" >
+          campaign_code = #{campaignCode, jdbcType=VARCHAR},
+          </if>
+        <if test="modelCode != null" >
+          model_code = #{modelCode, jdbcType=VARCHAR},
+          </if>
+        <if test="modelName != null" >
+          model_name = #{modelName, jdbcType=VARCHAR},
+          </if>
+        <if test="shapeCode != null" >
+          shape_code = #{shapeCode, jdbcType=VARCHAR},
+          </if>
+        <if test="shapeName != null" >
+          shape_name = #{shapeName, jdbcType=VARCHAR},
+          </if>
+        <if test="conditions != null" >
+          conditions = #{conditions, jdbcType=VARCHAR},
+          </if>
+        <if test="startDate != null" >
+          start_date = #{startDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="endDate != null" >
+          end_date = #{endDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="isEnable != null" >
+          is_enable = #{isEnable, jdbcType=VARCHAR},
+          </if>
+        <if test="isDelete != null" >
+          is_delete = #{isDelete, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          created_by = #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdPersonName != null" >
+          created_person_name = #{createdPersonName, jdbcType=VARCHAR},
+          </if>
+        <if test="createdDate != null" >
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND right_id = #{rightId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_sys_right_activities SET 
+	          right_pack_id = #{item.rightPackId, jdbcType=BIGINT},
+	          campaign_name = #{item.campaignName, jdbcType=VARCHAR},
+	          campaign_type = #{item.campaignType, jdbcType=VARCHAR},
+	          campaign_describe = #{item.campaignDescribe, jdbcType=VARCHAR},
+	          campaign_code = #{item.campaignCode, jdbcType=VARCHAR},
+	          model_code = #{item.modelCode, jdbcType=VARCHAR},
+	          model_name = #{item.modelName, jdbcType=VARCHAR},
+	          shape_code = #{item.shapeCode, jdbcType=VARCHAR},
+	          shape_name = #{item.shapeName, jdbcType=VARCHAR},
+	          conditions = #{item.conditions, jdbcType=VARCHAR},
+	          start_date = #{item.startDate, jdbcType=TIMESTAMP},
+	          end_date = #{item.endDate, jdbcType=TIMESTAMP},
+	          is_enable = #{item.isEnable, jdbcType=VARCHAR},
+	          is_delete = #{item.isDelete, jdbcType=VARCHAR},
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          created_person_name = #{item.createdPersonName, jdbcType=VARCHAR},
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND right_id = #{item.rightId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_sys_right_activities
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.rightPackId != null" >
+	          right_pack_id = #{item.rightPackId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.campaignName != null" >
+	          campaign_name = #{item.campaignName, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.campaignType != null" >
+	          campaign_type = #{item.campaignType, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.campaignDescribe != null" >
+	          campaign_describe = #{item.campaignDescribe, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.campaignCode != null" >
+	          campaign_code = #{item.campaignCode, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.modelCode != null" >
+	          model_code = #{item.modelCode, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.modelName != null" >
+	          model_name = #{item.modelName, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.shapeCode != null" >
+	          shape_code = #{item.shapeCode, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.shapeName != null" >
+	          shape_name = #{item.shapeName, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.conditions != null" >
+	          conditions = #{item.conditions, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.startDate != null" >
+	          start_date = #{item.startDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.endDate != null" >
+	          end_date = #{item.endDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.isEnable != null" >
+	          is_enable = #{item.isEnable, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.isDelete != null" >
+	          is_delete = #{item.isDelete, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.createdBy != null" >
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.createdPersonName != null" >
+	          created_person_name = #{item.createdPersonName, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.createdDate != null" >
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.updatedBy != null" >
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.updatedDate != null" >
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND right_id = #{item.rightId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.SysRightActivitiesPk" >
+    DELETE FROM t_sys_right_activities
+    WHERE
+     <trim prefixOverrides="AND">
+           AND right_id = #{rightId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.SysRightActivitiesEntity" >
+    DELETE FROM t_sys_right_activities
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="rightId != null" >
+          AND right_id = #{rightId, jdbcType=BIGINT}
+        </if>
+        <if test="rightPackId != null" >
+          AND right_pack_id = #{rightPackId, jdbcType=BIGINT}
+        </if>
+        <if test="campaignName != null and campaignName != ''" >
+          AND campaign_name = #{campaignName, jdbcType=VARCHAR}
+        </if>
+        <if test="campaignType != null and campaignType != ''" >
+          AND campaign_type = #{campaignType, jdbcType=VARCHAR}
+        </if>
+        <if test="campaignDescribe != null and campaignDescribe != ''" >
+          AND campaign_describe = #{campaignDescribe, jdbcType=VARCHAR}
+        </if>
+        <if test="campaignCode != null and campaignCode != ''" >
+          AND campaign_code = #{campaignCode, jdbcType=VARCHAR}
+        </if>
+        <if test="modelCode != null and modelCode != ''" >
+          AND model_code = #{modelCode, jdbcType=VARCHAR}
+        </if>
+        <if test="modelName != null and modelName != ''" >
+          AND model_name = #{modelName, jdbcType=VARCHAR}
+        </if>
+        <if test="shapeCode != null and shapeCode != ''" >
+          AND shape_code = #{shapeCode, jdbcType=VARCHAR}
+        </if>
+        <if test="shapeName != null and shapeName != ''" >
+          AND shape_name = #{shapeName, jdbcType=VARCHAR}
+        </if>
+        <if test="conditions != null and conditions != ''" >
+          AND conditions = #{conditions, jdbcType=VARCHAR}
+        </if>
+        <if test="startDate != null" >
+          AND start_date = #{startDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="endDate != null" >
+          AND end_date = #{endDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdPersonName != null and createdPersonName != ''" >
+          AND created_person_name = #{createdPersonName, jdbcType=VARCHAR}
+        </if>
+        <if test="createdDate != null" >
+          AND created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="sysRightActivitiesResultMap" type="com.exp.ucmp.entity.SysRightActivitiesEntity" >
+      <constructor>
+       <idArg column="right_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="right_pack_id" property="rightPackId" jdbcType="BIGINT" />
+    <result column="campaign_name" property="campaignName" jdbcType="VARCHAR" />
+    <result column="campaign_type" property="campaignType" jdbcType="VARCHAR" />
+    <result column="campaign_describe" property="campaignDescribe" jdbcType="VARCHAR" />
+    <result column="campaign_code" property="campaignCode" jdbcType="VARCHAR" />
+    <result column="model_code" property="modelCode" jdbcType="VARCHAR" />
+    <result column="model_name" property="modelName" jdbcType="VARCHAR" />
+    <result column="shape_code" property="shapeCode" jdbcType="VARCHAR" />
+    <result column="shape_name" property="shapeName" jdbcType="VARCHAR" />
+    <result column="conditions" property="conditions" jdbcType="VARCHAR" />
+    <result column="start_date" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="end_date" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="is_enable" property="isEnable" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_person_name" property="createdPersonName" jdbcType="VARCHAR" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="t_sys_right_activities_Column_List" >
+    a.right_id,
+    a.right_pack_id,
+    a.campaign_name,
+    a.campaign_type,
+    a.campaign_describe,
+    a.campaign_code,
+    a.model_code,
+    a.model_name,
+    a.shape_code,
+    a.shape_name,
+    a.conditions,
+    a.start_date,
+    a.end_date,
+    a.is_enable,
+    a.is_delete,
+    a.created_by,
+    a.created_person_name,
+    a.created_date,
+    a.updated_by,
+    a.updated_date
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.SysRightActivitiesPk" resultMap="sysRightActivitiesResultMap">
+    SELECT 
+    <include refid="t_sys_right_activities_Column_List" />
+      FROM t_sys_right_activities a
+     WHERE 1 = 1
+       AND a.right_id = #{rightId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.SysRightActivitiesEntity" resultMap="sysRightActivitiesResultMap">
+    SELECT 
+    <include refid="t_sys_right_activities_Column_List" />
+      FROM t_sys_right_activities a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="rightId != null" >
+          AND a.right_id = #{rightId, jdbcType=BIGINT}
+        </if>
+        <if test="rightPackId != null" >
+          AND a.right_pack_id = #{rightPackId, jdbcType=BIGINT}
+        </if>
+        <if test="campaignName != null and campaignName != ''" >
+          AND a.campaign_name = #{campaignName, jdbcType=VARCHAR}
+        </if>
+        <if test="campaignType != null and campaignType != ''" >
+          AND a.campaign_type = #{campaignType, jdbcType=VARCHAR}
+        </if>
+        <if test="campaignDescribe != null and campaignDescribe != ''" >
+          AND a.campaign_describe = #{campaignDescribe, jdbcType=VARCHAR}
+        </if>
+        <if test="campaignCode != null and campaignCode != ''" >
+          AND a.campaign_code = #{campaignCode, jdbcType=VARCHAR}
+        </if>
+        <if test="modelCode != null and modelCode != ''" >
+          AND a.model_code = #{modelCode, jdbcType=VARCHAR}
+        </if>
+        <if test="modelName != null and modelName != ''" >
+          AND a.model_name = #{modelName, jdbcType=VARCHAR}
+        </if>
+        <if test="shapeCode != null and shapeCode != ''" >
+          AND a.shape_code = #{shapeCode, jdbcType=VARCHAR}
+        </if>
+        <if test="shapeName != null and shapeName != ''" >
+          AND a.shape_name = #{shapeName, jdbcType=VARCHAR}
+        </if>
+        <if test="conditions != null and conditions != ''" >
+          AND a.conditions = #{conditions, jdbcType=VARCHAR}
+        </if>
+        <if test="startDate != null" >
+          AND a.start_date = #{startDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="endDate != null" >
+          AND a.end_date = #{endDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND a.is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND a.is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdPersonName != null and createdPersonName != ''" >
+          AND a.created_person_name = #{createdPersonName, jdbcType=VARCHAR}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.SysRightActivitiesEntity" resultType="int">
+    SELECT count(1) FROM t_sys_right_activities a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="rightId != null" >
+          AND a.right_id = #{rightId, jdbcType=BIGINT}
+        </if>
+        <if test="rightPackId != null" >
+          AND a.right_pack_id = #{rightPackId, jdbcType=BIGINT}
+        </if>
+        <if test="campaignName != null and campaignName != ''" >
+          AND a.campaign_name = #{campaignName, jdbcType=VARCHAR}
+        </if>
+        <if test="campaignType != null and campaignType != ''" >
+          AND a.campaign_type = #{campaignType, jdbcType=VARCHAR}
+        </if>
+        <if test="campaignDescribe != null and campaignDescribe != ''" >
+          AND a.campaign_describe = #{campaignDescribe, jdbcType=VARCHAR}
+        </if>
+        <if test="campaignCode != null and campaignCode != ''" >
+          AND a.campaign_code = #{campaignCode, jdbcType=VARCHAR}
+        </if>
+        <if test="modelCode != null and modelCode != ''" >
+          AND a.model_code = #{modelCode, jdbcType=VARCHAR}
+        </if>
+        <if test="modelName != null and modelName != ''" >
+          AND a.model_name = #{modelName, jdbcType=VARCHAR}
+        </if>
+        <if test="shapeCode != null and shapeCode != ''" >
+          AND a.shape_code = #{shapeCode, jdbcType=VARCHAR}
+        </if>
+        <if test="shapeName != null and shapeName != ''" >
+          AND a.shape_name = #{shapeName, jdbcType=VARCHAR}
+        </if>
+        <if test="conditions != null and conditions != ''" >
+          AND a.conditions = #{conditions, jdbcType=VARCHAR}
+        </if>
+        <if test="startDate != null" >
+          AND a.start_date = #{startDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="endDate != null" >
+          AND a.end_date = #{endDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND a.is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND a.is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdPersonName != null and createdPersonName != ''" >
+          AND a.created_person_name = #{createdPersonName, jdbcType=VARCHAR}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+</mapper>

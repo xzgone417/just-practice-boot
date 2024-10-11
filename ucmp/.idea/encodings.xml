@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/service/ucmp-auth/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service/ucmp-auth/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service/ucmp-auth/src/main/resources/env/${profiles.active}" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service/ucmp-auth/src/main/resources/env/remote" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service/ucmp-build/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service/ucmp-build/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service/ucmp-build/src/main/resources/env/remote" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service/ucmp-gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service/ucmp-gateway/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service/ucmp-gateway/src/main/resources/env/${profiles.active}" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service/ucmp-gateway/src/main/resources/env/remote" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service/ucmp-psi/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service/ucmp-psi/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service/ucmp-psi/src/main/resources/env/remote" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service/ucmp-replace/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service/ucmp-replace/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service/ucmp-replace/src/main/resources/env/remote" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service/ucmp-system/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service/ucmp-system/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/service/ucmp-system/src/main/resources/env/remote" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ucmp-common-group/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ucmp-common-group/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ucmp-common-group/ucmp-dto/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ucmp-common-group/ucmp-dto/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ucmp-common-group/ucmp-entity/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ucmp-common-group/ucmp-entity/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ucmp-common-group/ucmp-web/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ucmp-common-group/ucmp-web/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

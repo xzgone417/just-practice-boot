@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.carDealer.dao.AcquisitionFollowDao">
+
+    <select id="queryAcquisitionFollowByAwait" resultType="com.exp.ucmp.carDealer.dto.AcquisitionQueryResultDto">
+        SELECT
+        pcc.brand,
+        pcc.brand_chinese_describe as brandChineseDescribe,
+        pcc.car_series as carSeries,
+        pcc.car_series_chinese_describe as carSeriesChineseDescribe,
+        pcc.car_year as carYear,
+        pcc.car_year_chinese_describe as carYearChineseDescribe,
+        pcc.car_type as carType,
+        pcc.car_type_chinese_describe as carTypeChineseDescribe,
+        pcc.licensing_date as licensingDate,
+        pcc.driving_mileage as drivingMileage,
+        pcc.color,
+        pcc.license_plate_num as licensePlateNum,
+        pcc.vin_code as vinCode,
+        pcc.transfer_times as transferTimes,
+        pcc.using_nature as usingNature,
+        pca.reservation_id as reservationId,
+        pca.other_brand_inquiry_id as otherBrandInquiryId,
+        pca.customer_intention as customerIntention,
+        pca.estimate_deal_price as estimateDealPrice,
+        pca.invoice_num as invoiceNum,
+        pca.pay_type as payType,
+        pca.deal_price_end as dealPriceEnd,
+        pca.material_status as materialStatus,
+        pca.acquisition_status as acquisitionStatus,
+        pca.approval_status as approvalStatus,
+        pca.acquisition_abandoned_reason as acquisitionAbandonedReason,
+        pcdi.inquiry_id as inquiryId,
+        pcdi.customer_name as customerName,
+        pcdi.customer_iphone as customerIphone,
+        pcdi.business_order_no as businessOrderNo
+        FROM
+        t_psi_car_acquisition as pca
+        LEFT JOIN
+        (SELECT inquiry_id,reservation_id,customer_name,customer_iphone,business_order_no
+        FROM t_psi_car_dealer_inquiry
+        WHERE car_dealer_id = #{carDealerId}
+        AND car_dealer_staff_id = #{carDealerStaffId} AND inquiry_status in( '0921','0922','0923')) as pcdi
+        ON pca.reservation_id = pcdi.reservation_id
+        JOIN t_psi_customer_cars as pcc
+        ON pca.reservation_id = pcc.reservation_id
+        WHERE
+        <if test="type == 1">
+            pca.acquisition_status = '1101'
+            AND pca.customer_intention = '0501'
+        </if>
+        <if test="type == 2">
+            pca.acquisition_status = '1101'
+            AND pca.customer_intention = '0502'
+        </if>
+        <if test="type == 3">
+            pca.acquisition_status = '1102'
+        </if>
+        <if test="type == 4">
+            pca.acquisition_status = '1103'
+        </if>
+        <if test="type == 5">
+            pca.approval_status = '1305'
+            <if test="businessOrderNo != '' and businessOrderNo != null ">
+                and pcdi.business_order_no = #{businessOrderNo}
+            </if>
+        </if>
+    </select>
+
+    <!--新页面查询-->
+    <select id="newQueryAcquisitionFollow" resultType="com.exp.ucmp.carDealer.dto.AcquisitionQueryResultDto">
+        SELECT distinct
+        b.brand,
+        b.brand_chinese_describe as brandChineseDescribe,
+        b.car_series as carSeries,
+        b.car_series_chinese_describe as carSeriesChineseDescribe,
+        b.car_year as carYear,
+        b.car_year_chinese_describe as carYearChineseDescribe,
+        b.car_type as carType,
+        b.car_type_chinese_describe as carTypeChineseDescribe,
+        b.licensing_date as licensingDate,
+        b.licensing_city as licensingCity,
+        b.driving_mileage as drivingMileage,
+        b.color,
+        b.license_plate_num as licensePlateNum,
+        b.vin_code as vinCode,
+        b.transfer_times as transferTimes,
+        b.using_nature as usingNature,
+        a.inquiry_id as inquiryId,
+        a.reservation_id as reservationId,
+        a.customer_intention as customerIntention,
+        a.quote_end_price as quoteEndPrice,
+        a.deal_price_end as dealPriceEnd,
+        a.order_abandoned_reason as orderAbandonedReason,
+        a.customer_name as customerName,
+        a.customer_iphone as customerIphone,
+        a.inquiry_status as inquiryStatus,
+        a.approval_status as approvalStatus,
+        c.reservation_detection_date as reservationDetectionDate,
+        c.reservation_detection_address as reservationDetectionAddress,
+        c.customer_expect_price as customerExpectPrice,
+        a.make_order_person_role as makeOrderPersonRole,
+        a.make_order_person_id as makeOrderPersonId,
+        a.make_order_person_name as makeOrderPersonName,
+        a.make_order_person_iphone as makeOrderPersonIphone,
+        a.estimated_transfer_time as estimatedTransferTime,
+        a.business_order_no as businessOrderNo,
+        a.generate_acquisitions_time as generateAcquisitionsTime,
+        a.first_escalation_time as firstEscalationTime,
+        a.second_escalation_time as secondEscalationTime,
+        a.old_car_confirmation_time as oldCarConfirmationTime,
+        a.approved_time as approvedTime,
+        a.overrule_time as overruleTime,
+        a.close_time as closeTime,
+        a.remarks,
+        <!-- tssi.party_id makeOrderPersonId,
+		tssi.user_name makeOrderPersonName,
+		tssi.phone_number  makeOrderPersonIphone,
+		tssi.role_code makeOrderPersonRole, -->
+		tsi.org_name storeName
+        FROM
+        t_psi_car_dealer_inquiry as a
+        left JOIN t_psi_inquiry_cars as b ON a.inquiry_id = b.inquiry_id
+        left JOIN t_psi_customer_reservation_msg c ON c.reservation_id = a.reservation_id
+        <!-- left join t_sys_store_staff_info tssi on a.created_by = tssi.party_id -->
+        left join t_sys_store_info tsi on a.store_id = tsi.store_id
+        WHERE a.car_dealer_id = #{carDealerId} and a.car_dealer_staff_id = #{carDealerStaffId}
+        AND a.is_delete != '00'
+        <if test="status.get(0) == '0923'">
+            and a.inquiry_status = '0923'
+            and (a.approval_status in('1302','1304') OR a.approval_status = '1309' and a.old_car_confirmation_time is not null)
+            <if test="businessOrderNo != null and businessOrderNo != ''">
+                AND a.business_order_no like concat('%',#{businessOrderNo},'%')
+            </if>
+            ORDER BY a.approved_time DESC
+        </if>
+        <if test="status.get(0) == 'reported'">
+            and a.inquiry_status = '0923' and a.approval_status in ('1301','1303')
+            <if test="businessOrderNo != null and businessOrderNo != ''">
+                AND a.business_order_no like concat('%',#{businessOrderNo},'%')
+            </if>
+            ORDER BY a.second_escalation_time DESC
+        </if>
+        <if test="status.get(0) == 'rejected'">
+            and a.approval_status = '1305'
+            <if test="businessOrderNo != null and businessOrderNo != ''">
+                AND a.business_order_no like concat('%',#{businessOrderNo},'%')
+            </if>
+            ORDER BY a.overrule_time DESC
+        </if>
+        <if test="status.size > 1 ">
+            and (
+            a.inquiry_status IN
+            (
+            <foreach collection="status" item="sta" separator=",">
+                #{sta}
+            </foreach>
+            )
+            OR (a.approval_status = '1309' and a.old_car_confirmation_time is null)
+            )
+            <if test="businessOrderNo != null and businessOrderNo != ''">
+                AND a.business_order_no like concat('%',#{businessOrderNo},'%')
+            </if>
+        </if>
+        <if test="status.get(0) == '0921'">
+            and a.inquiry_status = '0921'
+            <if test="businessOrderNo != null and businessOrderNo != ''">
+                AND a.business_order_no like concat('%',#{businessOrderNo},'%')
+            </if>
+            ORDER BY a.generate_acquisitions_time
+        </if>
+        <if test="status.get(0) == '0922'">
+            and a.inquiry_status = '0922'
+            <if test="businessOrderNo != null and businessOrderNo != ''">
+                AND a.business_order_no like concat('%',#{businessOrderNo},'%')
+            </if>
+            ORDER BY a.estimated_transfer_time
+        </if>
+        <if test="status.size > 1">
+            ORDER BY a.inquiry_status , a.updated_date DESC
+        </if>
+    </select>
+
+    <update id="updateInquirySelective" parameterType="com.exp.ucmp.entity.PsiCarDealerInquiryEntity">
+        UPDATE t_psi_car_dealer_inquiry
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="inquiryStatus != null">
+                inquiry_status = #{inquiryStatus, jdbcType=VARCHAR},
+            </if>
+            <if test="orderAbandonedReason != null">
+                order_abandoned_reason = #{orderAbandonedReason, jdbcType=VARCHAR},
+            </if>
+            <if test="approvalStatus != null">
+                approval_status = #{approvalStatus, jdbcType=VARCHAR},
+            </if>
+            <if test="updatedBy != null">
+                updated_by = #{updatedBy, jdbcType=BIGINT},
+            </if>
+            <if test="updatedDate != null">
+                updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+        WHERE
+        reservation_id = #{reservationId, jdbcType=BIGINT}
+        AND car_dealer_id = #{carDealerId, jdbcType=BIGINT}
+        AND car_dealer_staff_id = #{carDealerStaffId, jdbcType=BIGINT}
+    </update>
+
+    <select id="acquisitionDetails" resultType="com.exp.ucmp.carDealer.dto.AcquisitionDetailsDto">
+        SELECT a.reservation_id          AS reservationId,
+               a.other_brand_inquiry_id  AS otherBrandInquiryId,
+               a.pay_type                AS payType,
+               a.invoice_num             AS invoiceNum,
+               a.deal_price_end          AS dealPriceEnd,
+               a.material_status         AS materialStatus,
+               a.estimated_transfer_time as estimatedTransferTime,
+               a.acquisition_status      AS acquisitionStatus,
+               a.approval_status         AS approvalStatus
+        FROM t_psi_car_acquisition AS a
+        WHERE a.reservation_id = #{reservationId}
+    </select>
+
+    <select id="acquisitionMaterialList" resultType="com.exp.ucmp.carDealer.dto.AcquisitionAllFileDto">
+        SELECT a.material_id    as materialId,
+               a.reservation_id as reservationId,
+               a.material_type  as materialType,
+               a.upload_person  as uploadPerson,
+               a.upload_date    as uploadDate
+        FROM t_psi_acquisition_material a
+        WHERE a.reservation_id = #{reservationId}
+    </select>
+
+    <select id="queryRejectedReason" resultType="java.lang.String">
+        SELECT rar.approval_remark
+        FROM `t_rep_replacement_approval` AS ra
+                 JOIN t_rep_replacement_approval_record AS rar ON ra.replacement_id = rar.replacement_id
+        WHERE ra.reservation_id = #{reservationId}
+        ORDER BY rar.approval_date DESC LIMIT 1
+    </select>
+
+    <select id="queryReplacementOrderInfo" resultType="com.exp.ucmp.carDealer.dto.RepOrderNeedDto">
+        SELECT DISTINCT a.reservation_id            as reservationId,
+                        a.customer_id               as customerId,
+                        d.make_order_person_id      as makeOrderPersonId,
+                        d.customer_name             as oldCarCustomerName,
+                        d.customer_iphone           as oldCarCustomerIphone,
+                        a.make_order_person_name    as makeOrderPersonName,
+                        a.make_order_person_iphone  as makeOrderPersonIphone,
+                        a.make_order_person_role    as makeOrderPersonRole,
+                        a.business_type             as businessType,
+                        a.business_order_no         as businessOrderNo,
+                        a.business_classify         as businessClassify,
+                        b.store_id                  AS storeId,
+                        b.org_name                  AS storeName,
+                        c.car_type_chinese_describe as oldCarModelDescribe
+        FROM t_psi_customer_reservation_track AS a
+                 JOIN t_sys_store_info AS b ON a.store_id = b.store_id
+                 JOIN t_psi_customer_cars as c ON c.reservation_id = a.reservation_id
+                LEFT JOIN t_psi_car_dealer_inquiry as d ON d.reservation_id = a.reservation_id
+        where a.is_delete != '00' AND a.reservation_id = #{reservationId}
+    </select>
+
+    <select id="queryUsedCarSupervisor" resultType="java.lang.String">
+        SELECT ssd.staff_iphone as staffIphone
+        FROM t_sys_role_details as ri
+                 LEFT JOIN t_party_role_rela as prr ON ri.role_id = prr.role_id
+                 LEFT JOIN t_sys_staff_details as ssd ON prr.party_id = ssd.party_id
+                 LEFT JOIN t_sys_store_staff_rela as ssr ON ssd.party_id = ssr.party_id
+        WHERE ri.role_code = 'UR0103'
+          AND ssd.is_delete = 0
+          AND ssd.staff_status = '01'
+          AND ssd.staff_type = '0010'
+          and ssd.staff_iphone is not null
+          AND ssr.store_id = #{storeId}
+    </select>
+    
+    <update id="allotDeliveryCenter" parameterType="com.exp.ucmp.carDealer.dto.AllotDeliveryCenterDto">
+    	update
+			t_psi_car_dealer_inquiry tdi
+		set
+			tdi.acquisition_store_id = #{storeId},
+			tdi.inquiry_status = '0921',
+			tdi.updated_by = #{updateBy},
+			tdi.updated_date = now()
+		where
+			tdi.reservation_id = #{reservationId}
+    </update>
+    
+    <update id="updateTrackStatus">
+    	update t_psi_customer_reservation_track trt set trt.track_status='0705' where trt.reservation_id = #{reservationId}
+    </update>
+    
+    <select id="getFileId" resultType="java.lang.Long">
+    	select tmf.file_id from t_sys_material_file tmf where tmf.material_file_id = #{materialId}
+    </select>
+    
+    <select id="queryAlias" resultType="String">
+    	select
+			distinct tssi.idm_account_name
+		from
+			t_sys_store_staff_info tssi
+		where
+			tssi.store_id = #{storeId}
+			and tssi.role_code = '7163020210223314224'
+    </select>
+</mapper>

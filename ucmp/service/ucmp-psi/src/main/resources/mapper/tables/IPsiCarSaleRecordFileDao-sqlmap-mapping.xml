@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.IPsiCarSaleRecordFileDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.PsiCarSaleRecordFileEntity" >
+    INSERT INTO t_psi_car_sale_record_file 
+       (
+          record_file_id,
+          sale_record_id,
+          file_id,
+          file_order,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date,
+          thumbnail
+        ) VALUES (
+          #{recordFileId, jdbcType=BIGINT},
+          #{saleRecordId, jdbcType=BIGINT},
+          #{fileId, jdbcType=BIGINT},
+          #{fileOrder, jdbcType=INTEGER},
+          #{createdBy, jdbcType=BIGINT},
+          #{createdDate, jdbcType=TIMESTAMP},
+          #{updatedBy, jdbcType=BIGINT},
+          #{updatedDate, jdbcType=TIMESTAMP},
+          #{thumbnail, jdbcType=LONGVARCHAR}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.PsiCarSaleRecordFileEntity" >
+    INSERT INTO t_psi_car_sale_record_file
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="recordFileId != null" >
+          record_file_id,
+          </if>
+        <if test="saleRecordId != null" >
+          sale_record_id,
+          </if>
+        <if test="fileId != null" >
+          file_id,
+          </if>
+        <if test="fileOrder != null" >
+          file_order,
+          </if>
+        <if test="createdBy != null" >
+          created_by,
+          </if>
+        <if test="createdDate != null" >
+          created_date,
+          </if>
+        <if test="updatedBy != null" >
+          updated_by,
+          </if>
+        <if test="updatedDate != null" >
+          updated_date,
+          </if>
+        <if test="thumbnail != null" >
+          thumbnail,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="recordFileId != null" >
+          #{recordFileId, jdbcType=BIGINT},
+          </if>
+        <if test="saleRecordId != null" >
+          #{saleRecordId, jdbcType=BIGINT},
+          </if>
+        <if test="fileId != null" >
+          #{fileId, jdbcType=BIGINT},
+          </if>
+        <if test="fileOrder != null" >
+          #{fileOrder, jdbcType=INTEGER},
+          </if>
+        <if test="createdBy != null" >
+          #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="thumbnail != null" >
+          #{thumbnail, jdbcType=LONGVARCHAR},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_psi_car_sale_record_file 
+       (
+          record_file_id,
+          sale_record_id,
+          file_id,
+          file_order,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date,
+          thumbnail
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.recordFileId, jdbcType=BIGINT},
+	          #{item.saleRecordId, jdbcType=BIGINT},
+	          #{item.fileId, jdbcType=BIGINT},
+	          #{item.fileOrder, jdbcType=INTEGER},
+	          #{item.createdBy, jdbcType=BIGINT},
+	          #{item.createdDate, jdbcType=TIMESTAMP},
+	          #{item.updatedBy, jdbcType=BIGINT},
+	          #{item.updatedDate, jdbcType=TIMESTAMP},
+	          #{item.thumbnail, jdbcType=LONGVARCHAR}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.PsiCarSaleRecordFileEntity" >
+    UPDATE t_psi_car_sale_record_file SET 
+          sale_record_id = #{saleRecordId, jdbcType=BIGINT},
+          file_id = #{fileId, jdbcType=BIGINT},
+          file_order = #{fileOrder, jdbcType=INTEGER},
+          created_by = #{createdBy, jdbcType=BIGINT},
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          thumbnail = #{thumbnail, jdbcType=LONGVARCHAR}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND record_file_id = #{recordFileId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.PsiCarSaleRecordFileEntity" >
+    UPDATE t_psi_car_sale_record_file
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="saleRecordId != null" >
+          sale_record_id = #{saleRecordId, jdbcType=BIGINT},
+          </if>
+        <if test="fileId != null" >
+          file_id = #{fileId, jdbcType=BIGINT},
+          </if>
+        <if test="fileOrder != null" >
+          file_order = #{fileOrder, jdbcType=INTEGER},
+          </if>
+        <if test="createdBy != null" >
+          created_by = #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="thumbnail != null" >
+          thumbnail = #{thumbnail, jdbcType=LONGVARCHAR},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND record_file_id = #{recordFileId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_car_sale_record_file SET 
+	          sale_record_id = #{item.saleRecordId, jdbcType=BIGINT},
+	          file_id = #{item.fileId, jdbcType=BIGINT},
+	          file_order = #{item.fileOrder, jdbcType=INTEGER},
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          thumbnail = #{item.thumbnail, jdbcType=LONGVARCHAR}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND record_file_id = #{item.recordFileId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_car_sale_record_file
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.saleRecordId != null" >
+	          sale_record_id = #{item.saleRecordId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.fileId != null" >
+	          file_id = #{item.fileId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.fileOrder != null" >
+	          file_order = #{item.fileOrder, jdbcType=INTEGER},
+	          </if>
+	        <if test="item.createdBy != null" >
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.createdDate != null" >
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.updatedBy != null" >
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.updatedDate != null" >
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.thumbnail != null" >
+	          thumbnail = #{item.thumbnail, jdbcType=LONGVARCHAR},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND record_file_id = #{item.recordFileId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.PsiCarSaleRecordFilePk" >
+    DELETE FROM t_psi_car_sale_record_file
+    WHERE
+     <trim prefixOverrides="AND">
+           AND record_file_id = #{recordFileId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.PsiCarSaleRecordFileEntity" >
+    DELETE FROM t_psi_car_sale_record_file
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="recordFileId != null" >
+          AND record_file_id = #{recordFileId, jdbcType=BIGINT}
+        </if>
+        <if test="saleRecordId != null" >
+          AND sale_record_id = #{saleRecordId, jdbcType=BIGINT}
+        </if>
+        <if test="fileId != null" >
+          AND file_id = #{fileId, jdbcType=BIGINT}
+        </if>
+        <if test="fileOrder != null" >
+          AND file_order = #{fileOrder, jdbcType=INTEGER}
+        </if>
+        <if test="createdBy != null" >
+          AND created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="thumbnail != null" >
+          AND thumbnail = #{thumbnail, jdbcType=LONGVARCHAR}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="psiCarSaleRecordFileResultMap" type="com.exp.ucmp.entity.PsiCarSaleRecordFileEntity" >
+      <constructor>
+       <idArg column="record_file_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="sale_record_id" property="saleRecordId" jdbcType="BIGINT" />
+    <result column="file_id" property="fileId" jdbcType="BIGINT" />
+    <result column="file_order" property="fileOrder" jdbcType="INTEGER" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="thumbnail" property="thumbnail" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <sql id="t_psi_car_sale_record_file_Column_List" >
+    a.record_file_id,
+    a.sale_record_id,
+    a.file_id,
+    a.file_order,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date,
+    a.thumbnail
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.PsiCarSaleRecordFilePk" resultMap="psiCarSaleRecordFileResultMap">
+    SELECT 
+    <include refid="t_psi_car_sale_record_file_Column_List" />
+      FROM t_psi_car_sale_record_file a
+     WHERE 1 = 1
+       AND a.record_file_id = #{recordFileId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.PsiCarSaleRecordFileEntity" resultMap="psiCarSaleRecordFileResultMap">
+    SELECT 
+    <include refid="t_psi_car_sale_record_file_Column_List" />
+      FROM t_psi_car_sale_record_file a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="recordFileId != null" >
+          AND a.record_file_id = #{recordFileId, jdbcType=BIGINT}
+        </if>
+        <if test="saleRecordId != null" >
+          AND a.sale_record_id = #{saleRecordId, jdbcType=BIGINT}
+        </if>
+        <if test="fileId != null" >
+          AND a.file_id = #{fileId, jdbcType=BIGINT}
+        </if>
+        <if test="fileOrder != null" >
+          AND a.file_order = #{fileOrder, jdbcType=INTEGER}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="thumbnail != null" >
+          AND a.thumbnail = #{thumbnail, jdbcType=LONGVARCHAR}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.PsiCarSaleRecordFileEntity" resultType="int">
+    SELECT count(1) FROM t_psi_car_sale_record_file a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="recordFileId != null" >
+          AND a.record_file_id = #{recordFileId, jdbcType=BIGINT}
+        </if>
+        <if test="saleRecordId != null" >
+          AND a.sale_record_id = #{saleRecordId, jdbcType=BIGINT}
+        </if>
+        <if test="fileId != null" >
+          AND a.file_id = #{fileId, jdbcType=BIGINT}
+        </if>
+        <if test="fileOrder != null" >
+          AND a.file_order = #{fileOrder, jdbcType=INTEGER}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="thumbnail != null" >
+          AND a.thumbnail = #{thumbnail, jdbcType=LONGVARCHAR}
+        </if>
+      </trim>
+  </select>
+</mapper>

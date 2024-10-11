@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.IPsiOrderReceivingRecordDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.PsiOrderReceivingRecordEntity" >
+    INSERT INTO t_psi_order_receiving_record 
+       (
+          record_id,
+          reservation_id,
+          record_type,
+          order_status,
+          reason,
+          operation,
+          operation_by,
+          operation_date
+        ) VALUES (
+          #{recordId, jdbcType=BIGINT},
+          #{reservationId, jdbcType=BIGINT},
+          #{recordType, jdbcType=VARCHAR},
+          #{orderStatus, jdbcType=VARCHAR},
+          #{reason, jdbcType=VARCHAR},
+          #{operation, jdbcType=VARCHAR},
+          #{operationBy, jdbcType=BIGINT},
+          #{operationDate, jdbcType=TIMESTAMP}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.PsiOrderReceivingRecordEntity" >
+    INSERT INTO t_psi_order_receiving_record
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="recordId != null" >
+          record_id,
+          </if>
+        <if test="reservationId != null" >
+          reservation_id,
+          </if>
+        <if test="recordType != null" >
+          record_type,
+          </if>
+        <if test="orderStatus != null" >
+          order_status,
+          </if>
+        <if test="reason != null" >
+          reason,
+          </if>
+        <if test="operation != null" >
+          operation,
+          </if>
+        <if test="operationBy != null" >
+          operation_by,
+          </if>
+        <if test="operationDate != null" >
+          operation_date,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="recordId != null" >
+          #{recordId, jdbcType=BIGINT},
+          </if>
+        <if test="reservationId != null" >
+          #{reservationId, jdbcType=BIGINT},
+          </if>
+        <if test="recordType != null" >
+          #{recordType, jdbcType=VARCHAR},
+          </if>
+        <if test="orderStatus != null" >
+          #{orderStatus, jdbcType=VARCHAR},
+          </if>
+        <if test="reason != null" >
+          #{reason, jdbcType=VARCHAR},
+          </if>
+        <if test="operation != null" >
+          #{operation, jdbcType=VARCHAR},
+          </if>
+        <if test="operationBy != null" >
+          #{operationBy, jdbcType=BIGINT},
+          </if>
+        <if test="operationDate != null" >
+          #{operationDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_psi_order_receiving_record 
+       (
+          record_id,
+          reservation_id,
+          record_type,
+          order_status,
+          reason,
+          operation,
+          operation_by,
+          operation_date
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.recordId, jdbcType=BIGINT},
+	          #{item.reservationId, jdbcType=BIGINT},
+	          #{item.recordType, jdbcType=VARCHAR},
+	          #{item.orderStatus, jdbcType=VARCHAR},
+	          #{item.reason, jdbcType=VARCHAR},
+	          #{item.operation, jdbcType=VARCHAR},
+	          #{item.operationBy, jdbcType=BIGINT},
+	          #{item.operationDate, jdbcType=TIMESTAMP}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.PsiOrderReceivingRecordEntity" >
+    UPDATE t_psi_order_receiving_record SET 
+          reservation_id = #{reservationId, jdbcType=BIGINT},
+          record_type = #{recordType, jdbcType=VARCHAR},
+          order_status = #{orderStatus, jdbcType=VARCHAR},
+          reason = #{reason, jdbcType=VARCHAR},
+          operation = #{operation, jdbcType=VARCHAR},
+          operation_by = #{operationBy, jdbcType=BIGINT},
+          operation_date = #{operationDate, jdbcType=TIMESTAMP}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND record_id = #{recordId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.PsiOrderReceivingRecordEntity" >
+    UPDATE t_psi_order_receiving_record
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="reservationId != null" >
+          reservation_id = #{reservationId, jdbcType=BIGINT},
+          </if>
+        <if test="recordType != null" >
+          record_type = #{recordType, jdbcType=VARCHAR},
+          </if>
+        <if test="orderStatus != null" >
+          order_status = #{orderStatus, jdbcType=VARCHAR},
+          </if>
+        <if test="reason != null" >
+          reason = #{reason, jdbcType=VARCHAR},
+          </if>
+        <if test="operation != null" >
+          operation = #{operation, jdbcType=VARCHAR},
+          </if>
+        <if test="operationBy != null" >
+          operation_by = #{operationBy, jdbcType=BIGINT},
+          </if>
+        <if test="operationDate != null" >
+          operation_date = #{operationDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND record_id = #{recordId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_order_receiving_record SET 
+	          reservation_id = #{item.reservationId, jdbcType=BIGINT},
+	          record_type = #{item.recordType, jdbcType=VARCHAR},
+	          order_status = #{item.orderStatus, jdbcType=VARCHAR},
+	          reason = #{item.reason, jdbcType=VARCHAR},
+	          operation = #{item.operation, jdbcType=VARCHAR},
+	          operation_by = #{item.operationBy, jdbcType=BIGINT},
+	          operation_date = #{item.operationDate, jdbcType=TIMESTAMP}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND record_id = #{item.recordId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_order_receiving_record
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.reservationId != null" >
+	          reservation_id = #{item.reservationId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.recordType != null" >
+	          record_type = #{item.recordType, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.orderStatus != null" >
+	          order_status = #{item.orderStatus, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.reason != null" >
+	          reason = #{item.reason, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.operation != null" >
+	          operation = #{item.operation, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.operationBy != null" >
+	          operation_by = #{item.operationBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.operationDate != null" >
+	          operation_date = #{item.operationDate, jdbcType=TIMESTAMP},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND record_id = #{item.recordId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.PsiOrderReceivingRecordPk" >
+    DELETE FROM t_psi_order_receiving_record
+    WHERE
+     <trim prefixOverrides="AND">
+           AND record_id = #{recordId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.PsiOrderReceivingRecordEntity" >
+    DELETE FROM t_psi_order_receiving_record
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="recordId != null" >
+          AND record_id = #{recordId, jdbcType=BIGINT}
+        </if>
+        <if test="reservationId != null" >
+          AND reservation_id = #{reservationId, jdbcType=BIGINT}
+        </if>
+        <if test="recordType != null and recordType != ''" >
+          AND record_type = #{recordType, jdbcType=VARCHAR}
+        </if>
+        <if test="orderStatus != null and orderStatus != ''" >
+          AND order_status = #{orderStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="reason != null and reason != ''" >
+          AND reason = #{reason, jdbcType=VARCHAR}
+        </if>
+        <if test="operation != null and operation != ''" >
+          AND operation = #{operation, jdbcType=VARCHAR}
+        </if>
+        <if test="operationBy != null" >
+          AND operation_by = #{operationBy, jdbcType=BIGINT}
+        </if>
+        <if test="operationDate != null" >
+          AND operation_date = #{operationDate, jdbcType=TIMESTAMP}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="psiOrderReceivingRecordResultMap" type="com.exp.ucmp.entity.PsiOrderReceivingRecordEntity" >
+      <constructor>
+       <idArg column="record_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="reservation_id" property="reservationId" jdbcType="BIGINT" />
+    <result column="record_type" property="recordType" jdbcType="VARCHAR" />
+    <result column="order_status" property="orderStatus" jdbcType="VARCHAR" />
+    <result column="reason" property="reason" jdbcType="VARCHAR" />
+    <result column="operation" property="operation" jdbcType="VARCHAR" />
+    <result column="operation_by" property="operationBy" jdbcType="BIGINT" />
+    <result column="operation_date" property="operationDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="t_psi_order_receiving_record_Column_List" >
+    a.record_id,
+    a.reservation_id,
+    a.record_type,
+    a.order_status,
+    a.reason,
+    a.operation,
+    a.operation_by,
+    a.operation_date
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.PsiOrderReceivingRecordPk" resultMap="psiOrderReceivingRecordResultMap">
+    SELECT 
+    <include refid="t_psi_order_receiving_record_Column_List" />
+      FROM t_psi_order_receiving_record a
+     WHERE 1 = 1
+       AND a.record_id = #{recordId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.PsiOrderReceivingRecordEntity" resultMap="psiOrderReceivingRecordResultMap">
+    SELECT 
+    <include refid="t_psi_order_receiving_record_Column_List" />
+      FROM t_psi_order_receiving_record a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="recordId != null" >
+          AND a.record_id = #{recordId, jdbcType=BIGINT}
+        </if>
+        <if test="reservationId != null" >
+          AND a.reservation_id = #{reservationId, jdbcType=BIGINT}
+        </if>
+        <if test="recordType != null and recordType != ''" >
+          AND a.record_type = #{recordType, jdbcType=VARCHAR}
+        </if>
+        <if test="orderStatus != null and orderStatus != ''" >
+          AND a.order_status = #{orderStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="reason != null and reason != ''" >
+          AND a.reason = #{reason, jdbcType=VARCHAR}
+        </if>
+        <if test="operation != null and operation != ''" >
+          AND a.operation = #{operation, jdbcType=VARCHAR}
+        </if>
+        <if test="operationBy != null" >
+          AND a.operation_by = #{operationBy, jdbcType=BIGINT}
+        </if>
+        <if test="operationDate != null" >
+          AND a.operation_date = #{operationDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.PsiOrderReceivingRecordEntity" resultType="int">
+    SELECT count(1) FROM t_psi_order_receiving_record a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="recordId != null" >
+          AND a.record_id = #{recordId, jdbcType=BIGINT}
+        </if>
+        <if test="reservationId != null" >
+          AND a.reservation_id = #{reservationId, jdbcType=BIGINT}
+        </if>
+        <if test="recordType != null and recordType != ''" >
+          AND a.record_type = #{recordType, jdbcType=VARCHAR}
+        </if>
+        <if test="orderStatus != null and orderStatus != ''" >
+          AND a.order_status = #{orderStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="reason != null and reason != ''" >
+          AND a.reason = #{reason, jdbcType=VARCHAR}
+        </if>
+        <if test="operation != null and operation != ''" >
+          AND a.operation = #{operation, jdbcType=VARCHAR}
+        </if>
+        <if test="operationBy != null" >
+          AND a.operation_by = #{operationBy, jdbcType=BIGINT}
+        </if>
+        <if test="operationDate != null" >
+          AND a.operation_date = #{operationDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+</mapper>

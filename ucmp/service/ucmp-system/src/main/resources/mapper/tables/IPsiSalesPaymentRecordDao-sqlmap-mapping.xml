@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.IPsiSalesPaymentRecordDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.PsiSalesPaymentRecordEntity" >
+    INSERT INTO t_psi_sales_payment_record 
+       (
+          record_id,
+          record_code,
+          order_info_id,
+          order_no,
+          payment_item,
+          payment_amount,
+          serial_number,
+          proceeds_by,
+          payment_method,
+          pay_status,
+          payment_account,
+          account_name,
+          create_by,
+          create_date,
+          update_by,
+          update_date
+        ) VALUES (
+          #{recordId, jdbcType=BIGINT},
+          #{recordCode, jdbcType=VARCHAR},
+          #{orderInfoId, jdbcType=BIGINT},
+          #{orderNo, jdbcType=VARCHAR},
+          #{paymentItem, jdbcType=VARCHAR},
+          #{paymentAmount, jdbcType=DECIMAL},
+          #{serialNumber, jdbcType=VARCHAR},
+          #{proceedsBy, jdbcType=BIGINT},
+          #{paymentMethod, jdbcType=VARCHAR},
+          #{payStatus, jdbcType=VARCHAR},
+          #{paymentAccount, jdbcType=VARCHAR},
+          #{accountName, jdbcType=VARCHAR},
+          #{createBy, jdbcType=BIGINT},
+          #{createDate, jdbcType=TIMESTAMP},
+          #{updateBy, jdbcType=BIGINT},
+          #{updateDate, jdbcType=TIMESTAMP}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.PsiSalesPaymentRecordEntity" >
+    INSERT INTO t_psi_sales_payment_record
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="recordId != null" >
+          record_id,
+          </if>
+        <if test="recordCode != null" >
+          record_code,
+          </if>
+        <if test="orderInfoId != null" >
+          order_info_id,
+          </if>
+        <if test="orderNo != null" >
+          order_no,
+          </if>
+        <if test="paymentItem != null" >
+          payment_item,
+          </if>
+        <if test="paymentAmount != null" >
+          payment_amount,
+          </if>
+        <if test="serialNumber != null" >
+          serial_number,
+          </if>
+        <if test="proceedsBy != null" >
+          proceeds_by,
+          </if>
+        <if test="paymentMethod != null" >
+          payment_method,
+          </if>
+        <if test="payStatus != null" >
+          pay_status,
+          </if>
+        <if test="paymentAccount != null" >
+          payment_account,
+          </if>
+        <if test="accountName != null" >
+          account_name,
+          </if>
+        <if test="createBy != null" >
+          create_by,
+          </if>
+        <if test="createDate != null" >
+          create_date,
+          </if>
+        <if test="updateBy != null" >
+          update_by,
+          </if>
+        <if test="updateDate != null" >
+          update_date,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="recordId != null" >
+          #{recordId, jdbcType=BIGINT},
+          </if>
+        <if test="recordCode != null" >
+          #{recordCode, jdbcType=VARCHAR},
+          </if>
+        <if test="orderInfoId != null" >
+          #{orderInfoId, jdbcType=BIGINT},
+          </if>
+        <if test="orderNo != null" >
+          #{orderNo, jdbcType=VARCHAR},
+          </if>
+        <if test="paymentItem != null" >
+          #{paymentItem, jdbcType=VARCHAR},
+          </if>
+        <if test="paymentAmount != null" >
+          #{paymentAmount, jdbcType=DECIMAL},
+          </if>
+        <if test="serialNumber != null" >
+          #{serialNumber, jdbcType=VARCHAR},
+          </if>
+        <if test="proceedsBy != null" >
+          #{proceedsBy, jdbcType=BIGINT},
+          </if>
+        <if test="paymentMethod != null" >
+          #{paymentMethod, jdbcType=VARCHAR},
+          </if>
+        <if test="payStatus != null" >
+          #{payStatus, jdbcType=VARCHAR},
+          </if>
+        <if test="paymentAccount != null" >
+          #{paymentAccount, jdbcType=VARCHAR},
+          </if>
+        <if test="accountName != null" >
+          #{accountName, jdbcType=VARCHAR},
+          </if>
+        <if test="createBy != null" >
+          #{createBy, jdbcType=BIGINT},
+          </if>
+        <if test="createDate != null" >
+          #{createDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updateBy != null" >
+          #{updateBy, jdbcType=BIGINT},
+          </if>
+        <if test="updateDate != null" >
+          #{updateDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_psi_sales_payment_record 
+       (
+          record_id,
+          record_code,
+          order_info_id,
+          order_no,
+          payment_item,
+          payment_amount,
+          serial_number,
+          proceeds_by,
+          payment_method,
+          pay_status,
+          payment_account,
+          account_name,
+          create_by,
+          create_date,
+          update_by,
+          update_date
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.recordId, jdbcType=BIGINT},
+	          #{item.recordCode, jdbcType=VARCHAR},
+	          #{item.orderInfoId, jdbcType=BIGINT},
+	          #{item.orderNo, jdbcType=VARCHAR},
+	          #{item.paymentItem, jdbcType=VARCHAR},
+	          #{item.paymentAmount, jdbcType=DECIMAL},
+	          #{item.serialNumber, jdbcType=VARCHAR},
+	          #{item.proceedsBy, jdbcType=BIGINT},
+	          #{item.paymentMethod, jdbcType=VARCHAR},
+	          #{item.payStatus, jdbcType=VARCHAR},
+	          #{item.paymentAccount, jdbcType=VARCHAR},
+	          #{item.accountName, jdbcType=VARCHAR},
+	          #{item.createBy, jdbcType=BIGINT},
+	          #{item.createDate, jdbcType=TIMESTAMP},
+	          #{item.updateBy, jdbcType=BIGINT},
+	          #{item.updateDate, jdbcType=TIMESTAMP}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.PsiSalesPaymentRecordEntity" >
+    UPDATE t_psi_sales_payment_record SET 
+          record_code = #{recordCode, jdbcType=VARCHAR},
+          order_info_id = #{orderInfoId, jdbcType=BIGINT},
+          order_no = #{orderNo, jdbcType=VARCHAR},
+          payment_item = #{paymentItem, jdbcType=VARCHAR},
+          payment_amount = #{paymentAmount, jdbcType=DECIMAL},
+          serial_number = #{serialNumber, jdbcType=VARCHAR},
+          proceeds_by = #{proceedsBy, jdbcType=BIGINT},
+          payment_method = #{paymentMethod, jdbcType=VARCHAR},
+          pay_status = #{payStatus, jdbcType=VARCHAR},
+          payment_account = #{paymentAccount, jdbcType=VARCHAR},
+          account_name = #{accountName, jdbcType=VARCHAR},
+          create_by = #{createBy, jdbcType=BIGINT},
+          create_date = #{createDate, jdbcType=TIMESTAMP},
+          update_by = #{updateBy, jdbcType=BIGINT},
+          update_date = #{updateDate, jdbcType=TIMESTAMP}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND record_id = #{recordId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.PsiSalesPaymentRecordEntity" >
+    UPDATE t_psi_sales_payment_record
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="recordCode != null" >
+          record_code = #{recordCode, jdbcType=VARCHAR},
+          </if>
+        <if test="orderInfoId != null" >
+          order_info_id = #{orderInfoId, jdbcType=BIGINT},
+          </if>
+        <if test="orderNo != null" >
+          order_no = #{orderNo, jdbcType=VARCHAR},
+          </if>
+        <if test="paymentItem != null" >
+          payment_item = #{paymentItem, jdbcType=VARCHAR},
+          </if>
+        <if test="paymentAmount != null" >
+          payment_amount = #{paymentAmount, jdbcType=DECIMAL},
+          </if>
+        <if test="serialNumber != null" >
+          serial_number = #{serialNumber, jdbcType=VARCHAR},
+          </if>
+        <if test="proceedsBy != null" >
+          proceeds_by = #{proceedsBy, jdbcType=BIGINT},
+          </if>
+        <if test="paymentMethod != null" >
+          payment_method = #{paymentMethod, jdbcType=VARCHAR},
+          </if>
+        <if test="payStatus != null" >
+          pay_status = #{payStatus, jdbcType=VARCHAR},
+          </if>
+        <if test="paymentAccount != null" >
+          payment_account = #{paymentAccount, jdbcType=VARCHAR},
+          </if>
+        <if test="accountName != null" >
+          account_name = #{accountName, jdbcType=VARCHAR},
+          </if>
+        <if test="createBy != null" >
+          create_by = #{createBy, jdbcType=BIGINT},
+          </if>
+        <if test="createDate != null" >
+          create_date = #{createDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updateBy != null" >
+          update_by = #{updateBy, jdbcType=BIGINT},
+          </if>
+        <if test="updateDate != null" >
+          update_date = #{updateDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND record_id = #{recordId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_sales_payment_record SET 
+	          record_code = #{item.recordCode, jdbcType=VARCHAR},
+	          order_info_id = #{item.orderInfoId, jdbcType=BIGINT},
+	          order_no = #{item.orderNo, jdbcType=VARCHAR},
+	          payment_item = #{item.paymentItem, jdbcType=VARCHAR},
+	          payment_amount = #{item.paymentAmount, jdbcType=DECIMAL},
+	          serial_number = #{item.serialNumber, jdbcType=VARCHAR},
+	          proceeds_by = #{item.proceedsBy, jdbcType=BIGINT},
+	          payment_method = #{item.paymentMethod, jdbcType=VARCHAR},
+	          pay_status = #{item.payStatus, jdbcType=VARCHAR},
+	          payment_account = #{item.paymentAccount, jdbcType=VARCHAR},
+	          account_name = #{item.accountName, jdbcType=VARCHAR},
+	          create_by = #{item.createBy, jdbcType=BIGINT},
+	          create_date = #{item.createDate, jdbcType=TIMESTAMP},
+	          update_by = #{item.updateBy, jdbcType=BIGINT},
+	          update_date = #{item.updateDate, jdbcType=TIMESTAMP}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND record_id = #{item.recordId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_sales_payment_record
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.recordCode != null" >
+	          record_code = #{item.recordCode, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.orderInfoId != null" >
+	          order_info_id = #{item.orderInfoId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.orderNo != null" >
+	          order_no = #{item.orderNo, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.paymentItem != null" >
+	          payment_item = #{item.paymentItem, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.paymentAmount != null" >
+	          payment_amount = #{item.paymentAmount, jdbcType=DECIMAL},
+	          </if>
+	        <if test="item.serialNumber != null" >
+	          serial_number = #{item.serialNumber, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.proceedsBy != null" >
+	          proceeds_by = #{item.proceedsBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.paymentMethod != null" >
+	          payment_method = #{item.paymentMethod, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.payStatus != null" >
+	          pay_status = #{item.payStatus, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.paymentAccount != null" >
+	          payment_account = #{item.paymentAccount, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.accountName != null" >
+	          account_name = #{item.accountName, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.createBy != null" >
+	          create_by = #{item.createBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.createDate != null" >
+	          create_date = #{item.createDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.updateBy != null" >
+	          update_by = #{item.updateBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.updateDate != null" >
+	          update_date = #{item.updateDate, jdbcType=TIMESTAMP},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND record_id = #{item.recordId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.PsiSalesPaymentRecordPk" >
+    DELETE FROM t_psi_sales_payment_record
+    WHERE
+     <trim prefixOverrides="AND">
+           AND record_id = #{recordId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.PsiSalesPaymentRecordEntity" >
+    DELETE FROM t_psi_sales_payment_record
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="recordId != null" >
+          AND record_id = #{recordId, jdbcType=BIGINT}
+        </if>
+        <if test="recordCode != null and recordCode != ''" >
+          AND record_code = #{recordCode, jdbcType=VARCHAR}
+        </if>
+        <if test="orderInfoId != null" >
+          AND order_info_id = #{orderInfoId, jdbcType=BIGINT}
+        </if>
+        <if test="orderNo != null and orderNo != ''" >
+          AND order_no = #{orderNo, jdbcType=VARCHAR}
+        </if>
+        <if test="paymentItem != null and paymentItem != ''" >
+          AND payment_item = #{paymentItem, jdbcType=VARCHAR}
+        </if>
+        <if test="paymentAmount != null" >
+          AND payment_amount = #{paymentAmount, jdbcType=DECIMAL}
+        </if>
+        <if test="serialNumber != null and serialNumber != ''" >
+          AND serial_number = #{serialNumber, jdbcType=VARCHAR}
+        </if>
+        <if test="proceedsBy != null" >
+          AND proceeds_by = #{proceedsBy, jdbcType=BIGINT}
+        </if>
+        <if test="paymentMethod != null and paymentMethod != ''" >
+          AND payment_method = #{paymentMethod, jdbcType=VARCHAR}
+        </if>
+        <if test="payStatus != null and payStatus != ''" >
+          AND pay_status = #{payStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="paymentAccount != null and paymentAccount != ''" >
+          AND payment_account = #{paymentAccount, jdbcType=VARCHAR}
+        </if>
+        <if test="accountName != null and accountName != ''" >
+          AND account_name = #{accountName, jdbcType=VARCHAR}
+        </if>
+        <if test="createBy != null" >
+          AND create_by = #{createBy, jdbcType=BIGINT}
+        </if>
+        <if test="createDate != null" >
+          AND create_date = #{createDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateBy != null" >
+          AND update_by = #{updateBy, jdbcType=BIGINT}
+        </if>
+        <if test="updateDate != null" >
+          AND update_date = #{updateDate, jdbcType=TIMESTAMP}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="psiSalesPaymentRecordResultMap" type="com.exp.ucmp.entity.PsiSalesPaymentRecordEntity" >
+      <constructor>
+       <idArg column="record_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="record_code" property="recordCode" jdbcType="VARCHAR" />
+    <result column="order_info_id" property="orderInfoId" jdbcType="BIGINT" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="payment_item" property="paymentItem" jdbcType="VARCHAR" />
+    <result column="payment_amount" property="paymentAmount" jdbcType="DECIMAL" />
+    <result column="serial_number" property="serialNumber" jdbcType="VARCHAR" />
+    <result column="proceeds_by" property="proceedsBy" jdbcType="BIGINT" />
+    <result column="payment_method" property="paymentMethod" jdbcType="VARCHAR" />
+    <result column="pay_status" property="payStatus" jdbcType="VARCHAR" />
+    <result column="payment_account" property="paymentAccount" jdbcType="VARCHAR" />
+    <result column="account_name" property="accountName" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="BIGINT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="BIGINT" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="t_psi_sales_payment_record_Column_List" >
+    a.record_id,
+    a.record_code,
+    a.order_info_id,
+    a.order_no,
+    a.payment_item,
+    a.payment_amount,
+    a.serial_number,
+    a.proceeds_by,
+    a.payment_method,
+    a.pay_status,
+    a.payment_account,
+    a.account_name,
+    a.create_by,
+    a.create_date,
+    a.update_by,
+    a.update_date
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.PsiSalesPaymentRecordPk" resultMap="psiSalesPaymentRecordResultMap">
+    SELECT 
+    <include refid="t_psi_sales_payment_record_Column_List" />
+      FROM t_psi_sales_payment_record a
+     WHERE 1 = 1
+       AND a.record_id = #{recordId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.PsiSalesPaymentRecordEntity" resultMap="psiSalesPaymentRecordResultMap">
+    SELECT 
+    <include refid="t_psi_sales_payment_record_Column_List" />
+      FROM t_psi_sales_payment_record a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="recordId != null" >
+          AND a.record_id = #{recordId, jdbcType=BIGINT}
+        </if>
+        <if test="recordCode != null and recordCode != ''" >
+          AND a.record_code = #{recordCode, jdbcType=VARCHAR}
+        </if>
+        <if test="orderInfoId != null" >
+          AND a.order_info_id = #{orderInfoId, jdbcType=BIGINT}
+        </if>
+        <if test="orderNo != null and orderNo != ''" >
+          AND a.order_no = #{orderNo, jdbcType=VARCHAR}
+        </if>
+        <if test="paymentItem != null and paymentItem != ''" >
+          AND a.payment_item = #{paymentItem, jdbcType=VARCHAR}
+        </if>
+        <if test="paymentAmount != null" >
+          AND a.payment_amount = #{paymentAmount, jdbcType=DECIMAL}
+        </if>
+        <if test="serialNumber != null and serialNumber != ''" >
+          AND a.serial_number = #{serialNumber, jdbcType=VARCHAR}
+        </if>
+        <if test="proceedsBy != null" >
+          AND a.proceeds_by = #{proceedsBy, jdbcType=BIGINT}
+        </if>
+        <if test="paymentMethod != null and paymentMethod != ''" >
+          AND a.payment_method = #{paymentMethod, jdbcType=VARCHAR}
+        </if>
+        <if test="payStatus != null and payStatus != ''" >
+          AND a.pay_status = #{payStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="paymentAccount != null and paymentAccount != ''" >
+          AND a.payment_account = #{paymentAccount, jdbcType=VARCHAR}
+        </if>
+        <if test="accountName != null and accountName != ''" >
+          AND a.account_name = #{accountName, jdbcType=VARCHAR}
+        </if>
+        <if test="createBy != null" >
+          AND a.create_by = #{createBy, jdbcType=BIGINT}
+        </if>
+        <if test="createDate != null" >
+          AND a.create_date = #{createDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateBy != null" >
+          AND a.update_by = #{updateBy, jdbcType=BIGINT}
+        </if>
+        <if test="updateDate != null" >
+          AND a.update_date = #{updateDate, jdbcType=TIMESTAMP}
+        </if>
+        order by a.create_date desc
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.PsiSalesPaymentRecordEntity" resultType="int">
+    SELECT count(1) FROM t_psi_sales_payment_record a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="recordId != null" >
+          AND a.record_id = #{recordId, jdbcType=BIGINT}
+        </if>
+        <if test="recordCode != null and recordCode != ''" >
+          AND a.record_code = #{recordCode, jdbcType=VARCHAR}
+        </if>
+        <if test="orderInfoId != null" >
+          AND a.order_info_id = #{orderInfoId, jdbcType=BIGINT}
+        </if>
+        <if test="orderNo != null and orderNo != ''" >
+          AND a.order_no = #{orderNo, jdbcType=VARCHAR}
+        </if>
+        <if test="paymentItem != null and paymentItem != ''" >
+          AND a.payment_item = #{paymentItem, jdbcType=VARCHAR}
+        </if>
+        <if test="paymentAmount != null" >
+          AND a.payment_amount = #{paymentAmount, jdbcType=DECIMAL}
+        </if>
+        <if test="serialNumber != null and serialNumber != ''" >
+          AND a.serial_number = #{serialNumber, jdbcType=VARCHAR}
+        </if>
+        <if test="proceedsBy != null" >
+          AND a.proceeds_by = #{proceedsBy, jdbcType=BIGINT}
+        </if>
+        <if test="paymentMethod != null and paymentMethod != ''" >
+          AND a.payment_method = #{paymentMethod, jdbcType=VARCHAR}
+        </if>
+        <if test="payStatus != null and payStatus != ''" >
+          AND a.pay_status = #{payStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="paymentAccount != null and paymentAccount != ''" >
+          AND a.payment_account = #{paymentAccount, jdbcType=VARCHAR}
+        </if>
+        <if test="accountName != null and accountName != ''" >
+          AND a.account_name = #{accountName, jdbcType=VARCHAR}
+        </if>
+        <if test="createBy != null" >
+          AND a.create_by = #{createBy, jdbcType=BIGINT}
+        </if>
+        <if test="createDate != null" >
+          AND a.create_date = #{createDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateBy != null" >
+          AND a.update_by = #{updateBy, jdbcType=BIGINT}
+        </if>
+        <if test="updateDate != null" >
+          AND a.update_date = #{updateDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+</mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.carDealer.dao.WorkbenchHomePageDao" >
+
+	<select id="selectValuationOrderAndOfferFollowCount" resultType="com.exp.ucmp.carDealer.dto.InquiryStatusDto">
+		SELECT
+			inquiry_status as inquiryStatus,COUNT(inquiry_id) as count
+		FROM
+			`t_psi_car_dealer_inquiry`
+		WHERE
+			car_dealer_id = #{carDealerId}
+		  and car_dealer_staff_id = #{carDealerStaffId}
+		GROUP BY inquiry_status
+	</select>
+
+	<select id="selectAcquisitionCount" resultType="java.lang.Integer">
+		SELECT COUNT(pca.reservation_id) FROM `t_psi_car_acquisition` as pca
+		JOIN
+		(SELECT reservation_id
+		FROM t_psi_car_dealer_inquiry
+		WHERE car_dealer_id = #{carDealerId}
+		AND car_dealer_staff_id = #{carDealerStaffId} AND inquiry_status in ('0912', '0921','0922','0923') ) as pcdi
+		ON pca.reservation_id = pcdi.reservation_id
+		WHERE
+		<if test="type == 1">
+			approval_status = '1305'
+		</if>
+		<if test="type == 2">
+			acquisition_status = '1102'
+		</if>
+		<if test="type == 3">
+			acquisition_status = '1101'
+			AND customer_intention = '0501'
+		</if>
+		<if test="type == 4">
+			acquisition_status = '1101'
+			AND customer_intention = '0502'
+		</if>
+	</select>
+
+</mapper>

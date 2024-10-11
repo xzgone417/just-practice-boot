@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.partner.dao.SysPartnerDetailsDao">
+
+
+    <resultMap id="sysPartnerDetailsResultMap" type="com.exp.ucmp.entity.SysPartnerDetailsEntity">
+        <constructor>
+            <idArg column="partner_id" javaType="Long" jdbcType="BIGINT"/>
+        </constructor>
+        <result column="partner_code" property="partnerCode" jdbcType="VARCHAR"/>
+        <result column="partner_charge_person" property="partnerChargePerson" jdbcType="VARCHAR"/>
+        <result column="charge_person_iphone" property="chargePersonIphone" jdbcType="VARCHAR"/>
+        <result column="partner_name" property="partnerName" jdbcType="VARCHAR"/>
+        <result column="partner_join_role" property="partnerJoinRole" jdbcType="VARCHAR"/>
+        <result column="partner_status" property="partnerStatus" jdbcType="VARCHAR"/>
+        <result column="partner_address" property="partnerAddress" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+    <sql id="t_sys_partner_details_Column_List">
+        a
+        .
+        partner_id
+        ,
+    a.partner_code,
+    a.partner_charge_person,
+    a.charge_person_iphone,
+    a.partner_name,
+    a.partner_join_role,
+    a.partner_status,
+    a.partner_address
+    </sql>
+
+    <!--
+    <select id="selectPartnerMsg" parameterType="com.exp.ucmp.pertner.dto.SysPartnerDetailsDto"
+            resultType="com.exp.ucmp.pertner.dto.SysPartnerDetailsDto">
+        SELECT
+        a.partner_id AS partnerId,
+        a.partner_code AS partnerCode,
+        a.partner_charge_person AS partnerChargePerson,
+        a.charge_person_iphone AS chargePersonIphone,
+        a.partner_name AS partnerName,
+        a.partner_join_role AS partnerJoinRole,
+        a.partner_status AS partnerStatus,
+        a.partner_address AS partnerAddress,
+        a.partner_abbreviation AS partnerAbbreviation,
+        cityInfo.cityName AS partnerCities
+        FROM t_sys_partner_details a
+        left join
+        (select
+        c.partner_id,
+        GROUP_CONCAT(c.city_name,":",c.city_id
+        SEPARATOR ',') AS cityName
+        from
+        t_sys_partner_city_rela c
+        group by c.partner_id) AS cityInfo on cityInfo.partner_id = a.partner_id
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="partnerChargePerson != null and partnerChargePerson != ''">
+                AND a.partner_charge_person like concat('%',#{partnerChargePerson, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="chargePersonIphone != null and chargePersonIphone != ''">
+                AND a.charge_person_iphone like concat('%',#{chargePersonIphone, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="partnerName != null and partnerName != ''">
+                AND a.partner_name like concat('%',#{partnerName, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="partnerCities != null and partnerCities != ''">
+                AND cityInfo.cityName like concat('%',#{partnerCities, jdbcType=VARCHAR},'%')
+            </if>
+        </trim>
+    </select>
+    -->
+    <select id="selectPartnerMsg" parameterType="com.exp.ucmp.pertner.dto.SysPartnerDetailsDto"
+            resultType="com.exp.ucmp.pertner.dto.SysPartnerDetailsDto">
+        SELECT
+        a.partner_id AS partnerId,
+        a.partner_code AS partnerCode,
+        a.partner_charge_person AS partnerChargePerson,
+        a.charge_person_iphone AS chargePersonIphone,
+        a.partner_name AS partnerName,
+        a.partner_join_role AS partnerJoinRole,
+        a.partner_status AS partnerStatus,
+        a.partner_address AS partnerAddress,
+        a.partner_abbreviation AS partnerAbbreviation,
+        a.partner_order AS partnerOrder,
+        st.orgName AS orgNames
+        FROM
+        t_sys_partner_details a
+        LEFT JOIN (
+        SELECT
+        prr.partner_id,
+        group_concat( srd.org_name ) AS 'orgName'
+        FROM
+        t_sys_store_partner_rela prr
+        LEFT JOIN t_sys_store_info srd ON prr.store_id = srd.store_id
+        GROUP BY
+        prr.partner_id
+        ) st ON a.partner_id = st.partner_id
+        <where>
+            a.is_delete = 0
+            <if test="partnerChargePerson != null and partnerChargePerson != ''">
+                AND a.partner_charge_person like concat('%',#{partnerChargePerson, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="chargePersonIphone != null and chargePersonIphone != ''">
+                AND a.charge_person_iphone = #{chargePersonIphone}
+            </if>
+            <if test="partnerName != null and partnerName != ''">
+                AND a.partner_name like concat('%',#{partnerName, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="partnerAbbreviation != null and partnerAbbreviation != ''">
+                AND a.partner_abbreviation like concat('%',#{partnerAbbreviation, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="orgNames != null and orgNames != ''">
+                AND st.orgName like concat('%',#{orgNames, jdbcType=VARCHAR},'%')
+            </if>
+            <!--
+            <if test="partnerOrder != null">
+                AND a.partner_order = #{partnerOrder}
+            </if>-->
+        </where>
+        ORDER BY  a.created_date DESC
+        <!--
+            a.partner_order IS NULL,a.partner_order DESC,a.created_date DESC-->
+    </select>
+
+    <select id="selectPartnerStaffMsg" parameterType="com.exp.ucmp.pertner.dto.SysPartnerStaffDetailsDto"
+            resultType="com.exp.ucmp.pertner.dto.SysPartnerStaffDetailsDto">
+        SELECT
+        sd.party_id AS partyId,
+        sd.staff_name AS partyName,
+        sd.staff_email AS partyEmail,
+        sd.staff_iphone AS partyIphone,
+        sd.staff_sex AS partySex,
+        regInfo.cityName AS cityName,
+        psr.partner_id AS partnerId,
+        log.login_id AS loginId
+        FROM
+        t_sys_staff_details sd
+        INNER JOIN
+        t_sys_partner_staff_rela psr ON sd.party_id = psr.party_id
+        LEFT JOIN
+        (SELECT
+        srr.party_id,
+        GROUP_CONCAT(sr.region_name, ':', sr.region_code
+        SEPARATOR ',') AS cityName
+        FROM
+        t_sys_region sr
+        INNER JOIN t_sys_staff_region_rela srr ON srr.region_code = sr.region_code
+        GROUP BY srr.party_id) AS regInfo ON regInfo.party_id = sd.party_id
+        LEFT JOIN
+        (SELECT
+        GROUP_CONCAT(ll.login_id, ':'
+        SEPARATOR ',') AS login_id
+        , ll.party_id
+        FROM
+        t_login_info ll
+        group by  ll.party_id) AS log ON sd.party_id = log.party_id
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="partnerId != null ">
+                AND psr.partner_id = #{partnerId, jdbcType=BIGINT}
+            </if>
+        </trim>
+    </select>
+
+
+    <select id="selectPartnerProvinceMsg" parameterType="com.exp.ucmp.pertner.dto.SysPartnerStaffDetailsDto"
+            resultType="java.util.HashMap">
+        SELECT
+        sr.region_code AS regionCode,
+        sr.region_name AS regionName
+        FROM
+        t_sys_region sr
+        WHERE
+        sr.region_code IN (SELECT
+        aa.region_code
+        FROM
+        t_sys_area_region_rela aa
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="dataId != null ">
+                AND aa.area_id = #{dataId, jdbcType=BIGINT}
+            </if>
+        </trim>
+        )
+
+    </select>
+
+
+       <delete id="updateStaffRegion" parameterType="com.exp.ucmp.pertner.dto.SysPartnerStaffModifyDto" >
+           DELETE FROM t_sys_staff_region_rela
+           WHERE
+           <trim prefixOverrides="AND">
+               AND party_id = #{partyId, jdbcType=BIGINT}
+           </trim>
+       </delete>
+
+    <delete id="updatePartnerStaff" parameterType="com.exp.ucmp.pertner.dto.SysPartnerCityQueryDto" >
+        DELETE FROM t_sys_partner_staff_rela
+        WHERE
+        <trim prefixOverrides="AND">
+            <if test="partnerId != null ">
+                AND partner_id = #{partnerId, jdbcType=BIGINT}
+            </if>
+        </trim>
+        <trim prefixOverrides="AND">
+            <if test="partyId != null ">
+                AND party_id = #{partyId, jdbcType=BIGINT}
+            </if>
+
+        </trim>
+    </delete>
+
+
+    <delete id="deleteStaffRegion" parameterType="com.exp.ucmp.pertner.dto.SysPartnerCityDropDto" >
+        DELETE
+        from
+        t_sys_staff_region_rela re
+        where
+        re.party_id
+        in
+        (select
+        sr.party_id
+        from
+        t_sys_partner_staff_rela sr
+        where
+        <trim prefixOverrides="AND">
+            AND sr.partner_id = #{partnerId, jdbcType=BIGINT}
+        </trim>)
+        AND re.region_code = #{regionCode, jdbcType=BIGINT}
+    </delete>
+
+
+
+    <delete id="deletePartnerArea" parameterType="com.exp.ucmp.pertner.dto.SysPartnerCityDropDto" >
+        DELETE
+        from
+        t_sys_area_region_rela
+        where
+        <trim prefixOverrides="AND">
+            AND region_code = #{regionCode, jdbcType=BIGINT}
+        </trim>
+    </delete>
+    <!-- 原sql因group_concat函数长度限制，已更新
+    <select id="selectPartnerStoreStaffList" resultType="com.exp.ucmp.pertner.dto.SysPartnerStaffDetailsDto" >
+        SELECT
+            psi.party_id AS partyId,
+            psi.partner_staff_name AS partyName,
+            psi.partner_staff_email AS partyEmail,
+            psi.partner_staff_iphone AS partyIphone,
+            psi.partner_staff_sex AS partySex,
+            store.orgName,
+            store.storeIds
+        FROM
+            t_sys_partner_staff_info psi
+            INNER JOIN ( SELECT ssr.party_id FROM t_sys_partner_staff_store_rela ssr
+            WHERE ssr.partner_id = #{partnerId1}
+            AND ssr.is_enable = '01'
+            GROUP BY ssr.party_id ) sr ON sr.party_id = psi.party_id
+            LEFT JOIN (
+            SELECT
+                prr.party_id,
+                group_concat( srd.org_name ) AS 'orgName',
+                group_concat( srd.store_id ) AS 'storeIds'
+            FROM
+                t_sys_partner_staff_store_rela prr
+                LEFT JOIN t_sys_store_info srd ON prr.store_id = srd.store_id
+            WHERE
+                prr.partner_id = #{partnerId2}
+                AND prr.is_enable = '01'
+                AND srd.is_enable = '01'
+            GROUP BY
+            prr.party_id
+            ) store ON psi.party_id = store.party_id
+        WHERE
+	        psi.is_delete ='00'
+    </select> -->
+
+    <select id="selectPartnerStoreStaffList" resultType="com.exp.ucmp.pertner.dto.SysPartnerStaffDetailsDto" >
+        SELECT
+            psi.party_id AS partyId,
+            psi.partner_staff_name AS partyName,
+            psi.partner_staff_email AS partyEmail,
+            psi.partner_staff_iphone AS partyIphone,
+            psi.partner_staff_sex AS partySex
+        FROM
+            t_sys_partner_staff_info psi
+            INNER JOIN ( SELECT ssr.party_id FROM t_sys_partner_staff_store_rela ssr
+            WHERE ssr.partner_id = #{partnerId1}
+            AND ssr.is_enable = '01'
+            GROUP BY ssr.party_id ) sr ON sr.party_id = psi.party_id
+        WHERE
+	        psi.is_delete ='00'
+    </select>
+
+    <select id="selectConcatPartnerStoreStaffList" resultType="com.exp.ucmp.pertner.dto.SysPartnerStaffDetailsDto" >
+            SELECT
+                prr.party_id AS partyId,
+                srd.org_name AS orgName,
+                srd.store_id AS storeId
+            FROM
+                t_sys_partner_staff_store_rela prr
+                LEFT JOIN t_sys_store_info srd ON prr.store_id = srd.store_id
+            WHERE
+                prr.partner_id = #{partnerId}
+                AND prr.is_enable = '01'
+                AND srd.is_enable = '01'
+    </select>
+
+
+</mapper>

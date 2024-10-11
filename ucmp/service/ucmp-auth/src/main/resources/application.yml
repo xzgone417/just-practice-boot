@@ -1,0 +1,13 @@
+server:
+  port: ${port:${PORT:18010}}
+  tomcat:
+    port-header: OPTIONS,TRACE,COPY,SEARCH,PROPFIND
+  
+spring:
+  application:
+    name: 'ucmp-auth'
+
+logging:
+  config: classpath:logback-spring.xml
+  
+  

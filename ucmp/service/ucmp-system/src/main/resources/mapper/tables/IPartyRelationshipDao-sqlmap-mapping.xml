@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.IPartyRelationshipDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.PartyRelationshipEntity" >
+    INSERT INTO t_party_relationship 
+       (
+          relationship_id,
+          relationship_type_code,
+          src_party_id,
+          tag_party_id,
+          start_date,
+          end_date,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date
+        ) VALUES (
+          #{relationshipId, jdbcType=BIGINT},
+          #{relationshipTypeCode, jdbcType=VARCHAR},
+          #{srcPartyId, jdbcType=BIGINT},
+          #{tagPartyId, jdbcType=BIGINT},
+          #{startDate, jdbcType=DATE},
+          #{endDate, jdbcType=DATE},
+          #{createdBy, jdbcType=BIGINT},
+          #{createdDate, jdbcType=TIMESTAMP},
+          #{updatedBy, jdbcType=BIGINT},
+          #{updatedDate, jdbcType=TIMESTAMP}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.PartyRelationshipEntity" >
+    INSERT INTO t_party_relationship
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="relationshipId != null" >
+          relationship_id,
+          </if>
+        <if test="relationshipTypeCode != null" >
+          relationship_type_code,
+          </if>
+        <if test="srcPartyId != null" >
+          src_party_id,
+          </if>
+        <if test="tagPartyId != null" >
+          tag_party_id,
+          </if>
+        <if test="startDate != null" >
+          start_date,
+          </if>
+        <if test="endDate != null" >
+          end_date,
+          </if>
+        <if test="createdBy != null" >
+          created_by,
+          </if>
+        <if test="createdDate != null" >
+          created_date,
+          </if>
+        <if test="updatedBy != null" >
+          updated_by,
+          </if>
+        <if test="updatedDate != null" >
+          updated_date,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="relationshipId != null" >
+          #{relationshipId, jdbcType=BIGINT},
+          </if>
+        <if test="relationshipTypeCode != null" >
+          #{relationshipTypeCode, jdbcType=VARCHAR},
+          </if>
+        <if test="srcPartyId != null" >
+          #{srcPartyId, jdbcType=BIGINT},
+          </if>
+        <if test="tagPartyId != null" >
+          #{tagPartyId, jdbcType=BIGINT},
+          </if>
+        <if test="startDate != null" >
+          #{startDate, jdbcType=DATE},
+          </if>
+        <if test="endDate != null" >
+          #{endDate, jdbcType=DATE},
+          </if>
+        <if test="createdBy != null" >
+          #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_party_relationship 
+       (
+          relationship_id,
+          relationship_type_code,
+          src_party_id,
+          tag_party_id,
+          start_date,
+          end_date,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.relationshipId, jdbcType=BIGINT},
+	          #{item.relationshipTypeCode, jdbcType=VARCHAR},
+	          #{item.srcPartyId, jdbcType=BIGINT},
+	          #{item.tagPartyId, jdbcType=BIGINT},
+	          #{item.startDate, jdbcType=DATE},
+	          #{item.endDate, jdbcType=DATE},
+	          #{item.createdBy, jdbcType=BIGINT},
+	          #{item.createdDate, jdbcType=TIMESTAMP},
+	          #{item.updatedBy, jdbcType=BIGINT},
+	          #{item.updatedDate, jdbcType=TIMESTAMP}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.PartyRelationshipEntity" >
+    UPDATE t_party_relationship SET 
+          relationship_type_code = #{relationshipTypeCode, jdbcType=VARCHAR},
+          src_party_id = #{srcPartyId, jdbcType=BIGINT},
+          tag_party_id = #{tagPartyId, jdbcType=BIGINT},
+          start_date = #{startDate, jdbcType=DATE},
+          end_date = #{endDate, jdbcType=DATE},
+          created_by = #{createdBy, jdbcType=BIGINT},
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND relationship_id = #{relationshipId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.PartyRelationshipEntity" >
+    UPDATE t_party_relationship
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="relationshipTypeCode != null" >
+          relationship_type_code = #{relationshipTypeCode, jdbcType=VARCHAR},
+          </if>
+        <if test="srcPartyId != null" >
+          src_party_id = #{srcPartyId, jdbcType=BIGINT},
+          </if>
+        <if test="tagPartyId != null" >
+          tag_party_id = #{tagPartyId, jdbcType=BIGINT},
+          </if>
+        <if test="startDate != null" >
+          start_date = #{startDate, jdbcType=DATE},
+          </if>
+        <if test="endDate != null" >
+          end_date = #{endDate, jdbcType=DATE},
+          </if>
+        <if test="createdBy != null" >
+          created_by = #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND relationship_id = #{relationshipId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_party_relationship SET 
+	          relationship_type_code = #{item.relationshipTypeCode, jdbcType=VARCHAR},
+	          src_party_id = #{item.srcPartyId, jdbcType=BIGINT},
+	          tag_party_id = #{item.tagPartyId, jdbcType=BIGINT},
+	          start_date = #{item.startDate, jdbcType=DATE},
+	          end_date = #{item.endDate, jdbcType=DATE},
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND relationship_id = #{item.relationshipId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_party_relationship
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.relationshipTypeCode != null" >
+	          relationship_type_code = #{item.relationshipTypeCode, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.srcPartyId != null" >
+	          src_party_id = #{item.srcPartyId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.tagPartyId != null" >
+	          tag_party_id = #{item.tagPartyId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.startDate != null" >
+	          start_date = #{item.startDate, jdbcType=DATE},
+	          </if>
+	        <if test="item.endDate != null" >
+	          end_date = #{item.endDate, jdbcType=DATE},
+	          </if>
+	        <if test="item.createdBy != null" >
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.createdDate != null" >
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.updatedBy != null" >
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.updatedDate != null" >
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND relationship_id = #{item.relationshipId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.PartyRelationshipPk" >
+    DELETE FROM t_party_relationship
+    WHERE
+     <trim prefixOverrides="AND">
+           AND relationship_id = #{relationshipId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.PartyRelationshipEntity" >
+    DELETE FROM t_party_relationship
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="relationshipId != null" >
+          AND relationship_id = #{relationshipId, jdbcType=BIGINT}
+        </if>
+        <if test="relationshipTypeCode != null and relationshipTypeCode != ''" >
+          AND relationship_type_code = #{relationshipTypeCode, jdbcType=VARCHAR}
+        </if>
+        <if test="srcPartyId != null" >
+          AND src_party_id = #{srcPartyId, jdbcType=BIGINT}
+        </if>
+        <if test="tagPartyId != null" >
+          AND tag_party_id = #{tagPartyId, jdbcType=BIGINT}
+        </if>
+        <if test="startDate != null" >
+          AND start_date = #{startDate, jdbcType=DATE}
+        </if>
+        <if test="endDate != null" >
+          AND end_date = #{endDate, jdbcType=DATE}
+        </if>
+        <if test="createdBy != null" >
+          AND created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="partyRelationshipResultMap" type="com.exp.ucmp.entity.PartyRelationshipEntity" >
+      <constructor>
+       <idArg column="relationship_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="relationship_type_code" property="relationshipTypeCode" jdbcType="VARCHAR" />
+    <result column="src_party_id" property="srcPartyId" jdbcType="BIGINT" />
+    <result column="tag_party_id" property="tagPartyId" jdbcType="BIGINT" />
+    <result column="start_date" property="startDate" jdbcType="DATE" />
+    <result column="end_date" property="endDate" jdbcType="DATE" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="t_party_relationship_Column_List" >
+    a.relationship_id,
+    a.relationship_type_code,
+    a.src_party_id,
+    a.tag_party_id,
+    a.start_date,
+    a.end_date,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.PartyRelationshipPk" resultMap="partyRelationshipResultMap">
+    SELECT 
+    <include refid="t_party_relationship_Column_List" />
+      FROM t_party_relationship a
+     WHERE 1 = 1
+       AND a.relationship_id = #{relationshipId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.PartyRelationshipEntity" resultMap="partyRelationshipResultMap">
+    SELECT 
+    <include refid="t_party_relationship_Column_List" />
+      FROM t_party_relationship a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="relationshipId != null" >
+          AND a.relationship_id = #{relationshipId, jdbcType=BIGINT}
+        </if>
+        <if test="relationshipTypeCode != null and relationshipTypeCode != ''" >
+          AND a.relationship_type_code = #{relationshipTypeCode, jdbcType=VARCHAR}
+        </if>
+        <if test="srcPartyId != null" >
+          AND a.src_party_id = #{srcPartyId, jdbcType=BIGINT}
+        </if>
+        <if test="tagPartyId != null" >
+          AND a.tag_party_id = #{tagPartyId, jdbcType=BIGINT}
+        </if>
+        <if test="startDate != null" >
+          AND a.start_date = #{startDate, jdbcType=DATE}
+        </if>
+        <if test="endDate != null" >
+          AND a.end_date = #{endDate, jdbcType=DATE}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.PartyRelationshipEntity" resultType="int">
+    SELECT count(1) FROM t_party_relationship a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="relationshipId != null" >
+          AND a.relationship_id = #{relationshipId, jdbcType=BIGINT}
+        </if>
+        <if test="relationshipTypeCode != null and relationshipTypeCode != ''" >
+          AND a.relationship_type_code = #{relationshipTypeCode, jdbcType=VARCHAR}
+        </if>
+        <if test="srcPartyId != null" >
+          AND a.src_party_id = #{srcPartyId, jdbcType=BIGINT}
+        </if>
+        <if test="tagPartyId != null" >
+          AND a.tag_party_id = #{tagPartyId, jdbcType=BIGINT}
+        </if>
+        <if test="startDate != null" >
+          AND a.start_date = #{startDate, jdbcType=DATE}
+        </if>
+        <if test="endDate != null" >
+          AND a.end_date = #{endDate, jdbcType=DATE}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+</mapper>

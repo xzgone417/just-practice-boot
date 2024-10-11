@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>{{project_group_id}}</groupId>
+        <artifactId>{{project_parent_artifact_id}}</artifactId>
+        <version>{{project_parent_version}}</version>
+    </parent>
+    <artifactId>{{project_artifact_id}}</artifactId>
+    <version>{{project_version}}</version>
+    
+    <!-- 公共参数 -->
+    <properties>
+{% if project_dependencies %}
+{%- for item in project_dependencies %}
+        <{{item.version[0]}}>{{item.version[1]}}</{{item.version[0]}}>
+{%- endfor %}
+{% endif%}
+    </properties>
+
+    <dependencies>
+        <!-- 数据库 -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+{%- if project_dependencies %}
+{% for item in project_dependencies %}
+        <dependency>
+            <groupId>{{item.groupId}}</groupId>
+            <artifactId>{{item.artifactId}}</artifactId>
+        </dependency>
+{% endfor %}
+{%- endif%}
+    </dependencies>
+    
+</project>

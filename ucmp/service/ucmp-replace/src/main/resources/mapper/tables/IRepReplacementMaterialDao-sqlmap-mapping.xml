@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.IRepReplacementMaterialDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.RepReplacementMaterialEntity" >
+    INSERT INTO t_rep_replacement_material 
+       (
+          material_id,
+          replacement_id,
+          material_type,
+          upload_person,
+          upload_date
+        ) VALUES (
+          #{materialId, jdbcType=BIGINT},
+          #{replacementId, jdbcType=BIGINT},
+          #{materialType, jdbcType=VARCHAR},
+          #{uploadPerson, jdbcType=BIGINT},
+          #{uploadDate, jdbcType=TIMESTAMP}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.RepReplacementMaterialEntity" >
+    INSERT INTO t_rep_replacement_material
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="materialId != null" >
+          material_id,
+          </if>
+        <if test="replacementId != null" >
+          replacement_id,
+          </if>
+        <if test="materialType != null" >
+          material_type,
+          </if>
+        <if test="uploadPerson != null" >
+          upload_person,
+          </if>
+        <if test="uploadDate != null" >
+          upload_date,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="materialId != null" >
+          #{materialId, jdbcType=BIGINT},
+          </if>
+        <if test="replacementId != null" >
+          #{replacementId, jdbcType=BIGINT},
+          </if>
+        <if test="materialType != null" >
+          #{materialType, jdbcType=VARCHAR},
+          </if>
+        <if test="uploadPerson != null" >
+          #{uploadPerson, jdbcType=BIGINT},
+          </if>
+        <if test="uploadDate != null" >
+          #{uploadDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_rep_replacement_material 
+       (
+          material_id,
+          replacement_id,
+          material_type,
+          upload_person,
+          upload_date
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.materialId, jdbcType=BIGINT},
+	          #{item.replacementId, jdbcType=BIGINT},
+	          #{item.materialType, jdbcType=VARCHAR},
+	          #{item.uploadPerson, jdbcType=BIGINT},
+	          #{item.uploadDate, jdbcType=TIMESTAMP}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.RepReplacementMaterialEntity" >
+    UPDATE t_rep_replacement_material SET 
+          replacement_id = #{replacementId, jdbcType=BIGINT},
+          material_type = #{materialType, jdbcType=VARCHAR},
+          upload_person = #{uploadPerson, jdbcType=BIGINT},
+          upload_date = #{uploadDate, jdbcType=TIMESTAMP}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND material_id = #{materialId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.RepReplacementMaterialEntity" >
+    UPDATE t_rep_replacement_material
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="replacementId != null" >
+          replacement_id = #{replacementId, jdbcType=BIGINT},
+          </if>
+        <if test="materialType != null" >
+          material_type = #{materialType, jdbcType=VARCHAR},
+          </if>
+        <if test="uploadPerson != null" >
+          upload_person = #{uploadPerson, jdbcType=BIGINT},
+          </if>
+        <if test="uploadDate != null" >
+          upload_date = #{uploadDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND material_id = #{materialId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_rep_replacement_material SET 
+	          replacement_id = #{item.replacementId, jdbcType=BIGINT},
+	          material_type = #{item.materialType, jdbcType=VARCHAR},
+	          upload_person = #{item.uploadPerson, jdbcType=BIGINT},
+	          upload_date = #{item.uploadDate, jdbcType=TIMESTAMP}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND material_id = #{item.materialId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_rep_replacement_material
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.replacementId != null" >
+	          replacement_id = #{item.replacementId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.materialType != null" >
+	          material_type = #{item.materialType, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.uploadPerson != null" >
+	          upload_person = #{item.uploadPerson, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.uploadDate != null" >
+	          upload_date = #{item.uploadDate, jdbcType=TIMESTAMP},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND material_id = #{item.materialId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.RepReplacementMaterialPk" >
+    DELETE FROM t_rep_replacement_material
+    WHERE
+     <trim prefixOverrides="AND">
+           AND material_id = #{materialId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.RepReplacementMaterialEntity" >
+    DELETE FROM t_rep_replacement_material
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="materialId != null" >
+          AND material_id = #{materialId, jdbcType=BIGINT}
+        </if>
+        <if test="replacementId != null" >
+          AND replacement_id = #{replacementId, jdbcType=BIGINT}
+        </if>
+        <if test="materialType != null and materialType != ''" >
+          AND material_type = #{materialType, jdbcType=VARCHAR}
+        </if>
+        <if test="uploadPerson != null" >
+          AND upload_person = #{uploadPerson, jdbcType=BIGINT}
+        </if>
+        <if test="uploadDate != null" >
+          AND upload_date = #{uploadDate, jdbcType=TIMESTAMP}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="repReplacementMaterialResultMap" type="com.exp.ucmp.entity.RepReplacementMaterialEntity" >
+      <constructor>
+       <idArg column="material_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="replacement_id" property="replacementId" jdbcType="BIGINT" />
+    <result column="material_type" property="materialType" jdbcType="VARCHAR" />
+    <result column="upload_person" property="uploadPerson" jdbcType="BIGINT" />
+    <result column="upload_date" property="uploadDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="t_rep_replacement_material_Column_List" >
+    a.material_id,
+    a.replacement_id,
+    a.material_type,
+    a.upload_person,
+    a.upload_date
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.RepReplacementMaterialPk" resultMap="repReplacementMaterialResultMap">
+    SELECT 
+    <include refid="t_rep_replacement_material_Column_List" />
+      FROM t_rep_replacement_material a
+     WHERE 1 = 1
+       AND a.material_id = #{materialId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.RepReplacementMaterialEntity" resultMap="repReplacementMaterialResultMap">
+    SELECT 
+    <include refid="t_rep_replacement_material_Column_List" />
+      FROM t_rep_replacement_material a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="materialId != null" >
+          AND a.material_id = #{materialId, jdbcType=BIGINT}
+        </if>
+        <if test="replacementId != null" >
+          AND a.replacement_id = #{replacementId, jdbcType=BIGINT}
+        </if>
+        <if test="materialType != null and materialType != ''" >
+          AND a.material_type = #{materialType, jdbcType=VARCHAR}
+        </if>
+        <if test="uploadPerson != null" >
+          AND a.upload_person = #{uploadPerson, jdbcType=BIGINT}
+        </if>
+        <if test="uploadDate != null" >
+          AND a.upload_date = #{uploadDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.RepReplacementMaterialEntity" resultType="int">
+    SELECT count(1) FROM t_rep_replacement_material a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="materialId != null" >
+          AND a.material_id = #{materialId, jdbcType=BIGINT}
+        </if>
+        <if test="replacementId != null" >
+          AND a.replacement_id = #{replacementId, jdbcType=BIGINT}
+        </if>
+        <if test="materialType != null and materialType != ''" >
+          AND a.material_type = #{materialType, jdbcType=VARCHAR}
+        </if>
+        <if test="uploadPerson != null" >
+          AND a.upload_person = #{uploadPerson, jdbcType=BIGINT}
+        </if>
+        <if test="uploadDate != null" >
+          AND a.upload_date = #{uploadDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+</mapper>

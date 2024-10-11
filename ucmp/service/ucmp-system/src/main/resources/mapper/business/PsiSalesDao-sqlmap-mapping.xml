@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exp.ucmp.store.dao.PsiSalesDao">
+
+    <update id="redistributionCustomer">
+        UPDATE t_psi_sales_customer
+        SET
+        store_id = NULL,
+        party_id = NULL,
+        updated_by = #{updatedBy, jdbcType=BIGINT},
+        updated_date = NOW()
+        <where>
+            AND store_id = #{storeId, jdbcType=BIGINT}
+        </where>
+
+
+    </update>
+    <update id="redistributionClues">
+        UPDATE t_psi_retention_clues
+        SET follow_store  = NULL,
+            follow_person = NULL,
+            updated_by    = #{updatedBy, jdbcType=BIGINT},
+            updated_date  = NOW()
+        WHERE is_delete = '00'
+          AND follow_status IN ('7801', '7802')
+          AND follow_store = #{storeId, jdbcType=BIGINT}
+    </update>
+    <update id="redistributionOrder">
+        UPDATE t_psi_order_info
+        <trim prefix="SET" suffixOverrides=",">
+            sales_store = NULL,
+            follow_person = NULL,
+            updated_by = #{updatedBy, jdbcType=BIGINT},
+            updated_date = now()
+        </trim>
+        WHERE
+        is_delete = '00'
+        AND order_status IN ('7401','7402','7408')
+        AND order_info_id not in (SELECT order_info_id FROM t_psi_sales_modify_config where approve_result = 1 and order_status IN
+        ('7401','7402'))
+        AND sales_store = #{storeId, jdbcType=BIGINT}
+    </update>
+
+    <update id="redistributionCustomerParty">
+        UPDATE t_psi_sales_customer
+        SET
+
+        party_id = NULL,
+        updated_by = #{updatedBy, jdbcType=BIGINT},
+        updated_date = NOW()
+        <where>
+            AND party_id = #{partyId, jdbcType=BIGINT}
+        </where>
+    </update>
+    <update id="redistributionCluesParty">
+        UPDATE t_psi_retention_clues
+        SET follow_person = NULL,
+            updated_by    = #{updatedBy, jdbcType=BIGINT},
+            updated_date  = NOW()
+        WHERE is_delete = '00'
+          AND follow_status IN ('7801', '7802')
+          AND follow_person = #{partyId, jdbcType=BIGINT}
+    </update>
+    <update id="redistributionOrderParty">
+        UPDATE t_psi_order_info
+        <trim prefix="SET" suffixOverrides=",">
+            follow_person = NULL,
+            updated_by = #{updatedBy, jdbcType=BIGINT},
+            updated_date = now()
+        </trim>
+        WHERE
+        is_delete = '00'
+        AND order_status IN ('7401','7402','7408')
+        AND order_info_id not in (SELECT order_info_id FROM t_psi_sales_modify_config where approve_result = 1 and order_status IN
+        ('7401','7402'))
+        AND follow_person = #{partyId, jdbcType=BIGINT}
+    </update>
+    <update id="updateConfig">
+        UPDATE t_psi_clues_store_config SET
+        status = '00',
+        updated_by = #{updatedBy, jdbcType=BIGINT},
+        updated_date = now()
+        WHERE
+             store_id = #{storeId, jdbcType=BIGINT}
+            AND status = '01'
+    </update>
+</mapper>

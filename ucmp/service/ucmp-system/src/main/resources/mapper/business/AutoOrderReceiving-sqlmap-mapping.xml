@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exp.ucmp.partner.dao.AutoOrderReceivingDao">
+
+	<sql id="t_sys_partner_staff_store_rela_Column_List" >
+		a.rela_id,
+    a.partner_id,
+    a.store_id,
+    a.party_id,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date,
+    a.is_enable
+	</sql>
+
+	<resultMap id="sysPartnerStaffStoreRelaResultMap" type="com.exp.ucmp.entity.SysPartnerStaffStoreRelaEntity" >
+		<constructor>
+			<idArg column="rela_id" javaType="Long" jdbcType="BIGINT"/>
+		</constructor>
+		<result column="partner_id" property="partnerId" jdbcType="BIGINT" />
+		<result column="store_id" property="storeId" jdbcType="BIGINT" />
+		<result column="party_id" property="partyId" jdbcType="BIGINT" />
+		<result column="created_by" property="createdBy" jdbcType="BIGINT" />
+		<result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+		<result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+		<result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+		<result column="is_enable" property="isEnable" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="selectBySelective" parameterType="com.exp.ucmp.entity.SysPartnerStaffStoreRelaEntity" resultMap="sysPartnerStaffStoreRelaResultMap">
+		SELECT
+		<include refid="t_sys_partner_staff_store_rela_Column_List" />
+		FROM t_sys_partner_staff_store_rela a
+		WHERE
+			a.partner_id = #{partnerId, jdbcType=BIGINT}
+			AND a.store_id = #{storeId, jdbcType=BIGINT}
+			AND a.is_enable = '01'
+			ORDER BY a.created_date DESC
+			LIMIT 1
+	</select>
+
+</mapper>

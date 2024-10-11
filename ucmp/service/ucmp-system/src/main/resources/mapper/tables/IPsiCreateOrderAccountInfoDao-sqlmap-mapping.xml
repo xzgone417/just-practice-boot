@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.IPsiCreateOrderAccountInfoDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.PsiCreateOrderAccountInfoEntity" >
+    INSERT INTO t_psi_create_order_account_info 
+       (
+          info_id,
+          idm_account_name,
+          user_id,
+          user_name,
+          organization_id,
+          phone_number,
+          role_code,
+          role_name,
+          department_id,
+          superior_idm_account_name,
+          superior_user_id,
+          superior_organization_id,
+          superior_name,
+          superior_phone_number,
+          superior_role_code,
+          superior_role_name,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date
+        ) VALUES (
+          #{infoId, jdbcType=BIGINT},
+          #{idmAccountName, jdbcType=VARCHAR},
+          #{userId, jdbcType=INTEGER},
+          #{userName, jdbcType=VARCHAR},
+          #{organizationId, jdbcType=INTEGER},
+          #{phoneNumber, jdbcType=VARCHAR},
+          #{roleCode, jdbcType=VARCHAR},
+          #{roleName, jdbcType=VARCHAR},
+          #{departmentId, jdbcType=VARCHAR},
+          #{superiorIdmAccountName, jdbcType=VARCHAR},
+          #{superiorUserId, jdbcType=INTEGER},
+          #{superiorOrganizationId, jdbcType=INTEGER},
+          #{superiorName, jdbcType=VARCHAR},
+          #{superiorPhoneNumber, jdbcType=VARCHAR},
+          #{superiorRoleCode, jdbcType=VARCHAR},
+          #{superiorRoleName, jdbcType=VARCHAR},
+          #{createdBy, jdbcType=BIGINT},
+          #{createdDate, jdbcType=TIMESTAMP},
+          #{updatedBy, jdbcType=BIGINT},
+          #{updatedDate, jdbcType=TIMESTAMP}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.PsiCreateOrderAccountInfoEntity" >
+    INSERT INTO t_psi_create_order_account_info
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="infoId != null" >
+          info_id,
+          </if>
+        <if test="idmAccountName != null" >
+          idm_account_name,
+          </if>
+        <if test="userId != null" >
+          user_id,
+          </if>
+        <if test="userName != null" >
+          user_name,
+          </if>
+        <if test="organizationId != null" >
+          organization_id,
+          </if>
+        <if test="phoneNumber != null" >
+          phone_number,
+          </if>
+        <if test="roleCode != null" >
+          role_code,
+          </if>
+        <if test="roleName != null" >
+          role_name,
+          </if>
+        <if test="departmentId != null" >
+          department_id,
+          </if>
+        <if test="superiorIdmAccountName != null" >
+          superior_idm_account_name,
+          </if>
+        <if test="superiorUserId != null" >
+          superior_user_id,
+          </if>
+        <if test="superiorOrganizationId != null" >
+          superior_organization_id,
+          </if>
+        <if test="superiorName != null" >
+          superior_name,
+          </if>
+        <if test="superiorPhoneNumber != null" >
+          superior_phone_number,
+          </if>
+        <if test="superiorRoleCode != null" >
+          superior_role_code,
+          </if>
+        <if test="superiorRoleName != null" >
+          superior_role_name,
+          </if>
+        <if test="createdBy != null" >
+          created_by,
+          </if>
+        <if test="createdDate != null" >
+          created_date,
+          </if>
+        <if test="updatedBy != null" >
+          updated_by,
+          </if>
+        <if test="updatedDate != null" >
+          updated_date,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="infoId != null" >
+          #{infoId, jdbcType=BIGINT},
+          </if>
+        <if test="idmAccountName != null" >
+          #{idmAccountName, jdbcType=VARCHAR},
+          </if>
+        <if test="userId != null" >
+          #{userId, jdbcType=INTEGER},
+          </if>
+        <if test="userName != null" >
+          #{userName, jdbcType=VARCHAR},
+          </if>
+        <if test="organizationId != null" >
+          #{organizationId, jdbcType=INTEGER},
+          </if>
+        <if test="phoneNumber != null" >
+          #{phoneNumber, jdbcType=VARCHAR},
+          </if>
+        <if test="roleCode != null" >
+          #{roleCode, jdbcType=VARCHAR},
+          </if>
+        <if test="roleName != null" >
+          #{roleName, jdbcType=VARCHAR},
+          </if>
+        <if test="departmentId != null" >
+          #{departmentId, jdbcType=VARCHAR},
+          </if>
+        <if test="superiorIdmAccountName != null" >
+          #{superiorIdmAccountName, jdbcType=VARCHAR},
+          </if>
+        <if test="superiorUserId != null" >
+          #{superiorUserId, jdbcType=INTEGER},
+          </if>
+        <if test="superiorOrganizationId != null" >
+          #{superiorOrganizationId, jdbcType=INTEGER},
+          </if>
+        <if test="superiorName != null" >
+          #{superiorName, jdbcType=VARCHAR},
+          </if>
+        <if test="superiorPhoneNumber != null" >
+          #{superiorPhoneNumber, jdbcType=VARCHAR},
+          </if>
+        <if test="superiorRoleCode != null" >
+          #{superiorRoleCode, jdbcType=VARCHAR},
+          </if>
+        <if test="superiorRoleName != null" >
+          #{superiorRoleName, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_psi_create_order_account_info 
+       (
+          info_id,
+          idm_account_name,
+          user_id,
+          user_name,
+          organization_id,
+          phone_number,
+          role_code,
+          role_name,
+          department_id,
+          superior_idm_account_name,
+          superior_user_id,
+          superior_organization_id,
+          superior_name,
+          superior_phone_number,
+          superior_role_code,
+          superior_role_name,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.infoId, jdbcType=BIGINT},
+	          #{item.idmAccountName, jdbcType=VARCHAR},
+	          #{item.userId, jdbcType=INTEGER},
+	          #{item.userName, jdbcType=VARCHAR},
+	          #{item.organizationId, jdbcType=INTEGER},
+	          #{item.phoneNumber, jdbcType=VARCHAR},
+	          #{item.roleCode, jdbcType=VARCHAR},
+	          #{item.roleName, jdbcType=VARCHAR},
+	          #{item.departmentId, jdbcType=VARCHAR},
+	          #{item.superiorIdmAccountName, jdbcType=VARCHAR},
+	          #{item.superiorUserId, jdbcType=INTEGER},
+	          #{item.superiorOrganizationId, jdbcType=INTEGER},
+	          #{item.superiorName, jdbcType=VARCHAR},
+	          #{item.superiorPhoneNumber, jdbcType=VARCHAR},
+	          #{item.superiorRoleCode, jdbcType=VARCHAR},
+	          #{item.superiorRoleName, jdbcType=VARCHAR},
+	          #{item.createdBy, jdbcType=BIGINT},
+	          #{item.createdDate, jdbcType=TIMESTAMP},
+	          #{item.updatedBy, jdbcType=BIGINT},
+	          #{item.updatedDate, jdbcType=TIMESTAMP}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.PsiCreateOrderAccountInfoEntity" >
+    UPDATE t_psi_create_order_account_info SET 
+          idm_account_name = #{idmAccountName, jdbcType=VARCHAR},
+          user_id = #{userId, jdbcType=INTEGER},
+          user_name = #{userName, jdbcType=VARCHAR},
+          organization_id = #{organizationId, jdbcType=INTEGER},
+          phone_number = #{phoneNumber, jdbcType=VARCHAR},
+          role_code = #{roleCode, jdbcType=VARCHAR},
+          role_name = #{roleName, jdbcType=VARCHAR},
+          department_id = #{departmentId, jdbcType=VARCHAR},
+          superior_idm_account_name = #{superiorIdmAccountName, jdbcType=VARCHAR},
+          superior_user_id = #{superiorUserId, jdbcType=INTEGER},
+          superior_organization_id = #{superiorOrganizationId, jdbcType=INTEGER},
+          superior_name = #{superiorName, jdbcType=VARCHAR},
+          superior_phone_number = #{superiorPhoneNumber, jdbcType=VARCHAR},
+          superior_role_code = #{superiorRoleCode, jdbcType=VARCHAR},
+          superior_role_name = #{superiorRoleName, jdbcType=VARCHAR},
+          created_by = #{createdBy, jdbcType=BIGINT},
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND info_id = #{infoId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.PsiCreateOrderAccountInfoEntity" >
+    UPDATE t_psi_create_order_account_info
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="idmAccountName != null" >
+          idm_account_name = #{idmAccountName, jdbcType=VARCHAR},
+          </if>
+        <if test="userId != null" >
+          user_id = #{userId, jdbcType=INTEGER},
+          </if>
+        <if test="userName != null" >
+          user_name = #{userName, jdbcType=VARCHAR},
+          </if>
+        <if test="organizationId != null" >
+          organization_id = #{organizationId, jdbcType=INTEGER},
+          </if>
+        <if test="phoneNumber != null" >
+          phone_number = #{phoneNumber, jdbcType=VARCHAR},
+          </if>
+        <if test="roleCode != null" >
+          role_code = #{roleCode, jdbcType=VARCHAR},
+          </if>
+        <if test="roleName != null" >
+          role_name = #{roleName, jdbcType=VARCHAR},
+          </if>
+        <if test="departmentId != null" >
+          department_id = #{departmentId, jdbcType=VARCHAR},
+          </if>
+        <if test="superiorIdmAccountName != null" >
+          superior_idm_account_name = #{superiorIdmAccountName, jdbcType=VARCHAR},
+          </if>
+        <if test="superiorUserId != null" >
+          superior_user_id = #{superiorUserId, jdbcType=INTEGER},
+          </if>
+        <if test="superiorOrganizationId != null" >
+          superior_organization_id = #{superiorOrganizationId, jdbcType=INTEGER},
+          </if>
+        <if test="superiorName != null" >
+          superior_name = #{superiorName, jdbcType=VARCHAR},
+          </if>
+        <if test="superiorPhoneNumber != null" >
+          superior_phone_number = #{superiorPhoneNumber, jdbcType=VARCHAR},
+          </if>
+        <if test="superiorRoleCode != null" >
+          superior_role_code = #{superiorRoleCode, jdbcType=VARCHAR},
+          </if>
+        <if test="superiorRoleName != null" >
+          superior_role_name = #{superiorRoleName, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          created_by = #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND info_id = #{infoId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_create_order_account_info SET 
+	          idm_account_name = #{item.idmAccountName, jdbcType=VARCHAR},
+	          user_id = #{item.userId, jdbcType=INTEGER},
+	          user_name = #{item.userName, jdbcType=VARCHAR},
+	          organization_id = #{item.organizationId, jdbcType=INTEGER},
+	          phone_number = #{item.phoneNumber, jdbcType=VARCHAR},
+	          role_code = #{item.roleCode, jdbcType=VARCHAR},
+	          role_name = #{item.roleName, jdbcType=VARCHAR},
+	          department_id = #{item.departmentId, jdbcType=VARCHAR},
+	          superior_idm_account_name = #{item.superiorIdmAccountName, jdbcType=VARCHAR},
+	          superior_user_id = #{item.superiorUserId, jdbcType=INTEGER},
+	          superior_organization_id = #{item.superiorOrganizationId, jdbcType=INTEGER},
+	          superior_name = #{item.superiorName, jdbcType=VARCHAR},
+	          superior_phone_number = #{item.superiorPhoneNumber, jdbcType=VARCHAR},
+	          superior_role_code = #{item.superiorRoleCode, jdbcType=VARCHAR},
+	          superior_role_name = #{item.superiorRoleName, jdbcType=VARCHAR},
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND info_id = #{item.infoId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_create_order_account_info
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.idmAccountName != null" >
+	          idm_account_name = #{item.idmAccountName, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.userId != null" >
+	          user_id = #{item.userId, jdbcType=INTEGER},
+	          </if>
+	        <if test="item.userName != null" >
+	          user_name = #{item.userName, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.organizationId != null" >
+	          organization_id = #{item.organizationId, jdbcType=INTEGER},
+	          </if>
+	        <if test="item.phoneNumber != null" >
+	          phone_number = #{item.phoneNumber, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.roleCode != null" >
+	          role_code = #{item.roleCode, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.roleName != null" >
+	          role_name = #{item.roleName, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.departmentId != null" >
+	          department_id = #{item.departmentId, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.superiorIdmAccountName != null" >
+	          superior_idm_account_name = #{item.superiorIdmAccountName, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.superiorUserId != null" >
+	          superior_user_id = #{item.superiorUserId, jdbcType=INTEGER},
+	          </if>
+	        <if test="item.superiorOrganizationId != null" >
+	          superior_organization_id = #{item.superiorOrganizationId, jdbcType=INTEGER},
+	          </if>
+	        <if test="item.superiorName != null" >
+	          superior_name = #{item.superiorName, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.superiorPhoneNumber != null" >
+	          superior_phone_number = #{item.superiorPhoneNumber, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.superiorRoleCode != null" >
+	          superior_role_code = #{item.superiorRoleCode, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.superiorRoleName != null" >
+	          superior_role_name = #{item.superiorRoleName, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.createdBy != null" >
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.createdDate != null" >
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.updatedBy != null" >
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.updatedDate != null" >
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND info_id = #{item.infoId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.PsiCreateOrderAccountInfoPk" >
+    DELETE FROM t_psi_create_order_account_info
+    WHERE
+     <trim prefixOverrides="AND">
+           AND info_id = #{infoId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.PsiCreateOrderAccountInfoEntity" >
+    DELETE FROM t_psi_create_order_account_info
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="infoId != null" >
+          AND info_id = #{infoId, jdbcType=BIGINT}
+        </if>
+        <if test="idmAccountName != null and idmAccountName != ''" >
+          AND idm_account_name = #{idmAccountName, jdbcType=VARCHAR}
+        </if>
+        <if test="userId != null" >
+          AND user_id = #{userId, jdbcType=INTEGER}
+        </if>
+        <if test="userName != null and userName != ''" >
+          AND user_name = #{userName, jdbcType=VARCHAR}
+        </if>
+        <if test="organizationId != null" >
+          AND organization_id = #{organizationId, jdbcType=INTEGER}
+        </if>
+        <if test="phoneNumber != null and phoneNumber != ''" >
+          AND phone_number = #{phoneNumber, jdbcType=VARCHAR}
+        </if>
+        <if test="roleCode != null and roleCode != ''" >
+          AND role_code = #{roleCode, jdbcType=VARCHAR}
+        </if>
+        <if test="roleName != null and roleName != ''" >
+          AND role_name = #{roleName, jdbcType=VARCHAR}
+        </if>
+        <if test="departmentId != null and departmentId != ''" >
+          AND department_id = #{departmentId, jdbcType=VARCHAR}
+        </if>
+        <if test="superiorIdmAccountName != null and superiorIdmAccountName != ''" >
+          AND superior_idm_account_name = #{superiorIdmAccountName, jdbcType=VARCHAR}
+        </if>
+        <if test="superiorUserId != null" >
+          AND superior_user_id = #{superiorUserId, jdbcType=INTEGER}
+        </if>
+        <if test="superiorOrganizationId != null" >
+          AND superior_organization_id = #{superiorOrganizationId, jdbcType=INTEGER}
+        </if>
+        <if test="superiorName != null and superiorName != ''" >
+          AND superior_name = #{superiorName, jdbcType=VARCHAR}
+        </if>
+        <if test="superiorPhoneNumber != null and superiorPhoneNumber != ''" >
+          AND superior_phone_number = #{superiorPhoneNumber, jdbcType=VARCHAR}
+        </if>
+        <if test="superiorRoleCode != null and superiorRoleCode != ''" >
+          AND superior_role_code = #{superiorRoleCode, jdbcType=VARCHAR}
+        </if>
+        <if test="superiorRoleName != null and superiorRoleName != ''" >
+          AND superior_role_name = #{superiorRoleName, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="psiCreateOrderAccountInfoResultMap" type="com.exp.ucmp.entity.PsiCreateOrderAccountInfoEntity" >
+      <constructor>
+       <idArg column="info_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="idm_account_name" property="idmAccountName" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="organization_id" property="organizationId" jdbcType="INTEGER" />
+    <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="role_code" property="roleCode" jdbcType="VARCHAR" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="VARCHAR" />
+    <result column="superior_idm_account_name" property="superiorIdmAccountName" jdbcType="VARCHAR" />
+    <result column="superior_user_id" property="superiorUserId" jdbcType="INTEGER" />
+    <result column="superior_organization_id" property="superiorOrganizationId" jdbcType="INTEGER" />
+    <result column="superior_name" property="superiorName" jdbcType="VARCHAR" />
+    <result column="superior_phone_number" property="superiorPhoneNumber" jdbcType="VARCHAR" />
+    <result column="superior_role_code" property="superiorRoleCode" jdbcType="VARCHAR" />
+    <result column="superior_role_name" property="superiorRoleName" jdbcType="VARCHAR" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="t_psi_create_order_account_info_Column_List" >
+    a.info_id,
+    a.idm_account_name,
+    a.user_id,
+    a.user_name,
+    a.organization_id,
+    a.phone_number,
+    a.role_code,
+    a.role_name,
+    a.department_id,
+    a.superior_idm_account_name,
+    a.superior_user_id,
+    a.superior_organization_id,
+    a.superior_name,
+    a.superior_phone_number,
+    a.superior_role_code,
+    a.superior_role_name,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.PsiCreateOrderAccountInfoPk" resultMap="psiCreateOrderAccountInfoResultMap">
+    SELECT 
+    <include refid="t_psi_create_order_account_info_Column_List" />
+      FROM t_psi_create_order_account_info a
+     WHERE 1 = 1
+       AND a.info_id = #{infoId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.PsiCreateOrderAccountInfoEntity" resultMap="psiCreateOrderAccountInfoResultMap">
+    SELECT 
+    <include refid="t_psi_create_order_account_info_Column_List" />
+      FROM t_psi_create_order_account_info a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="infoId != null" >
+          AND a.info_id = #{infoId, jdbcType=BIGINT}
+        </if>
+        <if test="idmAccountName != null and idmAccountName != ''" >
+          AND a.idm_account_name = #{idmAccountName, jdbcType=VARCHAR}
+        </if>
+        <if test="userId != null" >
+          AND a.user_id = #{userId, jdbcType=INTEGER}
+        </if>
+        <if test="userName != null and userName != ''" >
+          AND a.user_name = #{userName, jdbcType=VARCHAR}
+        </if>
+        <if test="organizationId != null" >
+          AND a.organization_id = #{organizationId, jdbcType=INTEGER}
+        </if>
+        <if test="phoneNumber != null and phoneNumber != ''" >
+          AND a.phone_number = #{phoneNumber, jdbcType=VARCHAR}
+        </if>
+        <if test="roleCode != null and roleCode != ''" >
+          AND a.role_code = #{roleCode, jdbcType=VARCHAR}
+        </if>
+        <if test="roleName != null and roleName != ''" >
+          AND a.role_name = #{roleName, jdbcType=VARCHAR}
+        </if>
+        <if test="departmentId != null and departmentId != ''" >
+          AND a.department_id = #{departmentId, jdbcType=VARCHAR}
+        </if>
+        <if test="superiorIdmAccountName != null and superiorIdmAccountName != ''" >
+          AND a.superior_idm_account_name = #{superiorIdmAccountName, jdbcType=VARCHAR}
+        </if>
+        <if test="superiorUserId != null" >
+          AND a.superior_user_id = #{superiorUserId, jdbcType=INTEGER}
+        </if>
+        <if test="superiorOrganizationId != null" >
+          AND a.superior_organization_id = #{superiorOrganizationId, jdbcType=INTEGER}
+        </if>
+        <if test="superiorName != null and superiorName != ''" >
+          AND a.superior_name = #{superiorName, jdbcType=VARCHAR}
+        </if>
+        <if test="superiorPhoneNumber != null and superiorPhoneNumber != ''" >
+          AND a.superior_phone_number = #{superiorPhoneNumber, jdbcType=VARCHAR}
+        </if>
+        <if test="superiorRoleCode != null and superiorRoleCode != ''" >
+          AND a.superior_role_code = #{superiorRoleCode, jdbcType=VARCHAR}
+        </if>
+        <if test="superiorRoleName != null and superiorRoleName != ''" >
+          AND a.superior_role_name = #{superiorRoleName, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.PsiCreateOrderAccountInfoEntity" resultType="int">
+    SELECT count(1) FROM t_psi_create_order_account_info a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="infoId != null" >
+          AND a.info_id = #{infoId, jdbcType=BIGINT}
+        </if>
+        <if test="idmAccountName != null and idmAccountName != ''" >
+          AND a.idm_account_name = #{idmAccountName, jdbcType=VARCHAR}
+        </if>
+        <if test="userId != null" >
+          AND a.user_id = #{userId, jdbcType=INTEGER}
+        </if>
+        <if test="userName != null and userName != ''" >
+          AND a.user_name = #{userName, jdbcType=VARCHAR}
+        </if>
+        <if test="organizationId != null" >
+          AND a.organization_id = #{organizationId, jdbcType=INTEGER}
+        </if>
+        <if test="phoneNumber != null and phoneNumber != ''" >
+          AND a.phone_number = #{phoneNumber, jdbcType=VARCHAR}
+        </if>
+        <if test="roleCode != null and roleCode != ''" >
+          AND a.role_code = #{roleCode, jdbcType=VARCHAR}
+        </if>
+        <if test="roleName != null and roleName != ''" >
+          AND a.role_name = #{roleName, jdbcType=VARCHAR}
+        </if>
+        <if test="departmentId != null and departmentId != ''" >
+          AND a.department_id = #{departmentId, jdbcType=VARCHAR}
+        </if>
+        <if test="superiorIdmAccountName != null and superiorIdmAccountName != ''" >
+          AND a.superior_idm_account_name = #{superiorIdmAccountName, jdbcType=VARCHAR}
+        </if>
+        <if test="superiorUserId != null" >
+          AND a.superior_user_id = #{superiorUserId, jdbcType=INTEGER}
+        </if>
+        <if test="superiorOrganizationId != null" >
+          AND a.superior_organization_id = #{superiorOrganizationId, jdbcType=INTEGER}
+        </if>
+        <if test="superiorName != null and superiorName != ''" >
+          AND a.superior_name = #{superiorName, jdbcType=VARCHAR}
+        </if>
+        <if test="superiorPhoneNumber != null and superiorPhoneNumber != ''" >
+          AND a.superior_phone_number = #{superiorPhoneNumber, jdbcType=VARCHAR}
+        </if>
+        <if test="superiorRoleCode != null and superiorRoleCode != ''" >
+          AND a.superior_role_code = #{superiorRoleCode, jdbcType=VARCHAR}
+        </if>
+        <if test="superiorRoleName != null and superiorRoleName != ''" >
+          AND a.superior_role_name = #{superiorRoleName, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+</mapper>

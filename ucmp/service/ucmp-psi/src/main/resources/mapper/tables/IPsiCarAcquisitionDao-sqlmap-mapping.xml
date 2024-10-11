@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.IPsiCarAcquisitionDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.PsiCarAcquisitionEntity" >
+    INSERT INTO t_psi_car_acquisition 
+       (
+          reservation_id,
+          other_brand_inquiry_id,
+          customer_intention,
+          estimate_deal_price,
+          invoice_num,
+          deal_price_end,
+          pay_type,
+          material_status,
+          acquisition_status,
+          approval_status,
+          acquisition_abandoned_reason,
+          estimated_transfer_time,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date,
+          oneself_brand_inquiryid,
+          acquirer_id,
+          storage_id
+        ) VALUES (
+          #{reservationId, jdbcType=BIGINT},
+          #{otherBrandInquiryId, jdbcType=BIGINT},
+          #{customerIntention, jdbcType=VARCHAR},
+          #{estimateDealPrice, jdbcType=BIGINT},
+          #{invoiceNum, jdbcType=VARCHAR},
+          #{dealPriceEnd, jdbcType=BIGINT},
+          #{payType, jdbcType=VARCHAR},
+          #{materialStatus, jdbcType=VARCHAR},
+          #{acquisitionStatus, jdbcType=VARCHAR},
+          #{approvalStatus, jdbcType=VARCHAR},
+          #{acquisitionAbandonedReason, jdbcType=VARCHAR},
+          #{estimatedTransferTime, jdbcType=TIMESTAMP},
+          #{createdBy, jdbcType=BIGINT},
+          #{createdDate, jdbcType=TIMESTAMP},
+          #{updatedBy, jdbcType=BIGINT},
+          #{updatedDate, jdbcType=TIMESTAMP},
+          #{oneselfBrandInquiryid, jdbcType=BIGINT},
+          #{acquirerId, jdbcType=BIGINT},
+          #{storageId, jdbcType=BIGINT}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.PsiCarAcquisitionEntity" >
+    INSERT INTO t_psi_car_acquisition
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="reservationId != null" >
+          reservation_id,
+          </if>
+        <if test="otherBrandInquiryId != null" >
+          other_brand_inquiry_id,
+          </if>
+        <if test="customerIntention != null" >
+          customer_intention,
+          </if>
+        <if test="estimateDealPrice != null" >
+          estimate_deal_price,
+          </if>
+        <if test="invoiceNum != null" >
+          invoice_num,
+          </if>
+        <if test="dealPriceEnd != null" >
+          deal_price_end,
+          </if>
+        <if test="payType != null" >
+          pay_type,
+          </if>
+        <if test="materialStatus != null" >
+          material_status,
+          </if>
+        <if test="acquisitionStatus != null" >
+          acquisition_status,
+          </if>
+        <if test="approvalStatus != null" >
+          approval_status,
+          </if>
+        <if test="acquisitionAbandonedReason != null" >
+          acquisition_abandoned_reason,
+          </if>
+        <if test="estimatedTransferTime != null" >
+          estimated_transfer_time,
+          </if>
+        <if test="createdBy != null" >
+          created_by,
+          </if>
+        <if test="createdDate != null" >
+          created_date,
+          </if>
+        <if test="updatedBy != null" >
+          updated_by,
+          </if>
+        <if test="updatedDate != null" >
+          updated_date,
+          </if>
+        <if test="oneselfBrandInquiryid != null" >
+          oneself_brand_inquiryid,
+          </if>
+        <if test="acquirerId != null" >
+          acquirer_id,
+          </if>
+        <if test="storageId != null" >
+          storage_id,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="reservationId != null" >
+          #{reservationId, jdbcType=BIGINT},
+          </if>
+        <if test="otherBrandInquiryId != null" >
+          #{otherBrandInquiryId, jdbcType=BIGINT},
+          </if>
+        <if test="customerIntention != null" >
+          #{customerIntention, jdbcType=VARCHAR},
+          </if>
+        <if test="estimateDealPrice != null" >
+          #{estimateDealPrice, jdbcType=BIGINT},
+          </if>
+        <if test="invoiceNum != null" >
+          #{invoiceNum, jdbcType=VARCHAR},
+          </if>
+        <if test="dealPriceEnd != null" >
+          #{dealPriceEnd, jdbcType=BIGINT},
+          </if>
+        <if test="payType != null" >
+          #{payType, jdbcType=VARCHAR},
+          </if>
+        <if test="materialStatus != null" >
+          #{materialStatus, jdbcType=VARCHAR},
+          </if>
+        <if test="acquisitionStatus != null" >
+          #{acquisitionStatus, jdbcType=VARCHAR},
+          </if>
+        <if test="approvalStatus != null" >
+          #{approvalStatus, jdbcType=VARCHAR},
+          </if>
+        <if test="acquisitionAbandonedReason != null" >
+          #{acquisitionAbandonedReason, jdbcType=VARCHAR},
+          </if>
+        <if test="estimatedTransferTime != null" >
+          #{estimatedTransferTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="createdBy != null" >
+          #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="oneselfBrandInquiryid != null" >
+          #{oneselfBrandInquiryid, jdbcType=BIGINT},
+          </if>
+        <if test="acquirerId != null" >
+          #{acquirerId, jdbcType=BIGINT},
+          </if>
+        <if test="storageId != null" >
+          #{storageId, jdbcType=BIGINT},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_psi_car_acquisition 
+       (
+          reservation_id,
+          other_brand_inquiry_id,
+          customer_intention,
+          estimate_deal_price,
+          invoice_num,
+          deal_price_end,
+          pay_type,
+          material_status,
+          acquisition_status,
+          approval_status,
+          acquisition_abandoned_reason,
+          estimated_transfer_time,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date,
+          oneself_brand_inquiryid,
+          acquirer_id,
+          storage_id
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.reservationId, jdbcType=BIGINT},
+	          #{item.otherBrandInquiryId, jdbcType=BIGINT},
+	          #{item.customerIntention, jdbcType=VARCHAR},
+	          #{item.estimateDealPrice, jdbcType=BIGINT},
+	          #{item.invoiceNum, jdbcType=VARCHAR},
+	          #{item.dealPriceEnd, jdbcType=BIGINT},
+	          #{item.payType, jdbcType=VARCHAR},
+	          #{item.materialStatus, jdbcType=VARCHAR},
+	          #{item.acquisitionStatus, jdbcType=VARCHAR},
+	          #{item.approvalStatus, jdbcType=VARCHAR},
+	          #{item.acquisitionAbandonedReason, jdbcType=VARCHAR},
+	          #{item.estimatedTransferTime, jdbcType=TIMESTAMP},
+	          #{item.createdBy, jdbcType=BIGINT},
+	          #{item.createdDate, jdbcType=TIMESTAMP},
+	          #{item.updatedBy, jdbcType=BIGINT},
+	          #{item.updatedDate, jdbcType=TIMESTAMP},
+	          #{item.oneselfBrandInquiryid, jdbcType=BIGINT},
+	          #{item.acquirerId, jdbcType=BIGINT},
+	          #{item.storageId, jdbcType=BIGINT}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.PsiCarAcquisitionEntity" >
+    UPDATE t_psi_car_acquisition SET 
+          other_brand_inquiry_id = #{otherBrandInquiryId, jdbcType=BIGINT},
+          customer_intention = #{customerIntention, jdbcType=VARCHAR},
+          estimate_deal_price = #{estimateDealPrice, jdbcType=BIGINT},
+          invoice_num = #{invoiceNum, jdbcType=VARCHAR},
+          deal_price_end = #{dealPriceEnd, jdbcType=BIGINT},
+          pay_type = #{payType, jdbcType=VARCHAR},
+          material_status = #{materialStatus, jdbcType=VARCHAR},
+          acquisition_status = #{acquisitionStatus, jdbcType=VARCHAR},
+          approval_status = #{approvalStatus, jdbcType=VARCHAR},
+          acquisition_abandoned_reason = #{acquisitionAbandonedReason, jdbcType=VARCHAR},
+          estimated_transfer_time = #{estimatedTransferTime, jdbcType=TIMESTAMP},
+          created_by = #{createdBy, jdbcType=BIGINT},
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          oneself_brand_inquiryid = #{oneselfBrandInquiryid, jdbcType=BIGINT},
+          acquirer_id = #{acquirerId, jdbcType=BIGINT},
+          storage_id = #{storageId, jdbcType=BIGINT}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND reservation_id = #{reservationId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.PsiCarAcquisitionEntity" >
+    UPDATE t_psi_car_acquisition
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="otherBrandInquiryId != null" >
+          other_brand_inquiry_id = #{otherBrandInquiryId, jdbcType=BIGINT},
+          </if>
+        <if test="customerIntention != null" >
+          customer_intention = #{customerIntention, jdbcType=VARCHAR},
+          </if>
+        <if test="estimateDealPrice != null" >
+          estimate_deal_price = #{estimateDealPrice, jdbcType=BIGINT},
+          </if>
+        <if test="invoiceNum != null" >
+          invoice_num = #{invoiceNum, jdbcType=VARCHAR},
+          </if>
+        <if test="dealPriceEnd != null" >
+          deal_price_end = #{dealPriceEnd, jdbcType=BIGINT},
+          </if>
+        <if test="payType != null" >
+          pay_type = #{payType, jdbcType=VARCHAR},
+          </if>
+        <if test="materialStatus != null" >
+          material_status = #{materialStatus, jdbcType=VARCHAR},
+          </if>
+        <if test="acquisitionStatus != null" >
+          acquisition_status = #{acquisitionStatus, jdbcType=VARCHAR},
+          </if>
+        <if test="approvalStatus != null" >
+          approval_status = #{approvalStatus, jdbcType=VARCHAR},
+          </if>
+        <if test="acquisitionAbandonedReason != null" >
+          acquisition_abandoned_reason = #{acquisitionAbandonedReason, jdbcType=VARCHAR},
+          </if>
+        <if test="estimatedTransferTime != null" >
+          estimated_transfer_time = #{estimatedTransferTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="createdBy != null" >
+          created_by = #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="oneselfBrandInquiryid != null" >
+          oneself_brand_inquiryid = #{oneselfBrandInquiryid, jdbcType=BIGINT},
+          </if>
+        <if test="acquirerId != null" >
+          acquirer_id = #{acquirerId, jdbcType=BIGINT},
+          </if>
+        <if test="storageId != null" >
+          storage_id = #{storageId, jdbcType=BIGINT},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND reservation_id = #{reservationId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_car_acquisition SET 
+	          other_brand_inquiry_id = #{item.otherBrandInquiryId, jdbcType=BIGINT},
+	          customer_intention = #{item.customerIntention, jdbcType=VARCHAR},
+	          estimate_deal_price = #{item.estimateDealPrice, jdbcType=BIGINT},
+	          invoice_num = #{item.invoiceNum, jdbcType=VARCHAR},
+	          deal_price_end = #{item.dealPriceEnd, jdbcType=BIGINT},
+	          pay_type = #{item.payType, jdbcType=VARCHAR},
+	          material_status = #{item.materialStatus, jdbcType=VARCHAR},
+	          acquisition_status = #{item.acquisitionStatus, jdbcType=VARCHAR},
+	          approval_status = #{item.approvalStatus, jdbcType=VARCHAR},
+	          acquisition_abandoned_reason = #{item.acquisitionAbandonedReason, jdbcType=VARCHAR},
+	          estimated_transfer_time = #{item.estimatedTransferTime, jdbcType=TIMESTAMP},
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          oneself_brand_inquiryid = #{item.oneselfBrandInquiryid, jdbcType=BIGINT},
+	          acquirer_id = #{item.acquirerId, jdbcType=BIGINT},
+	          storage_id = #{item.storageId, jdbcType=BIGINT}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND reservation_id = #{item.reservationId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_car_acquisition
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.otherBrandInquiryId != null" >
+	          other_brand_inquiry_id = #{item.otherBrandInquiryId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.customerIntention != null" >
+	          customer_intention = #{item.customerIntention, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.estimateDealPrice != null" >
+	          estimate_deal_price = #{item.estimateDealPrice, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.invoiceNum != null" >
+	          invoice_num = #{item.invoiceNum, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.dealPriceEnd != null" >
+	          deal_price_end = #{item.dealPriceEnd, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.payType != null" >
+	          pay_type = #{item.payType, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.materialStatus != null" >
+	          material_status = #{item.materialStatus, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.acquisitionStatus != null" >
+	          acquisition_status = #{item.acquisitionStatus, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.approvalStatus != null" >
+	          approval_status = #{item.approvalStatus, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.acquisitionAbandonedReason != null" >
+	          acquisition_abandoned_reason = #{item.acquisitionAbandonedReason, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.estimatedTransferTime != null" >
+	          estimated_transfer_time = #{item.estimatedTransferTime, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.createdBy != null" >
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.createdDate != null" >
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.updatedBy != null" >
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.updatedDate != null" >
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.oneselfBrandInquiryid != null" >
+	          oneself_brand_inquiryid = #{item.oneselfBrandInquiryid, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.acquirerId != null" >
+	          acquirer_id = #{item.acquirerId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.storageId != null" >
+	          storage_id = #{item.storageId, jdbcType=BIGINT},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND reservation_id = #{item.reservationId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.PsiCarAcquisitionPk" >
+    DELETE FROM t_psi_car_acquisition
+    WHERE
+     <trim prefixOverrides="AND">
+           AND reservation_id = #{reservationId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.PsiCarAcquisitionEntity" >
+    DELETE FROM t_psi_car_acquisition
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="reservationId != null" >
+          AND reservation_id = #{reservationId, jdbcType=BIGINT}
+        </if>
+        <if test="otherBrandInquiryId != null" >
+          AND other_brand_inquiry_id = #{otherBrandInquiryId, jdbcType=BIGINT}
+        </if>
+        <if test="customerIntention != null and customerIntention != ''" >
+          AND customer_intention = #{customerIntention, jdbcType=VARCHAR}
+        </if>
+        <if test="estimateDealPrice != null" >
+          AND estimate_deal_price = #{estimateDealPrice, jdbcType=BIGINT}
+        </if>
+        <if test="invoiceNum != null and invoiceNum != ''" >
+          AND invoice_num = #{invoiceNum, jdbcType=VARCHAR}
+        </if>
+        <if test="dealPriceEnd != null" >
+          AND deal_price_end = #{dealPriceEnd, jdbcType=BIGINT}
+        </if>
+        <if test="payType != null and payType != ''" >
+          AND pay_type = #{payType, jdbcType=VARCHAR}
+        </if>
+        <if test="materialStatus != null and materialStatus != ''" >
+          AND material_status = #{materialStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="acquisitionStatus != null and acquisitionStatus != ''" >
+          AND acquisition_status = #{acquisitionStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="approvalStatus != null and approvalStatus != ''" >
+          AND approval_status = #{approvalStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="acquisitionAbandonedReason != null and acquisitionAbandonedReason != ''" >
+          AND acquisition_abandoned_reason = #{acquisitionAbandonedReason, jdbcType=VARCHAR}
+        </if>
+        <if test="estimatedTransferTime != null" >
+          AND estimated_transfer_time = #{estimatedTransferTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="createdBy != null" >
+          AND created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="oneselfBrandInquiryid != null" >
+          AND oneself_brand_inquiryid = #{oneselfBrandInquiryid, jdbcType=BIGINT}
+        </if>
+        <if test="acquirerId != null" >
+          AND acquirer_id = #{acquirerId, jdbcType=BIGINT}
+        </if>
+        <if test="storageId != null" >
+          AND storage_id = #{storageId, jdbcType=BIGINT}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="psiCarAcquisitionResultMap" type="com.exp.ucmp.entity.PsiCarAcquisitionEntity" >
+      <constructor>
+       <idArg column="reservation_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="other_brand_inquiry_id" property="otherBrandInquiryId" jdbcType="BIGINT" />
+    <result column="customer_intention" property="customerIntention" jdbcType="VARCHAR" />
+    <result column="estimate_deal_price" property="estimateDealPrice" jdbcType="BIGINT" />
+    <result column="invoice_num" property="invoiceNum" jdbcType="VARCHAR" />
+    <result column="deal_price_end" property="dealPriceEnd" jdbcType="BIGINT" />
+    <result column="pay_type" property="payType" jdbcType="VARCHAR" />
+    <result column="material_status" property="materialStatus" jdbcType="VARCHAR" />
+    <result column="acquisition_status" property="acquisitionStatus" jdbcType="VARCHAR" />
+    <result column="approval_status" property="approvalStatus" jdbcType="VARCHAR" />
+    <result column="acquisition_abandoned_reason" property="acquisitionAbandonedReason" jdbcType="VARCHAR" />
+    <result column="estimated_transfer_time" property="estimatedTransferTime" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="oneself_brand_inquiryid" property="oneselfBrandInquiryid" jdbcType="BIGINT" />
+    <result column="acquirer_id" property="acquirerId" jdbcType="BIGINT" />
+    <result column="storage_id" property="storageId" jdbcType="BIGINT" />
+  </resultMap>
+  
+  <sql id="t_psi_car_acquisition_Column_List" >
+    a.reservation_id,
+    a.other_brand_inquiry_id,
+    a.customer_intention,
+    a.estimate_deal_price,
+    a.invoice_num,
+    a.deal_price_end,
+    a.pay_type,
+    a.material_status,
+    a.acquisition_status,
+    a.approval_status,
+    a.acquisition_abandoned_reason,
+    a.estimated_transfer_time,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date,
+    a.oneself_brand_inquiryid,
+    a.acquirer_id,
+    a.storage_id
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.PsiCarAcquisitionPk" resultMap="psiCarAcquisitionResultMap">
+    SELECT 
+    <include refid="t_psi_car_acquisition_Column_List" />
+      FROM t_psi_car_acquisition a
+     WHERE 1 = 1
+       AND a.reservation_id = #{reservationId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.PsiCarAcquisitionEntity" resultMap="psiCarAcquisitionResultMap">
+    SELECT 
+    <include refid="t_psi_car_acquisition_Column_List" />
+      FROM t_psi_car_acquisition a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="reservationId != null" >
+          AND a.reservation_id = #{reservationId, jdbcType=BIGINT}
+        </if>
+        <if test="otherBrandInquiryId != null" >
+          AND a.other_brand_inquiry_id = #{otherBrandInquiryId, jdbcType=BIGINT}
+        </if>
+        <if test="customerIntention != null and customerIntention != ''" >
+          AND a.customer_intention = #{customerIntention, jdbcType=VARCHAR}
+        </if>
+        <if test="estimateDealPrice != null" >
+          AND a.estimate_deal_price = #{estimateDealPrice, jdbcType=BIGINT}
+        </if>
+        <if test="invoiceNum != null and invoiceNum != ''" >
+          AND a.invoice_num = #{invoiceNum, jdbcType=VARCHAR}
+        </if>
+        <if test="dealPriceEnd != null" >
+          AND a.deal_price_end = #{dealPriceEnd, jdbcType=BIGINT}
+        </if>
+        <if test="payType != null and payType != ''" >
+          AND a.pay_type = #{payType, jdbcType=VARCHAR}
+        </if>
+        <if test="materialStatus != null and materialStatus != ''" >
+          AND a.material_status = #{materialStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="acquisitionStatus != null and acquisitionStatus != ''" >
+          AND a.acquisition_status = #{acquisitionStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="approvalStatus != null and approvalStatus != ''" >
+          AND a.approval_status = #{approvalStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="acquisitionAbandonedReason != null and acquisitionAbandonedReason != ''" >
+          AND a.acquisition_abandoned_reason = #{acquisitionAbandonedReason, jdbcType=VARCHAR}
+        </if>
+        <if test="estimatedTransferTime != null" >
+          AND a.estimated_transfer_time = #{estimatedTransferTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="oneselfBrandInquiryid != null" >
+          AND a.oneself_brand_inquiryid = #{oneselfBrandInquiryid, jdbcType=BIGINT}
+        </if>
+        <if test="acquirerId != null" >
+          AND a.acquirer_id = #{acquirerId, jdbcType=BIGINT}
+        </if>
+        <if test="storageId != null" >
+          AND a.storage_id = #{storageId, jdbcType=BIGINT}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.PsiCarAcquisitionEntity" resultType="int">
+    SELECT count(1) FROM t_psi_car_acquisition a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="reservationId != null" >
+          AND a.reservation_id = #{reservationId, jdbcType=BIGINT}
+        </if>
+        <if test="otherBrandInquiryId != null" >
+          AND a.other_brand_inquiry_id = #{otherBrandInquiryId, jdbcType=BIGINT}
+        </if>
+        <if test="customerIntention != null and customerIntention != ''" >
+          AND a.customer_intention = #{customerIntention, jdbcType=VARCHAR}
+        </if>
+        <if test="estimateDealPrice != null" >
+          AND a.estimate_deal_price = #{estimateDealPrice, jdbcType=BIGINT}
+        </if>
+        <if test="invoiceNum != null and invoiceNum != ''" >
+          AND a.invoice_num = #{invoiceNum, jdbcType=VARCHAR}
+        </if>
+        <if test="dealPriceEnd != null" >
+          AND a.deal_price_end = #{dealPriceEnd, jdbcType=BIGINT}
+        </if>
+        <if test="payType != null and payType != ''" >
+          AND a.pay_type = #{payType, jdbcType=VARCHAR}
+        </if>
+        <if test="materialStatus != null and materialStatus != ''" >
+          AND a.material_status = #{materialStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="acquisitionStatus != null and acquisitionStatus != ''" >
+          AND a.acquisition_status = #{acquisitionStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="approvalStatus != null and approvalStatus != ''" >
+          AND a.approval_status = #{approvalStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="acquisitionAbandonedReason != null and acquisitionAbandonedReason != ''" >
+          AND a.acquisition_abandoned_reason = #{acquisitionAbandonedReason, jdbcType=VARCHAR}
+        </if>
+        <if test="estimatedTransferTime != null" >
+          AND a.estimated_transfer_time = #{estimatedTransferTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="oneselfBrandInquiryid != null" >
+          AND a.oneself_brand_inquiryid = #{oneselfBrandInquiryid, jdbcType=BIGINT}
+        </if>
+        <if test="acquirerId != null" >
+          AND a.acquirer_id = #{acquirerId, jdbcType=BIGINT}
+        </if>
+        <if test="storageId != null" >
+          AND a.storage_id = #{storageId, jdbcType=BIGINT}
+        </if>
+      </trim>
+  </select>
+</mapper>

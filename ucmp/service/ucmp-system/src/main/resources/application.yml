@@ -1,0 +1,9 @@
+server:
+  port: ${port:${PORT:18020}}
+  
+spring:
+  application:
+    name: 'ucmp-system'
+
+logging:
+  config: classpath:logback-spring.xml

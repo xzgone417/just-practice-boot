@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.logistics.dao.LogisticsDao" >
+
+  <!-- 查询仓储点名称 -->
+  <select id="getAddressById" resultType="java.lang.String">
+   	select
+		tscus.storage_name
+	from
+		t_sys_car_used_storage tscus
+	where tscus.storage_id=#{stockId}	
+   </select>
+   
+</mapper>

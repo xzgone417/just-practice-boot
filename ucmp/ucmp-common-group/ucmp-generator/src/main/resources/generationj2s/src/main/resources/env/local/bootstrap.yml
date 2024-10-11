@@ -1,0 +1,77 @@
+server:
+  tomcat:
+    maxThreads: 800
+    minSpareThreads: 100
+    acceptCount: 100
+    maxConnections: 10000
+    basedir: '.\temp'
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      base-path: '/724d72d1171b/actuator'
+  endpoint:
+    health:
+      show-details: ALWAYS
+    shutdown:
+      enabled: true
+
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.1.91:3306/botTalkDbDev?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: bot
+    password: Qwer^#@90
+    driver-class-name: com.mysql.jdbc.Driver
+  ##服务跟踪配置  Zipkin地址
+  zipkin:
+    enabled: false
+  #采样精度，默认0.1，该值越大精度越高，但同时精度越高越影响性能
+  sleuth:
+    sampler:
+      percentage: 0.8
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.76:8848,192.168.1.85:8848,192.168.1.90:8848
+        namespace: 2c78a7bc-7147-4109-b7c0-7a1711409246
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 30000
+  threadpool:
+    default:
+      coreSize: 10
+      maximumSize: 10
+      maxQueueSize: -1
+
+ribbon:
+  okhttp:
+    enabled: true
+  #超时设置，如果路由方式是serviceId，该超时设置将生效
+  ReadTimeout: 30000
+  ConnectTimeout: 30000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+
+#mybatis
+mybatis:
+  type-aliases-package: tk.mybatis.springboot.model
+  mapper-locations: classpath:mapper/**/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #打印sql语句,调试用
+#pagehelper
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+logging: 
+  level: 
+    root: info

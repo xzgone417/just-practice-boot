@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.IApplicationInfoDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.ApplicationInfoEntity" >
+    INSERT INTO t_application_info 
+       (
+          application_id,
+          application_name,
+          application_path,
+          application_desc,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date
+        ) VALUES (
+          #{applicationId, jdbcType=BIGINT},
+          #{applicationName, jdbcType=VARCHAR},
+          #{applicationPath, jdbcType=VARCHAR},
+          #{applicationDesc, jdbcType=VARCHAR},
+          #{createdBy, jdbcType=BIGINT},
+          #{createdDate, jdbcType=TIMESTAMP},
+          #{updatedBy, jdbcType=BIGINT},
+          #{updatedDate, jdbcType=TIMESTAMP}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.ApplicationInfoEntity" >
+    INSERT INTO t_application_info
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="applicationId != null" >
+          application_id,
+          </if>
+        <if test="applicationName != null" >
+          application_name,
+          </if>
+        <if test="applicationPath != null" >
+          application_path,
+          </if>
+        <if test="applicationDesc != null" >
+          application_desc,
+          </if>
+        <if test="createdBy != null" >
+          created_by,
+          </if>
+        <if test="createdDate != null" >
+          created_date,
+          </if>
+        <if test="updatedBy != null" >
+          updated_by,
+          </if>
+        <if test="updatedDate != null" >
+          updated_date,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="applicationId != null" >
+          #{applicationId, jdbcType=BIGINT},
+          </if>
+        <if test="applicationName != null" >
+          #{applicationName, jdbcType=VARCHAR},
+          </if>
+        <if test="applicationPath != null" >
+          #{applicationPath, jdbcType=VARCHAR},
+          </if>
+        <if test="applicationDesc != null" >
+          #{applicationDesc, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_application_info 
+       (
+          application_id,
+          application_name,
+          application_path,
+          application_desc,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date
+        ) 
+      <foreach collection="list" item="item" index="index" separator="UNION ALL">
+     	(SELECT 
+	          #{item.applicationId, jdbcType=BIGINT},
+	          #{item.applicationName, jdbcType=VARCHAR},
+	          #{item.applicationPath, jdbcType=VARCHAR},
+	          #{item.applicationDesc, jdbcType=VARCHAR},
+	          #{item.createdBy, jdbcType=BIGINT},
+	          #{item.createdDate, jdbcType=TIMESTAMP},
+	          #{item.updatedBy, jdbcType=BIGINT},
+	          #{item.updatedDate, jdbcType=TIMESTAMP}
+      	 FROM DUAL
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.ApplicationInfoEntity" >
+    UPDATE t_application_info SET 
+          application_name = #{applicationName, jdbcType=VARCHAR},
+          application_path = #{applicationPath, jdbcType=VARCHAR},
+          application_desc = #{applicationDesc, jdbcType=VARCHAR},
+          created_by = #{createdBy, jdbcType=BIGINT},
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND application_id = #{applicationId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.ApplicationInfoEntity" >
+    UPDATE t_application_info
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="applicationName != null" >
+          application_name = #{applicationName, jdbcType=VARCHAR},
+          </if>
+        <if test="applicationPath != null" >
+          application_path = #{applicationPath, jdbcType=VARCHAR},
+          </if>
+        <if test="applicationDesc != null" >
+          application_desc = #{applicationDesc, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          created_by = #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND application_id = #{applicationId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.ApplicationInfoPk" >
+    DELETE FROM t_application_info
+    WHERE
+     <trim prefixOverrides="AND">
+           AND application_id = #{applicationId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.ApplicationInfoEntity" >
+    DELETE FROM t_application_info
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="applicationId != null" >
+          AND application_id = #{applicationId, jdbcType=BIGINT}
+        </if>
+        <if test="applicationName != null and applicationName != ''" >
+          AND application_name = #{applicationName, jdbcType=VARCHAR}
+        </if>
+        <if test="applicationPath != null and applicationPath != ''" >
+          AND application_path = #{applicationPath, jdbcType=VARCHAR}
+        </if>
+        <if test="applicationDesc != null and applicationDesc != ''" >
+          AND application_desc = #{applicationDesc, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="applicationInfoResultMap" type="com.exp.ucmp.entity.ApplicationInfoEntity" >
+      <constructor>
+       <idArg column="application_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="application_name" property="applicationName" jdbcType="VARCHAR" />
+    <result column="application_path" property="applicationPath" jdbcType="VARCHAR" />
+    <result column="application_desc" property="applicationDesc" jdbcType="VARCHAR" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="t_application_info_Column_List" >
+    a.application_id,
+    a.application_name,
+    a.application_path,
+    a.application_desc,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.ApplicationInfoPk" resultMap="applicationInfoResultMap">
+    SELECT 
+    <include refid="t_application_info_Column_List" />
+      FROM t_application_info a
+     WHERE 1 = 1
+       AND a.application_id = #{applicationId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.ApplicationInfoEntity" resultMap="applicationInfoResultMap">
+    SELECT 
+    <include refid="t_application_info_Column_List" />
+      FROM t_application_info a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="applicationId != null" >
+          AND a.application_id = #{applicationId, jdbcType=BIGINT}
+        </if>
+        <if test="applicationName != null and applicationName != ''" >
+          AND a.application_name = #{applicationName, jdbcType=VARCHAR}
+        </if>
+        <if test="applicationPath != null and applicationPath != ''" >
+          AND a.application_path = #{applicationPath, jdbcType=VARCHAR}
+        </if>
+        <if test="applicationDesc != null and applicationDesc != ''" >
+          AND a.application_desc = #{applicationDesc, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.ApplicationInfoEntity" resultType="int">
+    SELECT count(1) FROM t_application_info a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="applicationId != null" >
+          AND a.application_id = #{applicationId, jdbcType=BIGINT}
+        </if>
+        <if test="applicationName != null and applicationName != ''" >
+          AND a.application_name = #{applicationName, jdbcType=VARCHAR}
+        </if>
+        <if test="applicationPath != null and applicationPath != ''" >
+          AND a.application_path = #{applicationPath, jdbcType=VARCHAR}
+        </if>
+        <if test="applicationDesc != null and applicationDesc != ''" >
+          AND a.application_desc = #{applicationDesc, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+</mapper>

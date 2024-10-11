@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.IPsiCarOptionInfoDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.PsiCarOptionInfoEntity" >
+    INSERT INTO t_psi_car_option_info 
+       (
+          option_id,
+          stock_id,
+          option_code,
+          option_name,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date
+        ) VALUES (
+          #{optionId, jdbcType=BIGINT},
+          #{stockId, jdbcType=BIGINT},
+          #{optionCode, jdbcType=VARCHAR},
+          #{optionName, jdbcType=VARCHAR},
+          #{createdBy, jdbcType=BIGINT},
+          #{createdDate, jdbcType=TIMESTAMP},
+          #{updatedBy, jdbcType=BIGINT},
+          #{updatedDate, jdbcType=TIMESTAMP}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.PsiCarOptionInfoEntity" >
+    INSERT INTO t_psi_car_option_info
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="optionId != null" >
+          option_id,
+          </if>
+        <if test="stockId != null" >
+          stock_id,
+          </if>
+        <if test="optionCode != null" >
+          option_code,
+          </if>
+        <if test="optionName != null" >
+          option_name,
+          </if>
+        <if test="createdBy != null" >
+          created_by,
+          </if>
+        <if test="createdDate != null" >
+          created_date,
+          </if>
+        <if test="updatedBy != null" >
+          updated_by,
+          </if>
+        <if test="updatedDate != null" >
+          updated_date,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="optionId != null" >
+          #{optionId, jdbcType=BIGINT},
+          </if>
+        <if test="stockId != null" >
+          #{stockId, jdbcType=BIGINT},
+          </if>
+        <if test="optionCode != null" >
+          #{optionCode, jdbcType=VARCHAR},
+          </if>
+        <if test="optionName != null" >
+          #{optionName, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_psi_car_option_info 
+       (
+          option_id,
+          stock_id,
+          option_code,
+          option_name,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.optionId, jdbcType=BIGINT},
+	          #{item.stockId, jdbcType=BIGINT},
+	          #{item.optionCode, jdbcType=VARCHAR},
+	          #{item.optionName, jdbcType=VARCHAR},
+	          #{item.createdBy, jdbcType=BIGINT},
+	          #{item.createdDate, jdbcType=TIMESTAMP},
+	          #{item.updatedBy, jdbcType=BIGINT},
+	          #{item.updatedDate, jdbcType=TIMESTAMP}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.PsiCarOptionInfoEntity" >
+    UPDATE t_psi_car_option_info SET 
+          stock_id = #{stockId, jdbcType=BIGINT},
+          option_code = #{optionCode, jdbcType=VARCHAR},
+          option_name = #{optionName, jdbcType=VARCHAR},
+          created_by = #{createdBy, jdbcType=BIGINT},
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND option_id = #{optionId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.PsiCarOptionInfoEntity" >
+    UPDATE t_psi_car_option_info
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="stockId != null" >
+          stock_id = #{stockId, jdbcType=BIGINT},
+          </if>
+        <if test="optionCode != null" >
+          option_code = #{optionCode, jdbcType=VARCHAR},
+          </if>
+        <if test="optionName != null" >
+          option_name = #{optionName, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          created_by = #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND option_id = #{optionId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_car_option_info SET 
+	          stock_id = #{item.stockId, jdbcType=BIGINT},
+	          option_code = #{item.optionCode, jdbcType=VARCHAR},
+	          option_name = #{item.optionName, jdbcType=VARCHAR},
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND option_id = #{item.optionId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_car_option_info
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.stockId != null" >
+	          stock_id = #{item.stockId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.optionCode != null" >
+	          option_code = #{item.optionCode, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.optionName != null" >
+	          option_name = #{item.optionName, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.createdBy != null" >
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.createdDate != null" >
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.updatedBy != null" >
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.updatedDate != null" >
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND option_id = #{item.optionId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.PsiCarOptionInfoPk" >
+    DELETE FROM t_psi_car_option_info
+    WHERE
+     <trim prefixOverrides="AND">
+           AND option_id = #{optionId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.PsiCarOptionInfoEntity" >
+    DELETE FROM t_psi_car_option_info
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="optionId != null" >
+          AND option_id = #{optionId, jdbcType=BIGINT}
+        </if>
+        <if test="stockId != null" >
+          AND stock_id = #{stockId, jdbcType=BIGINT}
+        </if>
+        <if test="optionCode != null and optionCode != ''" >
+          AND option_code = #{optionCode, jdbcType=VARCHAR}
+        </if>
+        <if test="optionName != null and optionName != ''" >
+          AND option_name = #{optionName, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="psiCarOptionInfoResultMap" type="com.exp.ucmp.entity.PsiCarOptionInfoEntity" >
+      <constructor>
+       <idArg column="option_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="stock_id" property="stockId" jdbcType="BIGINT" />
+    <result column="option_code" property="optionCode" jdbcType="VARCHAR" />
+    <result column="option_name" property="optionName" jdbcType="VARCHAR" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="t_psi_car_option_info_Column_List" >
+    a.option_id,
+    a.stock_id,
+    a.option_code,
+    a.option_name,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.PsiCarOptionInfoPk" resultMap="psiCarOptionInfoResultMap">
+    SELECT 
+    <include refid="t_psi_car_option_info_Column_List" />
+      FROM t_psi_car_option_info a
+     WHERE 1 = 1
+       AND a.option_id = #{optionId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.PsiCarOptionInfoEntity" resultMap="psiCarOptionInfoResultMap">
+    SELECT 
+    <include refid="t_psi_car_option_info_Column_List" />
+      FROM t_psi_car_option_info a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="optionId != null" >
+          AND a.option_id = #{optionId, jdbcType=BIGINT}
+        </if>
+        <if test="stockId != null" >
+          AND a.stock_id = #{stockId, jdbcType=BIGINT}
+        </if>
+        <if test="optionCode != null and optionCode != ''" >
+          AND a.option_code = #{optionCode, jdbcType=VARCHAR}
+        </if>
+        <if test="optionName != null and optionName != ''" >
+          AND a.option_name = #{optionName, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.PsiCarOptionInfoEntity" resultType="int">
+    SELECT count(1) FROM t_psi_car_option_info a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="optionId != null" >
+          AND a.option_id = #{optionId, jdbcType=BIGINT}
+        </if>
+        <if test="stockId != null" >
+          AND a.stock_id = #{stockId, jdbcType=BIGINT}
+        </if>
+        <if test="optionCode != null and optionCode != ''" >
+          AND a.option_code = #{optionCode, jdbcType=VARCHAR}
+        </if>
+        <if test="optionName != null and optionName != ''" >
+          AND a.option_name = #{optionName, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+</mapper>

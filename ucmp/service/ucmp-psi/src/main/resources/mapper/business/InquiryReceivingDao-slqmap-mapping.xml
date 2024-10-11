@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.carDealer.dao.InquiryReceivingDao">
+
+    <resultMap id="inquiryQueryResultMap" type="com.exp.ucmp.carDealer.dto.InquiryQueryResultDto">
+        <constructor>
+            <idArg column="inquiry_id" javaType="Long" jdbcType="BIGINT"/>
+        </constructor>
+        <result column="reservation_id" property="reservationId" jdbcType="BIGINT"/>
+        <result column="make_order_person_name" property="makeOrderPersonName" jdbcType="VARCHAR"/>
+        <result column="make_order_person_iphone" property="makeOrderPersonIphone" jdbcType="VARCHAR"/>
+        <result column="make_order_person_role" property="makeOrderPersonRole" jdbcType="VARCHAR"/>
+        <result column="order_receiving_deadline" property="orderReceivingDeadline" jdbcType="TIMESTAMP"/>
+        <result column="inquiry_status" property="inquiryStatus" jdbcType="VARCHAR"/>
+        <result column="brand_chinese_describe" property="brandChineseDescribe" jdbcType="VARCHAR"/>
+        <result column="car_series_chinese_describe" property="carSeriesChineseDescribe" jdbcType="VARCHAR"/>
+        <result column="car_type_chinese_describe" property="carTypeChineseDescribe" jdbcType="VARCHAR"/>
+        <result column="licensing_date" property="licensingDate" jdbcType="DATE"/>
+        <result column="driving_mileage" property="drivingMileage" jdbcType="BIGINT"/>
+        <result column="order_abandoned_reason" property="orderAbandonedReason" jdbcType="VARCHAR"/>
+        <result column="reservation_detection_address" property="reservationDetectionAddress" jdbcType="VARCHAR"/>
+        <result column="reservation_detection_date" property="reservationDetectionDate" jdbcType="TIMESTAMP"/>
+        <result column="customer_expect_price" property="customerExpectPrice" jdbcType="BIGINT"/>
+        <result column="business_order_no" property="businessOrderNo" jdbcType="VARCHAR"/>
+        <result column="customer_name" property="customerName" jdbcType="VARCHAR"/>
+        <result column="customer_iphone" property="customerIphone" jdbcType="VARCHAR"/>
+        <result column="make_order_person_role" property="makeOrderPersonRole" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="inquiryStatusCountMap" type="com.exp.ucmp.carDealer.dto.InquiryStatusCountDto">
+        <result column="reservation_id" property="reservationId" jdbcType="BIGINT"/>
+        <result column="inquiry_status" property="inquiryStatus" jdbcType="VARCHAR"/>
+        <result column="inquiry_status_count" property="inquiryStatusCount" jdbcType="INTEGER"/>
+    </resultMap>
+    <!-- 查询指定车商人员已完成接单的询价单（包括已接单、放弃接单） -->
+    <select id="queryInquiryReceivingByComplete" resultType="com.exp.ucmp.carDealer.dto.InquiryQueryResultDto">
+        select
+			a.inquiry_id as inquiryId,
+			a.reservation_id as reservationId,
+			<!-- a.make_order_person_name as makeOrderPersonName,
+			a.make_order_person_iphone as makeOrderPersonIphone,
+			a.make_order_person_role as makeOrderPersonRole, -->
+			a.order_receiving_deadline as orderReceivingDeadline,
+			a.inquiry_status as inquiryStatus,
+			a.order_abandoned_reason as orderAbandonedReason,
+			b.brand_chinese_describe as brandChineseDescribe,
+			b.car_series_chinese_describe as carSeriesChineseDescribe,
+			b.car_type_chinese_describe as carTypeChineseDescribe,
+			b.licensing_date as licensingDate,
+			b.driving_mileage as drivingMileage,
+			c.reservation_detection_address as reservationDetectionAddress,
+			c.reservation_detection_date as reservationDetectionDate,
+			c.customer_expect_price as customerExpectPrice,
+			tssi.user_name makeOrderPersonName,
+			tssi.phone_number  makeOrderPersonIphone,
+			tssi.role_code makeOrderPersonRole,
+			tsi.org_name storeName
+		from
+			t_psi_car_dealer_inquiry a,
+			t_psi_inquiry_cars b,
+			t_psi_customer_reservation_msg c,
+			t_sys_store_staff_info tssi,
+			t_sys_store_info tsi
+		where
+			a.inquiry_id = b.inquiry_id
+			and a.reservation_id = c.reservation_id
+			and a.is_delete != '00'
+			and a.created_by = tssi.party_id
+			and a.store_id = tssi.store_id
+			and a.store_id = tsi.store_id
+			<!-- and tssi.role_code in ( 'RE006', 'RE005', '7163020210223314224','4467720210223534254', 'SH', 'ME', 'MO', 'PMO' ) -->
+        <if test="carDealerId != null">
+            AND a.car_dealer_id = #{carDealerId, jdbcType=BIGINT}
+        </if>
+        AND a.car_dealer_staff_id = #{carDealerStaffId, jdbcType=BIGINT}
+        AND a.inquiry_status in
+        <foreach item="item" index="index" collection="status" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <!-- 查询指定车商人员待接单的询价单 -->
+    <select id="queryInquiryReceivingByAwait" resultType="com.exp.ucmp.carDealer.dto.InquiryQueryResultDto">
+        select
+			a.inquiry_id as inquiryId,
+			a.reservation_id as reservationId,
+			<!-- a.make_order_person_name as makeOrderPersonName,
+		    a.make_order_person_iphone as makeOrderPersonIphone,
+		    a.make_order_person_role as makeOrderPersonRole,  -->
+			a.order_receiving_deadline as orderReceivingDeadline,
+			a.inquiry_status as inquiryStatus,
+			a.business_order_no as businessOrderNo,
+			b.brand_chinese_describe as brandChineseDescribe,
+			b.car_series_chinese_describe as carSeriesChineseDescribe,
+			b.car_type_chinese_describe as carTypeChineseDescribe,
+			b.licensing_date as licensingDate,
+			b.driving_mileage as drivingMileage,
+			c.reservation_detection_address as reservationDetectionAddress,
+			c.reservation_detection_date as reservationDetectionDate,
+			c.customer_expect_price as customerExpectPrice,
+			a.customer_name as customerName,
+			a.customer_iphone as customerIphone,
+			tssi.user_name makeOrderPersonName,
+			tssi.phone_number  makeOrderPersonIphone,
+			tssi.role_code makeOrderPersonRole,
+			tsi.org_name storeName
+		from
+			t_psi_car_dealer_inquiry a,
+			t_psi_inquiry_cars b,
+			t_psi_customer_reservation_msg c,
+			t_sys_store_staff_info tssi,
+			t_sys_store_info tsi
+		where
+			a.inquiry_id = b.inquiry_id
+			and a.reservation_id = c.reservation_id
+			and a.is_delete != '00'
+			and a.created_by = tssi.party_id
+			and a.store_id = tssi.store_id
+			and a.store_id = tsi.store_id
+			<!-- and tssi.role_code in ( 'RE006', 'RE005', '7163020210223314224','4467720210223534254', 'SH', 'ME', 'MO', 'PMO' ) -->
+        <if test="carDealerId != null">
+            AND a.car_dealer_id = #{carDealerId, jdbcType=BIGINT}
+        </if>
+        	AND a.store_id in
+        <foreach item="item" index="index" collection="storeIds" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        	AND a.inquiry_status in
+        <foreach item="item" index="index" collection="status" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        <if test="businessOrderNo != null">
+            AND a.business_order_no like concat('%',#{businessOrderNo, jdbcType=VARCHAR},'%')
+        </if>
+        order by a.order_receiving_deadline
+    </select>
+
+
+    <update id="completeReceiving" parameterType="com.exp.ucmp.entity.PsiCarDealerInquiryEntity">
+        UPDATE t_psi_car_dealer_inquiry SET
+        car_dealer_staff_id = #{carDealerStaffId, jdbcType=BIGINT},
+        order_receiving_date = #{orderReceivingDate, jdbcType=TIMESTAMP},
+        <if test="orderAbandonedReason != null">
+            order_abandoned_reason = #{orderAbandonedReason, jdbcType=VARCHAR},
+        </if>
+        inquiry_status = #{inquiryStatus, jdbcType=VARCHAR},
+        updated_by = #{updatedBy, jdbcType=BIGINT},
+        updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        WHERE car_dealer_id = #{carDealerId, jdbcType=BIGINT} and car_dealer_staff_id is null
+        AND inquiry_id = #{inquiryId, jdbcType=BIGINT}
+    </update>
+
+
+    <select id="countInquiryByStatus" resultMap="inquiryStatusCountMap">
+        SELECT a.reservation_id, a.inquiry_status, count(1) as inquiry_status_count
+        FROM t_psi_car_dealer_inquiry a
+        WHERE a.reservation_id = #{reservationId, jdbcType=BIGINT}
+        AND a.is_delete != '00'
+        GROUP BY a.reservation_id, a.inquiry_status
+    </select>
+
+    <select id="selectTrackByDeadlineTime"
+            resultMap="com.exp.ucmp.dao.IPsiCustomerReservationTrackDao.psiCustomerReservationTrackResultMap">
+        SELECT
+        <include refid="com.exp.ucmp.dao.IPsiCustomerReservationTrackDao.t_psi_customer_reservation_track_Column_List"/>
+        FROM t_psi_customer_reservation_track a
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="receivingDeadline != null">
+                AND a.order_receiving_deadline <![CDATA[ < ]]> #{receivingDeadline, jdbcType=TIMESTAMP}
+            </if>
+            <if test="quoteDeadline != null">
+                AND a.quote_deadline <![CDATA[ < ]]> #{quoteDeadline, jdbcType=TIMESTAMP}
+            </if>
+            <if test="status != null">
+                AND a.track_status in
+                <foreach item="item" index="index" collection="status" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            AND a.is_delete != '00'
+            AND a.business_type = '0401'
+        </trim>
+    </select>
+
+</mapper>

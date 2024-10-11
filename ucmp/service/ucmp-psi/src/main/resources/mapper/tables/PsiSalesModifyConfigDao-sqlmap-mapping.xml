@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.PsiSalesModifyConfigDao" >
+    <resultMap id="BaseResultMap" type="com.exp.ucmp.entity.PsiSalesModifyConfigEntity">
+        <id column="apply_id" jdbcType="BIGINT" property="applyId" />
+        <result column="order_info_id" jdbcType="BIGINT" property="orderInfoId" />
+        <result column="order_status" jdbcType="VARCHAR" property="orderStatus" />
+        <result column="vin" jdbcType="VARCHAR" property="vin" />
+        <result column="change_vin" jdbcType="VARCHAR" property="changeVin" />
+        <result column="apply_by" jdbcType="BIGINT" property="applyBy" />
+        <result column="apply_date" jdbcType="TIMESTAMP" property="applyDate" />
+        <result column="approve_result" jdbcType="TINYINT" property="approveResult" />
+        <result column="approve_date" jdbcType="TIMESTAMP" property="approveDate" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="apply_source" jdbcType="TINYINT" property="applySource" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        psmc.apply_id as applyId,
+    psmc.order_info_id as orderInfoId,
+    psmc.order_status as orderStatus,
+    psmc.vin as vin,
+    psmc.change_vin as changeVin,
+    psmc.apply_by as applyBy,
+    psmc.apply_date as applyDate,
+    psmc.approve_by as approveBy,
+    psmc.approve_result as approveResult,
+    psmc.approve_date as approveDate,
+    psmc.remark as remark,
+    psmc.apply_source as applySource
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultType="com.exp.ucmp.entity.PsiSalesModifyConfigEntity">
+        select
+        <include refid="Base_Column_List" />
+        from t_psi_sales_modify_config psmc
+        where psmc.apply_id = #{applyId,jdbcType=BIGINT}
+    </select>
+    <select id="selectBySelective" resultType="com.exp.ucmp.entity.PsiSalesModifyConfigEntity">
+        select
+        <include refid="Base_Column_List" />
+        from t_psi_sales_modify_config psmc
+        <where>
+            <if test="applyId != null">
+                AND psmc.apply_id = #{applyId,jdbcType=BIGINT}
+            </if>
+            <if test="orderInfoId != null">
+                AND psmc.order_info_id = #{orderInfoId,jdbcType=BIGINT}
+            </if>
+            <if test="orderStatus != null">
+                AND psmc.order_status = #{orderStatus,jdbcType=VARCHAR}
+            </if>
+            <if test="vin != null">
+                AND psmc.vin = #{vin,jdbcType=VARCHAR}
+            </if>
+            <if test="changeVin != null">
+                AND psmc.change_vin = #{changeVin,jdbcType=VARCHAR}
+            </if>
+            <if test="applyBy != null">
+                AND psmc.apply_by = #{applyBy,jdbcType=BIGINT}
+            </if>
+            <if test="applyDate != null">
+                AND psmc.apply_date = #{applyDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="approveBy != null">
+                AND psmc.approve_by = #{approveBy,jdbcType=BIGINT}
+            </if>
+            <if test="approveResult != null">
+                AND psmc.approve_result = #{approveResult,jdbcType=TINYINT}
+            </if>
+            <if test="approveDate != null">
+                AND psmc.approve_date = #{approveDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="remark != null">
+                AND psmc.remark = #{remark,jdbcType=VARCHAR}
+            </if>
+            <if test="applySource != null">
+                AND psmc.apply_source = #{applySource,jdbcType=TINYINT}
+            </if>
+        </where>
+
+    </select>
+
+    <insert id="insert" keyProperty="applyId" parameterType="com.exp.ucmp.entity.PsiSalesModifyConfigEntity" useGeneratedKeys="true">
+        insert into t_psi_sales_modify_config (order_info_id,order_status, vin, change_vin,
+                                               apply_by, apply_date, approve_by, approve_result,
+                                               approve_date, remark, apply_source
+        )
+        values (#{orderInfoId,jdbcType=BIGINT}, #{orderStatus,jdbcType=VARCHAR}, #{vin,jdbcType=VARCHAR}, #{changeVin,jdbcType=VARCHAR},
+                #{applyBy,jdbcType=BIGINT}, #{applyDate,jdbcType=TIMESTAMP}, #{approveBy,jdbcType=BIGINT},#{approveResult,jdbcType=TINYINT},
+                #{approveDate,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{applySource,jdbcType=TINYINT}
+               )
+    </insert>
+    <insert id="insertSelective"  keyProperty="applyId" parameterType="com.exp.ucmp.entity.PsiSalesModifyConfigEntity" useGeneratedKeys="true">
+        insert into t_psi_sales_modify_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderInfoId != null">
+                order_info_id,
+            </if>
+            <if test="vin != null">
+                order_status,
+            </if>
+            <if test="vin != null">
+                vin,
+            </if>
+            <if test="changeVin != null">
+                change_vin,
+            </if>
+            <if test="applyBy != null">
+                apply_by,
+            </if>
+            <if test="applyDate != null">
+                apply_date,
+            </if>
+            <if test="approveBy != null">
+                approve_by,
+            </if>
+            <if test="approveResult != null">
+                approve_result,
+            </if>
+            <if test="approveDate != null">
+                approve_date,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="applySource != null">
+                apply_source,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderInfoId != null">
+                #{orderInfoId,jdbcType=BIGINT},
+            </if>
+            <if test="orderStatus != null">
+                #{orderStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="vin != null">
+                #{vin,jdbcType=VARCHAR},
+            </if>
+            <if test="changeVin != null">
+                #{changeVin,jdbcType=VARCHAR},
+            </if>
+            <if test="applyBy != null">
+                #{applyBy,jdbcType=BIGINT},
+            </if>
+            <if test="applyDate != null">
+                #{applyDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="approveBy != null">
+                #{approveBy,jdbcType=BIGINT},
+            </if>
+            <if test="approveResult != null">
+                #{approveResult,jdbcType=TINYINT},
+            </if>
+            <if test="approveDate != null">
+                #{approveDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="applySource != null">
+                #{applySource,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.exp.ucmp.entity.PsiSalesModifyConfigEntity">
+        update t_psi_sales_modify_config
+        <set>
+            <if test="orderInfoId != null">
+                order_info_id = #{orderInfoId,jdbcType=BIGINT},
+            </if>
+            <if test="orderStatus != null">
+                order_status = #{orderStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="vin != null">
+                vin = #{vin,jdbcType=VARCHAR},
+            </if>
+            <if test="changeVin != null">
+                change_vin = #{changeVin,jdbcType=VARCHAR},
+            </if>
+            <if test="applyBy != null">
+                apply_by = #{applyBy,jdbcType=BIGINT},
+            </if>
+            <if test="applyDate != null">
+                apply_date = #{applyDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="approveBy != null">
+                approve_by = #{approveBy,jdbcType=BIGINT},
+            </if>
+            <if test="approveResult != null">
+                approve_result = #{approveResult,jdbcType=TINYINT},
+            </if>
+            <if test="approveDate != null">
+                approve_date = #{approveDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="applySource != null">
+                apply_source = #{applySource,jdbcType=TINYINT},
+            </if>
+            <if test="rejectReasons != null">
+                reject_reasons = #{rejectReasons,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where apply_id = #{applyId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.exp.ucmp.entity.PsiSalesModifyConfigEntity">
+        update t_psi_sales_modify_config
+        set order_info_id = #{orderInfoId,jdbcType=BIGINT},
+            order_status = #{orderStatus,jdbcType=VARCHAR},
+            vin = #{vin,jdbcType=VARCHAR},
+            change_vin = #{changeVin,jdbcType=VARCHAR},
+            apply_by = #{applyBy,jdbcType=BIGINT},
+            apply_date = #{applyDate,jdbcType=TIMESTAMP},
+            approve_by = #{approveBy,jdbcType=BIGINT},
+            approve_result = #{approveResult,jdbcType=TINYINT},
+            approve_date = #{approveDate,jdbcType=TIMESTAMP},
+            remark = #{remark,jdbcType=VARCHAR},
+            apply_source = #{applySource,jdbcType=TINYINT}
+        where apply_id = #{applyId,jdbcType=BIGINT}
+    </update>
+    
+    <select id="queryProductCode" resultType="java.lang.String">
+		select
+			tcsi.product_code
+		from
+			t_psi_car_stock_info tcsi
+		where
+			tcsi.vin_code=#{vinCode}
+	</select>
+</mapper>

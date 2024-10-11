@@ -1,0 +1,77 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      base-path: '/724d72d1171b/actuator'
+  endpoint:
+    health:
+      show-details: ALWAYS
+    shutdown:
+      enabled: true
+
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 139.224.106.219:8848
+        namespace: f90801c5-5869-4ec2-868d-5b0a87e13fbe
+  datasource:
+    url: jdbc:mysql://120.26.38.9:3306/sysDb?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+    username: user
+    password: Qwer1234
+    driver-class-name: com.mysql.jdbc.Driver
+        
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 30000
+  threadpool:
+    default:
+      coreSize: 10
+      maximumSize: 10
+      maxQueueSize: -1
+
+ribbon:
+  okhttp:
+    enabled: true
+  #超时设置，如果路由方式是serviceId，该超时设置将生效
+  ReadTimeout: 30000
+  ConnectTimeout: 30000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+
+#shiro redis
+shiro:
+  redis:
+    servers: 120.26.38.9:6379
+    password: qwer1234
+    #保留时间30分钟，默认30分钟
+    expireTime: 1800
+  authToken: CHUMI-AUTH-TOKEN
+  filterUrlStorage: authorizedUrl
+  jwtSwitch: true
+  sessionIdCookieEnabled: false
+  jwtSecret: chumi-user
+  urlFilterChains:
+    - url: /**/api/auth/**
+      filter: anon
+    - url: /**/api/**
+      filter: authc
+
+#mybatis
+mybatis:
+  type-aliases-package: tk.mybatis.springboot.model
+  mapper-locations: classpath:mapper/**/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #打印sql语句,调试用
+
+auth:
+  userKey: x-auth-user
+  
+logging: 
+  level: 
+    root: info

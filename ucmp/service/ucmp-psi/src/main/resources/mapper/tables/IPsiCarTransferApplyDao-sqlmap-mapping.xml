@@ -1,0 +1,801 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.IPsiCarTransferApplyDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.PsiCarTransferApplyEntity" >
+    INSERT INTO t_psi_car_transfer_apply 
+       (
+          transfer_apply_id,
+          stock_id,
+          order_info_id,
+          warehous_date,
+          storage_id,
+          transfer_storage_id,
+          start_time,
+          expected_time,
+          transfer_type,
+          marks,
+          transfer_status,
+          initiator,
+          initiator_time,
+          feedback_estimated_arrival_time,
+          delivery_time,
+          is_submit,
+          dispatch_number,
+          instruction_number,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date,
+          is_enable,
+          is_delete
+        ) VALUES (
+          #{transferApplyId, jdbcType=BIGINT},
+          #{stockId, jdbcType=BIGINT},
+          #{orderInfoId, jdbcType=BIGINT},
+          #{warehousDate, jdbcType=TIMESTAMP},
+          #{storageId, jdbcType=BIGINT},
+          #{transferStorageId, jdbcType=BIGINT},
+          #{startTime, jdbcType=TIMESTAMP},
+          #{expectedTime, jdbcType=TIMESTAMP},
+          #{transferType, jdbcType=VARCHAR},
+          #{marks, jdbcType=VARCHAR},
+          #{transferStatus, jdbcType=VARCHAR},
+          #{initiator, jdbcType=BIGINT},
+          #{initiatorTime, jdbcType=TIMESTAMP},
+          #{feedbackEstimatedArrivalTime, jdbcType=TIMESTAMP},
+          #{deliveryTime, jdbcType=TIMESTAMP},
+          #{isSubmit, jdbcType=VARCHAR},
+          #{dispatchNumber, jdbcType=VARCHAR},
+          #{instructionNumber, jdbcType=VARCHAR},
+          #{createdBy, jdbcType=BIGINT},
+          #{createdDate, jdbcType=TIMESTAMP},
+          #{updatedBy, jdbcType=BIGINT},
+          #{updatedDate, jdbcType=TIMESTAMP},
+          #{isEnable, jdbcType=VARCHAR},
+          #{isDelete, jdbcType=VARCHAR}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.PsiCarTransferApplyEntity" >
+    INSERT INTO t_psi_car_transfer_apply
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="transferApplyId != null" >
+          transfer_apply_id,
+          </if>
+        <if test="stockId != null" >
+          stock_id,
+          </if>
+        <if test="orderInfoId != null" >
+          order_info_id,
+          </if>
+        <if test="warehousDate != null" >
+          warehous_date,
+          </if>
+        <if test="storageId != null" >
+          storage_id,
+          </if>
+        <if test="transferStorageId != null" >
+          transfer_storage_id,
+          </if>
+        <if test="startTime != null" >
+          start_time,
+          </if>
+        <if test="expectedTime != null" >
+          expected_time,
+          </if>
+        <if test="transferType != null" >
+          transfer_type,
+          </if>
+        <if test="marks != null" >
+          marks,
+          </if>
+        <if test="transferStatus != null" >
+          transfer_status,
+          </if>
+        <if test="initiator != null" >
+          initiator,
+          </if>
+        <if test="initiatorTime != null" >
+          initiator_time,
+          </if>
+        <if test="feedbackEstimatedArrivalTime != null" >
+          feedback_estimated_arrival_time,
+          </if>
+        <if test="deliveryTime != null" >
+          delivery_time,
+          </if>
+        <if test="isSubmit != null" >
+          is_submit,
+          </if>
+        <if test="dispatchNumber != null" >
+          dispatch_number,
+          </if>
+        <if test="instructionNumber != null" >
+          instruction_number,
+          </if>
+        <if test="createdBy != null" >
+          created_by,
+          </if>
+        <if test="createdDate != null" >
+          created_date,
+          </if>
+        <if test="updatedBy != null" >
+          updated_by,
+          </if>
+        <if test="updatedDate != null" >
+          updated_date,
+          </if>
+        <if test="isEnable != null" >
+          is_enable,
+          </if>
+        <if test="isDelete != null" >
+          is_delete,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="transferApplyId != null" >
+          #{transferApplyId, jdbcType=BIGINT},
+          </if>
+        <if test="stockId != null" >
+          #{stockId, jdbcType=BIGINT},
+          </if>
+        <if test="orderInfoId != null" >
+          #{orderInfoId, jdbcType=BIGINT},
+          </if>
+        <if test="warehousDate != null" >
+          #{warehousDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="storageId != null" >
+          #{storageId, jdbcType=BIGINT},
+          </if>
+        <if test="transferStorageId != null" >
+          #{transferStorageId, jdbcType=BIGINT},
+          </if>
+        <if test="startTime != null" >
+          #{startTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="expectedTime != null" >
+          #{expectedTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="transferType != null" >
+          #{transferType, jdbcType=VARCHAR},
+          </if>
+        <if test="marks != null" >
+          #{marks, jdbcType=VARCHAR},
+          </if>
+        <if test="transferStatus != null" >
+          #{transferStatus, jdbcType=VARCHAR},
+          </if>
+        <if test="initiator != null" >
+          #{initiator, jdbcType=BIGINT},
+          </if>
+        <if test="initiatorTime != null" >
+          #{initiatorTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="feedbackEstimatedArrivalTime != null" >
+          #{feedbackEstimatedArrivalTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="deliveryTime != null" >
+          #{deliveryTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="isSubmit != null" >
+          #{isSubmit, jdbcType=VARCHAR},
+          </if>
+        <if test="dispatchNumber != null" >
+          #{dispatchNumber, jdbcType=VARCHAR},
+          </if>
+        <if test="instructionNumber != null" >
+          #{instructionNumber, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="isEnable != null" >
+          #{isEnable, jdbcType=VARCHAR},
+          </if>
+        <if test="isDelete != null" >
+          #{isDelete, jdbcType=VARCHAR},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_psi_car_transfer_apply 
+       (
+          transfer_apply_id,
+          stock_id,
+          order_info_id,
+          warehous_date,
+          storage_id,
+          transfer_storage_id,
+          start_time,
+          expected_time,
+          transfer_type,
+          marks,
+          transfer_status,
+          initiator,
+          initiator_time,
+          feedback_estimated_arrival_time,
+          delivery_time,
+          is_submit,
+          dispatch_number,
+          instruction_number,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date,
+          is_enable,
+          is_delete
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.transferApplyId, jdbcType=BIGINT},
+	          #{item.stockId, jdbcType=BIGINT},
+	          #{item.orderInfoId, jdbcType=BIGINT},
+	          #{item.warehousDate, jdbcType=TIMESTAMP},
+	          #{item.storageId, jdbcType=BIGINT},
+	          #{item.transferStorageId, jdbcType=BIGINT},
+	          #{item.startTime, jdbcType=TIMESTAMP},
+	          #{item.expectedTime, jdbcType=TIMESTAMP},
+	          #{item.transferType, jdbcType=VARCHAR},
+	          #{item.marks, jdbcType=VARCHAR},
+	          #{item.transferStatus, jdbcType=VARCHAR},
+	          #{item.initiator, jdbcType=BIGINT},
+	          #{item.initiatorTime, jdbcType=TIMESTAMP},
+	          #{item.feedbackEstimatedArrivalTime, jdbcType=TIMESTAMP},
+	          #{item.deliveryTime, jdbcType=TIMESTAMP},
+	          #{item.isSubmit, jdbcType=VARCHAR},
+	          #{item.dispatchNumber, jdbcType=VARCHAR},
+	          #{item.instructionNumber, jdbcType=VARCHAR},
+	          #{item.createdBy, jdbcType=BIGINT},
+	          #{item.createdDate, jdbcType=TIMESTAMP},
+	          #{item.updatedBy, jdbcType=BIGINT},
+	          #{item.updatedDate, jdbcType=TIMESTAMP},
+	          #{item.isEnable, jdbcType=VARCHAR},
+	          #{item.isDelete, jdbcType=VARCHAR}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.PsiCarTransferApplyEntity" >
+    UPDATE t_psi_car_transfer_apply SET 
+          stock_id = #{stockId, jdbcType=BIGINT},
+          order_info_id = #{orderInfoId, jdbcType=BIGINT},
+          warehous_date = #{warehousDate, jdbcType=TIMESTAMP},
+          storage_id = #{storageId, jdbcType=BIGINT},
+          transfer_storage_id = #{transferStorageId, jdbcType=BIGINT},
+          start_time = #{startTime, jdbcType=TIMESTAMP},
+          expected_time = #{expectedTime, jdbcType=TIMESTAMP},
+          transfer_type = #{transferType, jdbcType=VARCHAR},
+          marks = #{marks, jdbcType=VARCHAR},
+          transfer_status = #{transferStatus, jdbcType=VARCHAR},
+          initiator = #{initiator, jdbcType=BIGINT},
+          initiator_time = #{initiatorTime, jdbcType=TIMESTAMP},
+          feedback_estimated_arrival_time = #{feedbackEstimatedArrivalTime, jdbcType=TIMESTAMP},
+          delivery_time = #{deliveryTime, jdbcType=TIMESTAMP},
+          is_submit = #{isSubmit, jdbcType=VARCHAR},
+          dispatch_number = #{dispatchNumber, jdbcType=VARCHAR},
+          instruction_number = #{instructionNumber, jdbcType=VARCHAR},
+          created_by = #{createdBy, jdbcType=BIGINT},
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          is_enable = #{isEnable, jdbcType=VARCHAR},
+          is_delete = #{isDelete, jdbcType=VARCHAR}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND transfer_apply_id = #{transferApplyId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.PsiCarTransferApplyEntity" >
+    UPDATE t_psi_car_transfer_apply
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="stockId != null" >
+          stock_id = #{stockId, jdbcType=BIGINT},
+          </if>
+        <if test="orderInfoId != null" >
+          order_info_id = #{orderInfoId, jdbcType=BIGINT},
+          </if>
+        <if test="warehousDate != null" >
+          warehous_date = #{warehousDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="storageId != null" >
+          storage_id = #{storageId, jdbcType=BIGINT},
+          </if>
+        <if test="transferStorageId != null" >
+          transfer_storage_id = #{transferStorageId, jdbcType=BIGINT},
+          </if>
+        <if test="startTime != null" >
+          start_time = #{startTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="expectedTime != null" >
+          expected_time = #{expectedTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="transferType != null" >
+          transfer_type = #{transferType, jdbcType=VARCHAR},
+          </if>
+        <if test="marks != null" >
+          marks = #{marks, jdbcType=VARCHAR},
+          </if>
+        <if test="transferStatus != null" >
+          transfer_status = #{transferStatus, jdbcType=VARCHAR},
+          </if>
+        <if test="initiator != null" >
+          initiator = #{initiator, jdbcType=BIGINT},
+          </if>
+        <if test="initiatorTime != null" >
+          initiator_time = #{initiatorTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="feedbackEstimatedArrivalTime != null" >
+          feedback_estimated_arrival_time = #{feedbackEstimatedArrivalTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="deliveryTime != null" >
+          delivery_time = #{deliveryTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="isSubmit != null" >
+          is_submit = #{isSubmit, jdbcType=VARCHAR},
+          </if>
+        <if test="dispatchNumber != null" >
+          dispatch_number = #{dispatchNumber, jdbcType=VARCHAR},
+          </if>
+        <if test="instructionNumber != null" >
+          instruction_number = #{instructionNumber, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          created_by = #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="isEnable != null" >
+          is_enable = #{isEnable, jdbcType=VARCHAR},
+          </if>
+        <if test="isDelete != null" >
+          is_delete = #{isDelete, jdbcType=VARCHAR},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND transfer_apply_id = #{transferApplyId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_car_transfer_apply SET 
+	          stock_id = #{item.stockId, jdbcType=BIGINT},
+	          order_info_id = #{item.orderInfoId, jdbcType=BIGINT},
+	          warehous_date = #{item.warehousDate, jdbcType=TIMESTAMP},
+	          storage_id = #{item.storageId, jdbcType=BIGINT},
+	          transfer_storage_id = #{item.transferStorageId, jdbcType=BIGINT},
+	          start_time = #{item.startTime, jdbcType=TIMESTAMP},
+	          expected_time = #{item.expectedTime, jdbcType=TIMESTAMP},
+	          transfer_type = #{item.transferType, jdbcType=VARCHAR},
+	          marks = #{item.marks, jdbcType=VARCHAR},
+	          transfer_status = #{item.transferStatus, jdbcType=VARCHAR},
+	          initiator = #{item.initiator, jdbcType=BIGINT},
+	          initiator_time = #{item.initiatorTime, jdbcType=TIMESTAMP},
+	          feedback_estimated_arrival_time = #{item.feedbackEstimatedArrivalTime, jdbcType=TIMESTAMP},
+	          delivery_time = #{item.deliveryTime, jdbcType=TIMESTAMP},
+	          is_submit = #{item.isSubmit, jdbcType=VARCHAR},
+	          dispatch_number = #{item.dispatchNumber, jdbcType=VARCHAR},
+	          instruction_number = #{item.instructionNumber, jdbcType=VARCHAR},
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          is_enable = #{item.isEnable, jdbcType=VARCHAR},
+	          is_delete = #{item.isDelete, jdbcType=VARCHAR}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND transfer_apply_id = #{item.transferApplyId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_car_transfer_apply
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.stockId != null" >
+	          stock_id = #{item.stockId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.orderInfoId != null" >
+	          order_info_id = #{item.orderInfoId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.warehousDate != null" >
+	          warehous_date = #{item.warehousDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.storageId != null" >
+	          storage_id = #{item.storageId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.transferStorageId != null" >
+	          transfer_storage_id = #{item.transferStorageId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.startTime != null" >
+	          start_time = #{item.startTime, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.expectedTime != null" >
+	          expected_time = #{item.expectedTime, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.transferType != null" >
+	          transfer_type = #{item.transferType, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.marks != null" >
+	          marks = #{item.marks, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.transferStatus != null" >
+	          transfer_status = #{item.transferStatus, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.initiator != null" >
+	          initiator = #{item.initiator, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.initiatorTime != null" >
+	          initiator_time = #{item.initiatorTime, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.feedbackEstimatedArrivalTime != null" >
+	          feedback_estimated_arrival_time = #{item.feedbackEstimatedArrivalTime, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.deliveryTime != null" >
+	          delivery_time = #{item.deliveryTime, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.isSubmit != null" >
+	          is_submit = #{item.isSubmit, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.dispatchNumber != null" >
+	          dispatch_number = #{item.dispatchNumber, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.instructionNumber != null" >
+	          instruction_number = #{item.instructionNumber, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.createdBy != null" >
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.createdDate != null" >
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.updatedBy != null" >
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.updatedDate != null" >
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.isEnable != null" >
+	          is_enable = #{item.isEnable, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.isDelete != null" >
+	          is_delete = #{item.isDelete, jdbcType=VARCHAR},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND transfer_apply_id = #{item.transferApplyId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.PsiCarTransferApplyPk" >
+    DELETE FROM t_psi_car_transfer_apply
+    WHERE
+     <trim prefixOverrides="AND">
+           AND transfer_apply_id = #{transferApplyId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.PsiCarTransferApplyEntity" >
+    DELETE FROM t_psi_car_transfer_apply
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="transferApplyId != null" >
+          AND transfer_apply_id = #{transferApplyId, jdbcType=BIGINT}
+        </if>
+        <if test="stockId != null" >
+          AND stock_id = #{stockId, jdbcType=BIGINT}
+        </if>
+        <if test="orderInfoId != null" >
+          AND order_info_id = #{orderInfoId, jdbcType=BIGINT}
+        </if>
+        <if test="warehousDate != null" >
+          AND warehous_date = #{warehousDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="storageId != null" >
+          AND storage_id = #{storageId, jdbcType=BIGINT}
+        </if>
+        <if test="transferStorageId != null" >
+          AND transfer_storage_id = #{transferStorageId, jdbcType=BIGINT}
+        </if>
+        <if test="startTime != null" >
+          AND start_time = #{startTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="expectedTime != null" >
+          AND expected_time = #{expectedTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="transferType != null and transferType != ''" >
+          AND transfer_type = #{transferType, jdbcType=VARCHAR}
+        </if>
+        <if test="marks != null and marks != ''" >
+          AND marks = #{marks, jdbcType=VARCHAR}
+        </if>
+        <if test="transferStatus != null and transferStatus != ''" >
+          AND transfer_status = #{transferStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="initiator != null" >
+          AND initiator = #{initiator, jdbcType=BIGINT}
+        </if>
+        <if test="initiatorTime != null" >
+          AND initiator_time = #{initiatorTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="feedbackEstimatedArrivalTime != null" >
+          AND feedback_estimated_arrival_time = #{feedbackEstimatedArrivalTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="deliveryTime != null" >
+          AND delivery_time = #{deliveryTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isSubmit != null and isSubmit != ''" >
+          AND is_submit = #{isSubmit, jdbcType=VARCHAR}
+        </if>
+        <if test="dispatchNumber != null and dispatchNumber != ''" >
+          AND dispatch_number = #{dispatchNumber, jdbcType=VARCHAR}
+        </if>
+        <if test="instructionNumber != null and instructionNumber != ''" >
+          AND instruction_number = #{instructionNumber, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="psiCarTransferApplyResultMap" type="com.exp.ucmp.entity.PsiCarTransferApplyEntity" >
+      <constructor>
+       <idArg column="transfer_apply_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="stock_id" property="stockId" jdbcType="BIGINT" />
+    <result column="order_info_id" property="orderInfoId" jdbcType="BIGINT" />
+    <result column="warehous_date" property="warehousDate" jdbcType="TIMESTAMP" />
+    <result column="storage_id" property="storageId" jdbcType="BIGINT" />
+    <result column="transfer_storage_id" property="transferStorageId" jdbcType="BIGINT" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="expected_time" property="expectedTime" jdbcType="TIMESTAMP" />
+    <result column="transfer_type" property="transferType" jdbcType="VARCHAR" />
+    <result column="marks" property="marks" jdbcType="VARCHAR" />
+    <result column="transfer_status" property="transferStatus" jdbcType="VARCHAR" />
+    <result column="initiator" property="initiator" jdbcType="BIGINT" />
+    <result column="initiator_time" property="initiatorTime" jdbcType="TIMESTAMP" />
+    <result column="feedback_estimated_arrival_time" property="feedbackEstimatedArrivalTime" jdbcType="TIMESTAMP" />
+    <result column="delivery_time" property="deliveryTime" jdbcType="TIMESTAMP" />
+    <result column="is_submit" property="isSubmit" jdbcType="VARCHAR" />
+    <result column="dispatch_number" property="dispatchNumber" jdbcType="VARCHAR" />
+    <result column="instruction_number" property="instructionNumber" jdbcType="VARCHAR" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="is_enable" property="isEnable" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="t_psi_car_transfer_apply_Column_List" >
+    a.transfer_apply_id,
+    a.stock_id,
+    a.order_info_id,
+    a.warehous_date,
+    a.storage_id,
+    a.transfer_storage_id,
+    a.start_time,
+    a.expected_time,
+    a.transfer_type,
+    a.marks,
+    a.transfer_status,
+    a.initiator,
+    a.initiator_time,
+    a.feedback_estimated_arrival_time,
+    a.delivery_time,
+    a.is_submit,
+    a.dispatch_number,
+    a.instruction_number,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date,
+    a.is_enable,
+    a.is_delete
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.PsiCarTransferApplyPk" resultMap="psiCarTransferApplyResultMap">
+    SELECT 
+    <include refid="t_psi_car_transfer_apply_Column_List" />
+      FROM t_psi_car_transfer_apply a
+     WHERE 1 = 1
+       AND a.transfer_apply_id = #{transferApplyId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.PsiCarTransferApplyEntity" resultMap="psiCarTransferApplyResultMap">
+    SELECT 
+    <include refid="t_psi_car_transfer_apply_Column_List" />
+      FROM t_psi_car_transfer_apply a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="transferApplyId != null" >
+          AND a.transfer_apply_id = #{transferApplyId, jdbcType=BIGINT}
+        </if>
+        <if test="stockId != null" >
+          AND a.stock_id = #{stockId, jdbcType=BIGINT}
+        </if>
+        <if test="orderInfoId != null" >
+          AND a.order_info_id = #{orderInfoId, jdbcType=BIGINT}
+        </if>
+        <if test="warehousDate != null" >
+          AND a.warehous_date = #{warehousDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="storageId != null" >
+          AND a.storage_id = #{storageId, jdbcType=BIGINT}
+        </if>
+        <if test="transferStorageId != null" >
+          AND a.transfer_storage_id = #{transferStorageId, jdbcType=BIGINT}
+        </if>
+        <if test="startTime != null" >
+          AND a.start_time = #{startTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="expectedTime != null" >
+          AND a.expected_time = #{expectedTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="transferType != null and transferType != ''" >
+          AND a.transfer_type = #{transferType, jdbcType=VARCHAR}
+        </if>
+        <if test="marks != null and marks != ''" >
+          AND a.marks = #{marks, jdbcType=VARCHAR}
+        </if>
+        <if test="transferStatus != null and transferStatus != ''" >
+          AND a.transfer_status = #{transferStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="initiator != null" >
+          AND a.initiator = #{initiator, jdbcType=BIGINT}
+        </if>
+        <if test="initiatorTime != null" >
+          AND a.initiator_time = #{initiatorTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="feedbackEstimatedArrivalTime != null" >
+          AND a.feedback_estimated_arrival_time = #{feedbackEstimatedArrivalTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="deliveryTime != null" >
+          AND a.delivery_time = #{deliveryTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isSubmit != null and isSubmit != ''" >
+          AND a.is_submit = #{isSubmit, jdbcType=VARCHAR}
+        </if>
+        <if test="dispatchNumber != null and dispatchNumber != ''" >
+          AND a.dispatch_number = #{dispatchNumber, jdbcType=VARCHAR}
+        </if>
+        <if test="instructionNumber != null and instructionNumber != ''" >
+          AND a.instruction_number = #{instructionNumber, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND a.is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND a.is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.PsiCarTransferApplyEntity" resultType="int">
+    SELECT count(1) FROM t_psi_car_transfer_apply a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="transferApplyId != null" >
+          AND a.transfer_apply_id = #{transferApplyId, jdbcType=BIGINT}
+        </if>
+        <if test="stockId != null" >
+          AND a.stock_id = #{stockId, jdbcType=BIGINT}
+        </if>
+        <if test="orderInfoId != null" >
+          AND a.order_info_id = #{orderInfoId, jdbcType=BIGINT}
+        </if>
+        <if test="warehousDate != null" >
+          AND a.warehous_date = #{warehousDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="storageId != null" >
+          AND a.storage_id = #{storageId, jdbcType=BIGINT}
+        </if>
+        <if test="transferStorageId != null" >
+          AND a.transfer_storage_id = #{transferStorageId, jdbcType=BIGINT}
+        </if>
+        <if test="startTime != null" >
+          AND a.start_time = #{startTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="expectedTime != null" >
+          AND a.expected_time = #{expectedTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="transferType != null and transferType != ''" >
+          AND a.transfer_type = #{transferType, jdbcType=VARCHAR}
+        </if>
+        <if test="marks != null and marks != ''" >
+          AND a.marks = #{marks, jdbcType=VARCHAR}
+        </if>
+        <if test="transferStatus != null and transferStatus != ''" >
+          AND a.transfer_status = #{transferStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="initiator != null" >
+          AND a.initiator = #{initiator, jdbcType=BIGINT}
+        </if>
+        <if test="initiatorTime != null" >
+          AND a.initiator_time = #{initiatorTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="feedbackEstimatedArrivalTime != null" >
+          AND a.feedback_estimated_arrival_time = #{feedbackEstimatedArrivalTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="deliveryTime != null" >
+          AND a.delivery_time = #{deliveryTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isSubmit != null and isSubmit != ''" >
+          AND a.is_submit = #{isSubmit, jdbcType=VARCHAR}
+        </if>
+        <if test="dispatchNumber != null and dispatchNumber != ''" >
+          AND a.dispatch_number = #{dispatchNumber, jdbcType=VARCHAR}
+        </if>
+        <if test="instructionNumber != null and instructionNumber != ''" >
+          AND a.instruction_number = #{instructionNumber, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND a.is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND a.is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+      </trim>
+  </select>
+</mapper>

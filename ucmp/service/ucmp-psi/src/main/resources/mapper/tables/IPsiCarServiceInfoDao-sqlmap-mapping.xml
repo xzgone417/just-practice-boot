@@ -1,0 +1,1034 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.IPsiCarServiceInfoDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.PsiCarServiceInfoEntity" >
+    INSERT INTO t_psi_car_service_info 
+       (
+          service_id,
+          stock_id,
+          service_place,
+          service_place_code,
+          place_type,
+          place_type_code,
+          plan_start_date,
+          plan_end_date,
+          estimated_delivery_time,
+          service_number,
+          start_date,
+          expect_end_time,
+          start_people_id,
+          start_people,
+          feedback_date,
+          plan_repair_start_date,
+          plan_repair_end_date,
+          service_state,
+          total_price,
+          quote_order_no,
+          plan_complete_date,
+          complete_date,
+          warehous_date,
+          warehous_people_id,
+          approval_result,
+          approval_date,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date,
+          is_enable,
+          is_delete
+        ) VALUES (
+          #{serviceId, jdbcType=BIGINT},
+          #{stockId, jdbcType=BIGINT},
+          #{servicePlace, jdbcType=VARCHAR},
+          #{servicePlaceCode, jdbcType=VARCHAR},
+          #{placeType, jdbcType=VARCHAR},
+          #{placeTypeCode, jdbcType=VARCHAR},
+          #{planStartDate, jdbcType=TIMESTAMP},
+          #{planEndDate, jdbcType=TIMESTAMP},
+          #{estimatedDeliveryTime, jdbcType=TIMESTAMP},
+          #{serviceNumber, jdbcType=VARCHAR},
+          #{startDate, jdbcType=TIMESTAMP},
+          #{expectEndTime, jdbcType=TIMESTAMP},
+          #{startPeopleId, jdbcType=BIGINT},
+          #{startPeople, jdbcType=VARCHAR},
+          #{feedbackDate, jdbcType=TIMESTAMP},
+          #{planRepairStartDate, jdbcType=TIMESTAMP},
+          #{planRepairEndDate, jdbcType=TIMESTAMP},
+          #{serviceState, jdbcType=VARCHAR},
+          #{totalPrice, jdbcType=DECIMAL},
+          #{quoteOrderNo, jdbcType=VARCHAR},
+          #{planCompleteDate, jdbcType=TIMESTAMP},
+          #{completeDate, jdbcType=TIMESTAMP},
+          #{warehousDate, jdbcType=TIMESTAMP},
+          #{warehousPeopleId, jdbcType=BIGINT},
+          #{approvalResult, jdbcType=VARCHAR},
+          #{approvalDate, jdbcType=TIMESTAMP},
+          #{createdBy, jdbcType=BIGINT},
+          #{createdDate, jdbcType=TIMESTAMP},
+          #{updatedBy, jdbcType=BIGINT},
+          #{updatedDate, jdbcType=TIMESTAMP},
+          #{isEnable, jdbcType=VARCHAR},
+          #{isDelete, jdbcType=VARCHAR}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.PsiCarServiceInfoEntity" >
+    INSERT INTO t_psi_car_service_info
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="serviceId != null" >
+          service_id,
+          </if>
+        <if test="stockId != null" >
+          stock_id,
+          </if>
+        <if test="servicePlace != null" >
+          service_place,
+          </if>
+        <if test="servicePlaceCode != null" >
+          service_place_code,
+          </if>
+        <if test="placeType != null" >
+          place_type,
+          </if>
+        <if test="placeTypeCode != null" >
+          place_type_code,
+          </if>
+        <if test="planStartDate != null" >
+          plan_start_date,
+          </if>
+        <if test="planEndDate != null" >
+          plan_end_date,
+          </if>
+        <if test="estimatedDeliveryTime != null" >
+          estimated_delivery_time,
+          </if>
+        <if test="serviceNumber != null" >
+          service_number,
+          </if>
+        <if test="startDate != null" >
+          start_date,
+          </if>
+        <if test="expectEndTime != null" >
+          expect_end_time,
+          </if>
+        <if test="startPeopleId != null" >
+          start_people_id,
+          </if>
+        <if test="startPeople != null" >
+          start_people,
+          </if>
+        <if test="feedbackDate != null" >
+          feedback_date,
+          </if>
+        <if test="planRepairStartDate != null" >
+          plan_repair_start_date,
+          </if>
+        <if test="planRepairEndDate != null" >
+          plan_repair_end_date,
+          </if>
+        <if test="serviceState != null" >
+          service_state,
+          </if>
+        <if test="totalPrice != null" >
+          total_price,
+          </if>
+        <if test="quoteOrderNo != null" >
+          quote_order_no,
+          </if>
+        <if test="planCompleteDate != null" >
+          plan_complete_date,
+          </if>
+        <if test="completeDate != null" >
+          complete_date,
+          </if>
+        <if test="warehousDate != null" >
+          warehous_date,
+          </if>
+        <if test="warehousPeopleId != null" >
+          warehous_people_id,
+          </if>
+        <if test="approvalResult != null" >
+          approval_result,
+          </if>
+        <if test="approvalDate != null" >
+          approval_date,
+          </if>
+        <if test="createdBy != null" >
+          created_by,
+          </if>
+        <if test="createdDate != null" >
+          created_date,
+          </if>
+        <if test="updatedBy != null" >
+          updated_by,
+          </if>
+        <if test="updatedDate != null" >
+          updated_date,
+          </if>
+        <if test="isEnable != null" >
+          is_enable,
+          </if>
+        <if test="isDelete != null" >
+          is_delete,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="serviceId != null" >
+          #{serviceId, jdbcType=BIGINT},
+          </if>
+        <if test="stockId != null" >
+          #{stockId, jdbcType=BIGINT},
+          </if>
+        <if test="servicePlace != null" >
+          #{servicePlace, jdbcType=VARCHAR},
+          </if>
+        <if test="servicePlaceCode != null" >
+          #{servicePlaceCode, jdbcType=VARCHAR},
+          </if>
+        <if test="placeType != null" >
+          #{placeType, jdbcType=VARCHAR},
+          </if>
+        <if test="placeTypeCode != null" >
+          #{placeTypeCode, jdbcType=VARCHAR},
+          </if>
+        <if test="planStartDate != null" >
+          #{planStartDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="planEndDate != null" >
+          #{planEndDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="estimatedDeliveryTime != null" >
+          #{estimatedDeliveryTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="serviceNumber != null" >
+          #{serviceNumber, jdbcType=VARCHAR},
+          </if>
+        <if test="startDate != null" >
+          #{startDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="expectEndTime != null" >
+          #{expectEndTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="startPeopleId != null" >
+          #{startPeopleId, jdbcType=BIGINT},
+          </if>
+        <if test="startPeople != null" >
+          #{startPeople, jdbcType=VARCHAR},
+          </if>
+        <if test="feedbackDate != null" >
+          #{feedbackDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="planRepairStartDate != null" >
+          #{planRepairStartDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="planRepairEndDate != null" >
+          #{planRepairEndDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="serviceState != null" >
+          #{serviceState, jdbcType=VARCHAR},
+          </if>
+        <if test="totalPrice != null" >
+          #{totalPrice, jdbcType=DECIMAL},
+          </if>
+        <if test="quoteOrderNo != null" >
+          #{quoteOrderNo, jdbcType=VARCHAR},
+          </if>
+        <if test="planCompleteDate != null" >
+          #{planCompleteDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="completeDate != null" >
+          #{completeDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="warehousDate != null" >
+          #{warehousDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="warehousPeopleId != null" >
+          #{warehousPeopleId, jdbcType=BIGINT},
+          </if>
+        <if test="approvalResult != null" >
+          #{approvalResult, jdbcType=VARCHAR},
+          </if>
+        <if test="approvalDate != null" >
+          #{approvalDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="createdBy != null" >
+          #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="isEnable != null" >
+          #{isEnable, jdbcType=VARCHAR},
+          </if>
+        <if test="isDelete != null" >
+          #{isDelete, jdbcType=VARCHAR},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_psi_car_service_info 
+       (
+          service_id,
+          stock_id,
+          service_place,
+          service_place_code,
+          place_type,
+          place_type_code,
+          plan_start_date,
+          plan_end_date,
+          estimated_delivery_time,
+          service_number,
+          start_date,
+          expect_end_time,
+          start_people_id,
+          start_people,
+          feedback_date,
+          plan_repair_start_date,
+          plan_repair_end_date,
+          service_state,
+          total_price,
+          quote_order_no,
+          plan_complete_date,
+          complete_date,
+          warehous_date,
+          warehous_people_id,
+          approval_result,
+          approval_date,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date,
+          is_enable,
+          is_delete
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.serviceId, jdbcType=BIGINT},
+	          #{item.stockId, jdbcType=BIGINT},
+	          #{item.servicePlace, jdbcType=VARCHAR},
+	          #{item.servicePlaceCode, jdbcType=VARCHAR},
+	          #{item.placeType, jdbcType=VARCHAR},
+	          #{item.placeTypeCode, jdbcType=VARCHAR},
+	          #{item.planStartDate, jdbcType=TIMESTAMP},
+	          #{item.planEndDate, jdbcType=TIMESTAMP},
+	          #{item.estimatedDeliveryTime, jdbcType=TIMESTAMP},
+	          #{item.serviceNumber, jdbcType=VARCHAR},
+	          #{item.startDate, jdbcType=TIMESTAMP},
+	          #{item.expectEndTime, jdbcType=TIMESTAMP},
+	          #{item.startPeopleId, jdbcType=BIGINT},
+	          #{item.startPeople, jdbcType=VARCHAR},
+	          #{item.feedbackDate, jdbcType=TIMESTAMP},
+	          #{item.planRepairStartDate, jdbcType=TIMESTAMP},
+	          #{item.planRepairEndDate, jdbcType=TIMESTAMP},
+	          #{item.serviceState, jdbcType=VARCHAR},
+	          #{item.totalPrice, jdbcType=DECIMAL},
+	          #{item.quoteOrderNo, jdbcType=VARCHAR},
+	          #{item.planCompleteDate, jdbcType=TIMESTAMP},
+	          #{item.completeDate, jdbcType=TIMESTAMP},
+	          #{item.warehousDate, jdbcType=TIMESTAMP},
+	          #{item.warehousPeopleId, jdbcType=BIGINT},
+	          #{item.approvalResult, jdbcType=VARCHAR},
+	          #{item.approvalDate, jdbcType=TIMESTAMP},
+	          #{item.createdBy, jdbcType=BIGINT},
+	          #{item.createdDate, jdbcType=TIMESTAMP},
+	          #{item.updatedBy, jdbcType=BIGINT},
+	          #{item.updatedDate, jdbcType=TIMESTAMP},
+	          #{item.isEnable, jdbcType=VARCHAR},
+	          #{item.isDelete, jdbcType=VARCHAR}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.PsiCarServiceInfoEntity" >
+    UPDATE t_psi_car_service_info SET 
+          stock_id = #{stockId, jdbcType=BIGINT},
+          service_place = #{servicePlace, jdbcType=VARCHAR},
+          service_place_code = #{servicePlaceCode, jdbcType=VARCHAR},
+          place_type = #{placeType, jdbcType=VARCHAR},
+          place_type_code = #{placeTypeCode, jdbcType=VARCHAR},
+          plan_start_date = #{planStartDate, jdbcType=TIMESTAMP},
+          plan_end_date = #{planEndDate, jdbcType=TIMESTAMP},
+          estimated_delivery_time = #{estimatedDeliveryTime, jdbcType=TIMESTAMP},
+          service_number = #{serviceNumber, jdbcType=VARCHAR},
+          start_date = #{startDate, jdbcType=TIMESTAMP},
+          expect_end_time = #{expectEndTime, jdbcType=TIMESTAMP},
+          start_people_id = #{startPeopleId, jdbcType=BIGINT},
+          start_people = #{startPeople, jdbcType=VARCHAR},
+          feedback_date = #{feedbackDate, jdbcType=TIMESTAMP},
+          plan_repair_start_date = #{planRepairStartDate, jdbcType=TIMESTAMP},
+          plan_repair_end_date = #{planRepairEndDate, jdbcType=TIMESTAMP},
+          service_state = #{serviceState, jdbcType=VARCHAR},
+          total_price = #{totalPrice, jdbcType=DECIMAL},
+          quote_order_no = #{quoteOrderNo, jdbcType=VARCHAR},
+          plan_complete_date = #{planCompleteDate, jdbcType=TIMESTAMP},
+          complete_date = #{completeDate, jdbcType=TIMESTAMP},
+          warehous_date = #{warehousDate, jdbcType=TIMESTAMP},
+          warehous_people_id = #{warehousPeopleId, jdbcType=BIGINT},
+          approval_result = #{approvalResult, jdbcType=VARCHAR},
+          approval_date = #{approvalDate, jdbcType=TIMESTAMP},
+          created_by = #{createdBy, jdbcType=BIGINT},
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          is_enable = #{isEnable, jdbcType=VARCHAR},
+          is_delete = #{isDelete, jdbcType=VARCHAR}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND service_id = #{serviceId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.PsiCarServiceInfoEntity" >
+    UPDATE t_psi_car_service_info
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="stockId != null" >
+          stock_id = #{stockId, jdbcType=BIGINT},
+          </if>
+        <if test="servicePlace != null" >
+          service_place = #{servicePlace, jdbcType=VARCHAR},
+          </if>
+        <if test="servicePlaceCode != null" >
+          service_place_code = #{servicePlaceCode, jdbcType=VARCHAR},
+          </if>
+        <if test="placeType != null" >
+          place_type = #{placeType, jdbcType=VARCHAR},
+          </if>
+        <if test="placeTypeCode != null" >
+          place_type_code = #{placeTypeCode, jdbcType=VARCHAR},
+          </if>
+        <if test="planStartDate != null" >
+          plan_start_date = #{planStartDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="planEndDate != null" >
+          plan_end_date = #{planEndDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="estimatedDeliveryTime != null" >
+          estimated_delivery_time = #{estimatedDeliveryTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="serviceNumber != null" >
+          service_number = #{serviceNumber, jdbcType=VARCHAR},
+          </if>
+        <if test="startDate != null" >
+          start_date = #{startDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="expectEndTime != null" >
+          expect_end_time = #{expectEndTime, jdbcType=TIMESTAMP},
+          </if>
+        <if test="startPeopleId != null" >
+          start_people_id = #{startPeopleId, jdbcType=BIGINT},
+          </if>
+        <if test="startPeople != null" >
+          start_people = #{startPeople, jdbcType=VARCHAR},
+          </if>
+        <if test="feedbackDate != null" >
+          feedback_date = #{feedbackDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="planRepairStartDate != null" >
+          plan_repair_start_date = #{planRepairStartDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="planRepairEndDate != null" >
+          plan_repair_end_date = #{planRepairEndDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="serviceState != null" >
+          service_state = #{serviceState, jdbcType=VARCHAR},
+          </if>
+        <if test="totalPrice != null" >
+          total_price = #{totalPrice, jdbcType=DECIMAL},
+          </if>
+        <if test="quoteOrderNo != null" >
+          quote_order_no = #{quoteOrderNo, jdbcType=VARCHAR},
+          </if>
+        <if test="planCompleteDate != null" >
+          plan_complete_date = #{planCompleteDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="completeDate != null" >
+          complete_date = #{completeDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="warehousDate != null" >
+          warehous_date = #{warehousDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="warehousPeopleId != null" >
+          warehous_people_id = #{warehousPeopleId, jdbcType=BIGINT},
+          </if>
+        <if test="approvalResult != null" >
+          approval_result = #{approvalResult, jdbcType=VARCHAR},
+          </if>
+        <if test="approvalDate != null" >
+          approval_date = #{approvalDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="createdBy != null" >
+          created_by = #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="isEnable != null" >
+          is_enable = #{isEnable, jdbcType=VARCHAR},
+          </if>
+        <if test="isDelete != null" >
+          is_delete = #{isDelete, jdbcType=VARCHAR},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND service_id = #{serviceId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_car_service_info SET 
+	          stock_id = #{item.stockId, jdbcType=BIGINT},
+	          service_place = #{item.servicePlace, jdbcType=VARCHAR},
+	          service_place_code = #{item.servicePlaceCode, jdbcType=VARCHAR},
+	          place_type = #{item.placeType, jdbcType=VARCHAR},
+	          place_type_code = #{item.placeTypeCode, jdbcType=VARCHAR},
+	          plan_start_date = #{item.planStartDate, jdbcType=TIMESTAMP},
+	          plan_end_date = #{item.planEndDate, jdbcType=TIMESTAMP},
+	          estimated_delivery_time = #{item.estimatedDeliveryTime, jdbcType=TIMESTAMP},
+	          service_number = #{item.serviceNumber, jdbcType=VARCHAR},
+	          start_date = #{item.startDate, jdbcType=TIMESTAMP},
+	          expect_end_time = #{item.expectEndTime, jdbcType=TIMESTAMP},
+	          start_people_id = #{item.startPeopleId, jdbcType=BIGINT},
+	          start_people = #{item.startPeople, jdbcType=VARCHAR},
+	          feedback_date = #{item.feedbackDate, jdbcType=TIMESTAMP},
+	          plan_repair_start_date = #{item.planRepairStartDate, jdbcType=TIMESTAMP},
+	          plan_repair_end_date = #{item.planRepairEndDate, jdbcType=TIMESTAMP},
+	          service_state = #{item.serviceState, jdbcType=VARCHAR},
+	          total_price = #{item.totalPrice, jdbcType=DECIMAL},
+	          quote_order_no = #{item.quoteOrderNo, jdbcType=VARCHAR},
+	          plan_complete_date = #{item.planCompleteDate, jdbcType=TIMESTAMP},
+	          complete_date = #{item.completeDate, jdbcType=TIMESTAMP},
+	          warehous_date = #{item.warehousDate, jdbcType=TIMESTAMP},
+	          warehous_people_id = #{item.warehousPeopleId, jdbcType=BIGINT},
+	          approval_result = #{item.approvalResult, jdbcType=VARCHAR},
+	          approval_date = #{item.approvalDate, jdbcType=TIMESTAMP},
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          is_enable = #{item.isEnable, jdbcType=VARCHAR},
+	          is_delete = #{item.isDelete, jdbcType=VARCHAR}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND service_id = #{item.serviceId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_car_service_info
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.stockId != null" >
+	          stock_id = #{item.stockId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.servicePlace != null" >
+	          service_place = #{item.servicePlace, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.servicePlaceCode != null" >
+	          service_place_code = #{item.servicePlaceCode, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.placeType != null" >
+	          place_type = #{item.placeType, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.placeTypeCode != null" >
+	          place_type_code = #{item.placeTypeCode, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.planStartDate != null" >
+	          plan_start_date = #{item.planStartDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.planEndDate != null" >
+	          plan_end_date = #{item.planEndDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.estimatedDeliveryTime != null" >
+	          estimated_delivery_time = #{item.estimatedDeliveryTime, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.serviceNumber != null" >
+	          service_number = #{item.serviceNumber, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.startDate != null" >
+	          start_date = #{item.startDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.expectEndTime != null" >
+	          expect_end_time = #{item.expectEndTime, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.startPeopleId != null" >
+	          start_people_id = #{item.startPeopleId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.startPeople != null" >
+	          start_people = #{item.startPeople, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.feedbackDate != null" >
+	          feedback_date = #{item.feedbackDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.planRepairStartDate != null" >
+	          plan_repair_start_date = #{item.planRepairStartDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.planRepairEndDate != null" >
+	          plan_repair_end_date = #{item.planRepairEndDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.serviceState != null" >
+	          service_state = #{item.serviceState, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.totalPrice != null" >
+	          total_price = #{item.totalPrice, jdbcType=DECIMAL},
+	          </if>
+	        <if test="item.quoteOrderNo != null" >
+	          quote_order_no = #{item.quoteOrderNo, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.planCompleteDate != null" >
+	          plan_complete_date = #{item.planCompleteDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.completeDate != null" >
+	          complete_date = #{item.completeDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.warehousDate != null" >
+	          warehous_date = #{item.warehousDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.warehousPeopleId != null" >
+	          warehous_people_id = #{item.warehousPeopleId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.approvalResult != null" >
+	          approval_result = #{item.approvalResult, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.approvalDate != null" >
+	          approval_date = #{item.approvalDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.createdBy != null" >
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.createdDate != null" >
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.updatedBy != null" >
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.updatedDate != null" >
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.isEnable != null" >
+	          is_enable = #{item.isEnable, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.isDelete != null" >
+	          is_delete = #{item.isDelete, jdbcType=VARCHAR},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND service_id = #{item.serviceId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.PsiCarServiceInfoPk" >
+    DELETE FROM t_psi_car_service_info
+    WHERE
+     <trim prefixOverrides="AND">
+           AND service_id = #{serviceId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.PsiCarServiceInfoEntity" >
+    DELETE FROM t_psi_car_service_info
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="serviceId != null" >
+          AND service_id = #{serviceId, jdbcType=BIGINT}
+        </if>
+        <if test="stockId != null" >
+          AND stock_id = #{stockId, jdbcType=BIGINT}
+        </if>
+        <if test="servicePlace != null and servicePlace != ''" >
+          AND service_place = #{servicePlace, jdbcType=VARCHAR}
+        </if>
+        <if test="servicePlaceCode != null and servicePlaceCode != ''" >
+          AND service_place_code = #{servicePlaceCode, jdbcType=VARCHAR}
+        </if>
+        <if test="placeType != null and placeType != ''" >
+          AND place_type = #{placeType, jdbcType=VARCHAR}
+        </if>
+        <if test="placeTypeCode != null and placeTypeCode != ''" >
+          AND place_type_code = #{placeTypeCode, jdbcType=VARCHAR}
+        </if>
+        <if test="planStartDate != null" >
+          AND plan_start_date = #{planStartDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="planEndDate != null" >
+          AND plan_end_date = #{planEndDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="estimatedDeliveryTime != null" >
+          AND estimated_delivery_time = #{estimatedDeliveryTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="serviceNumber != null and serviceNumber != ''" >
+          AND service_number = #{serviceNumber, jdbcType=VARCHAR}
+        </if>
+        <if test="startDate != null" >
+          AND start_date = #{startDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="expectEndTime != null" >
+          AND expect_end_time = #{expectEndTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="startPeopleId != null" >
+          AND start_people_id = #{startPeopleId, jdbcType=BIGINT}
+        </if>
+        <if test="startPeople != null and startPeople != ''" >
+          AND start_people = #{startPeople, jdbcType=VARCHAR}
+        </if>
+        <if test="feedbackDate != null" >
+          AND feedback_date = #{feedbackDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="planRepairStartDate != null" >
+          AND plan_repair_start_date = #{planRepairStartDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="planRepairEndDate != null" >
+          AND plan_repair_end_date = #{planRepairEndDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="serviceState != null and serviceState != ''" >
+          AND service_state = #{serviceState, jdbcType=VARCHAR}
+        </if>
+        <if test="totalPrice != null" >
+          AND total_price = #{totalPrice, jdbcType=DECIMAL}
+        </if>
+        <if test="quoteOrderNo != null and quoteOrderNo != ''" >
+          AND quote_order_no = #{quoteOrderNo, jdbcType=VARCHAR}
+        </if>
+        <if test="planCompleteDate != null" >
+          AND plan_complete_date = #{planCompleteDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="completeDate != null" >
+          AND complete_date = #{completeDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="warehousDate != null" >
+          AND warehous_date = #{warehousDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="warehousPeopleId != null" >
+          AND warehous_people_id = #{warehousPeopleId, jdbcType=BIGINT}
+        </if>
+        <if test="approvalResult != null and approvalResult != ''" >
+          AND approval_result = #{approvalResult, jdbcType=VARCHAR}
+        </if>
+        <if test="approvalDate != null" >
+          AND approval_date = #{approvalDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="createdBy != null" >
+          AND created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="psiCarServiceInfoResultMap" type="com.exp.ucmp.entity.PsiCarServiceInfoEntity" >
+      <constructor>
+       <idArg column="service_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="stock_id" property="stockId" jdbcType="BIGINT" />
+    <result column="service_place" property="servicePlace" jdbcType="VARCHAR" />
+    <result column="service_place_code" property="servicePlaceCode" jdbcType="VARCHAR" />
+    <result column="place_type" property="placeType" jdbcType="VARCHAR" />
+    <result column="place_type_code" property="placeTypeCode" jdbcType="VARCHAR" />
+    <result column="plan_start_date" property="planStartDate" jdbcType="TIMESTAMP" />
+    <result column="plan_end_date" property="planEndDate" jdbcType="TIMESTAMP" />
+    <result column="estimated_delivery_time" property="estimatedDeliveryTime" jdbcType="TIMESTAMP" />
+    <result column="service_number" property="serviceNumber" jdbcType="VARCHAR" />
+    <result column="start_date" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="expect_end_time" property="expectEndTime" jdbcType="TIMESTAMP" />
+    <result column="start_people_id" property="startPeopleId" jdbcType="BIGINT" />
+    <result column="start_people" property="startPeople" jdbcType="VARCHAR" />
+    <result column="feedback_date" property="feedbackDate" jdbcType="TIMESTAMP" />
+    <result column="plan_repair_start_date" property="planRepairStartDate" jdbcType="TIMESTAMP" />
+    <result column="plan_repair_end_date" property="planRepairEndDate" jdbcType="TIMESTAMP" />
+    <result column="service_state" property="serviceState" jdbcType="VARCHAR" />
+    <result column="total_price" property="totalPrice" jdbcType="DECIMAL" />
+    <result column="quote_order_no" property="quoteOrderNo" jdbcType="VARCHAR" />
+    <result column="plan_complete_date" property="planCompleteDate" jdbcType="TIMESTAMP" />
+    <result column="complete_date" property="completeDate" jdbcType="TIMESTAMP" />
+    <result column="warehous_date" property="warehousDate" jdbcType="TIMESTAMP" />
+    <result column="warehous_people_id" property="warehousPeopleId" jdbcType="BIGINT" />
+    <result column="approval_result" property="approvalResult" jdbcType="VARCHAR" />
+    <result column="approval_date" property="approvalDate" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="is_enable" property="isEnable" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="t_psi_car_service_info_Column_List" >
+      a.service_id,
+    a.stock_id,
+    a.service_place,
+    a.service_place_code,
+    a.place_type,
+    a.place_type_code,
+    a.plan_start_date,
+    a.plan_end_date,
+    a.estimated_delivery_time,
+    a.service_number,
+    a.start_date,
+    a.expect_end_time,
+    a.start_people_id,
+    a.start_people,
+    a.feedback_date,
+    a.plan_repair_start_date,
+    a.plan_repair_end_date,
+    a.service_state,
+    a.total_price,
+    a.quote_order_no,
+    a.plan_complete_date,
+    a.complete_date,
+    a.warehous_date,
+    a.warehous_people_id,
+    a.approval_result,
+    a.approval_date,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date,
+    a.is_enable,
+    a.is_delete
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.PsiCarServiceInfoPk" resultMap="psiCarServiceInfoResultMap">
+    SELECT 
+    <include refid="t_psi_car_service_info_Column_List" />
+      FROM t_psi_car_service_info a
+     WHERE 1 = 1
+       AND a.service_id = #{serviceId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.PsiCarServiceInfoEntity" resultMap="psiCarServiceInfoResultMap">
+    SELECT 
+    <include refid="t_psi_car_service_info_Column_List" />
+      FROM t_psi_car_service_info a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="serviceId != null" >
+          AND a.service_id = #{serviceId, jdbcType=BIGINT}
+        </if>
+        <if test="stockId != null" >
+          AND a.stock_id = #{stockId, jdbcType=BIGINT}
+        </if>
+        <if test="servicePlace != null and servicePlace != ''" >
+          AND a.service_place = #{servicePlace, jdbcType=VARCHAR}
+        </if>
+        <if test="servicePlaceCode != null and servicePlaceCode != ''" >
+          AND a.service_place_code = #{servicePlaceCode, jdbcType=VARCHAR}
+        </if>
+        <if test="placeType != null and placeType != ''" >
+          AND a.place_type = #{placeType, jdbcType=VARCHAR}
+        </if>
+        <if test="placeTypeCode != null and placeTypeCode != ''" >
+          AND a.place_type_code = #{placeTypeCode, jdbcType=VARCHAR}
+        </if>
+        <if test="planStartDate != null" >
+          AND a.plan_start_date = #{planStartDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="planEndDate != null" >
+          AND a.plan_end_date = #{planEndDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="estimatedDeliveryTime != null" >
+          AND a.estimated_delivery_time = #{estimatedDeliveryTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="serviceNumber != null and serviceNumber != ''" >
+          AND a.service_number = #{serviceNumber, jdbcType=VARCHAR}
+        </if>
+        <if test="startDate != null" >
+          AND a.start_date = #{startDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="expectEndTime != null" >
+          AND a.expect_end_time = #{expectEndTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="startPeopleId != null" >
+          AND a.start_people_id = #{startPeopleId, jdbcType=BIGINT}
+        </if>
+        <if test="startPeople != null and startPeople != ''" >
+          AND a.start_people = #{startPeople, jdbcType=VARCHAR}
+        </if>
+        <if test="feedbackDate != null" >
+          AND a.feedback_date = #{feedbackDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="planRepairStartDate != null" >
+          AND a.plan_repair_start_date = #{planRepairStartDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="planRepairEndDate != null" >
+          AND a.plan_repair_end_date = #{planRepairEndDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="serviceState != null and serviceState != ''" >
+          AND a.service_state = #{serviceState, jdbcType=VARCHAR}
+        </if>
+        <if test="totalPrice != null" >
+          AND a.total_price = #{totalPrice, jdbcType=DECIMAL}
+        </if>
+        <if test="quoteOrderNo != null and quoteOrderNo != ''" >
+          AND a.quote_order_no = #{quoteOrderNo, jdbcType=VARCHAR}
+        </if>
+        <if test="planCompleteDate != null" >
+          AND a.plan_complete_date = #{planCompleteDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="completeDate != null" >
+          AND a.complete_date = #{completeDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="warehousDate != null" >
+          AND a.warehous_date = #{warehousDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="warehousPeopleId != null" >
+          AND a.warehous_people_id = #{warehousPeopleId, jdbcType=BIGINT}
+        </if>
+        <if test="approvalResult != null and approvalResult != ''" >
+          AND a.approval_result = #{approvalResult, jdbcType=VARCHAR}
+        </if>
+        <if test="approvalDate != null" >
+          AND a.approval_date = #{approvalDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND a.is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND a.is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+        order by a.created_date desc
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.PsiCarServiceInfoEntity" resultType="int">
+    SELECT count(1) FROM t_psi_car_service_info a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="serviceId != null" >
+          AND a.service_id = #{serviceId, jdbcType=BIGINT}
+        </if>
+        <if test="stockId != null" >
+          AND a.stock_id = #{stockId, jdbcType=BIGINT}
+        </if>
+        <if test="servicePlace != null and servicePlace != ''" >
+          AND a.service_place = #{servicePlace, jdbcType=VARCHAR}
+        </if>
+        <if test="servicePlaceCode != null and servicePlaceCode != ''" >
+          AND a.service_place_code = #{servicePlaceCode, jdbcType=VARCHAR}
+        </if>
+        <if test="placeType != null and placeType != ''" >
+          AND a.place_type = #{placeType, jdbcType=VARCHAR}
+        </if>
+        <if test="placeTypeCode != null and placeTypeCode != ''" >
+          AND a.place_type_code = #{placeTypeCode, jdbcType=VARCHAR}
+        </if>
+        <if test="planStartDate != null" >
+          AND a.plan_start_date = #{planStartDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="planEndDate != null" >
+          AND a.plan_end_date = #{planEndDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="estimatedDeliveryTime != null" >
+          AND a.estimated_delivery_time = #{estimatedDeliveryTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="serviceNumber != null and serviceNumber != ''" >
+          AND a.service_number = #{serviceNumber, jdbcType=VARCHAR}
+        </if>
+        <if test="startDate != null" >
+          AND a.start_date = #{startDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="expectEndTime != null" >
+          AND a.expect_end_time = #{expectEndTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="startPeopleId != null" >
+          AND a.start_people_id = #{startPeopleId, jdbcType=BIGINT}
+        </if>
+        <if test="startPeople != null and startPeople != ''" >
+          AND a.start_people = #{startPeople, jdbcType=VARCHAR}
+        </if>
+        <if test="feedbackDate != null" >
+          AND a.feedback_date = #{feedbackDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="planRepairStartDate != null" >
+          AND a.plan_repair_start_date = #{planRepairStartDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="planRepairEndDate != null" >
+          AND a.plan_repair_end_date = #{planRepairEndDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="serviceState != null and serviceState != ''" >
+          AND a.service_state = #{serviceState, jdbcType=VARCHAR}
+        </if>
+        <if test="totalPrice != null" >
+          AND a.total_price = #{totalPrice, jdbcType=DECIMAL}
+        </if>
+        <if test="quoteOrderNo != null and quoteOrderNo != ''" >
+          AND a.quote_order_no = #{quoteOrderNo, jdbcType=VARCHAR}
+        </if>
+        <if test="planCompleteDate != null" >
+          AND a.plan_complete_date = #{planCompleteDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="completeDate != null" >
+          AND a.complete_date = #{completeDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="warehousDate != null" >
+          AND a.warehous_date = #{warehousDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="warehousPeopleId != null" >
+          AND a.warehous_people_id = #{warehousPeopleId, jdbcType=BIGINT}
+        </if>
+        <if test="approvalResult != null and approvalResult != ''" >
+          AND a.approval_result = #{approvalResult, jdbcType=VARCHAR}
+        </if>
+        <if test="approvalDate != null" >
+          AND a.approval_date = #{approvalDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND a.is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND a.is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+      </trim>
+  </select>
+</mapper>

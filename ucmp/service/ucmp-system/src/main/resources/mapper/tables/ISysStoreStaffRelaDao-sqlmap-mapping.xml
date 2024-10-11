@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.ISysStoreStaffRelaDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.SysStoreStaffRelaEntity" >
+    INSERT INTO t_sys_store_staff_rela 
+       (
+          rela_id,
+          store_id,
+          party_id,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date
+        ) VALUES (
+          #{relaId, jdbcType=BIGINT},
+          #{storeId, jdbcType=BIGINT},
+          #{partyId, jdbcType=BIGINT},
+          #{createdBy, jdbcType=BIGINT},
+          #{createdDate, jdbcType=TIMESTAMP},
+          #{updatedBy, jdbcType=BIGINT},
+          #{updatedDate, jdbcType=TIMESTAMP}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.SysStoreStaffRelaEntity" >
+    INSERT INTO t_sys_store_staff_rela
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="relaId != null" >
+          rela_id,
+          </if>
+        <if test="storeId != null" >
+          store_id,
+          </if>
+        <if test="partyId != null" >
+          party_id,
+          </if>
+        <if test="createdBy != null" >
+          created_by,
+          </if>
+        <if test="createdDate != null" >
+          created_date,
+          </if>
+        <if test="updatedBy != null" >
+          updated_by,
+          </if>
+        <if test="updatedDate != null" >
+          updated_date,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="relaId != null" >
+          #{relaId, jdbcType=BIGINT},
+          </if>
+        <if test="storeId != null" >
+          #{storeId, jdbcType=BIGINT},
+          </if>
+        <if test="partyId != null" >
+          #{partyId, jdbcType=BIGINT},
+          </if>
+        <if test="createdBy != null" >
+          #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_sys_store_staff_rela 
+       (
+          rela_id,
+          store_id,
+          party_id,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.relaId, jdbcType=BIGINT},
+	          #{item.storeId, jdbcType=BIGINT},
+	          #{item.partyId, jdbcType=BIGINT},
+	          #{item.createdBy, jdbcType=BIGINT},
+	          #{item.createdDate, jdbcType=TIMESTAMP},
+	          #{item.updatedBy, jdbcType=BIGINT},
+	          #{item.updatedDate, jdbcType=TIMESTAMP}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.SysStoreStaffRelaEntity" >
+    UPDATE t_sys_store_staff_rela SET 
+          store_id = #{storeId, jdbcType=BIGINT},
+          party_id = #{partyId, jdbcType=BIGINT},
+          created_by = #{createdBy, jdbcType=BIGINT},
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND rela_id = #{relaId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.SysStoreStaffRelaEntity" >
+    UPDATE t_sys_store_staff_rela
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="storeId != null" >
+          store_id = #{storeId, jdbcType=BIGINT},
+          </if>
+        <if test="partyId != null" >
+          party_id = #{partyId, jdbcType=BIGINT},
+          </if>
+        <if test="createdBy != null" >
+          created_by = #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND rela_id = #{relaId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_sys_store_staff_rela SET 
+	          store_id = #{item.storeId, jdbcType=BIGINT},
+	          party_id = #{item.partyId, jdbcType=BIGINT},
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND rela_id = #{item.relaId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_sys_store_staff_rela
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.storeId != null" >
+	          store_id = #{item.storeId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.partyId != null" >
+	          party_id = #{item.partyId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.createdBy != null" >
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.createdDate != null" >
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.updatedBy != null" >
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.updatedDate != null" >
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND rela_id = #{item.relaId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.SysStoreStaffRelaPk" >
+    DELETE FROM t_sys_store_staff_rela
+    WHERE
+     <trim prefixOverrides="AND">
+           AND rela_id = #{relaId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.SysStoreStaffRelaEntity" >
+    DELETE FROM t_sys_store_staff_rela
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="relaId != null" >
+          AND rela_id = #{relaId, jdbcType=BIGINT}
+        </if>
+        <if test="storeId != null" >
+          AND store_id = #{storeId, jdbcType=BIGINT}
+        </if>
+        <if test="partyId != null" >
+          AND party_id = #{partyId, jdbcType=BIGINT}
+        </if>
+        <if test="createdBy != null" >
+          AND created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="sysStoreStaffRelaResultMap" type="com.exp.ucmp.entity.SysStoreStaffRelaEntity" >
+      <constructor>
+       <idArg column="rela_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="store_id" property="storeId" jdbcType="BIGINT" />
+    <result column="party_id" property="partyId" jdbcType="BIGINT" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="t_sys_store_staff_rela_Column_List" >
+    a.rela_id,
+    a.store_id,
+    a.party_id,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.SysStoreStaffRelaPk" resultMap="sysStoreStaffRelaResultMap">
+    SELECT 
+    <include refid="t_sys_store_staff_rela_Column_List" />
+      FROM t_sys_store_staff_rela a
+     WHERE 1 = 1
+       AND a.rela_id = #{relaId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.SysStoreStaffRelaEntity" resultMap="sysStoreStaffRelaResultMap">
+    SELECT 
+    <include refid="t_sys_store_staff_rela_Column_List" />
+      FROM t_sys_store_staff_rela a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="relaId != null" >
+          AND a.rela_id = #{relaId, jdbcType=BIGINT}
+        </if>
+        <if test="storeId != null" >
+          AND a.store_id = #{storeId, jdbcType=BIGINT}
+        </if>
+        <if test="partyId != null" >
+          AND a.party_id = #{partyId, jdbcType=BIGINT}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by != #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.SysStoreStaffRelaEntity" resultType="int">
+    SELECT count(1) FROM t_sys_store_staff_rela a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="relaId != null" >
+          AND a.rela_id = #{relaId, jdbcType=BIGINT}
+        </if>
+        <if test="storeId != null" >
+          AND a.store_id = #{storeId, jdbcType=BIGINT}
+        </if>
+        <if test="partyId != null" >
+          AND a.party_id = #{partyId, jdbcType=BIGINT}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+</mapper>

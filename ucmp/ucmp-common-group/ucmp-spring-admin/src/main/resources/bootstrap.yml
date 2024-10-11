@@ -1,0 +1,57 @@
+server:
+  port: 18800
+
+      
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 10.129.181.162:8848
+        namespace: 321f68a4-695b-4ad7-a170-921cc3239843
+        metadata:
+          user.name: "admin"
+          user.password: "123456"
+          management.context-path: '/724d72d1171b/actuator'
+          health.path: /health
+  security:
+    user:
+      name: "admin"
+      password: "123456"
+  boot:
+    admin:
+      context-path: "control"
+      notify:
+        mail:
+          from: yiyongfei2020@163.com
+          to: xiongneng@egridcloud.com
+  #****************************alerm email***************************
+  mail:
+    protocol: smtp
+    host: smtp.163.com
+    port: 465
+    username: yiyongfei2020@163.com
+    #注意:此密码为客户端的授权码而非邮箱密码
+    password: ATVMLIONWSIRJDOV
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+          starttls:
+            enable: true
+            required: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      base-path: '/724d72d1171b/actuator'
+  endpoint:
+    health:
+      show-details: always
+
+# 日志
+logging:
+  file: /usr/local/logs/ucmp-spring-admin/admin.log

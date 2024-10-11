@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.IPsiCarSaleRecordDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.PsiCarSaleRecordEntity" >
+    INSERT INTO t_psi_car_sale_record 
+       (
+          sale_record_id,
+          stock_id,
+          vin_code,
+          partner_name,
+          deliver_date,
+          remark,
+          wholesale_price,
+          wholesale_no,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date,
+          is_enable,
+          is_delete
+        ) VALUES (
+          #{saleRecordId, jdbcType=BIGINT},
+          #{stockId, jdbcType=BIGINT},
+          #{vinCode, jdbcType=VARCHAR},
+          #{partnerName, jdbcType=VARCHAR},
+          #{deliverDate, jdbcType=TIMESTAMP},
+          #{remark, jdbcType=VARCHAR},
+          #{wholesalePrice, jdbcType=DECIMAL},
+          #{wholesaleNo, jdbcType=VARCHAR},
+          #{createdBy, jdbcType=BIGINT},
+          #{createdDate, jdbcType=TIMESTAMP},
+          #{updatedBy, jdbcType=BIGINT},
+          #{updatedDate, jdbcType=TIMESTAMP},
+          #{isEnable, jdbcType=VARCHAR},
+          #{isDelete, jdbcType=VARCHAR}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.PsiCarSaleRecordEntity" >
+    INSERT INTO t_psi_car_sale_record
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="saleRecordId != null" >
+          sale_record_id,
+          </if>
+        <if test="stockId != null" >
+          stock_id,
+          </if>
+        <if test="vinCode != null" >
+          vin_code,
+          </if>
+        <if test="partnerName != null" >
+          partner_name,
+          </if>
+        <if test="deliverDate != null" >
+          deliver_date,
+          </if>
+        <if test="remark != null" >
+          remark,
+          </if>
+        <if test="wholesalePrice != null" >
+          wholesale_price,
+          </if>
+        <if test="wholesaleNo != null" >
+          wholesale_no,
+          </if>
+        <if test="createdBy != null" >
+          created_by,
+          </if>
+        <if test="createdDate != null" >
+          created_date,
+          </if>
+        <if test="updatedBy != null" >
+          updated_by,
+          </if>
+        <if test="updatedDate != null" >
+          updated_date,
+          </if>
+        <if test="isEnable != null" >
+          is_enable,
+          </if>
+        <if test="isDelete != null" >
+          is_delete,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="saleRecordId != null" >
+          #{saleRecordId, jdbcType=BIGINT},
+          </if>
+        <if test="stockId != null" >
+          #{stockId, jdbcType=BIGINT},
+          </if>
+        <if test="vinCode != null" >
+          #{vinCode, jdbcType=VARCHAR},
+          </if>
+        <if test="partnerName != null" >
+          #{partnerName, jdbcType=VARCHAR},
+          </if>
+        <if test="deliverDate != null" >
+          #{deliverDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="remark != null" >
+          #{remark, jdbcType=VARCHAR},
+          </if>
+        <if test="wholesalePrice != null" >
+          #{wholesalePrice, jdbcType=DECIMAL},
+          </if>
+        <if test="wholesaleNo != null" >
+          #{wholesaleNo, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="isEnable != null" >
+          #{isEnable, jdbcType=VARCHAR},
+          </if>
+        <if test="isDelete != null" >
+          #{isDelete, jdbcType=VARCHAR},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_psi_car_sale_record 
+       (
+          sale_record_id,
+          stock_id,
+          vin_code,
+          partner_name,
+          deliver_date,
+          remark,
+          wholesale_price,
+          wholesale_no,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date,
+          is_enable,
+          is_delete
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.saleRecordId, jdbcType=BIGINT},
+	          #{item.stockId, jdbcType=BIGINT},
+	          #{item.vinCode, jdbcType=VARCHAR},
+	          #{item.partnerName, jdbcType=VARCHAR},
+	          #{item.deliverDate, jdbcType=TIMESTAMP},
+	          #{item.remark, jdbcType=VARCHAR},
+	          #{item.wholesalePrice, jdbcType=DECIMAL},
+	          #{item.wholesaleNo, jdbcType=VARCHAR},
+	          #{item.createdBy, jdbcType=BIGINT},
+	          #{item.createdDate, jdbcType=TIMESTAMP},
+	          #{item.updatedBy, jdbcType=BIGINT},
+	          #{item.updatedDate, jdbcType=TIMESTAMP},
+	          #{item.isEnable, jdbcType=VARCHAR},
+	          #{item.isDelete, jdbcType=VARCHAR}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.PsiCarSaleRecordEntity" >
+    UPDATE t_psi_car_sale_record SET 
+          stock_id = #{stockId, jdbcType=BIGINT},
+          vin_code = #{vinCode, jdbcType=VARCHAR},
+          partner_name = #{partnerName, jdbcType=VARCHAR},
+          deliver_date = #{deliverDate, jdbcType=TIMESTAMP},
+          remark = #{remark, jdbcType=VARCHAR},
+          wholesale_price = #{wholesalePrice, jdbcType=DECIMAL},
+          wholesale_no = #{wholesaleNo, jdbcType=VARCHAR},
+          created_by = #{createdBy, jdbcType=BIGINT},
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          is_enable = #{isEnable, jdbcType=VARCHAR},
+          is_delete = #{isDelete, jdbcType=VARCHAR}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND sale_record_id = #{saleRecordId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.PsiCarSaleRecordEntity" >
+    UPDATE t_psi_car_sale_record
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="stockId != null" >
+          stock_id = #{stockId, jdbcType=BIGINT},
+          </if>
+        <if test="vinCode != null" >
+          vin_code = #{vinCode, jdbcType=VARCHAR},
+          </if>
+        <if test="partnerName != null" >
+          partner_name = #{partnerName, jdbcType=VARCHAR},
+          </if>
+        <if test="deliverDate != null" >
+          deliver_date = #{deliverDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="remark != null" >
+          remark = #{remark, jdbcType=VARCHAR},
+          </if>
+        <if test="wholesalePrice != null" >
+          wholesale_price = #{wholesalePrice, jdbcType=DECIMAL},
+          </if>
+        <if test="wholesaleNo != null" >
+          wholesale_no = #{wholesaleNo, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          created_by = #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="isEnable != null" >
+          is_enable = #{isEnable, jdbcType=VARCHAR},
+          </if>
+        <if test="isDelete != null" >
+          is_delete = #{isDelete, jdbcType=VARCHAR},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND sale_record_id = #{saleRecordId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_car_sale_record SET 
+	          stock_id = #{item.stockId, jdbcType=BIGINT},
+	          vin_code = #{item.vinCode, jdbcType=VARCHAR},
+	          partner_name = #{item.partnerName, jdbcType=VARCHAR},
+	          deliver_date = #{item.deliverDate, jdbcType=TIMESTAMP},
+	          remark = #{item.remark, jdbcType=VARCHAR},
+	          wholesale_price = #{item.wholesalePrice, jdbcType=DECIMAL},
+	          wholesale_no = #{item.wholesaleNo, jdbcType=VARCHAR},
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          is_enable = #{item.isEnable, jdbcType=VARCHAR},
+	          is_delete = #{item.isDelete, jdbcType=VARCHAR}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND sale_record_id = #{item.saleRecordId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_car_sale_record
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.stockId != null" >
+	          stock_id = #{item.stockId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.vinCode != null" >
+	          vin_code = #{item.vinCode, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.partnerName != null" >
+	          partner_name = #{item.partnerName, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.deliverDate != null" >
+	          deliver_date = #{item.deliverDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.remark != null" >
+	          remark = #{item.remark, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.wholesalePrice != null" >
+	          wholesale_price = #{item.wholesalePrice, jdbcType=DECIMAL},
+	          </if>
+	        <if test="item.wholesaleNo != null" >
+	          wholesale_no = #{item.wholesaleNo, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.createdBy != null" >
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.createdDate != null" >
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.updatedBy != null" >
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.updatedDate != null" >
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.isEnable != null" >
+	          is_enable = #{item.isEnable, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.isDelete != null" >
+	          is_delete = #{item.isDelete, jdbcType=VARCHAR},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND sale_record_id = #{item.saleRecordId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.PsiCarSaleRecordPk" >
+    DELETE FROM t_psi_car_sale_record
+    WHERE
+     <trim prefixOverrides="AND">
+           AND sale_record_id = #{saleRecordId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.PsiCarSaleRecordEntity" >
+    DELETE FROM t_psi_car_sale_record
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="saleRecordId != null" >
+          AND sale_record_id = #{saleRecordId, jdbcType=BIGINT}
+        </if>
+        <if test="stockId != null" >
+          AND stock_id = #{stockId, jdbcType=BIGINT}
+        </if>
+        <if test="vinCode != null and vinCode != ''" >
+          AND vin_code = #{vinCode, jdbcType=VARCHAR}
+        </if>
+        <if test="partnerName != null and partnerName != ''" >
+          AND partner_name = #{partnerName, jdbcType=VARCHAR}
+        </if>
+        <if test="deliverDate != null" >
+          AND deliver_date = #{deliverDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="remark != null and remark != ''" >
+          AND remark = #{remark, jdbcType=VARCHAR}
+        </if>
+        <if test="wholesalePrice != null" >
+          AND wholesale_price = #{wholesalePrice, jdbcType=DECIMAL}
+        </if>
+        <if test="wholesaleNo != null and wholesaleNo != ''" >
+          AND wholesale_no = #{wholesaleNo, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="psiCarSaleRecordResultMap" type="com.exp.ucmp.entity.PsiCarSaleRecordEntity" >
+      <constructor>
+       <idArg column="sale_record_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="stock_id" property="stockId" jdbcType="BIGINT" />
+    <result column="vin_code" property="vinCode" jdbcType="VARCHAR" />
+    <result column="partner_name" property="partnerName" jdbcType="VARCHAR" />
+    <result column="deliver_date" property="deliverDate" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="wholesale_price" property="wholesalePrice" jdbcType="DECIMAL" />
+    <result column="wholesale_no" property="wholesaleNo" jdbcType="VARCHAR" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="is_enable" property="isEnable" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="t_psi_car_sale_record_Column_List" >
+    a.sale_record_id,
+    a.stock_id,
+    a.vin_code,
+    a.partner_name,
+    a.deliver_date,
+    a.remark,
+    a.wholesale_price,
+    a.wholesale_no,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date,
+    a.is_enable,
+    a.is_delete
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.PsiCarSaleRecordPk" resultMap="psiCarSaleRecordResultMap">
+    SELECT 
+    <include refid="t_psi_car_sale_record_Column_List" />
+      FROM t_psi_car_sale_record a
+     WHERE 1 = 1
+       AND a.sale_record_id = #{saleRecordId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.PsiCarSaleRecordEntity" resultMap="psiCarSaleRecordResultMap">
+    SELECT 
+    <include refid="t_psi_car_sale_record_Column_List" />
+      FROM t_psi_car_sale_record a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="saleRecordId != null" >
+          AND a.sale_record_id = #{saleRecordId, jdbcType=BIGINT}
+        </if>
+        <if test="stockId != null" >
+          AND a.stock_id = #{stockId, jdbcType=BIGINT}
+        </if>
+        <if test="vinCode != null and vinCode != ''" >
+          AND a.vin_code = #{vinCode, jdbcType=VARCHAR}
+        </if>
+        <if test="partnerName != null and partnerName != ''" >
+          AND a.partner_name = #{partnerName, jdbcType=VARCHAR}
+        </if>
+        <if test="deliverDate != null" >
+          AND a.deliver_date = #{deliverDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="remark != null and remark != ''" >
+          AND a.remark = #{remark, jdbcType=VARCHAR}
+        </if>
+        <if test="wholesalePrice != null" >
+          AND a.wholesale_price = #{wholesalePrice, jdbcType=DECIMAL}
+        </if>
+        <if test="wholesaleNo != null and wholesaleNo != ''" >
+          AND a.wholesale_no = #{wholesaleNo, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND a.is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND a.is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.PsiCarSaleRecordEntity" resultType="int">
+    SELECT count(1) FROM t_psi_car_sale_record a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="saleRecordId != null" >
+          AND a.sale_record_id = #{saleRecordId, jdbcType=BIGINT}
+        </if>
+        <if test="stockId != null" >
+          AND a.stock_id = #{stockId, jdbcType=BIGINT}
+        </if>
+        <if test="vinCode != null and vinCode != ''" >
+          AND a.vin_code = #{vinCode, jdbcType=VARCHAR}
+        </if>
+        <if test="partnerName != null and partnerName != ''" >
+          AND a.partner_name = #{partnerName, jdbcType=VARCHAR}
+        </if>
+        <if test="deliverDate != null" >
+          AND a.deliver_date = #{deliverDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="remark != null and remark != ''" >
+          AND a.remark = #{remark, jdbcType=VARCHAR}
+        </if>
+        <if test="wholesalePrice != null" >
+          AND a.wholesale_price = #{wholesalePrice, jdbcType=DECIMAL}
+        </if>
+        <if test="wholesaleNo != null and wholesaleNo != ''" >
+          AND a.wholesale_no = #{wholesaleNo, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND a.is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND a.is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+      </trim>
+  </select>
+</mapper>

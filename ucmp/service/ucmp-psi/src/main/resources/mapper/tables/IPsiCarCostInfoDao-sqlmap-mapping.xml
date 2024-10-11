@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.IPsiCarCostInfoDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.PsiCarCostInfoEntity" >
+    INSERT INTO t_psi_car_cost_info 
+       (
+          cost_info_id,
+          stock_id,
+          checkout_date,
+          income_price,
+          service_cost,
+          facial_cost,
+          logistics_cost,
+          test_cost,
+          retain_cost,
+          friendly_cost,
+          right_cost,
+          interest_cost,
+          gift_cost,
+          brokerage_cost,
+          other_cost,
+          sell_price,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date,
+          is_enable,
+          is_delete
+        ) VALUES (
+          #{costInfoId, jdbcType=BIGINT},
+          #{stockId, jdbcType=BIGINT},
+          #{checkoutDate, jdbcType=TIMESTAMP},
+          #{incomePrice, jdbcType=DECIMAL},
+          #{serviceCost, jdbcType=DECIMAL},
+          #{facialCost, jdbcType=DECIMAL},
+          #{logisticsCost, jdbcType=DECIMAL},
+          #{testCost, jdbcType=DECIMAL},
+          #{retainCost, jdbcType=VARCHAR},
+          #{friendlyCost, jdbcType=DECIMAL},
+          #{rightCost, jdbcType=DECIMAL},
+          #{interestCost, jdbcType=DECIMAL},
+          #{giftCost, jdbcType=DECIMAL},
+          #{brokerageCost, jdbcType=DECIMAL},
+          #{otherCost, jdbcType=DECIMAL},
+          #{sellPrice, jdbcType=DECIMAL},
+          #{createdBy, jdbcType=BIGINT},
+          #{createdDate, jdbcType=TIMESTAMP},
+          #{updatedBy, jdbcType=BIGINT},
+          #{updatedDate, jdbcType=TIMESTAMP},
+          #{isEnable, jdbcType=VARCHAR},
+          #{isDelete, jdbcType=VARCHAR}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.PsiCarCostInfoEntity" >
+    INSERT INTO t_psi_car_cost_info
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="costInfoId != null" >
+          cost_info_id,
+          </if>
+        <if test="stockId != null" >
+          stock_id,
+          </if>
+        <if test="checkoutDate != null" >
+          checkout_date,
+          </if>
+        <if test="incomePrice != null" >
+          income_price,
+          </if>
+        <if test="serviceCost != null" >
+          service_cost,
+          </if>
+        <if test="facialCost != null" >
+          facial_cost,
+          </if>
+        <if test="logisticsCost != null" >
+          logistics_cost,
+          </if>
+        <if test="testCost != null" >
+          test_cost,
+          </if>
+        <if test="retainCost != null" >
+          retain_cost,
+          </if>
+        <if test="friendlyCost != null" >
+          friendly_cost,
+          </if>
+        <if test="rightCost != null" >
+          right_cost,
+          </if>
+        <if test="interestCost != null" >
+          interest_cost,
+          </if>
+        <if test="giftCost != null" >
+          gift_cost,
+          </if>
+        <if test="brokerageCost != null" >
+          brokerage_cost,
+          </if>
+        <if test="otherCost != null" >
+          other_cost,
+          </if>
+        <if test="sellPrice != null" >
+          sell_price,
+          </if>
+        <if test="createdBy != null" >
+          created_by,
+          </if>
+        <if test="createdDate != null" >
+          created_date,
+          </if>
+        <if test="updatedBy != null" >
+          updated_by,
+          </if>
+        <if test="updatedDate != null" >
+          updated_date,
+          </if>
+        <if test="isEnable != null" >
+          is_enable,
+          </if>
+        <if test="isDelete != null" >
+          is_delete,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="costInfoId != null" >
+          #{costInfoId, jdbcType=BIGINT},
+          </if>
+        <if test="stockId != null" >
+          #{stockId, jdbcType=BIGINT},
+          </if>
+        <if test="checkoutDate != null" >
+          #{checkoutDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="incomePrice != null" >
+          #{incomePrice, jdbcType=DECIMAL},
+          </if>
+        <if test="serviceCost != null" >
+          #{serviceCost, jdbcType=DECIMAL},
+          </if>
+        <if test="facialCost != null" >
+          #{facialCost, jdbcType=DECIMAL},
+          </if>
+        <if test="logisticsCost != null" >
+          #{logisticsCost, jdbcType=DECIMAL},
+          </if>
+        <if test="testCost != null" >
+          #{testCost, jdbcType=DECIMAL},
+          </if>
+        <if test="retainCost != null" >
+          #{retainCost, jdbcType=VARCHAR},
+          </if>
+        <if test="friendlyCost != null" >
+          #{friendlyCost, jdbcType=DECIMAL},
+          </if>
+        <if test="rightCost != null" >
+          #{rightCost, jdbcType=DECIMAL},
+          </if>
+        <if test="interestCost != null" >
+          #{interestCost, jdbcType=DECIMAL},
+          </if>
+        <if test="giftCost != null" >
+          #{giftCost, jdbcType=DECIMAL},
+          </if>
+        <if test="brokerageCost != null" >
+          #{brokerageCost, jdbcType=DECIMAL},
+          </if>
+        <if test="otherCost != null" >
+          #{otherCost, jdbcType=DECIMAL},
+          </if>
+        <if test="sellPrice != null" >
+          #{sellPrice, jdbcType=DECIMAL},
+          </if>
+        <if test="createdBy != null" >
+          #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="isEnable != null" >
+          #{isEnable, jdbcType=VARCHAR},
+          </if>
+        <if test="isDelete != null" >
+          #{isDelete, jdbcType=VARCHAR},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_psi_car_cost_info 
+       (
+          cost_info_id,
+          stock_id,
+          checkout_date,
+          income_price,
+          service_cost,
+          facial_cost,
+          logistics_cost,
+          test_cost,
+          retain_cost,
+          friendly_cost,
+          right_cost,
+          interest_cost,
+          gift_cost,
+          brokerage_cost,
+          other_cost,
+          sell_price,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date,
+          is_enable,
+          is_delete
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.costInfoId, jdbcType=BIGINT},
+	          #{item.stockId, jdbcType=BIGINT},
+	          #{item.checkoutDate, jdbcType=TIMESTAMP},
+	          #{item.incomePrice, jdbcType=DECIMAL},
+	          #{item.serviceCost, jdbcType=DECIMAL},
+	          #{item.facialCost, jdbcType=DECIMAL},
+	          #{item.logisticsCost, jdbcType=DECIMAL},
+	          #{item.testCost, jdbcType=DECIMAL},
+	          #{item.retainCost, jdbcType=VARCHAR},
+	          #{item.friendlyCost, jdbcType=DECIMAL},
+	          #{item.rightCost, jdbcType=DECIMAL},
+	          #{item.interestCost, jdbcType=DECIMAL},
+	          #{item.giftCost, jdbcType=DECIMAL},
+	          #{item.brokerageCost, jdbcType=DECIMAL},
+	          #{item.otherCost, jdbcType=DECIMAL},
+	          #{item.sellPrice, jdbcType=DECIMAL},
+	          #{item.createdBy, jdbcType=BIGINT},
+	          #{item.createdDate, jdbcType=TIMESTAMP},
+	          #{item.updatedBy, jdbcType=BIGINT},
+	          #{item.updatedDate, jdbcType=TIMESTAMP},
+	          #{item.isEnable, jdbcType=VARCHAR},
+	          #{item.isDelete, jdbcType=VARCHAR}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.PsiCarCostInfoEntity" >
+    UPDATE t_psi_car_cost_info SET 
+          stock_id = #{stockId, jdbcType=BIGINT},
+          checkout_date = #{checkoutDate, jdbcType=TIMESTAMP},
+          income_price = #{incomePrice, jdbcType=DECIMAL},
+          service_cost = #{serviceCost, jdbcType=DECIMAL},
+          facial_cost = #{facialCost, jdbcType=DECIMAL},
+          logistics_cost = #{logisticsCost, jdbcType=DECIMAL},
+          test_cost = #{testCost, jdbcType=DECIMAL},
+          retain_cost = #{retainCost, jdbcType=VARCHAR},
+          friendly_cost = #{friendlyCost, jdbcType=DECIMAL},
+          right_cost = #{rightCost, jdbcType=DECIMAL},
+          interest_cost = #{interestCost, jdbcType=DECIMAL},
+          gift_cost = #{giftCost, jdbcType=DECIMAL},
+          brokerage_cost = #{brokerageCost, jdbcType=DECIMAL},
+          other_cost = #{otherCost, jdbcType=DECIMAL},
+          sell_price = #{sellPrice, jdbcType=DECIMAL},
+          created_by = #{createdBy, jdbcType=BIGINT},
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          is_enable = #{isEnable, jdbcType=VARCHAR},
+          is_delete = #{isDelete, jdbcType=VARCHAR}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND cost_info_id = #{costInfoId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.PsiCarCostInfoEntity" >
+    UPDATE t_psi_car_cost_info
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="stockId != null" >
+          stock_id = #{stockId, jdbcType=BIGINT},
+          </if>
+        <if test="checkoutDate != null" >
+          checkout_date = #{checkoutDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="incomePrice != null" >
+          income_price = #{incomePrice, jdbcType=DECIMAL},
+          </if>
+        <if test="serviceCost != null" >
+          service_cost = #{serviceCost, jdbcType=DECIMAL},
+          </if>
+        <if test="facialCost != null" >
+          facial_cost = #{facialCost, jdbcType=DECIMAL},
+          </if>
+        <if test="logisticsCost != null" >
+          logistics_cost = #{logisticsCost, jdbcType=DECIMAL},
+          </if>
+        <if test="testCost != null" >
+          test_cost = #{testCost, jdbcType=DECIMAL},
+          </if>
+        <if test="retainCost != null" >
+          retain_cost = #{retainCost, jdbcType=VARCHAR},
+          </if>
+        <if test="friendlyCost != null" >
+          friendly_cost = #{friendlyCost, jdbcType=DECIMAL},
+          </if>
+        <if test="rightCost != null" >
+          right_cost = #{rightCost, jdbcType=DECIMAL},
+          </if>
+        <if test="interestCost != null" >
+          interest_cost = #{interestCost, jdbcType=DECIMAL},
+          </if>
+        <if test="giftCost != null" >
+          gift_cost = #{giftCost, jdbcType=DECIMAL},
+          </if>
+        <if test="brokerageCost != null" >
+          brokerage_cost = #{brokerageCost, jdbcType=DECIMAL},
+          </if>
+        <if test="otherCost != null" >
+          other_cost = #{otherCost, jdbcType=DECIMAL},
+          </if>
+        <if test="sellPrice != null" >
+          sell_price = #{sellPrice, jdbcType=DECIMAL},
+          </if>
+        <if test="createdBy != null" >
+          created_by = #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="isEnable != null" >
+          is_enable = #{isEnable, jdbcType=VARCHAR},
+          </if>
+        <if test="isDelete != null" >
+          is_delete = #{isDelete, jdbcType=VARCHAR},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND cost_info_id = #{costInfoId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_car_cost_info SET 
+	          stock_id = #{item.stockId, jdbcType=BIGINT},
+	          checkout_date = #{item.checkoutDate, jdbcType=TIMESTAMP},
+	          income_price = #{item.incomePrice, jdbcType=DECIMAL},
+	          service_cost = #{item.serviceCost, jdbcType=DECIMAL},
+	          facial_cost = #{item.facialCost, jdbcType=DECIMAL},
+	          logistics_cost = #{item.logisticsCost, jdbcType=DECIMAL},
+	          test_cost = #{item.testCost, jdbcType=DECIMAL},
+	          retain_cost = #{item.retainCost, jdbcType=VARCHAR},
+	          friendly_cost = #{item.friendlyCost, jdbcType=DECIMAL},
+	          right_cost = #{item.rightCost, jdbcType=DECIMAL},
+	          interest_cost = #{item.interestCost, jdbcType=DECIMAL},
+	          gift_cost = #{item.giftCost, jdbcType=DECIMAL},
+	          brokerage_cost = #{item.brokerageCost, jdbcType=DECIMAL},
+	          other_cost = #{item.otherCost, jdbcType=DECIMAL},
+	          sell_price = #{item.sellPrice, jdbcType=DECIMAL},
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          is_enable = #{item.isEnable, jdbcType=VARCHAR},
+	          is_delete = #{item.isDelete, jdbcType=VARCHAR}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND cost_info_id = #{item.costInfoId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_car_cost_info
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.stockId != null" >
+	          stock_id = #{item.stockId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.checkoutDate != null" >
+	          checkout_date = #{item.checkoutDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.incomePrice != null" >
+	          income_price = #{item.incomePrice, jdbcType=DECIMAL},
+	          </if>
+	        <if test="item.serviceCost != null" >
+	          service_cost = #{item.serviceCost, jdbcType=DECIMAL},
+	          </if>
+	        <if test="item.facialCost != null" >
+	          facial_cost = #{item.facialCost, jdbcType=DECIMAL},
+	          </if>
+	        <if test="item.logisticsCost != null" >
+	          logistics_cost = #{item.logisticsCost, jdbcType=DECIMAL},
+	          </if>
+	        <if test="item.testCost != null" >
+	          test_cost = #{item.testCost, jdbcType=DECIMAL},
+	          </if>
+	        <if test="item.retainCost != null" >
+	          retain_cost = #{item.retainCost, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.friendlyCost != null" >
+	          friendly_cost = #{item.friendlyCost, jdbcType=DECIMAL},
+	          </if>
+	        <if test="item.rightCost != null" >
+	          right_cost = #{item.rightCost, jdbcType=DECIMAL},
+	          </if>
+	        <if test="item.interestCost != null" >
+	          interest_cost = #{item.interestCost, jdbcType=DECIMAL},
+	          </if>
+	        <if test="item.giftCost != null" >
+	          gift_cost = #{item.giftCost, jdbcType=DECIMAL},
+	          </if>
+	        <if test="item.brokerageCost != null" >
+	          brokerage_cost = #{item.brokerageCost, jdbcType=DECIMAL},
+	          </if>
+	        <if test="item.otherCost != null" >
+	          other_cost = #{item.otherCost, jdbcType=DECIMAL},
+	          </if>
+	        <if test="item.sellPrice != null" >
+	          sell_price = #{item.sellPrice, jdbcType=DECIMAL},
+	          </if>
+	        <if test="item.createdBy != null" >
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.createdDate != null" >
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.updatedBy != null" >
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.updatedDate != null" >
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.isEnable != null" >
+	          is_enable = #{item.isEnable, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.isDelete != null" >
+	          is_delete = #{item.isDelete, jdbcType=VARCHAR},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND cost_info_id = #{item.costInfoId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.PsiCarCostInfoPk" >
+    DELETE FROM t_psi_car_cost_info
+    WHERE
+     <trim prefixOverrides="AND">
+           AND cost_info_id = #{costInfoId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.PsiCarCostInfoEntity" >
+    DELETE FROM t_psi_car_cost_info
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="costInfoId != null" >
+          AND cost_info_id = #{costInfoId, jdbcType=BIGINT}
+        </if>
+        <if test="stockId != null" >
+          AND stock_id = #{stockId, jdbcType=BIGINT}
+        </if>
+        <if test="checkoutDate != null" >
+          AND checkout_date = #{checkoutDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="incomePrice != null" >
+          AND income_price = #{incomePrice, jdbcType=DECIMAL}
+        </if>
+        <if test="serviceCost != null" >
+          AND service_cost = #{serviceCost, jdbcType=DECIMAL}
+        </if>
+        <if test="facialCost != null" >
+          AND facial_cost = #{facialCost, jdbcType=DECIMAL}
+        </if>
+        <if test="logisticsCost != null" >
+          AND logistics_cost = #{logisticsCost, jdbcType=DECIMAL}
+        </if>
+        <if test="testCost != null" >
+          AND test_cost = #{testCost, jdbcType=DECIMAL}
+        </if>
+        <if test="retainCost != null and retainCost != ''" >
+          AND retain_cost = #{retainCost, jdbcType=VARCHAR}
+        </if>
+        <if test="friendlyCost != null" >
+          AND friendly_cost = #{friendlyCost, jdbcType=DECIMAL}
+        </if>
+        <if test="rightCost != null" >
+          AND right_cost = #{rightCost, jdbcType=DECIMAL}
+        </if>
+        <if test="interestCost != null" >
+          AND interest_cost = #{interestCost, jdbcType=DECIMAL}
+        </if>
+        <if test="giftCost != null" >
+          AND gift_cost = #{giftCost, jdbcType=DECIMAL}
+        </if>
+        <if test="brokerageCost != null" >
+          AND brokerage_cost = #{brokerageCost, jdbcType=DECIMAL}
+        </if>
+        <if test="otherCost != null" >
+          AND other_cost = #{otherCost, jdbcType=DECIMAL}
+        </if>
+        <if test="sellPrice != null" >
+          AND sell_price = #{sellPrice, jdbcType=DECIMAL}
+        </if>
+        <if test="createdBy != null" >
+          AND created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="psiCarCostInfoResultMap" type="com.exp.ucmp.entity.PsiCarCostInfoEntity" >
+      <constructor>
+       <idArg column="cost_info_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="stock_id" property="stockId" jdbcType="BIGINT" />
+    <result column="checkout_date" property="checkoutDate" jdbcType="TIMESTAMP" />
+    <result column="income_price" property="incomePrice" jdbcType="DECIMAL" />
+    <result column="service_cost" property="serviceCost" jdbcType="DECIMAL" />
+    <result column="facial_cost" property="facialCost" jdbcType="DECIMAL" />
+    <result column="logistics_cost" property="logisticsCost" jdbcType="DECIMAL" />
+    <result column="test_cost" property="testCost" jdbcType="DECIMAL" />
+    <result column="retain_cost" property="retainCost" jdbcType="VARCHAR" />
+    <result column="friendly_cost" property="friendlyCost" jdbcType="DECIMAL" />
+    <result column="right_cost" property="rightCost" jdbcType="DECIMAL" />
+    <result column="interest_cost" property="interestCost" jdbcType="DECIMAL" />
+    <result column="gift_cost" property="giftCost" jdbcType="DECIMAL" />
+    <result column="brokerage_cost" property="brokerageCost" jdbcType="DECIMAL" />
+    <result column="other_cost" property="otherCost" jdbcType="DECIMAL" />
+    <result column="sell_price" property="sellPrice" jdbcType="DECIMAL" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="is_enable" property="isEnable" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="t_psi_car_cost_info_Column_List" >
+    a.cost_info_id,
+    a.stock_id,
+    a.checkout_date,
+    a.income_price,
+    a.service_cost,
+    a.facial_cost,
+    a.logistics_cost,
+    a.test_cost,
+    a.retain_cost,
+    a.friendly_cost,
+    a.right_cost,
+    a.interest_cost,
+    a.gift_cost,
+    a.brokerage_cost,
+    a.other_cost,
+    a.sell_price,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date,
+    a.is_enable,
+    a.is_delete
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.PsiCarCostInfoPk" resultMap="psiCarCostInfoResultMap">
+    SELECT 
+    <include refid="t_psi_car_cost_info_Column_List" />
+      FROM t_psi_car_cost_info a
+     WHERE 1 = 1
+       AND a.cost_info_id = #{costInfoId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.PsiCarCostInfoEntity" resultMap="psiCarCostInfoResultMap">
+    SELECT 
+    <include refid="t_psi_car_cost_info_Column_List" />
+      FROM t_psi_car_cost_info a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="costInfoId != null" >
+          AND a.cost_info_id = #{costInfoId, jdbcType=BIGINT}
+        </if>
+        <if test="stockId != null" >
+          AND a.stock_id = #{stockId, jdbcType=BIGINT}
+        </if>
+        <if test="checkoutDate != null" >
+          AND a.checkout_date = #{checkoutDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="incomePrice != null" >
+          AND a.income_price = #{incomePrice, jdbcType=DECIMAL}
+        </if>
+        <if test="serviceCost != null" >
+          AND a.service_cost = #{serviceCost, jdbcType=DECIMAL}
+        </if>
+        <if test="facialCost != null" >
+          AND a.facial_cost = #{facialCost, jdbcType=DECIMAL}
+        </if>
+        <if test="logisticsCost != null" >
+          AND a.logistics_cost = #{logisticsCost, jdbcType=DECIMAL}
+        </if>
+        <if test="testCost != null" >
+          AND a.test_cost = #{testCost, jdbcType=DECIMAL}
+        </if>
+        <if test="retainCost != null and retainCost != ''" >
+          AND a.retain_cost = #{retainCost, jdbcType=VARCHAR}
+        </if>
+        <if test="friendlyCost != null" >
+          AND a.friendly_cost = #{friendlyCost, jdbcType=DECIMAL}
+        </if>
+        <if test="rightCost != null" >
+          AND a.right_cost = #{rightCost, jdbcType=DECIMAL}
+        </if>
+        <if test="interestCost != null" >
+          AND a.interest_cost = #{interestCost, jdbcType=DECIMAL}
+        </if>
+        <if test="giftCost != null" >
+          AND a.gift_cost = #{giftCost, jdbcType=DECIMAL}
+        </if>
+        <if test="brokerageCost != null" >
+          AND a.brokerage_cost = #{brokerageCost, jdbcType=DECIMAL}
+        </if>
+        <if test="otherCost != null" >
+          AND a.other_cost = #{otherCost, jdbcType=DECIMAL}
+        </if>
+        <if test="sellPrice != null" >
+          AND a.sell_price = #{sellPrice, jdbcType=DECIMAL}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND a.is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND a.is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.PsiCarCostInfoEntity" resultType="int">
+    SELECT count(1) FROM t_psi_car_cost_info a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="costInfoId != null" >
+          AND a.cost_info_id = #{costInfoId, jdbcType=BIGINT}
+        </if>
+        <if test="stockId != null" >
+          AND a.stock_id = #{stockId, jdbcType=BIGINT}
+        </if>
+        <if test="checkoutDate != null" >
+          AND a.checkout_date = #{checkoutDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="incomePrice != null" >
+          AND a.income_price = #{incomePrice, jdbcType=DECIMAL}
+        </if>
+        <if test="serviceCost != null" >
+          AND a.service_cost = #{serviceCost, jdbcType=DECIMAL}
+        </if>
+        <if test="facialCost != null" >
+          AND a.facial_cost = #{facialCost, jdbcType=DECIMAL}
+        </if>
+        <if test="logisticsCost != null" >
+          AND a.logistics_cost = #{logisticsCost, jdbcType=DECIMAL}
+        </if>
+        <if test="testCost != null" >
+          AND a.test_cost = #{testCost, jdbcType=DECIMAL}
+        </if>
+        <if test="retainCost != null and retainCost != ''" >
+          AND a.retain_cost = #{retainCost, jdbcType=VARCHAR}
+        </if>
+        <if test="friendlyCost != null" >
+          AND a.friendly_cost = #{friendlyCost, jdbcType=DECIMAL}
+        </if>
+        <if test="rightCost != null" >
+          AND a.right_cost = #{rightCost, jdbcType=DECIMAL}
+        </if>
+        <if test="interestCost != null" >
+          AND a.interest_cost = #{interestCost, jdbcType=DECIMAL}
+        </if>
+        <if test="giftCost != null" >
+          AND a.gift_cost = #{giftCost, jdbcType=DECIMAL}
+        </if>
+        <if test="brokerageCost != null" >
+          AND a.brokerage_cost = #{brokerageCost, jdbcType=DECIMAL}
+        </if>
+        <if test="otherCost != null" >
+          AND a.other_cost = #{otherCost, jdbcType=DECIMAL}
+        </if>
+        <if test="sellPrice != null" >
+          AND a.sell_price = #{sellPrice, jdbcType=DECIMAL}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND a.is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND a.is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+      </trim>
+  </select>
+</mapper>

@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.ISysPricingStrategyDetailsSectionDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.SysPricingStrategyDetailsSectionEntity" >
+    INSERT INTO t_sys_pricing_strategy_details_section 
+       (
+          strategy_details_id,
+          strategy_id,
+          details_type,
+          left_value,
+          right_value,
+          details_value,
+          is_source,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date,
+          is_enable,
+          is_delete
+        ) VALUES (
+          #{strategyDetailsId, jdbcType=BIGINT},
+          #{strategyId, jdbcType=BIGINT},
+          #{detailsType, jdbcType=VARCHAR},
+          #{leftValue, jdbcType=INTEGER},
+          #{rightValue, jdbcType=INTEGER},
+          #{detailsValue, jdbcType=VARCHAR},
+          #{isSource, jdbcType=INTEGER},
+          #{createdBy, jdbcType=BIGINT},
+          #{createdDate, jdbcType=TIMESTAMP},
+          #{updatedBy, jdbcType=BIGINT},
+          #{updatedDate, jdbcType=TIMESTAMP},
+          #{isEnable, jdbcType=VARCHAR},
+          #{isDelete, jdbcType=VARCHAR}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.SysPricingStrategyDetailsSectionEntity" >
+    INSERT INTO t_sys_pricing_strategy_details_section
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="strategyDetailsId != null" >
+          strategy_details_id,
+          </if>
+        <if test="strategyId != null" >
+          strategy_id,
+          </if>
+        <if test="detailsType != null" >
+          details_type,
+          </if>
+        <if test="leftValue != null" >
+          left_value,
+          </if>
+        <if test="rightValue != null" >
+          right_value,
+          </if>
+        <if test="detailsValue != null" >
+          details_value,
+          </if>
+        <if test="isSource != null" >
+          is_source,
+          </if>
+        <if test="createdBy != null" >
+          created_by,
+          </if>
+        <if test="createdDate != null" >
+          created_date,
+          </if>
+        <if test="updatedBy != null" >
+          updated_by,
+          </if>
+        <if test="updatedDate != null" >
+          updated_date,
+          </if>
+        <if test="isEnable != null" >
+          is_enable,
+          </if>
+        <if test="isDelete != null" >
+          is_delete,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="strategyDetailsId != null" >
+          #{strategyDetailsId, jdbcType=BIGINT},
+          </if>
+        <if test="strategyId != null" >
+          #{strategyId, jdbcType=BIGINT},
+          </if>
+        <if test="detailsType != null" >
+          #{detailsType, jdbcType=VARCHAR},
+          </if>
+        <if test="leftValue != null" >
+          #{leftValue, jdbcType=INTEGER},
+          </if>
+        <if test="rightValue != null" >
+          #{rightValue, jdbcType=INTEGER},
+          </if>
+        <if test="detailsValue != null" >
+          #{detailsValue, jdbcType=VARCHAR},
+          </if>
+        <if test="isSource != null" >
+          #{isSource, jdbcType=INTEGER},
+          </if>
+        <if test="createdBy != null" >
+          #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="isEnable != null" >
+          #{isEnable, jdbcType=VARCHAR},
+          </if>
+        <if test="isDelete != null" >
+          #{isDelete, jdbcType=VARCHAR},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_sys_pricing_strategy_details_section 
+       (
+          strategy_details_id,
+          strategy_id,
+          details_type,
+          left_value,
+          right_value,
+          details_value,
+          is_source,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date,
+          is_enable,
+          is_delete
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.strategyDetailsId, jdbcType=BIGINT},
+	          #{item.strategyId, jdbcType=BIGINT},
+	          #{item.detailsType, jdbcType=VARCHAR},
+	          #{item.leftValue, jdbcType=INTEGER},
+	          #{item.rightValue, jdbcType=INTEGER},
+	          #{item.detailsValue, jdbcType=VARCHAR},
+	          #{item.isSource, jdbcType=INTEGER},
+	          #{item.createdBy, jdbcType=BIGINT},
+	          #{item.createdDate, jdbcType=TIMESTAMP},
+	          #{item.updatedBy, jdbcType=BIGINT},
+	          #{item.updatedDate, jdbcType=TIMESTAMP},
+	          #{item.isEnable, jdbcType=VARCHAR},
+	          #{item.isDelete, jdbcType=VARCHAR}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.SysPricingStrategyDetailsSectionEntity" >
+    UPDATE t_sys_pricing_strategy_details_section SET 
+          strategy_id = #{strategyId, jdbcType=BIGINT},
+          details_type = #{detailsType, jdbcType=VARCHAR},
+          left_value = #{leftValue, jdbcType=INTEGER},
+          right_value = #{rightValue, jdbcType=INTEGER},
+          details_value = #{detailsValue, jdbcType=VARCHAR},
+          is_source = #{isSource, jdbcType=INTEGER},
+          created_by = #{createdBy, jdbcType=BIGINT},
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          is_enable = #{isEnable, jdbcType=VARCHAR},
+          is_delete = #{isDelete, jdbcType=VARCHAR}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND strategy_details_id = #{strategyDetailsId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.SysPricingStrategyDetailsSectionEntity" >
+    UPDATE t_sys_pricing_strategy_details_section
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="strategyId != null" >
+          strategy_id = #{strategyId, jdbcType=BIGINT},
+          </if>
+        <if test="detailsType != null" >
+          details_type = #{detailsType, jdbcType=VARCHAR},
+          </if>
+        <if test="leftValue != null" >
+          left_value = #{leftValue, jdbcType=INTEGER},
+          </if>
+        <if test="rightValue != null" >
+          right_value = #{rightValue, jdbcType=INTEGER},
+          </if>
+        <if test="detailsValue != null" >
+          details_value = #{detailsValue, jdbcType=VARCHAR},
+          </if>
+        <if test="isSource != null" >
+          is_source = #{isSource, jdbcType=INTEGER},
+          </if>
+        <if test="createdBy != null" >
+          created_by = #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="isEnable != null" >
+          is_enable = #{isEnable, jdbcType=VARCHAR},
+          </if>
+        <if test="isDelete != null" >
+          is_delete = #{isDelete, jdbcType=VARCHAR},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND strategy_details_id = #{strategyDetailsId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_sys_pricing_strategy_details_section SET 
+	          strategy_id = #{item.strategyId, jdbcType=BIGINT},
+	          details_type = #{item.detailsType, jdbcType=VARCHAR},
+	          left_value = #{item.leftValue, jdbcType=INTEGER},
+	          right_value = #{item.rightValue, jdbcType=INTEGER},
+	          details_value = #{item.detailsValue, jdbcType=VARCHAR},
+	          is_source = #{item.isSource, jdbcType=INTEGER},
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          is_enable = #{item.isEnable, jdbcType=VARCHAR},
+	          is_delete = #{item.isDelete, jdbcType=VARCHAR}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND strategy_details_id = #{item.strategyDetailsId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_sys_pricing_strategy_details_section
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.strategyId != null" >
+	          strategy_id = #{item.strategyId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.detailsType != null" >
+	          details_type = #{item.detailsType, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.leftValue != null" >
+	          left_value = #{item.leftValue, jdbcType=INTEGER},
+	          </if>
+	        <if test="item.rightValue != null" >
+	          right_value = #{item.rightValue, jdbcType=INTEGER},
+	          </if>
+	        <if test="item.detailsValue != null" >
+	          details_value = #{item.detailsValue, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.isSource != null" >
+	          is_source = #{item.isSource, jdbcType=INTEGER},
+	          </if>
+	        <if test="item.createdBy != null" >
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.createdDate != null" >
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.updatedBy != null" >
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.updatedDate != null" >
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.isEnable != null" >
+	          is_enable = #{item.isEnable, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.isDelete != null" >
+	          is_delete = #{item.isDelete, jdbcType=VARCHAR},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND strategy_details_id = #{item.strategyDetailsId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.SysPricingStrategyDetailsSectionPk" >
+    DELETE FROM t_sys_pricing_strategy_details_section
+    WHERE
+     <trim prefixOverrides="AND">
+           AND strategy_details_id = #{strategyDetailsId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.SysPricingStrategyDetailsSectionEntity" >
+    DELETE FROM t_sys_pricing_strategy_details_section
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="strategyDetailsId != null" >
+          AND strategy_details_id = #{strategyDetailsId, jdbcType=BIGINT}
+        </if>
+        <if test="strategyId != null" >
+          AND strategy_id = #{strategyId, jdbcType=BIGINT}
+        </if>
+        <if test="detailsType != null and detailsType != ''" >
+          AND details_type = #{detailsType, jdbcType=VARCHAR}
+        </if>
+        <if test="leftValue != null" >
+          AND left_value = #{leftValue, jdbcType=INTEGER}
+        </if>
+        <if test="rightValue != null" >
+          AND right_value = #{rightValue, jdbcType=INTEGER}
+        </if>
+        <if test="detailsValue != null and detailsValue != ''" >
+          AND details_value = #{detailsValue, jdbcType=VARCHAR}
+        </if>
+        <if test="isSource != null" >
+          AND is_source = #{isSource, jdbcType=INTEGER}
+        </if>
+        <if test="createdBy != null" >
+          AND created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="sysPricingStrategyDetailsSectionResultMap" type="com.exp.ucmp.entity.SysPricingStrategyDetailsSectionEntity" >
+      <constructor>
+       <idArg column="strategy_details_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="strategy_id" property="strategyId" jdbcType="BIGINT" />
+    <result column="details_type" property="detailsType" jdbcType="VARCHAR" />
+    <result column="left_value" property="leftValue" jdbcType="INTEGER" />
+    <result column="right_value" property="rightValue" jdbcType="INTEGER" />
+    <result column="details_value" property="detailsValue" jdbcType="VARCHAR" />
+    <result column="is_source" property="isSource" jdbcType="INTEGER" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="is_enable" property="isEnable" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="t_sys_pricing_strategy_details_section_Column_List" >
+    a.strategy_details_id,
+    a.strategy_id,
+    a.details_type,
+    a.left_value,
+    a.right_value,
+    a.details_value,
+    a.is_source,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date,
+    a.is_enable,
+    a.is_delete
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.SysPricingStrategyDetailsSectionPk" resultMap="sysPricingStrategyDetailsSectionResultMap">
+    SELECT 
+    <include refid="t_sys_pricing_strategy_details_section_Column_List" />
+      FROM t_sys_pricing_strategy_details_section a
+     WHERE 1 = 1
+       AND a.strategy_details_id = #{strategyDetailsId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.SysPricingStrategyDetailsSectionEntity" resultMap="sysPricingStrategyDetailsSectionResultMap">
+    SELECT 
+    <include refid="t_sys_pricing_strategy_details_section_Column_List" />
+      FROM t_sys_pricing_strategy_details_section a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="strategyDetailsId != null" >
+          AND a.strategy_details_id = #{strategyDetailsId, jdbcType=BIGINT}
+        </if>
+        <if test="strategyId != null" >
+          AND a.strategy_id = #{strategyId, jdbcType=BIGINT}
+        </if>
+        <if test="detailsType != null and detailsType != ''" >
+          AND a.details_type = #{detailsType, jdbcType=VARCHAR}
+        </if>
+        <if test="leftValue != null" >
+          AND a.left_value = #{leftValue, jdbcType=INTEGER}
+        </if>
+        <if test="rightValue != null" >
+          AND a.right_value = #{rightValue, jdbcType=INTEGER}
+        </if>
+        <if test="detailsValue != null and detailsValue != ''" >
+          AND a.details_value = #{detailsValue, jdbcType=VARCHAR}
+        </if>
+        <if test="isSource != null" >
+          AND a.is_source = #{isSource, jdbcType=INTEGER}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND a.is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND a.is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.SysPricingStrategyDetailsSectionEntity" resultType="int">
+    SELECT count(1) FROM t_sys_pricing_strategy_details_section a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="strategyDetailsId != null" >
+          AND a.strategy_details_id = #{strategyDetailsId, jdbcType=BIGINT}
+        </if>
+        <if test="strategyId != null" >
+          AND a.strategy_id = #{strategyId, jdbcType=BIGINT}
+        </if>
+        <if test="detailsType != null and detailsType != ''" >
+          AND a.details_type = #{detailsType, jdbcType=VARCHAR}
+        </if>
+        <if test="leftValue != null" >
+          AND a.left_value = #{leftValue, jdbcType=INTEGER}
+        </if>
+        <if test="rightValue != null" >
+          AND a.right_value = #{rightValue, jdbcType=INTEGER}
+        </if>
+        <if test="detailsValue != null and detailsValue != ''" >
+          AND a.details_value = #{detailsValue, jdbcType=VARCHAR}
+        </if>
+        <if test="isSource != null" >
+          AND a.is_source = #{isSource, jdbcType=INTEGER}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="isEnable != null and isEnable != ''" >
+          AND a.is_enable = #{isEnable, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND a.is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+      </trim>
+  </select>
+</mapper>

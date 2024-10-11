@@ -1,0 +1,114 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.exp</groupId>
+        <artifactId>ucmp-build</artifactId>
+        <version>0.0.1</version>
+    </parent>
+	<artifactId>ucmp-system</artifactId>
+	<properties>
+	    <huawei.apigateway.veriosn>3.2.0</huawei.apigateway.veriosn>
+	</properties>
+
+    <dependencies>
+		<!-- 实现对 Jasypt 实现自动化配置 -->
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+        </dependency>
+        <!-- 数据库 -->
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>tk.mybatis</groupId>
+			<artifactId>mapper-spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper-spring-boot-starter</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <!-- xxl-job-core -->
+        <dependency>
+            <groupId>com.xuxueli</groupId>
+            <artifactId>xxl-job-core</artifactId>
+            <version>2.2.0</version>
+        </dependency>
+		
+		<dependency>
+		    <groupId>org.springframework.retry</groupId>
+		    <artifactId>spring-retry</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.huawei.apigateway</groupId>
+		    <artifactId>java-sdk-core</artifactId>
+		    <version>${huawei.apigateway.veriosn}</version>
+		</dependency>
+		
+        <dependency>
+            <groupId>com.egrid</groupId>
+            <artifactId>cmf-service-copiers</artifactId>
+        </dependency>
+		
+        <dependency>
+            <groupId>com.egrid</groupId>
+            <artifactId>cmf-service-redission-starter</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.egrid</groupId>
+            <artifactId>cmf-service-serializer</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.exp</groupId>
+            <artifactId>ucmp-dto</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.exp</groupId>
+            <artifactId>ucmp-web</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        
+        <dependency>
+			 <groupId>com.auth0</groupId>
+			 <artifactId>java-jwt</artifactId>
+			 <version>3.19.0</version>
+		</dependency>
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.18.3</version>
+            <scope>compile</scope>
+        </dependency>
+        <!--        华为云依赖-->
+        <dependency>
+            <groupId>com.huaweicloud</groupId>
+            <artifactId>esdk-obs-java</artifactId>
+            <version>3.20.6.1</version>
+        </dependency>
+        <!-- HuTool工具包 -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.5.8</version>
+        </dependency>
+        <!--   压缩工具包  -->
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>0.4.17</version>
+        </dependency>
+    </dependencies>
+
+
+</project>

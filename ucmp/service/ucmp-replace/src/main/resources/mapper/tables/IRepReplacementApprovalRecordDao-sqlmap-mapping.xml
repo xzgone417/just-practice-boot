@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.IRepReplacementApprovalRecordDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.RepReplacementApprovalRecordEntity" >
+    INSERT INTO t_rep_replacement_approval_record 
+       (
+          approval_id,
+          replacement_id,
+          approval_result,
+          approval_remark,
+          approval_person,
+          approval_person_name,
+          approval_date,
+          reporting_date,
+          replacement_before_status
+        ) VALUES (
+          #{approvalId, jdbcType=BIGINT},
+          #{replacementId, jdbcType=BIGINT},
+          #{approvalResult, jdbcType=VARCHAR},
+          #{approvalRemark, jdbcType=VARCHAR},
+          #{approvalPerson, jdbcType=BIGINT},
+          #{approvalPersonName, jdbcType=VARCHAR},
+          #{approvalDate, jdbcType=TIMESTAMP},
+          #{reportingDate, jdbcType=TIMESTAMP},
+          #{replacementBeforeStatus, jdbcType=VARCHAR}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.RepReplacementApprovalRecordEntity" >
+    INSERT INTO t_rep_replacement_approval_record
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="approvalId != null" >
+          approval_id,
+          </if>
+        <if test="replacementId != null" >
+          replacement_id,
+          </if>
+        <if test="approvalResult != null" >
+          approval_result,
+          </if>
+        <if test="approvalRemark != null" >
+          approval_remark,
+          </if>
+        <if test="approvalPerson != null" >
+          approval_person,
+          </if>
+        <if test="approvalPersonName != null" >
+          approval_person_name,
+          </if>
+        <if test="approvalDate != null" >
+          approval_date,
+          </if>
+        <if test="reportingDate != null" >
+          reporting_date,
+          </if>
+        <if test="replacementBeforeStatus != null" >
+          replacement_before_status,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="approvalId != null" >
+          #{approvalId, jdbcType=BIGINT},
+          </if>
+        <if test="replacementId != null" >
+          #{replacementId, jdbcType=BIGINT},
+          </if>
+        <if test="approvalResult != null" >
+          #{approvalResult, jdbcType=VARCHAR},
+          </if>
+        <if test="approvalRemark != null" >
+          #{approvalRemark, jdbcType=VARCHAR},
+          </if>
+        <if test="approvalPerson != null" >
+          #{approvalPerson, jdbcType=BIGINT},
+          </if>
+        <if test="approvalPersonName != null" >
+          #{approvalPersonName, jdbcType=VARCHAR},
+          </if>
+        <if test="approvalDate != null" >
+          #{approvalDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="reportingDate != null" >
+          #{reportingDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="replacementBeforeStatus != null" >
+          #{replacementBeforeStatus, jdbcType=VARCHAR},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_rep_replacement_approval_record 
+       (
+          approval_id,
+          replacement_id,
+          approval_result,
+          approval_remark,
+          approval_person,
+          approval_person_name,
+          approval_date,
+          reporting_date,
+          replacement_before_status
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.approvalId, jdbcType=BIGINT},
+	          #{item.replacementId, jdbcType=BIGINT},
+	          #{item.approvalResult, jdbcType=VARCHAR},
+	          #{item.approvalRemark, jdbcType=VARCHAR},
+	          #{item.approvalPerson, jdbcType=BIGINT},
+	          #{item.approvalPersonName, jdbcType=VARCHAR},
+	          #{item.approvalDate, jdbcType=TIMESTAMP},
+	          #{item.reportingDate, jdbcType=TIMESTAMP},
+	          #{item.replacementBeforeStatus, jdbcType=VARCHAR}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.RepReplacementApprovalRecordEntity" >
+    UPDATE t_rep_replacement_approval_record SET 
+          replacement_id = #{replacementId, jdbcType=BIGINT},
+          approval_result = #{approvalResult, jdbcType=VARCHAR},
+          approval_remark = #{approvalRemark, jdbcType=VARCHAR},
+          approval_person = #{approvalPerson, jdbcType=BIGINT},
+          approval_person_name = #{approvalPersonName, jdbcType=VARCHAR},
+          approval_date = #{approvalDate, jdbcType=TIMESTAMP},
+          reporting_date = #{reportingDate, jdbcType=TIMESTAMP},
+          replacement_before_status = #{replacementBeforeStatus, jdbcType=VARCHAR}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND approval_id = #{approvalId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.RepReplacementApprovalRecordEntity" >
+    UPDATE t_rep_replacement_approval_record
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="replacementId != null" >
+          replacement_id = #{replacementId, jdbcType=BIGINT},
+          </if>
+        <if test="approvalResult != null" >
+          approval_result = #{approvalResult, jdbcType=VARCHAR},
+          </if>
+        <if test="approvalRemark != null" >
+          approval_remark = #{approvalRemark, jdbcType=VARCHAR},
+          </if>
+        <if test="approvalPerson != null" >
+          approval_person = #{approvalPerson, jdbcType=BIGINT},
+          </if>
+        <if test="approvalPersonName != null" >
+          approval_person_name = #{approvalPersonName, jdbcType=VARCHAR},
+          </if>
+        <if test="approvalDate != null" >
+          approval_date = #{approvalDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="reportingDate != null" >
+          reporting_date = #{reportingDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="replacementBeforeStatus != null" >
+          replacement_before_status = #{replacementBeforeStatus, jdbcType=VARCHAR},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND approval_id = #{approvalId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_rep_replacement_approval_record SET 
+	          replacement_id = #{item.replacementId, jdbcType=BIGINT},
+	          approval_result = #{item.approvalResult, jdbcType=VARCHAR},
+	          approval_remark = #{item.approvalRemark, jdbcType=VARCHAR},
+	          approval_person = #{item.approvalPerson, jdbcType=BIGINT},
+	          approval_person_name = #{item.approvalPersonName, jdbcType=VARCHAR},
+	          approval_date = #{item.approvalDate, jdbcType=TIMESTAMP},
+	          reporting_date = #{item.reportingDate, jdbcType=TIMESTAMP},
+	          replacement_before_status = #{item.replacementBeforeStatus, jdbcType=VARCHAR}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND approval_id = #{item.approvalId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_rep_replacement_approval_record
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.replacementId != null" >
+	          replacement_id = #{item.replacementId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.approvalResult != null" >
+	          approval_result = #{item.approvalResult, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.approvalRemark != null" >
+	          approval_remark = #{item.approvalRemark, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.approvalPerson != null" >
+	          approval_person = #{item.approvalPerson, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.approvalPersonName != null" >
+	          approval_person_name = #{item.approvalPersonName, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.approvalDate != null" >
+	          approval_date = #{item.approvalDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.reportingDate != null" >
+	          reporting_date = #{item.reportingDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.replacementBeforeStatus != null" >
+	          replacement_before_status = #{item.replacementBeforeStatus, jdbcType=VARCHAR},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND approval_id = #{item.approvalId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.RepReplacementApprovalRecordPk" >
+    DELETE FROM t_rep_replacement_approval_record
+    WHERE
+     <trim prefixOverrides="AND">
+           AND approval_id = #{approvalId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.RepReplacementApprovalRecordEntity" >
+    DELETE FROM t_rep_replacement_approval_record
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="approvalId != null" >
+          AND approval_id = #{approvalId, jdbcType=BIGINT}
+        </if>
+        <if test="replacementId != null" >
+          AND replacement_id = #{replacementId, jdbcType=BIGINT}
+        </if>
+        <if test="approvalResult != null and approvalResult != ''" >
+          AND approval_result = #{approvalResult, jdbcType=VARCHAR}
+        </if>
+        <if test="approvalRemark != null and approvalRemark != ''" >
+          AND approval_remark = #{approvalRemark, jdbcType=VARCHAR}
+        </if>
+        <if test="approvalPerson != null" >
+          AND approval_person = #{approvalPerson, jdbcType=BIGINT}
+        </if>
+        <if test="approvalPersonName != null and approvalPersonName != ''" >
+          AND approval_person_name = #{approvalPersonName, jdbcType=VARCHAR}
+        </if>
+        <if test="approvalDate != null" >
+          AND approval_date = #{approvalDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="reportingDate != null" >
+          AND reporting_date = #{reportingDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="replacementBeforeStatus != null and replacementBeforeStatus != ''" >
+          AND replacement_before_status = #{replacementBeforeStatus, jdbcType=VARCHAR}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="repReplacementApprovalRecordResultMap" type="com.exp.ucmp.entity.RepReplacementApprovalRecordEntity" >
+      <constructor>
+       <idArg column="approval_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="replacement_id" property="replacementId" jdbcType="BIGINT" />
+    <result column="approval_result" property="approvalResult" jdbcType="VARCHAR" />
+    <result column="approval_remark" property="approvalRemark" jdbcType="VARCHAR" />
+    <result column="approval_person" property="approvalPerson" jdbcType="BIGINT" />
+    <result column="approval_person_name" property="approvalPersonName" jdbcType="VARCHAR" />
+    <result column="approval_date" property="approvalDate" jdbcType="TIMESTAMP" />
+    <result column="reporting_date" property="reportingDate" jdbcType="TIMESTAMP" />
+    <result column="replacement_before_status" property="replacementBeforeStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="t_rep_replacement_approval_record_Column_List" >
+    a.approval_id,
+    a.replacement_id,
+    a.approval_result,
+    a.approval_remark,
+    a.approval_person,
+    a.approval_person_name,
+    a.approval_date,
+    a.reporting_date,
+    a.replacement_before_status
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.RepReplacementApprovalRecordPk" resultMap="repReplacementApprovalRecordResultMap">
+    SELECT 
+    <include refid="t_rep_replacement_approval_record_Column_List" />
+      FROM t_rep_replacement_approval_record a
+     WHERE 1 = 1
+       AND a.approval_id = #{approvalId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.RepReplacementApprovalRecordEntity" resultMap="repReplacementApprovalRecordResultMap">
+    SELECT 
+    <include refid="t_rep_replacement_approval_record_Column_List" />
+      FROM t_rep_replacement_approval_record a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="approvalId != null" >
+          AND a.approval_id = #{approvalId, jdbcType=BIGINT}
+        </if>
+        <if test="replacementId != null" >
+          AND a.replacement_id = #{replacementId, jdbcType=BIGINT}
+        </if>
+        <if test="approvalResult != null and approvalResult != ''" >
+          AND a.approval_result = #{approvalResult, jdbcType=VARCHAR}
+        </if>
+        <if test="approvalRemark != null and approvalRemark != ''" >
+          AND a.approval_remark = #{approvalRemark, jdbcType=VARCHAR}
+        </if>
+        <if test="approvalPerson != null" >
+          AND a.approval_person = #{approvalPerson, jdbcType=BIGINT}
+        </if>
+        <if test="approvalPersonName != null and approvalPersonName != ''" >
+          AND a.approval_person_name = #{approvalPersonName, jdbcType=VARCHAR}
+        </if>
+        <if test="approvalDate != null" >
+          AND a.approval_date = #{approvalDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="reportingDate != null" >
+          AND a.reporting_date = #{reportingDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="replacementBeforeStatus != null and replacementBeforeStatus != ''" >
+          AND a.replacement_before_status = #{replacementBeforeStatus, jdbcType=VARCHAR}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.RepReplacementApprovalRecordEntity" resultType="int">
+    SELECT count(1) FROM t_rep_replacement_approval_record a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="approvalId != null" >
+          AND a.approval_id = #{approvalId, jdbcType=BIGINT}
+        </if>
+        <if test="replacementId != null" >
+          AND a.replacement_id = #{replacementId, jdbcType=BIGINT}
+        </if>
+        <if test="approvalResult != null and approvalResult != ''" >
+          AND a.approval_result = #{approvalResult, jdbcType=VARCHAR}
+        </if>
+        <if test="approvalRemark != null and approvalRemark != ''" >
+          AND a.approval_remark = #{approvalRemark, jdbcType=VARCHAR}
+        </if>
+        <if test="approvalPerson != null" >
+          AND a.approval_person = #{approvalPerson, jdbcType=BIGINT}
+        </if>
+        <if test="approvalPersonName != null and approvalPersonName != ''" >
+          AND a.approval_person_name = #{approvalPersonName, jdbcType=VARCHAR}
+        </if>
+        <if test="approvalDate != null" >
+          AND a.approval_date = #{approvalDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="reportingDate != null" >
+          AND a.reporting_date = #{reportingDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="replacementBeforeStatus != null and replacementBeforeStatus != ''" >
+          AND a.replacement_before_status = #{replacementBeforeStatus, jdbcType=VARCHAR}
+        </if>
+      </trim>
+  </select>
+</mapper>

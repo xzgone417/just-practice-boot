@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.store.dao.SysStoreDetailsDao">
+
+
+    <resultMap id="sysStoreInfoResultMap" type="com.exp.ucmp.entity.SysStoreInfoEntity">
+        <constructor>
+            <idArg column="store_id" javaType="Long" jdbcType="BIGINT"/>
+        </constructor>
+        <result column="store_code" property="storeCode" jdbcType="VARCHAR"/>
+        <result column="store_name" property="storeName" jdbcType="VARCHAR"/>
+        <result column="store_person_charge" property="storePersonCharge" jdbcType="VARCHAR"/>
+        <result column="store_person_charge_phone" property="storePersonChargePhone" jdbcType="VARCHAR"/>
+        <result column="store_area_id" property="storeAreaId" jdbcType="VARCHAR"/>
+        <result column="store_status" property="storeStatus" jdbcType="VARCHAR"/>
+        <result column="is_delete" property="isDelete" jdbcType="VARCHAR"/>
+        <result column="created_by" property="createdBy" jdbcType="BIGINT"/>
+        <result column="created_date" property="createdDate" jdbcType="TIMESTAMP"/>
+        <result column="updated_by" property="updatedBy" jdbcType="BIGINT"/>
+        <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="t_sys_store_info_Column_List">
+    a.store_id,
+    a.store_code,
+    a.store_name,
+    a.store_person_charge,
+    a.store_person_charge_phone,
+    a.store_area_id,
+    a.store_status,
+    a.is_delete,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date
+    </sql>
+
+    <select id="load" parameterType="com.exp.ucmp.pk.SysStoreInfoPk" resultMap="sysStoreInfoResultMap">
+        SELECT
+        <include refid="t_sys_store_info_Column_List"/>
+        FROM t_sys_store_info a
+        WHERE 1 = 1
+        AND a.store_id = #{storeId, jdbcType=BIGINT}
+    </select>
+    <!--
+    <select id="selectStoreMsg" parameterType="com.exp.ucmp.store.dto.SysStoreInfoQueryDto"
+            resultType="com.exp.ucmp.store.dto.SysStoreInfoDto">
+        SELECT
+        a.store_id AS storeId,
+        a.store_code AS storeCode,
+        a.store_name AS storeName,
+        a.store_person_charge AS storePersonCharge,
+        a.store_person_charge_phone AS storePersonChargePhone,
+        a.store_area_id AS storeAreaId,
+        a.store_department_id AS storeDepartmentId,
+        c.department_name AS departmentName,
+        b.area_name AS areaName,
+        a.store_status AS storeStatus
+        FROM t_sys_store_info a,t_sys_area_info b,t_sys_department_info c
+        where a.store_area_id = b.area_id
+        and a.store_department_id = c.department_id
+
+        <if test="storeCode != null and storeCode != ''">
+            AND a.store_code = #{storeCode, jdbcType=VARCHAR}
+        </if>
+        <if test="storeName != null and storeName != ''">
+            AND a.store_name = #{storeName, jdbcType=VARCHAR}
+        </if>
+
+        <if test="storeStatus != null and storeStatus != ''">
+            AND a.store_status = #{storeStatus, jdbcType=VARCHAR}
+        </if>
+        <if test="storeAreaId != null and storeAreaId != ''">
+            AND a.store_area_id = #{storeAreaId, jdbcType=BIGINT}
+        </if>
+
+    </select>
+    -->
+    <select id="selectStoreMsg" parameterType="com.exp.ucmp.store.dto.SysStoreInfoQueryDto"
+            resultType="com.exp.ucmp.store.dto.SysStoreInfoDto">
+        SELECT
+            store.store_id  AS storeId,
+            store.org_code AS storeCode,
+            store.org_name AS storeName,
+            store.org_type_name AS orgTypeName,
+            store.province,
+            store.province_id AS provinceId,
+            store.city,
+            store.city_id AS cityId,
+            store.is_enable AS storeStatus,
+            store.qualification_status AS qualificationStatus
+        FROM
+            t_sys_store_info store
+        LEFT JOIN
+           t_sys_region re
+        ON
+          store.province_id = re.region_code
+        <where>
+            <if test="storeName != null and storeName != ''">
+                AND store.org_name like concat('%',#{storeName},'%')
+            </if>
+            <if test="provinceId != null and provinceId != ''">
+                AND store.province_id = #{provinceId}
+            </if>
+            <if test="cityId != null and cityId != ''" >
+                AND store.city_id = #{cityId}
+            </if>
+            <if test="storeStatus != null and storeStatus != ''">
+                AND store.is_enable = #{storeStatus}
+            </if>
+            <if test="qualificationStatus != null and qualificationStatus != ''">
+                AND store.qualification_status = #{qualificationStatus}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectStoreByStoreName" resultType="com.exp.ucmp.store.dto.SysFindStoreByNameDto">
+        SELECT
+            DISTINCT
+            store.store_id  AS storeId,
+            store.org_name AS storeName
+        FROM
+            t_sys_store_info store
+        LEFT JOIN t_sys_store_partner_rela r
+            ON r.store_id = store.store_id
+        where
+            store.is_enable = '01'
+        <if test="storeName != null and storeName != ''">
+            and store.org_name like concat(#{storeName},'%')
+        </if>
+        <if test="partnerId != null and partnerId != ''">
+            and r.partner_id = #{partnerId}
+            and r.is_enable = '01'
+        </if>
+    </select>
+
+    <select id="selectSysPartnerByName" resultType="com.exp.ucmp.store.dto.SysFindPartnerByNameDto">
+        SELECT
+            s.partner_id  AS partnerId,
+            s.partner_name AS partnerName
+        FROM
+            t_sys_partner_details s
+        where
+            s.is_delete = 0
+            and s.partner_status = '01'
+        <if test="name != null and name != ''">
+            and s.partner_name like concat(#{name},'%')
+        </if>
+    </select>
+
+    <!--
+    <select id="selectStoreStaff" parameterType="com.exp.ucmp.store.dto.SysStoreStaffInfoQueryDto"
+            resultType="com.exp.ucmp.store.dto.SysStoreStaffInfoDto">
+        SELECT
+        u.party_id AS partyId,
+        u.staff_code AS staffCode,
+        u.staff_name AS staffName,
+        u.staff_iphone AS staffIphone,
+        dept.department_name AS departmentName,
+        roleInfo.role_details_name AS roleName,
+        u.staff_status AS staffStatus,
+        stoinfo.store_code AS storeCode
+        FROM
+        t_sys_staff_details u
+        LEFT JOIN
+        (SELECT
+        ds.party_id,
+        GROUP_CONCAT(d.department_name
+        SEPARATOR ',') AS department_name
+        FROM
+        t_sys_department_info d
+        INNER JOIN t_sys_department_staff_rela ds ON d.department_id = ds.department_id
+        GROUP BY ds.party_id) AS dept ON u.party_id = dept.party_id
+        LEFT JOIN
+        (SELECT
+        rr.party_id,
+        GROUP_CONCAT(rd.role_details_name
+        SEPARATOR ',') AS role_details_name
+        FROM
+        t_sys_role_details rd
+        INNER JOIN t_party_role_rela rr ON rd.role_id = rr.role_id
+        GROUP BY rr.party_id) AS roleInfo ON u.party_id = roleInfo.party_id
+        LEFT JOIN
+        (SELECT
+        ssr.party_id,
+        ssi.store_code
+        FROM
+        t_sys_store_info ssi
+        INNER JOIN t_sys_store_staff_rela ssr ON ssi.store_id = ssr.store_id
+        GROUP BY ssr.party_id,ssi.store_code) AS stoinfo ON u.party_id = stoinfo.party_id
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="staffName != null and staffName!= ''">
+                AND u.staff_name = #{staffName, jdbcType=BIGINT}
+            </if>
+            <if test="staffIphone != null and staffIphone != ''">
+                AND u.staff_iphone = #{staffIphone, jdbcType=VARCHAR}
+            </if>
+            <if test="departmentName != null and departmentName != ''">
+                AND dept.department_name = #{departmentName, jdbcType=VARCHAR}
+            </if>
+            <if test="staffStatus != null and staffStatus != ''">
+                AND u.staff_status = #{staffStatus, jdbcType=VARCHAR}
+            </if>
+            AND stoinfo.store_code = #{storeCode, jdbcType=VARCHAR}
+
+        </trim>
+    </select>
+    -->
+
+
+
+    <select id="selectStoreStaff" parameterType="com.exp.ucmp.store.dto.SysStoreStaffInfoQueryDto"
+            resultType="com.exp.ucmp.store.dto.SysStoreStaffInfoDto">
+        SELECT
+        u.party_id AS partyId,
+        u.staff_code AS staffCode,
+        u.staff_name AS staffName,
+        u.staff_iphone AS staffIphone,
+        u.staff_status AS staffStatus,
+        u.qualification_status AS qualificationStatus,
+        storeStaff.roleName AS eosRoleName,
+        storeRole.ucmpRoleName AS ucmpRoleName
+        FROM
+        t_sys_store_staff_rela ssr
+        INNER JOIN t_sys_store_staff_details u ON ssr.party_id = u.party_id
+        LEFT JOIN ( SELECT prr.party_id, group_concat( prr.role_name ) AS 'roleName' FROM t_sys_store_staff_info prr WHERE prr.store_id =#{storeId} GROUP BY prr.party_id ) AS storeStaff
+        ON ssr.party_id = storeStaff.party_id
+        LEFT JOIN (
+        SELECT
+        prr.party_id,
+        group_concat( tri.role_details_name ) AS 'ucmpRoleName'
+        FROM
+        t_store_party_role_rela prr
+        INNER JOIN t_sys_role_details tri ON prr.role_id = tri.role_id
+        GROUP BY
+        prr.party_id
+        ) AS storeRole ON ssr.party_id = storeRole.party_id
+        <where>
+            ssr.store_id = #{storeId}
+            AND
+            ssr.created_by  = -999
+            <if test="staffName != null and staffName!= ''">
+                AND u.staff_name = #{staffName}
+            </if>
+            <if test="staffIphone != null and staffIphone != ''">
+                AND u.staff_iphone = #{staffIphone}
+            </if>
+            <if test="staffStatus != null and staffStatus != ''">
+                AND u.staff_status = #{staffStatus}
+            </if>
+            <if test="qualificationStatus != null and qualificationStatus != ''">
+                AND u.qualification_status = #{qualificationStatus}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectStoreByPartyId"  resultType="com.exp.ucmp.store.dto.SysStoreInfoDto">
+        SELECT
+        store.store_id AS storeId,
+        store.org_code AS storeCode,
+        store.org_name AS storeName,
+        store.org_type AS orgType,
+        store.org_type_name AS  orgTypeName,
+        store.province,
+        store.province_id AS provinceId,
+        store.city_id AS cityId,
+        store.city,
+        store.is_enable AS storeStatus
+        FROM
+        t_sys_store_info store
+        INNER JOIN t_sys_store_staff_rela ssr ON store.store_id = ssr.store_id
+        <where>
+            store.is_enable = 1
+            AND
+            ssr.party_id = #{partyId}
+        </where>
+    </select>
+
+    <select id="selectStoreByPartnerId"  resultType="com.exp.ucmp.store.dto.SysStoreInfoDto">
+        SELECT
+        store.store_id AS storeId,
+        store.org_code AS storeCode,
+        store.org_name AS storeName,
+        store.org_type AS orgType,
+        store.org_type_name AS  orgTypeName,
+        store.province,
+        store.province_id AS provinceId,
+        store.city_id AS cityId,
+        store.city,
+        store.is_enable AS storeStatus
+        FROM
+        t_sys_store_partner_rela spr
+        INNER JOIN t_sys_store_info store ON spr.store_id = store.store_id
+        <where>
+            spr.is_enable = '01'
+        AND
+            store.is_enable = '01'
+        AND
+            spr.partner_id = #{partnerId}
+        </where>
+    </select>
+
+    <select id="selectAllStoreStaffList" resultType="com.exp.ucmp.store.dto.SysStoreStaffDetailsDto">
+        SELECT
+            a.party_id AS partyId,
+            b.login_name AS loginName,
+            a.staff_code AS staffCode,
+            a.staff_name AS staffName,
+            a.staff_email AS staffEmail,
+            a.staff_sex AS staffSex,
+            a.staff_iphone AS staffIphone,
+            a.staff_status AS staffStatus,
+            a.staff_type AS staffType
+        FROM
+            t_sys_store_staff_details a
+            LEFT JOIN t_login_info b ON a.party_id = b.party_id
+            AND b.is_password = '01'
+            and b.login_name is not null
+    </select>
+    
+    <select id="findDeliveryCenter" resultType="com.exp.ucmp.store.dto.DeliveryCenterDto">
+    	select
+			tsi.store_id storeId,
+			tsi.org_code storeCode,
+			tsi.org_name storeName
+		from
+			t_sys_store_info tsi
+		where
+			tsi.org_type = 4
+			<if test="storeName !=null and storeName != ''">
+			and tsi.org_name like concat('%',#{storeName},'%')
+			</if>
+    </select>
+    
+    
+</mapper>

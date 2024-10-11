@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.ISysRoleDetailsDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.SysRoleDetailsEntity" >
+    INSERT INTO t_sys_role_details 
+       (
+          role_id,
+          role_code,
+          role_details_type,
+          role_details_name,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date
+        ) VALUES (
+          #{roleId, jdbcType=BIGINT},
+          #{roleCode, jdbcType=VARCHAR},
+          #{roleDetailsType, jdbcType=VARCHAR},
+          #{roleDetailsName, jdbcType=VARCHAR},
+          #{createdBy, jdbcType=BIGINT},
+          #{createdDate, jdbcType=TIMESTAMP},
+          #{updatedBy, jdbcType=BIGINT},
+          #{updatedDate, jdbcType=TIMESTAMP}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.SysRoleDetailsEntity" >
+    INSERT INTO t_sys_role_details
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="roleId != null" >
+          role_id,
+          </if>
+        <if test="roleCode != null" >
+          role_code,
+          </if>
+        <if test="roleDetailsType != null" >
+          role_details_type,
+          </if>
+        <if test="roleDetailsName != null" >
+          role_details_name,
+          </if>
+        <if test="createdBy != null" >
+          created_by,
+          </if>
+        <if test="createdDate != null" >
+          created_date,
+          </if>
+        <if test="updatedBy != null" >
+          updated_by,
+          </if>
+        <if test="updatedDate != null" >
+          updated_date,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="roleId != null" >
+          #{roleId, jdbcType=BIGINT},
+          </if>
+        <if test="roleCode != null" >
+          #{roleCode, jdbcType=VARCHAR},
+          </if>
+        <if test="roleDetailsType != null" >
+          #{roleDetailsType, jdbcType=VARCHAR},
+          </if>
+        <if test="roleDetailsName != null" >
+          #{roleDetailsName, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_sys_role_details 
+       (
+          role_id,
+          role_code,
+          role_details_type,
+          role_details_name,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.roleId, jdbcType=BIGINT},
+	          #{item.roleCode, jdbcType=VARCHAR},
+	          #{item.roleDetailsType, jdbcType=VARCHAR},
+	          #{item.roleDetailsName, jdbcType=VARCHAR},
+	          #{item.createdBy, jdbcType=BIGINT},
+	          #{item.createdDate, jdbcType=TIMESTAMP},
+	          #{item.updatedBy, jdbcType=BIGINT},
+	          #{item.updatedDate, jdbcType=TIMESTAMP}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.SysRoleDetailsEntity" >
+    UPDATE t_sys_role_details SET 
+          role_code = #{roleCode, jdbcType=VARCHAR},
+          role_details_type = #{roleDetailsType, jdbcType=VARCHAR},
+          role_details_name = #{roleDetailsName, jdbcType=VARCHAR},
+          created_by = #{createdBy, jdbcType=BIGINT},
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND role_id = #{roleId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.SysRoleDetailsEntity" >
+    UPDATE t_sys_role_details
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="roleCode != null" >
+          role_code = #{roleCode, jdbcType=VARCHAR},
+          </if>
+        <if test="roleDetailsType != null" >
+          role_details_type = #{roleDetailsType, jdbcType=VARCHAR},
+          </if>
+        <if test="roleDetailsName != null" >
+          role_details_name = #{roleDetailsName, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          created_by = #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND role_id = #{roleId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_sys_role_details SET 
+	          role_code = #{item.roleCode, jdbcType=VARCHAR},
+	          role_details_type = #{item.roleDetailsType, jdbcType=VARCHAR},
+	          role_details_name = #{item.roleDetailsName, jdbcType=VARCHAR},
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND role_id = #{item.roleId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_sys_role_details
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.roleCode != null" >
+	          role_code = #{item.roleCode, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.roleDetailsType != null" >
+	          role_details_type = #{item.roleDetailsType, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.roleDetailsName != null" >
+	          role_details_name = #{item.roleDetailsName, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.createdBy != null" >
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.createdDate != null" >
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.updatedBy != null" >
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.updatedDate != null" >
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND role_id = #{item.roleId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.SysRoleDetailsPk" >
+    DELETE FROM t_sys_role_details
+    WHERE
+     <trim prefixOverrides="AND">
+           AND role_id = #{roleId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.SysRoleDetailsEntity" >
+    DELETE FROM t_sys_role_details
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="roleId != null" >
+          AND role_id = #{roleId, jdbcType=BIGINT}
+        </if>
+        <if test="roleCode != null and roleCode != ''" >
+          AND role_code = #{roleCode, jdbcType=VARCHAR}
+        </if>
+        <if test="roleDetailsType != null and roleDetailsType != ''" >
+          AND role_details_type = #{roleDetailsType, jdbcType=VARCHAR}
+        </if>
+        <if test="roleDetailsName != null and roleDetailsName != ''" >
+          AND role_details_name = #{roleDetailsName, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="sysRoleDetailsResultMap" type="com.exp.ucmp.entity.SysRoleDetailsEntity" >
+      <constructor>
+       <idArg column="role_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="role_code" property="roleCode" jdbcType="VARCHAR" />
+    <result column="role_details_type" property="roleDetailsType" jdbcType="VARCHAR" />
+    <result column="role_details_name" property="roleDetailsName" jdbcType="VARCHAR" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="t_sys_role_details_Column_List" >
+    a.role_id,
+    a.role_code,
+    a.role_details_type,
+    a.role_details_name,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.SysRoleDetailsPk" resultMap="sysRoleDetailsResultMap">
+    SELECT 
+    <include refid="t_sys_role_details_Column_List" />
+      FROM t_sys_role_details a
+     WHERE 1 = 1
+       AND a.role_id = #{roleId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.SysRoleDetailsEntity" resultMap="sysRoleDetailsResultMap">
+    SELECT 
+    <include refid="t_sys_role_details_Column_List" />
+      FROM t_sys_role_details a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="roleId != null" >
+          AND a.role_id = #{roleId, jdbcType=BIGINT}
+        </if>
+        <if test="roleCode != null and roleCode != ''" >
+          AND a.role_code = #{roleCode, jdbcType=VARCHAR}
+        </if>
+        <if test="roleDetailsType != null and roleDetailsType != ''" >
+          AND a.role_details_type = #{roleDetailsType, jdbcType=VARCHAR}
+        </if>
+        <if test="roleDetailsName != null and roleDetailsName != ''" >
+          AND a.role_details_name = #{roleDetailsName, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.SysRoleDetailsEntity" resultType="int">
+    SELECT count(1) FROM t_sys_role_details a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="roleId != null" >
+          AND a.role_id = #{roleId, jdbcType=BIGINT}
+        </if>
+        <if test="roleCode != null and roleCode != ''" >
+          AND a.role_code = #{roleCode, jdbcType=VARCHAR}
+        </if>
+        <if test="roleDetailsType != null and roleDetailsType != ''" >
+          AND a.role_details_type = #{roleDetailsType, jdbcType=VARCHAR}
+        </if>
+        <if test="roleDetailsName != null and roleDetailsName != ''" >
+          AND a.role_details_name = #{roleDetailsName, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+</mapper>

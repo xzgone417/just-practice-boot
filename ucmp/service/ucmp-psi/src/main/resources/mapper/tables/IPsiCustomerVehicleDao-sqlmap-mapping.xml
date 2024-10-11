@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.IPsiCustomerVehicleDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.PsiCustomerVehicleEntity" >
+    INSERT INTO t_psi_customer_vehicle 
+       (
+          vehicle_id,
+          booking_id,
+          customer_id,
+          brand,
+          car_type,
+          registration_time,
+          driver_mileage,
+          car_color,
+          car_card_number,
+          vin_code,
+          transfer_ownership_times,
+          using_nature,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date
+        ) VALUES (
+          #{vehicleId, jdbcType=BIGINT},
+          #{bookingId, jdbcType=BIGINT},
+          #{customerId, jdbcType=VARCHAR},
+          #{brand, jdbcType=VARCHAR},
+          #{carType, jdbcType=VARCHAR},
+          #{registrationTime, jdbcType=DATE},
+          #{driverMileage, jdbcType=VARCHAR},
+          #{carColor, jdbcType=VARCHAR},
+          #{carCardNumber, jdbcType=VARCHAR},
+          #{vinCode, jdbcType=VARCHAR},
+          #{transferOwnershipTimes, jdbcType=VARCHAR},
+          #{usingNature, jdbcType=VARCHAR},
+          #{createdBy, jdbcType=BIGINT},
+          #{createdDate, jdbcType=TIMESTAMP},
+          #{updatedBy, jdbcType=BIGINT},
+          #{updatedDate, jdbcType=TIMESTAMP}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.PsiCustomerVehicleEntity" >
+    INSERT INTO t_psi_customer_vehicle
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="vehicleId != null" >
+          vehicle_id,
+          </if>
+        <if test="bookingId != null" >
+          booking_id,
+          </if>
+        <if test="customerId != null" >
+          customer_id,
+          </if>
+        <if test="brand != null" >
+          brand,
+          </if>
+        <if test="carType != null" >
+          car_type,
+          </if>
+        <if test="registrationTime != null" >
+          registration_time,
+          </if>
+        <if test="driverMileage != null" >
+          driver_mileage,
+          </if>
+        <if test="carColor != null" >
+          car_color,
+          </if>
+        <if test="carCardNumber != null" >
+          car_card_number,
+          </if>
+        <if test="vinCode != null" >
+          vin_code,
+          </if>
+        <if test="transferOwnershipTimes != null" >
+          transfer_ownership_times,
+          </if>
+        <if test="usingNature != null" >
+          using_nature,
+          </if>
+        <if test="createdBy != null" >
+          created_by,
+          </if>
+        <if test="createdDate != null" >
+          created_date,
+          </if>
+        <if test="updatedBy != null" >
+          updated_by,
+          </if>
+        <if test="updatedDate != null" >
+          updated_date,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="vehicleId != null" >
+          #{vehicleId, jdbcType=BIGINT},
+          </if>
+        <if test="bookingId != null" >
+          #{bookingId, jdbcType=BIGINT},
+          </if>
+        <if test="customerId != null" >
+          #{customerId, jdbcType=VARCHAR},
+          </if>
+        <if test="brand != null" >
+          #{brand, jdbcType=VARCHAR},
+          </if>
+        <if test="carType != null" >
+          #{carType, jdbcType=VARCHAR},
+          </if>
+        <if test="registrationTime != null" >
+          #{registrationTime, jdbcType=DATE},
+          </if>
+        <if test="driverMileage != null" >
+          #{driverMileage, jdbcType=VARCHAR},
+          </if>
+        <if test="carColor != null" >
+          #{carColor, jdbcType=VARCHAR},
+          </if>
+        <if test="carCardNumber != null" >
+          #{carCardNumber, jdbcType=VARCHAR},
+          </if>
+        <if test="vinCode != null" >
+          #{vinCode, jdbcType=VARCHAR},
+          </if>
+        <if test="transferOwnershipTimes != null" >
+          #{transferOwnershipTimes, jdbcType=VARCHAR},
+          </if>
+        <if test="usingNature != null" >
+          #{usingNature, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_psi_customer_vehicle 
+       (
+          vehicle_id,
+          booking_id,
+          customer_id,
+          brand,
+          car_type,
+          registration_time,
+          driver_mileage,
+          car_color,
+          car_card_number,
+          vin_code,
+          transfer_ownership_times,
+          using_nature,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.vehicleId, jdbcType=BIGINT},
+	          #{item.bookingId, jdbcType=BIGINT},
+	          #{item.customerId, jdbcType=VARCHAR},
+	          #{item.brand, jdbcType=VARCHAR},
+	          #{item.carType, jdbcType=VARCHAR},
+	          #{item.registrationTime, jdbcType=DATE},
+	          #{item.driverMileage, jdbcType=VARCHAR},
+	          #{item.carColor, jdbcType=VARCHAR},
+	          #{item.carCardNumber, jdbcType=VARCHAR},
+	          #{item.vinCode, jdbcType=VARCHAR},
+	          #{item.transferOwnershipTimes, jdbcType=VARCHAR},
+	          #{item.usingNature, jdbcType=VARCHAR},
+	          #{item.createdBy, jdbcType=BIGINT},
+	          #{item.createdDate, jdbcType=TIMESTAMP},
+	          #{item.updatedBy, jdbcType=BIGINT},
+	          #{item.updatedDate, jdbcType=TIMESTAMP}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.PsiCustomerVehicleEntity" >
+    UPDATE t_psi_customer_vehicle SET 
+          booking_id = #{bookingId, jdbcType=BIGINT},
+          customer_id = #{customerId, jdbcType=VARCHAR},
+          brand = #{brand, jdbcType=VARCHAR},
+          car_type = #{carType, jdbcType=VARCHAR},
+          registration_time = #{registrationTime, jdbcType=DATE},
+          driver_mileage = #{driverMileage, jdbcType=VARCHAR},
+          car_color = #{carColor, jdbcType=VARCHAR},
+          car_card_number = #{carCardNumber, jdbcType=VARCHAR},
+          vin_code = #{vinCode, jdbcType=VARCHAR},
+          transfer_ownership_times = #{transferOwnershipTimes, jdbcType=VARCHAR},
+          using_nature = #{usingNature, jdbcType=VARCHAR},
+          created_by = #{createdBy, jdbcType=BIGINT},
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND vehicle_id = #{vehicleId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.PsiCustomerVehicleEntity" >
+    UPDATE t_psi_customer_vehicle
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="bookingId != null" >
+          booking_id = #{bookingId, jdbcType=BIGINT},
+          </if>
+        <if test="customerId != null" >
+          customer_id = #{customerId, jdbcType=VARCHAR},
+          </if>
+        <if test="brand != null" >
+          brand = #{brand, jdbcType=VARCHAR},
+          </if>
+        <if test="carType != null" >
+          car_type = #{carType, jdbcType=VARCHAR},
+          </if>
+        <if test="registrationTime != null" >
+          registration_time = #{registrationTime, jdbcType=DATE},
+          </if>
+        <if test="driverMileage != null" >
+          driver_mileage = #{driverMileage, jdbcType=VARCHAR},
+          </if>
+        <if test="carColor != null" >
+          car_color = #{carColor, jdbcType=VARCHAR},
+          </if>
+        <if test="carCardNumber != null" >
+          car_card_number = #{carCardNumber, jdbcType=VARCHAR},
+          </if>
+        <if test="vinCode != null" >
+          vin_code = #{vinCode, jdbcType=VARCHAR},
+          </if>
+        <if test="transferOwnershipTimes != null" >
+          transfer_ownership_times = #{transferOwnershipTimes, jdbcType=VARCHAR},
+          </if>
+        <if test="usingNature != null" >
+          using_nature = #{usingNature, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          created_by = #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND vehicle_id = #{vehicleId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_customer_vehicle SET 
+	          booking_id = #{item.bookingId, jdbcType=BIGINT},
+	          customer_id = #{item.customerId, jdbcType=VARCHAR},
+	          brand = #{item.brand, jdbcType=VARCHAR},
+	          car_type = #{item.carType, jdbcType=VARCHAR},
+	          registration_time = #{item.registrationTime, jdbcType=DATE},
+	          driver_mileage = #{item.driverMileage, jdbcType=VARCHAR},
+	          car_color = #{item.carColor, jdbcType=VARCHAR},
+	          car_card_number = #{item.carCardNumber, jdbcType=VARCHAR},
+	          vin_code = #{item.vinCode, jdbcType=VARCHAR},
+	          transfer_ownership_times = #{item.transferOwnershipTimes, jdbcType=VARCHAR},
+	          using_nature = #{item.usingNature, jdbcType=VARCHAR},
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND vehicle_id = #{item.vehicleId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_customer_vehicle
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.bookingId != null" >
+	          booking_id = #{item.bookingId, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.customerId != null" >
+	          customer_id = #{item.customerId, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.brand != null" >
+	          brand = #{item.brand, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.carType != null" >
+	          car_type = #{item.carType, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.registrationTime != null" >
+	          registration_time = #{item.registrationTime, jdbcType=DATE},
+	          </if>
+	        <if test="item.driverMileage != null" >
+	          driver_mileage = #{item.driverMileage, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.carColor != null" >
+	          car_color = #{item.carColor, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.carCardNumber != null" >
+	          car_card_number = #{item.carCardNumber, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.vinCode != null" >
+	          vin_code = #{item.vinCode, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.transferOwnershipTimes != null" >
+	          transfer_ownership_times = #{item.transferOwnershipTimes, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.usingNature != null" >
+	          using_nature = #{item.usingNature, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.createdBy != null" >
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.createdDate != null" >
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.updatedBy != null" >
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.updatedDate != null" >
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND vehicle_id = #{item.vehicleId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.PsiCustomerVehiclePk" >
+    DELETE FROM t_psi_customer_vehicle
+    WHERE
+     <trim prefixOverrides="AND">
+           AND vehicle_id = #{vehicleId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.PsiCustomerVehicleEntity" >
+    DELETE FROM t_psi_customer_vehicle
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="vehicleId != null" >
+          AND vehicle_id = #{vehicleId, jdbcType=BIGINT}
+        </if>
+        <if test="bookingId != null" >
+          AND booking_id = #{bookingId, jdbcType=BIGINT}
+        </if>
+        <if test="customerId != null and customerId != ''" >
+          AND customer_id = #{customerId, jdbcType=VARCHAR}
+        </if>
+        <if test="brand != null and brand != ''" >
+          AND brand = #{brand, jdbcType=VARCHAR}
+        </if>
+        <if test="carType != null and carType != ''" >
+          AND car_type = #{carType, jdbcType=VARCHAR}
+        </if>
+        <if test="registrationTime != null" >
+          AND registration_time = #{registrationTime, jdbcType=DATE}
+        </if>
+        <if test="driverMileage != null and driverMileage != ''" >
+          AND driver_mileage = #{driverMileage, jdbcType=VARCHAR}
+        </if>
+        <if test="carColor != null and carColor != ''" >
+          AND car_color = #{carColor, jdbcType=VARCHAR}
+        </if>
+        <if test="carCardNumber != null and carCardNumber != ''" >
+          AND car_card_number = #{carCardNumber, jdbcType=VARCHAR}
+        </if>
+        <if test="vinCode != null and vinCode != ''" >
+          AND vin_code = #{vinCode, jdbcType=VARCHAR}
+        </if>
+        <if test="transferOwnershipTimes != null and transferOwnershipTimes != ''" >
+          AND transfer_ownership_times = #{transferOwnershipTimes, jdbcType=VARCHAR}
+        </if>
+        <if test="usingNature != null and usingNature != ''" >
+          AND using_nature = #{usingNature, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="psiCustomerVehicleResultMap" type="com.exp.ucmp.entity.PsiCustomerVehicleEntity" >
+      <constructor>
+       <idArg column="vehicle_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="booking_id" property="bookingId" jdbcType="BIGINT" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="brand" property="brand" jdbcType="VARCHAR" />
+    <result column="car_type" property="carType" jdbcType="VARCHAR" />
+    <result column="registration_time" property="registrationTime" jdbcType="DATE" />
+    <result column="driver_mileage" property="driverMileage" jdbcType="VARCHAR" />
+    <result column="car_color" property="carColor" jdbcType="VARCHAR" />
+    <result column="car_card_number" property="carCardNumber" jdbcType="VARCHAR" />
+    <result column="vin_code" property="vinCode" jdbcType="VARCHAR" />
+    <result column="transfer_ownership_times" property="transferOwnershipTimes" jdbcType="VARCHAR" />
+    <result column="using_nature" property="usingNature" jdbcType="VARCHAR" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="t_psi_customer_vehicle_Column_List" >
+    a.vehicle_id,
+    a.booking_id,
+    a.customer_id,
+    a.brand,
+    a.car_type,
+    a.registration_time,
+    a.driver_mileage,
+    a.car_color,
+    a.car_card_number,
+    a.vin_code,
+    a.transfer_ownership_times,
+    a.using_nature,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.PsiCustomerVehiclePk" resultMap="psiCustomerVehicleResultMap">
+    SELECT 
+    <include refid="t_psi_customer_vehicle_Column_List" />
+      FROM t_psi_customer_vehicle a
+     WHERE 1 = 1
+       AND a.vehicle_id = #{vehicleId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.PsiCustomerVehicleEntity" resultMap="psiCustomerVehicleResultMap">
+    SELECT 
+    <include refid="t_psi_customer_vehicle_Column_List" />
+      FROM t_psi_customer_vehicle a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="vehicleId != null" >
+          AND a.vehicle_id = #{vehicleId, jdbcType=BIGINT}
+        </if>
+        <if test="bookingId != null" >
+          AND a.booking_id = #{bookingId, jdbcType=BIGINT}
+        </if>
+        <if test="customerId != null and customerId != ''" >
+          AND a.customer_id = #{customerId, jdbcType=VARCHAR}
+        </if>
+        <if test="brand != null and brand != ''" >
+          AND a.brand = #{brand, jdbcType=VARCHAR}
+        </if>
+        <if test="carType != null and carType != ''" >
+          AND a.car_type = #{carType, jdbcType=VARCHAR}
+        </if>
+        <if test="registrationTime != null" >
+          AND a.registration_time = #{registrationTime, jdbcType=DATE}
+        </if>
+        <if test="driverMileage != null and driverMileage != ''" >
+          AND a.driver_mileage = #{driverMileage, jdbcType=VARCHAR}
+        </if>
+        <if test="carColor != null and carColor != ''" >
+          AND a.car_color = #{carColor, jdbcType=VARCHAR}
+        </if>
+        <if test="carCardNumber != null and carCardNumber != ''" >
+          AND a.car_card_number = #{carCardNumber, jdbcType=VARCHAR}
+        </if>
+        <if test="vinCode != null and vinCode != ''" >
+          AND a.vin_code = #{vinCode, jdbcType=VARCHAR}
+        </if>
+        <if test="transferOwnershipTimes != null and transferOwnershipTimes != ''" >
+          AND a.transfer_ownership_times = #{transferOwnershipTimes, jdbcType=VARCHAR}
+        </if>
+        <if test="usingNature != null and usingNature != ''" >
+          AND a.using_nature = #{usingNature, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.PsiCustomerVehicleEntity" resultType="int">
+    SELECT count(1) FROM t_psi_customer_vehicle a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="vehicleId != null" >
+          AND a.vehicle_id = #{vehicleId, jdbcType=BIGINT}
+        </if>
+        <if test="bookingId != null" >
+          AND a.booking_id = #{bookingId, jdbcType=BIGINT}
+        </if>
+        <if test="customerId != null and customerId != ''" >
+          AND a.customer_id = #{customerId, jdbcType=VARCHAR}
+        </if>
+        <if test="brand != null and brand != ''" >
+          AND a.brand = #{brand, jdbcType=VARCHAR}
+        </if>
+        <if test="carType != null and carType != ''" >
+          AND a.car_type = #{carType, jdbcType=VARCHAR}
+        </if>
+        <if test="registrationTime != null" >
+          AND a.registration_time = #{registrationTime, jdbcType=DATE}
+        </if>
+        <if test="driverMileage != null and driverMileage != ''" >
+          AND a.driver_mileage = #{driverMileage, jdbcType=VARCHAR}
+        </if>
+        <if test="carColor != null and carColor != ''" >
+          AND a.car_color = #{carColor, jdbcType=VARCHAR}
+        </if>
+        <if test="carCardNumber != null and carCardNumber != ''" >
+          AND a.car_card_number = #{carCardNumber, jdbcType=VARCHAR}
+        </if>
+        <if test="vinCode != null and vinCode != ''" >
+          AND a.vin_code = #{vinCode, jdbcType=VARCHAR}
+        </if>
+        <if test="transferOwnershipTimes != null and transferOwnershipTimes != ''" >
+          AND a.transfer_ownership_times = #{transferOwnershipTimes, jdbcType=VARCHAR}
+        </if>
+        <if test="usingNature != null and usingNature != ''" >
+          AND a.using_nature = #{usingNature, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+</mapper>

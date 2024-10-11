@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.carDealer.dao.MessagePushDao">
+
+    <select id="selectTrackByDeadlineTime"
+            resultMap="com.exp.ucmp.dao.IPsiCustomerReservationTrackDao.psiCustomerReservationTrackResultMap">
+        SELECT
+        <include refid="com.exp.ucmp.dao.IPsiCustomerReservationTrackDao.t_psi_customer_reservation_track_Column_List"/>
+        FROM t_psi_customer_reservation_track a,t_psi_customer_reservation_msg b
+        where a.reservation_id = b.reservation_id
+        <if test="detectionDate != null">
+            AND b.reservation_detection_date <![CDATA[ <=]]> #{detectionDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="status != null">
+            AND a.track_status in
+            <foreach item="item" index="index" collection="status" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        AND a.is_delete != '00'
+    </select>
+
+    <select id="selectTrackBySysTime"
+            resultMap="com.exp.ucmp.dao.IPsiCustomerReservationTrackDao.psiCustomerReservationTrackResultMap">
+        SELECT
+        <include refid="com.exp.ucmp.dao.IPsiCustomerReservationTrackDao.t_psi_customer_reservation_track_Column_List"/>
+        FROM t_psi_customer_reservation_track a,t_psi_car_dealer_inquiry b
+        where (a.other_brand_inquiry_id = b.inquiry_id or a.oneself_brand_inquiry_id = b.inquiry_id)
+        <if test="generateAcquisitionsTime != null">
+            AND b.generate_acquisitions_time <![CDATA[ <=]]> #{generateAcquisitionsTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="firstEscalationTime != null">
+            AND b.first_escalation_time <![CDATA[ <=]]> #{firstEscalationTime, jdbcType=TIMESTAMP}
+        </if>
+        <if test="status != null">
+            AND b.inquiry_status in
+            <foreach item="item" index="index" collection="status" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        AND a.is_delete != '00'
+        AND b.is_delete!= '00'
+    </select>
+
+</mapper>

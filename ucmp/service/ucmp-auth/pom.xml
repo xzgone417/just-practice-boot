@@ -1,0 +1,71 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.exp</groupId>
+        <artifactId>ucmp-build</artifactId>
+        <version>0.0.1</version>
+    </parent>
+    <artifactId>ucmp-auth</artifactId>
+    <version>0.0.1</version>
+
+    <dependencies>
+        <!-- 实现对 Jasypt 实现自动化配置 -->
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+        </dependency>
+        <!-- 数据库 -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+	    
+	    <dependency>
+		  <groupId>com.para.esc.web</groupId>
+		  <artifactId>sso-oauth-sdk</artifactId>
+		</dependency>
+		
+        <dependency>
+            <groupId>com.egrid</groupId>
+            <artifactId>cmf-service-copiers</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.egrid</groupId>
+            <artifactId>cmf-service-shiro-starter</artifactId>
+            <version>2.0.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.egrid</groupId>
+            <artifactId>cmf-service-cache</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.exp</groupId>
+            <artifactId>ucmp-entity</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.exp</groupId>
+            <artifactId>ucmp-web</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        
+        <dependency>
+		    <groupId>com.huawei.apigateway</groupId>
+		    <artifactId>java-sdk-core</artifactId>
+		    <version>3.2.0</version>
+		</dependency>
+    </dependencies>
+
+</project>

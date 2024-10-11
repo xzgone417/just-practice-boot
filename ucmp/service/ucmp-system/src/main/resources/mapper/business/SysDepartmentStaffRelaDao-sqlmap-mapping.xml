@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.department.dao.SysDepartmentStaffDao">
+
+
+    <resultMap id="sysDepartmentStaffRelaResultMap" type="com.exp.ucmp.entity.SysDepartmentStaffRelaEntity">
+        <constructor>
+            <idArg column="rela_id" javaType="Long" jdbcType="BIGINT"/>
+        </constructor>
+        <result column="party_id" property="partyId" jdbcType="BIGINT"/>
+        <result column="department_id" property="departmentId" jdbcType="BIGINT"/>
+        <result column="created_by" property="createdBy" jdbcType="BIGINT"/>
+        <result column="created_date" property="createdDate" jdbcType="TIMESTAMP"/>
+        <result column="updated_by" property="updatedBy" jdbcType="BIGINT"/>
+        <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="t_sys_department_staff_rela_Column_List">
+        a
+        .
+        rela_id
+        ,
+    a.party_id,
+    a.department_id,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date
+    </sql>
+
+
+    <select id="selectDepartmentStaffAll" parameterType="com.exp.ucmp.department.dto.SysStaffAllDto"
+            resultType="com.exp.ucmp.department.dto.SysStaffAllDto">
+        SELECT
+        u.party_id AS partyId,
+        u.staff_code AS staffCode,
+        u.staff_name AS staffName,
+        u.staff_status AS staffStatus,
+        dept.department_name AS departmentName,
+        roleInfo.role_details_name AS roleDetailsName,
+        u.staff_status AS staffStatus,
+        depts.department_id AS departmentId
+        FROM
+        t_sys_staff_details u
+        LEFT JOIN
+        (SELECT
+        ds.party_id,
+        GROUP_CONCAT(d.department_name
+        SEPARATOR ',') AS department_name
+        FROM
+        t_sys_department_info d
+        INNER JOIN t_sys_department_staff_rela ds ON d.department_id = ds.department_id
+        GROUP BY ds.party_id) AS dept ON u.party_id = dept.party_id
+        LEFT JOIN
+        (SELECT
+        rr.party_id,
+        GROUP_CONCAT(rd.role_details_name
+        SEPARATOR ',') AS role_details_name
+        FROM
+        t_sys_role_details rd
+        INNER JOIN t_party_role_rela rr ON rd.role_id = rr.role_id
+        GROUP BY rr.party_id) AS roleInfo ON u.party_id = roleInfo.party_id
+        LEFT JOIN
+        (SELECT
+        d.department_id,
+        d.party_id
+        FROM
+        t_sys_department_staff_rela d
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="departmentId != null ">
+                AND d.department_id = #{departmentId, jdbcType=VARCHAR}
+            </if>
+        </trim>
+        ) AS depts ON u.party_id = depts.party_id
+    </select>
+
+
+    <select id="selectDepartmentStaffRoleAll" parameterType="com.exp.ucmp.department.dto.SysStaffAllDto"
+            resultType="com.exp.ucmp.department.dto.SysStaffAllDto">
+        SELECT
+        u.party_id AS partyId,
+        u.staff_code AS staffCode,
+        u.staff_name AS staffName,
+        u.staff_status AS staffStatus,
+        dept.department_name AS departmentName,
+        roleInfo.role_details_name AS roleDetailsName,
+        u.staff_status AS staffStatus,
+        depts.department_id AS departmentId
+        FROM
+        t_sys_staff_details u
+        LEFT JOIN
+        (SELECT
+        ds.party_id,
+        GROUP_CONCAT(d.department_name
+        SEPARATOR ',') AS department_name
+        FROM
+        t_sys_department_info d
+        INNER JOIN t_sys_department_staff_rela ds ON d.department_id = ds.department_id
+        GROUP BY ds.party_id) AS dept ON u.party_id = dept.party_id
+        INNER JOIN
+        (SELECT
+        rr.party_id,
+        GROUP_CONCAT(rd.role_details_name
+        SEPARATOR ',') AS role_details_name
+        FROM
+        t_sys_role_details rd
+        INNER JOIN t_party_role_rela rr ON rd.role_id = rr.role_id
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="roleDetailsName != null and roleDetailsName != ''">
+                AND rd.role_details_name like concat('%',#{roleDetailsName, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="roleDetailsType != null and roleDetailsType != '' ">
+                AND rd.role_details_type = #{roleDetailsType, jdbcType=VARCHAR}
+            </if>
+        </trim>
+        GROUP BY rr.party_id) AS roleInfo ON u.party_id = roleInfo.party_id
+        LEFT JOIN
+        (SELECT
+        d.department_id,
+        d.party_id
+        FROM
+        t_sys_department_staff_rela d
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="departmentId != null ">
+                AND d.department_id = #{departmentId, jdbcType=VARCHAR}
+            </if>
+        </trim>
+        ) AS depts ON u.party_id = depts.party_id
+    </select>
+
+
+    <select id="selectDepartmentStaff" parameterType="com.exp.ucmp.department.dto.SysStaffAllDto"
+            resultType="com.exp.ucmp.department.dto.SysStaffAllDto">
+        SELECT
+        u.party_id AS partyId,
+        u.staff_code AS staffCode,
+        u.staff_name AS staffName,
+        u.staff_status AS staffStatus,
+        dept.department_name AS departmentName,
+        roleInfo.role_details_name AS roleDetailsName,
+        u.staff_status AS staffStatus
+        FROM
+        t_sys_staff_details u
+        INNER JOIN
+        (SELECT
+        ds.party_id,
+        GROUP_CONCAT(d.department_name
+        SEPARATOR ',') AS department_name
+        FROM
+        t_sys_department_info d
+        INNER JOIN t_sys_department_staff_rela ds ON d.department_id = ds.department_id
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="departmentRoleId != null">
+                AND d.department_id = #{departmentRoleId, jdbcType=VARCHAR}
+            </if>
+        </trim>
+        GROUP BY ds.party_id) AS dept ON u.party_id = dept.party_id
+        LEFT JOIN
+        (SELECT
+        rr.party_id,
+        GROUP_CONCAT(rd.role_details_name
+        SEPARATOR ',') AS role_details_name
+        FROM
+        t_sys_role_details rd
+        INNER JOIN t_party_role_rela rr ON rd.role_id = rr.role_id
+        GROUP BY rr.party_id) AS roleInfo ON u.party_id = roleInfo.party_id
+    </select>
+
+
+    <select id="selectDepartmentStaffRole" parameterType="com.exp.ucmp.department.dto.SysStaffAllDto"
+            resultType="com.exp.ucmp.department.dto.SysStaffAllDto">
+        SELECT
+        u.party_id AS partyId,
+        u.staff_code AS staffCode,
+        u.staff_name AS staffName,
+        u.staff_status AS staffStatus,
+        dept.department_name AS departmentName,
+        roleInfo.role_details_name AS roleDetailsName,
+        u.staff_status AS staffStatus
+        FROM
+        t_sys_staff_details u
+        INNER JOIN
+        (SELECT
+        ds.party_id,
+        GROUP_CONCAT(d.department_name
+        SEPARATOR ',') AS department_name
+        FROM
+        t_sys_department_info d
+        INNER JOIN t_sys_department_staff_rela ds ON d.department_id = ds.department_id
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="departmentRoleId != null">
+                AND d.department_id = #{departmentRoleId, jdbcType=VARCHAR}
+            </if>
+        </trim>
+        GROUP BY ds.party_id) AS dept ON u.party_id = dept.party_id
+        INNER JOIN
+        (SELECT
+        rr.party_id,
+        GROUP_CONCAT(rd.role_details_name
+        SEPARATOR ',') AS role_details_name
+        FROM
+        t_sys_role_details rd
+        INNER JOIN t_party_role_rela rr ON rd.role_id = rr.role_id
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="roleDetailsName != null and roleDetailsName != ''">
+                AND rd.role_details_name like concat('%',#{roleDetailsName, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="roleDetailsType != null and roleDetailsType != '' ">
+                AND rd.role_details_type = #{roleDetailsType, jdbcType=VARCHAR}
+            </if>
+        </trim>
+        GROUP BY rr.party_id) AS roleInfo ON u.party_id = roleInfo.party_id
+    </select>
+
+
+</mapper>

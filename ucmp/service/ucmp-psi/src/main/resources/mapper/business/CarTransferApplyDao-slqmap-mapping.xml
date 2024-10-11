@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.transfer.dao.CarTransferApplyDao">
+<!--申请-->
+    <select id="selectApplyList" parameterType="com.exp.ucmp.transfer.dto.TransferCarApplyQueryDto"
+            resultType="com.exp.ucmp.transfer.dto.TransferCarApplyResultDto">
+        SELECT
+            b.car_series_name carSeriesName,
+            b.base_car_type_name baseCarTypeName,
+            b.car_colour carColour,
+            b.vin_code vinCode,
+            b.car_source carSource,
+            (select dict_value from t_sys_datadict  where dict_code = b.car_source)carSourceName,
+            a.transfer_apply_id transferApplyId,
+            a.stock_id stockId,
+            a.warehous_date warehousDate,
+            a.storage_id storageId,
+            (SELECT storage_name FROM t_sys_car_used_storage WHERE storage_id = a.storage_id) storageName,
+            a.transfer_storage_id transferStorageId,
+            (SELECT storage_name FROM t_sys_car_used_storage WHERE storage_id = a.transfer_storage_id) transferStorageName,
+            a.start_time startTime,
+            a.expected_time expectedTime,
+            a.transfer_type transferType,
+            (select dict_value from t_sys_datadict  where dict_code = a.transfer_type)transferTypeName,
+            a.marks,
+            a.transfer_status transferStatus,
+            (case when a.order_info_id is null 
+            	then (select staff_name from t_sys_staff_details where party_id = a.initiator) 
+            	else (select distinct user_name from t_sys_store_staff_info where party_id = a.initiator) end) initiator,
+            a.initiator_time initiatorTime,
+            c.actual_departure_time actualDepartureTime,
+            c.estimated_time estimatedTime,
+            a.feedback_estimated_arrival_time feedbackEstimatedArrivalTime,
+            a.delivery_time deliveryTime,
+            a.dispatch_number dispatchNumber
+        FROM
+            t_psi_car_transfer_apply a
+            JOIN t_psi_car_stock_info b ON a.stock_id = b.stock_id
+            LEFT JOIN t_psi_dispatch_info c ON c.dispatch_apply_id = a.transfer_apply_id
+        WHERE
+            a.is_delete = '00'
+          AND a.is_enable = '01'
+          AND a.is_submit = '01'
+            <if test="vin!=null and vin!=''">
+                and b.vin_code = #{vin}
+            </if>
+            <if test="storageId!=null and storageId!=''">
+                and a.storage_id = #{storageId}
+            </if>
+            <if test="transferStorageId!=null and transferStorageId!=''">
+                and a.transfer_storage_id = #{transferStorageId}
+            </if>
+            <if test="transferStatus!=null and transferStatus!=''">
+                and a.transfer_status = #{transferStatus}
+            </if>
+            <if test="transferType!=null and transferType!=''">
+                and a.transfer_type = #{transferType}
+            </if>
+        ORDER BY a.created_date DESC
+    </select>
+
+<!--    登记-->
+    <select id="selectRegisterList" parameterType="com.exp.ucmp.transfer.dto.TransferCarApplyQueryDto"
+            resultType="com.exp.ucmp.transfer.dto.TransferCarApplyResultDto">
+        SELECT
+            b.car_series_name carSeriesName,
+            b.base_car_type_name baseCarTypeName,
+            b.car_colour carColour,
+            b.vin_code vinCode,
+            b.car_source carSource,
+            (select dict_value from t_sys_datadict  where dict_code = b.car_source)carSourceName,
+            a.transfer_apply_id transferApplyId,
+            a.stock_id stockId,
+            a.storage_id storageId,
+            (SELECT storage_name FROM t_sys_car_used_storage WHERE storage_id = a.storage_id) storageName,
+            a.transfer_storage_id transferStorageId,
+            (SELECT storage_name FROM t_sys_car_used_storage WHERE storage_id = a.transfer_storage_id) transferStorageName,
+            a.transfer_type transferType,
+            (select dict_value from t_sys_datadict  where dict_code = a.transfer_type)transferTypeName,
+            a.marks,
+            (case when a.order_info_id is null 
+            	then (select staff_name from t_sys_staff_details where party_id = a.initiator) 
+            	else (select distinct user_name from t_sys_store_staff_info where party_id = a.initiator) end) initiator,
+            a.initiator_time initiatorTime,
+            a.is_submit transferStatus,
+            a.dispatch_number dispatchNumber
+        FROM
+            t_psi_car_transfer_apply a
+            JOIN t_psi_car_stock_info b ON a.stock_id = b.stock_id
+        WHERE
+            a.is_delete = '00'
+          AND a.is_enable = '01'
+          AND a.is_submit in ('00','02')
+            <if test="vin!=null and vin!=''">
+                and b.vin_code = #{vin}
+            </if>
+            <if test="storageId!=null and storageId!=''">
+                and a.storage_id = #{storageId}
+            </if>
+            <if test="transferStorageId!=null and transferStorageId!=''">
+                and a.transfer_storage_id = #{transferStorageId}
+            </if>
+            <if test="transferStatus!=null and transferStatus!=''">
+                and a.is_submit = #{transferStatus}
+            </if>
+            <if test="transferType!=null and transferType!=''">
+                and a.transfer_type = #{transferType}
+            </if>
+        ORDER BY a.created_date DESC
+    </select>
+
+    <select id="selectApplyStatusList" parameterType="com.exp.ucmp.transfer.dto.TransferCarApplyQueryDto"
+            resultType="com.exp.ucmp.transfer.dto.TransferCarApplyStatusDto">
+        SELECT
+            b.car_series_name carSeriesName,
+            b.base_car_type_name baseCarTypeName,
+            b.car_colour carColour,
+            (select dict_value from t_sys_datadict  where dict_code = b.stock_type) stockType,
+            b.vin_code vinCode,
+            (select dict_value from t_sys_datadict  where dict_code = b.car_source) carSource,
+            b.first_license_date invoicingDate,
+            b.purchase_price purchasePrice,
+            a.dispatch_number dispatchNumber,
+            a.transfer_apply_id transferApplyId,
+            a.stock_id stockId,
+            a.delivery_time deliveryTime,
+            a.warehous_date warehousDate,
+            b.warehous_date outDate,
+            a.storage_id storageId,
+            (SELECT storage_name FROM t_sys_car_used_storage WHERE storage_id = a.storage_id) storageName,
+            a.transfer_storage_id transferStorageId,
+            (SELECT storage_name FROM t_sys_car_used_storage WHERE storage_id = a.transfer_storage_id) transferStorageName,
+            (select dict_value from t_sys_datadict  where dict_code = a.transfer_type) transferType,
+            (select dict_value from t_sys_datadict  where dict_code = a.transfer_status) transferStatus
+        FROM
+            t_psi_car_transfer_apply a
+            JOIN t_psi_car_stock_info b ON a.stock_id = b.stock_id
+            <if test="type == 1">
+                JOIN t_sys_car_used_storage c ON c.storage_id = a.storage_id
+            </if>
+            <if test="type == 2">
+                JOIN t_sys_car_used_storage c ON c.storage_id = a.transfer_storage_id
+            </if>
+            <if test="type == 3">
+                JOIN t_sys_car_used_storage c ON c.storage_id = a.storage_id
+            </if>
+        WHERE
+            a.is_delete = '00'
+          AND a.is_enable = '01'
+          AND a.is_submit = '01'
+        <if test="storeIds.size>0">
+            and c.org_id in(<foreach collection="storeIds" item="sta" separator=",">#{sta}</foreach>)
+        </if>
+        <if test="type == 2">
+                and a.transfer_status in ('5205','5206')
+            </if>
+            <if test="type == 3">
+                and a.transfer_status in ('5202','5203')
+            </if>
+            <if test="vin!=null and vin!=''">
+                and b.vin_code = #{vin}
+            </if>
+            <if test="transferStorageId!=null and transferStorageId!=''">
+                and a.transfer_storage_id = #{transferStorageId}
+            </if>
+            <if test="transferStatus!=null and transferStatus!=''">
+                and a.transfer_status = #{transferStatus}
+            </if>
+            <if test="transferType!=null and transferType!=''">
+                and a.transfer_type = #{transferType}
+            </if>
+        <if test="type != 1">
+            ORDER BY a.initiator_time DESC
+        </if>
+        <!--
+        车辆管理-》调拨车辆-》调拨发运状态；该页面查出双份数据，暂时注掉
+        <if test="type == 1">
+            union (
+            SELECT
+            b.car_series_name carSeriesName,
+            b.base_car_type_name baseCarTypeName,
+            b.car_colour carColour,
+            (select dict_value from t_sys_datadict  where dict_code = b.stock_type) stockType,
+            b.vin_code vinCode,
+            b.car_source carSource,
+            b.first_license_date invoicingDate,
+            b.purchase_price purchasePrice,
+            a.dispatch_number dispatchNumber,
+            a.transfer_apply_id transferApplyId,
+            a.stock_id stockId,
+            a.delivery_time deliveryTime,
+            a.warehous_date warehousDate,
+            b.warehous_date outDate,
+            a.storage_id storageId,
+            (SELECT storage_name FROM t_sys_car_used_storage WHERE storage_id = a.storage_id) storageName,
+            a.transfer_storage_id transferStorageId,
+            (SELECT storage_name FROM t_sys_car_used_storage WHERE storage_id = a.transfer_storage_id) transferStorageName,
+            (select dict_value from t_sys_datadict  where dict_code = a.transfer_type) transferType,
+            (select dict_value from t_sys_datadict  where dict_code = a.transfer_status) transferStatus
+            FROM
+            t_psi_car_transfer_apply a
+            JOIN t_psi_car_stock_info b ON a.stock_id = b.stock_id
+            JOIN t_sys_car_used_storage c ON c.storage_id = a.transfer_storage_id
+            WHERE
+            a.is_delete = '00'
+            AND a.is_enable = '01'
+            AND a.is_submit = '01'
+            <if test="storeIds.size>0">
+                and c.org_id in(<foreach collection="storeIds" item="sta" separator=",">#{sta}</foreach>)
+            </if>
+            <if test="vin!=null and vin!=''">
+                and b.vin_code = #{vin}
+            </if>
+            <if test="transferStorageId!=null and transferStorageId!=''">
+                and a.transfer_storage_id = #{transferStorageId}
+            </if>
+            <if test="transferStatus!=null and transferStatus!=''">
+                and a.transfer_status = #{transferStatus}
+            </if>
+            <if test="transferType!=null and transferType!=''">
+                and a.transfer_type = #{transferType}
+            </if>
+            ORDER BY a.initiator_time DESC )
+        </if>
+        -->
+    </select>
+
+</mapper>

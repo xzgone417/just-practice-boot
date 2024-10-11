@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.storeApp.dao.AllocationStateDao">
+
+    <select id="queryAllocationState" resultType="com.exp.ucmp.stock.dto.AllocationStateDto">
+	SELECT
+		a.estimated_time estimatedTime, -- 预计到店时间
+		a.departure departureName,  -- 发运地
+		a.destination destinationName, -- 目的地
+		a.created_date staffDate,  -- 申请日期
+		b.staff_name staffName,  -- 申请人
+		a.carrier_name carrierName, -- 物流公司名称
+		a.driver_name driverName, -- 联系人
+		a.driver_phone driverPhone, -- 联系人电话
+		a.actual_departure_time actualDepartureTime, -- 运输开始日期
+		a.actual_time actualTime,  -- 运输到达日期
+		a.warehousing_time warehousingTime, -- 入库时间
+		c.staff_name warehousingName, -- 入库人
+		a.dispatch_effective_time dispatchEffectiveTime, -- 发运时间
+		a.dispatch_info_id dispatchInfoId
+	FROM
+		t_psi_dispatch_info a
+		left join t_sys_staff_details b on a.created_by = b.party_id
+		left join t_sys_staff_details c on a.warehousing_by = c.party_id
+		where
+		a.is_enable = '01'
+		and a.is_delete='00'
+		<if test="type == 1">
+			and a.dispatch_apply_id = #{param}
+		</if>
+		<if test="type == 2">
+			and a.car_vin = #{param}
+		</if>
+
+		order by a.created_date desc limit 1
+    </select>
+    
+    <resultMap type="java.util.HashMap" id="arriveMap">
+    	<result column="current_address" property="currentAddress" javaType="String"/>
+    	<result column="record_time" property="recordTime" javaType="String"/>
+    </resultMap>
+
+	<select id="getArriveCity" resultMap="arriveMap">
+		SELECT
+			current_address,
+			record_time
+		FROM
+			t_psi_transfer_route_info
+		WHERE
+			dispatch_info_id = #{dispatchInfoId}
+		ORDER BY
+			record_time DESC
+			LIMIT 2
+    </select>
+</mapper>

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.servicing.dao.ServicingDao">
+
+	<select id="findServiceDetails" resultType="com.exp.ucmp.carService.dto.QueryServiceDetailsDto">
+	select
+			tcsi.service_id serviceId,
+			tcsi.stock_id stockId,
+			tcsi.service_number serviceNumber,
+			tsi.base_car_type_name baseCarTypeName,
+			tsi.vin_code vinCode,
+			(select td.dict_value from t_sys_datadict td where td.dict_code=tsi.car_type) carTypeName,
+			tsi.storage_name storageName,
+			tcsi.start_people startPeople,
+			tcsi.start_date startDate,
+			tcsi.service_place siteName,
+			tcsi.expect_end_time expectDeliveryTime,
+			tcsi.feedback_date feedbackDate,
+			tcsi.quote_order_no quoteOrderNo,
+			tcsi.plan_complete_date planCompleteDate,
+			tcsi.quote_order_id quoteOrderId,
+			tcsi.service_state serviceState,
+			(select td.dict_value from t_sys_datadict td where td.dict_code=tcsi.service_state) serviceStateName,
+			tcsi.pre_approval_status preApprovalStatus
+		from
+			t_psi_car_service_info tcsi
+		inner join t_psi_car_stock_info tsi on tcsi.stock_id = tsi.stock_id
+		where tcsi.service_number = #{ucmpOrderNo} 
+	</select>
+	
+	<insert id="addQuoteOrder" parameterType="com.exp.ucmp.isp.dto.QuoteOrderAddDto">
+	insert
+		into
+			t_psi_service_quote_order ( quote_order_id,
+			quote_order_no,
+			ucmp_order_no,
+			plan_complete_date,
+			total_price,
+			created_by,
+			created_date,
+			updated_by,
+			updated_date,
+			is_enable,
+			is_delete )
+		values( #{quoteOrderId, jdbcType=BIGINT},
+		#{quoteOrderNo, jdbcType=VARCHAR},
+		#{ucmpOrderNo, jdbcType=VARCHAR},
+		#{planCompleteDate, jdbcType=TIMESTAMP},
+		#{totalPrice, jdbcType=DECIMAL},
+		#{createdBy, jdbcType=BIGINT},
+		current_timestamp,
+		#{updateBy, jdbcType=BIGINT},
+		current_timestamp,
+		'01',
+		'00' )
+	</insert>
+	
+	<insert id="addQuoteProject" parameterType="java.util.List">
+		insert into t_psi_car_service_repair_project ( 
+			project_id,
+			quote_order_id,
+			repair_project_type_code,
+			repair_project_type,
+			repair_project_code,
+			repair_project_name,
+			time_price,
+			differentiate,
+			differentiate_code,
+			is_component,
+			is_other,
+			created_by,
+			created_date,
+			updated_by,
+			updated_date,
+			is_enable,
+			is_delete ) values	
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.projectId, jdbcType=BIGINT},
+			#{item.quoteOrderId, jdbcType=BIGINT},
+			#{item.repairProjectTypeCode, jdbcType=VARCHAR},
+			#{item.repairProjectType, jdbcType=VARCHAR},
+			#{item.repairProjectCode, jdbcType=VARCHAR},
+			#{item.repairProject, jdbcType=VARCHAR},
+			#{item.timePrice, jdbcType=DECIMAL},
+			#{item.differentiate, jdbcType=VARCHAR},
+			#{item.differentiateCode, jdbcType=VARCHAR},
+			#{item.isComponent, jdbcType=TINYINT},
+			#{item.isOther, jdbcType=TINYINT},
+			#{item.createdBy, jdbcType=BIGINT},
+			current_timestamp,
+			#{item.updateBy, jdbcType=BIGINT},
+			current_timestamp,
+			'01',
+			'00' 
+			)
+		</foreach>
+	</insert>
+	
+	<insert id="addQuoteComponent" parameterType="java.util.List">
+		insert into t_psi_car_service_repair_project_component ( component_id,
+			project_id,
+			component_code,
+			component_name,
+			component_price,
+			differentiate,
+			differentiate_code,
+			created_by,
+			created_date,
+			updated_by,
+			updated_date,
+			is_enable,
+			is_delete ) values	
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.componentId, jdbcType=BIGINT},
+			#{item.projectId, jdbcType=BIGINT},
+			#{item.componentCode, jdbcType=VARCHAR},
+			#{item.componentName, jdbcType=VARCHAR},
+			#{item.componentPrice, jdbcType=DECIMAL},
+			#{item.differentiate, jdbcType=VARCHAR},
+			#{item.differentiateCode, jdbcType=VARCHAR},
+			#{item.createdBy, jdbcType=BIGINT},
+			current_timestamp,
+			#{item.updateBy, jdbcType=BIGINT},
+			current_timestamp,
+			'01',
+			'00' 
+			)
+		</foreach>
+	</insert>
+	
+	<insert id="addQuoteOtherFees" parameterType="java.util.List">
+		insert into t_psi_car_service_project_other_fees ( other_fees_id,
+		project_id,
+		repair_time_name,
+		repair_time_code,
+		other_fees_name,
+		other_fees_code,
+		fees,
+		receivable_amount,
+		differentiate,
+		differentiate_code,
+		remark,
+		created_by,
+		created_date,
+		updated_by,
+		updated_date,
+		is_enable,
+		is_delete )
+	values	
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.otherFeesId, jdbcType=BIGINT},
+			#{item.projectId, jdbcType=BIGINT},
+			#{item.repairTimeName, jdbcType=VARCHAR},
+			#{item.repairTimeCode, jdbcType=VARCHAR},
+			#{item.otherFeesName, jdbcType=VARCHAR},
+			#{item.otherFeesCode, jdbcType=VARCHAR},
+			#{item.fees, jdbcType=DECIMAL},
+			#{item.receivableAmount, jdbcType=DECIMAL},
+			#{item.differentiate, jdbcType=VARCHAR},
+			#{item.differentiateCode, jdbcType=VARCHAR},
+			#{item.remark, jdbcType=VARCHAR},
+			#{item.createdBy, jdbcType=BIGINT},
+			current_timestamp,
+			#{item.updateBy, jdbcType=BIGINT},
+			current_timestamp,
+			'01',
+			'00' 
+			)
+		</foreach>
+	</insert>
+	
+	<update id="updateServicingSatus">
+		update
+			t_psi_car_service_info tcsi
+		set
+			<if test="status != '5311'">
+			tcsi.service_state = #{status},
+			</if>
+			<if test="status == '5311'">
+			tcsi.is_settlement = 2,
+			tcsi.work_order_no = #{workOrderNo},
+			</if>
+			<if test="quoteOrderId != null">
+			tcsi.quote_order_id = #{quoteOrderId},
+			</if>
+			<if test="status == '5302' or status == '5304'">
+			tcsi.approval_id = null,
+			</if>
+			<if test="status != '5306' and status != '5311' ">
+			tcsi.plan_complete_date = #{planCompleteDate},
+			tcsi.feedback_date = now(),
+			</if>
+			<if test="status == '5306'">
+			tcsi.complete_date = now(),
+			</if>
+			<if test="totalPrice != null">
+			tcsi.total_price = #{totalPrice},
+			</if>
+			tcsi.updated_by = #{createdBy},
+			tcsi.updated_date = now()
+		where
+			tcsi.service_number = #{serviceNumber}
+	</update>
+	
+	<update id="updateCarStockStatus">
+	update
+		t_psi_car_stock_info tsi
+	set
+		tsi.stock_state = #{stockStatus},
+		tsi.updated_by = #{partyId},
+		tsi.updated_date = now()
+	where
+		tsi.stock_id = #{stockId}
+	</update>
+	
+	<select id="queryRecordList" resultType="com.exp.ucmp.carService.dto.ServiceApproveRecordDto">
+	select
+		tsar.record_id recordId,
+		tsar.service_id serviceId,
+		tsar.approval_date approvalDate,
+		tsar.approval_result approvalResult,
+		tsar.approval_remark approvalRemark
+	from
+		t_psi_car_service_approval_record tsar
+	where tsar.service_id = #{serviceId}
+	  and tsar.approval_result = #{approvalResult}
+	order by
+		tsar.approval_date desc
+	</select>
+</mapper>

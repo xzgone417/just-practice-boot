@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.xxljob.dao.IXxlJobDao" >
+
+<!-- 查询最近同步的记录 -->
+  <select id="selectMaxtimestampByReveive" parameterType="com.exp.ucmp.entity.JobReceiveInfoEntity" resultType="java.lang.Long">
+       SELECT max(distinct a.receive_timestamp) FROM t_job_receive_info a
+     GROUP BY a.receive_type, a.job_type, a.receive_task_type, a.receive_result
+       <trim prefix="HAVING" prefixOverrides="AND" >
+        <if test="receiveType != null and receiveType != ''" >
+          AND a.receive_type = #{receiveType, jdbcType=VARCHAR}
+        </if>
+        <if test="jobType != null and jobType != ''" >
+          AND a.job_type = #{jobType, jdbcType=VARCHAR}
+        </if>
+        <if test="receiveTaskType != null and receiveTaskType != ''" >
+          AND a.receive_task_type = #{receiveTaskType, jdbcType=VARCHAR}
+        </if>
+        <if test="receiveResult != null and receiveResult != ''" >
+          AND a.receive_result = #{receiveResult, jdbcType=VARCHAR}
+        </if>
+       </trim>
+  </select>
+  
+  <resultMap id="receiveReqResultMap" type="com.exp.ucmp.entity.JobReceiveReqEntity" >
+    <result column="receive_id" property="receiveId" jdbcType="BIGINT" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="receive_req_data" property="receiveReqData" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+
+  <resultMap id="receiveRspResultMap" type="com.exp.ucmp.entity.JobReceiveRspEntity" >
+        <result column="receive_id" property="receiveId" jdbcType="BIGINT" />
+        <result column="receive_rsp_data" property="receiveRspData" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <sql id="t_job_receive_req_Column_List" >
+    b.receive_id,
+    b.created_by,
+    b.created_date,
+    b.updated_by,
+    b.updated_date,
+    b.receive_req_data
+  </sql>
+  
+  <select id="selectReqByTimestamp" parameterType="com.exp.ucmp.entity.JobReceiveInfoEntity" resultMap="receiveReqResultMap">
+       SELECT 
+       <include refid="t_job_receive_req_Column_List" />
+        FROM t_job_receive_info a, t_job_receive_req b
+       WHERE a.receive_id = b.receive_id
+        <if test="receiveType != null and receiveType != ''" >
+          AND a.receive_type = #{receiveType, jdbcType=VARCHAR}
+        </if>
+        <if test="jobType != null and jobType != ''" >
+          AND a.job_type = #{jobType, jdbcType=VARCHAR}
+        </if>
+        <if test="receiveTaskType != null and receiveTaskType != ''" >
+          AND a.receive_task_type = #{receiveTaskType, jdbcType=VARCHAR}
+        </if>
+        <if test="receiveTimestamp != null" >
+          AND a.receive_timestamp = #{receiveTimestamp, jdbcType=BIGINT}
+        </if>
+        <if test="receiveResult != null and receiveResult != ''" >
+          AND a.receive_result = #{receiveResult, jdbcType=VARCHAR}
+        </if>
+        ORDER BY b.created_date desc 
+  </select>
+
+   <select id="selectALLWaitRspStr" parameterType="com.exp.ucmp.entity.JobReceiveInfoEntity" resultMap="receiveRspResultMap">
+    SELECT
+        rsp.receive_id,
+        rsp.receive_rsp_data
+    FROM
+        t_job_receive_info info
+    INNER JOIN
+        t_job_receive_rsp rsp
+    ON
+        info.receive_id = rsp.receive_id
+    WHERE
+        info.receive_count > 0
+    <if test="processingStatus != null and processingStatus != ''" >
+        AND info.processing_status = #{processingStatus}
+    </if>
+    <if test="receiveTaskType != null and receiveTaskType != ''" >
+        AND info.receive_task_type = #{receiveTaskType}
+    </if>
+    ORDER BY info.receive_timestamp ASC
+   </select>
+    <select id="selectALLWaitRspByStoreStaff" parameterType="com.exp.ucmp.entity.JobReceiveInfoEntity" resultMap="receiveRspResultMap">
+        SELECT
+        rsp.receive_id,
+        rsp.receive_rsp_data
+        FROM
+        t_job_receive_info info
+        INNER JOIN
+        t_job_receive_rsp rsp
+        ON
+        info.receive_id = rsp.receive_id
+        <where>
+            <if test="processingStatus != null and processingStatus != ''" >
+                AND info.processing_status = #{processingStatus}
+            </if>
+            <if test="receiveTaskType != null and receiveTaskType != ''" >
+                AND info.receive_task_type = #{receiveTaskType}
+            </if>
+        </where>
+        ORDER BY info.receive_timestamp ASC
+    </select>
+
+   <!-- 查询所有门店的code -->
+   <select id="getDepartmentCodeList" resultType="java.lang.String">
+   		select org_id from t_sys_store_info
+   </select>
+</mapper>

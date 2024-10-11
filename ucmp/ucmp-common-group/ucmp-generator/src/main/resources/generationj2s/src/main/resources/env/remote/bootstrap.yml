@@ -1,0 +1,10 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.76:8848,192.168.1.85:8848,192.168.1.90:8848
+        namespace: 2c78a7bc-7147-4109-b7c0-7a1711409246
+      config:
+        server-addr: 192.168.1.76:8848,192.168.1.85:8848,192.168.1.90:8848
+        namespace: 2c78a7bc-7147-4109-b7c0-7a1711409246
+        file-extension: yml

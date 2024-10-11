@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.mall.dao.PsiSalesOrderMaterialDao">
+    <select id="selectByOrderInfoId" resultType="com.exp.ucmp.clues.dto.PsiSalesOrderMaterialDto">
+        select
+            psom.material_id materialId,
+            stmf.material_file_id materialFileId,
+            stmf.material_order materialOrder,
+            stmf.thumbnail,
+            psom.material_type materialType,
+            td.dict_value materialTypeName,
+            stfm.file_path fileUrl
+        from
+            t_psi_sales_order_material psom,
+            t_sys_material_file stmf,
+            t_sys_file_msg stfm,
+            t_sys_datadict td
+        where
+            psom.material_id = stmf.material_file_id
+          and stmf.file_id = stfm.file_id
+          and td.dict_code = psom.material_type
+         and psom.order_info_id = #{orderInfoId, jdbcType=BIGINT}
+    </select>
+</mapper>
+

@@ -1,0 +1,731 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.carDealer.dao.InquiryQuotingDao">
+    <resultMap id="inquiryQueryResultMap" type="com.exp.ucmp.carDealer.dto.InquiryQuotingResultDto">
+        <constructor>
+            <idArg column="inquiry_id" javaType="Long" jdbcType="BIGINT"/>
+        </constructor>
+        <result column="reservation_id" property="reservationId" jdbcType="BIGINT"/>
+        <result column="make_order_person_name" property="makeOrderPersonName" jdbcType="VARCHAR"/>
+        <result column="make_order_person_iphone" property="makeOrderPersonIphone" jdbcType="VARCHAR"/>
+        <result column="make_order_person_role" property="makeOrderPersonRole" jdbcType="VARCHAR"/>
+        <result column="quote_deadline" property="quoteDeadline" jdbcType="TIMESTAMP"/>
+        <result column="inquiry_status" property="inquiryStatus" jdbcType="VARCHAR"/>
+        <result column="approval_status" property="approvalStatus" jdbcType="VARCHAR"/>
+        <result column="brand_chinese_describe" property="brandChineseDescribe" jdbcType="VARCHAR"/>
+        <result column="brand" property="brand" jdbcType="VARCHAR"/>
+        <result column="car_series_chinese_describe" property="carSeriesChineseDescribe" jdbcType="VARCHAR"/>
+        <result column="car_series" property="carSeries" jdbcType="VARCHAR"/>
+        <result column="car_type_chinese_describe" property="carTypeChineseDescribe" jdbcType="VARCHAR"/>
+        <result column="car_type" property="carType" jdbcType="VARCHAR"/>
+        <result column="licensing_date" property="licensingDate" jdbcType="DATE"/>
+        <result column="driving_mileage" property="drivingMileage" jdbcType="BIGINT"/>
+        <result column="quote_end_price" property="quoteEndPrice" jdbcType="DECIMAL"/>
+        <result column="quote_end_date" property="quoteEndDate" jdbcType="TIMESTAMP"/>
+        <result column="order_abandoned_reason" property="orderAbandonedReason" jdbcType="VARCHAR"/>
+        <result column="customer_intention" property="customerIntention" jdbcType="VARCHAR"/>
+        <result column="remarks" property="remarks" jdbcType="VARCHAR"/>
+        <result column="deal_price_end" property="dealPriceEnd" jdbcType="DECIMAL"/>
+        <result column="estimated_transfer_time" property="estimatedTransferTime" jdbcType="TIMESTAMP"/>
+        <result column="order_receiving_deadline" property="orderReceivingDeadline" jdbcType="TIMESTAMP"/>
+        <result column="generate_acquisitions_time" property="generateAcquisitionsTime" jdbcType="DATE"/>
+        <result column="first_escalation_time" property="firstEscalationTime" jdbcType="DATE"/>
+        <result column="second_escalation_time" property="secondEscalationTime" jdbcType="DATE"/>
+        <result column="approved_time" property="approvedTime" jdbcType="DATE"/>
+        <result column="old_car_confirmation_time" property="oldCarConfirmationTime" jdbcType="DATE"/>
+        <result column="overrule_time" property="overruleTime" jdbcType="DATE"/>
+        <result column="close_time" property="closeTime" jdbcType="DATE"/>
+        <result column="upload_file_time" property="uploadFileTime" jdbcType="DATE"/>
+
+        <result column="car_year_chinese_describe" property="carYearChineseDescribe" jdbcType="VARCHAR"/>
+        <result column="car_year" property="carYear" jdbcType="VARCHAR"/>
+        <result column="licensing_city" property="licensingCity" jdbcType="VARCHAR"/>
+        <result column="licensing_province" property="licensingProvince" jdbcType="VARCHAR"/>
+        <result column="color" property="color" jdbcType="VARCHAR"/>
+        <result column="vin_code" property="vinCode" jdbcType="VARCHAR"/>
+        <result column="license_plate_num" property="licensePlateNum" jdbcType="VARCHAR"/>
+        <result column="transfer_times" property="transferTimes" jdbcType="VARCHAR"/>
+        <result column="using_nature" property="usingNature" jdbcType="VARCHAR"/>
+
+        <result column="reservation_detection_address" property="reservationDetectionAddress" jdbcType="VARCHAR"/>
+        <result column="reservation_detection_date" property="reservationDetectionDate" jdbcType="TIMESTAMP"/>
+        <result column="customer_expect_price" property="customerExpectPrice" jdbcType="BIGINT"/>
+        <result column="customer_name" property="customerName" jdbcType="VARCHAR"/>
+        <result column="customer_iphone" property="customerIphone" jdbcType="VARCHAR"/>
+        <result column="business_order_no" property="businessOrderNo" jdbcType="VARCHAR"/>
+        
+        <result column="org_name" property="storeName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 查询指定车商人员报价的询价单（包括已报价、放弃报价） -->
+    <select id="queryInquiryQuoting" resultMap="inquiryQueryResultMap">
+        select distinct
+			a.inquiry_id,
+			a.reservation_id,
+			a.make_order_person_name,
+			a.make_order_person_iphone,
+			a.make_order_person_role,
+			a.order_receiving_deadline,
+			a.quote_deadline,
+			a.inquiry_status,
+			a.approval_status,
+			a.quote_end_price,
+			a.quote_end_date,
+			a.order_abandoned_reason,
+			a.customer_name,
+			a.customer_iphone,
+			a.customer_intention,
+			a.deal_price_end,
+			a.estimated_transfer_time,
+			a.business_order_no,
+			a.generate_acquisitions_time,
+			a.first_escalation_time,
+			a.second_escalation_time,
+			a.old_car_confirmation_time,
+			a.approved_time,
+			a.overrule_time,
+			a.close_time,
+			a.remarks,
+			a.upload_file_time,
+			b.brand_chinese_describe,
+			b.brand,
+			b.car_series_chinese_describe,
+			b.car_series,
+			b.car_type_chinese_describe,
+			b.car_type,
+			b.licensing_date,
+			b.driving_mileage,
+			b.car_year_chinese_describe,
+			b.car_year,
+			b.licensing_city,
+			b.licensing_province,
+			b.color,
+			b.license_plate_num ,
+			b.vin_code,
+			b.transfer_times,
+			b.using_nature,
+			c.reservation_detection_address,
+			c.reservation_detection_date,
+			c.customer_expect_price,
+			<!-- tssi.user_name make_order_person_name,
+			tssi.phone_number make_order_person_iphone,
+			tssi.role_code make_order_person_role, -->
+			tsi.org_name
+		from
+			t_psi_car_dealer_inquiry a,
+			t_psi_inquiry_cars b,
+			t_psi_customer_reservation_msg c,
+			<!-- t_sys_store_staff_info tssi, -->
+			t_sys_store_info tsi
+		where
+			a.inquiry_id = b.inquiry_id
+			and a.reservation_id = c.reservation_id
+			and a.is_delete != '00'
+			<!-- and a.created_by = tssi.party_id
+			and a.store_id = tssi.store_id -->
+			and a.store_id = tsi.store_id
+			<!-- and tssi.role_code in ( 'RE006', 'RE005', '7163020210223314224','4467720210223534254', 'SH', 'ME', 'MO', 'PMO' ) -->
+        <if test="carDealerId != null">
+            AND a.car_dealer_id = #{carDealerId, jdbcType=BIGINT}
+        </if>
+        AND a.car_dealer_staff_id = #{carDealerStaffId, jdbcType=BIGINT}
+        AND a.inquiry_status in
+        <foreach item="item" index="index" collection="status" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        order by a.inquiry_status
+    </select>
+    <!-- 查询指定车商人员报价的询价单（包括已报价(客户拒绝）、待报价） -->
+    <select id="queryInquiryQuote" resultMap="inquiryQueryResultMap">
+        select distinct
+			a.inquiry_id,
+			a.reservation_id,
+			a.make_order_person_name,
+			a.make_order_person_iphone,
+			a.make_order_person_role,
+			a.order_receiving_deadline,
+			a.quote_deadline,
+			a.inquiry_status,
+			a.approval_status,
+			a.quote_end_price,
+			a.quote_end_date,
+			a.order_abandoned_reason,
+			a.customer_name,
+			a.customer_iphone,
+			a.customer_intention,
+			a.deal_price_end,
+			a.estimated_transfer_time,
+			a.business_order_no,
+			a.generate_acquisitions_time,
+			a.first_escalation_time,
+			a.second_escalation_time,
+			a.old_car_confirmation_time,
+			a.approved_time,
+			a.overrule_time,
+			a.close_time,
+			a.remarks,
+			a.upload_file_time,
+			b.brand_chinese_describe,
+			b.brand,
+			b.car_series_chinese_describe,
+			b.car_series,
+			b.car_type_chinese_describe,
+			b.car_type,
+			b.licensing_date,
+			b.driving_mileage,
+			b.car_year_chinese_describe,
+			b.car_year,
+			b.licensing_city,
+			b.licensing_province,
+			b.color,
+			b.license_plate_num ,
+			b.vin_code,
+			b.transfer_times,
+			b.using_nature,
+			c.reservation_detection_address,
+			c.reservation_detection_date,
+			c.customer_expect_price,
+			<!-- tssi.user_name make_order_person_name,
+			tssi.phone_number make_order_person_iphone,
+			tssi.role_code make_order_person_role, -->
+			tsi.org_name
+		from
+			t_psi_car_dealer_inquiry a,
+			t_psi_inquiry_cars b,
+			t_psi_customer_reservation_msg c,
+			<!-- t_sys_store_staff_info tssi, -->
+			t_sys_store_info tsi
+		where
+			a.inquiry_id = b.inquiry_id
+			and a.reservation_id = c.reservation_id
+			and a.is_delete != '00'
+			<!-- and a.created_by = tssi.party_id
+			and a.store_id = tssi.store_id -->
+			and a.store_id = tsi.store_id
+			<!-- and tssi.role_code in ( 'RE006', 'RE005', '7163020210223314224','4467720210223534254', 'SH', 'ME', 'MO', 'PMO' ) -->
+        <if test="carDealerId != null">
+            AND a.car_dealer_id = #{carDealerId, jdbcType=BIGINT}
+        </if>
+        <if test="customerIntention != null">
+            AND a.customer_intention = #{customerIntention, jdbcType=VARCHAR}
+        </if>
+        AND a.car_dealer_staff_id = #{carDealerStaffId, jdbcType=BIGINT}
+        <if test="businessOrderNo != null">
+            AND a.business_order_no like concat('%',#{businessOrderNo, jdbcType=VARCHAR},'%')
+        </if>
+        AND a.inquiry_status in
+        <foreach item="item" index="index" collection="status" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        <trim prefix="order by" prefixOverrides=",">
+            <foreach item="item" index="index" collection="status">
+                <if test="item=='0912'">
+                    ,a.close_time desc
+                </if>
+                <if test="item=='0911'">
+                    ,a.inquiry_status desc
+                    ,a.quote_deadline
+                </if>
+                <if test="item=='0902'">
+                    ,a.order_receiving_date desc
+                </if>
+            </foreach>
+        </trim>
+    </select>
+
+    <!-- 查询指定车商人员已完成报价(等待协商)的询价单 -->
+    <select id="queryInquiryQuotingAccept" resultMap="inquiryQueryResultMap">
+        select distinct
+			a.inquiry_id,
+			a.reservation_id,
+			a.make_order_person_name,
+			a.make_order_person_iphone,
+			a.make_order_person_role,
+			a.order_receiving_deadline,
+			a.quote_deadline,
+			a.inquiry_status,
+			a.approval_status,
+			a.quote_end_price,
+			a.quote_end_date,
+			a.order_abandoned_reason,
+			a.customer_name,
+			a.customer_iphone,
+			a.customer_intention,
+			a.deal_price_end,
+			a.estimated_transfer_time,
+			a.business_order_no,
+			a.generate_acquisitions_time,
+			a.first_escalation_time,
+			a.second_escalation_time,
+			a.old_car_confirmation_time,
+			a.approved_time,
+			a.overrule_time,
+			a.close_time,
+			a.remarks,
+			a.upload_file_time,
+			b.brand_chinese_describe,
+			b.brand,
+			b.car_series_chinese_describe,
+			b.car_series,
+			b.car_type_chinese_describe,
+			b.car_type,
+			b.licensing_date,
+			b.driving_mileage,
+			b.car_year_chinese_describe,
+			b.car_year,
+			b.licensing_city,
+			b.licensing_province,
+			b.color,
+			b.license_plate_num ,
+			b.vin_code,
+			b.transfer_times,
+			b.using_nature,
+			c.reservation_detection_address,
+			c.reservation_detection_date,
+			c.customer_expect_price,
+			<!-- tssi.user_name make_order_person_name,
+			tssi.phone_number make_order_person_iphone,
+			tssi.role_code make_order_person_role, -->
+			tsi.org_name
+		from
+			t_psi_car_dealer_inquiry a,
+			t_psi_inquiry_cars b,
+			t_psi_customer_reservation_msg c,
+			<!-- t_sys_store_staff_info tssi, -->
+			t_sys_store_info tsi
+		where
+			a.inquiry_id = b.inquiry_id
+			and a.reservation_id = c.reservation_id
+			and a.is_delete != '00'
+			<!-- and a.created_by = tssi.party_id
+			and a.store_id = tssi.store_id -->
+			and a.store_id = tsi.store_id
+			<!-- and tssi.role_code in ( 'RE006', 'RE005', '7163020210223314224','4467720210223534254', 'SH', 'ME', 'MO', 'PMO' ) -->
+        <if test="carDealerId != null">
+            AND a.car_dealer_id = #{carDealerId, jdbcType=BIGINT}
+        </if>
+        AND a.car_dealer_staff_id = #{carDealerStaffId, jdbcType=BIGINT}
+        AND (a.customer_intention = '' or a.customer_intention is null)
+        <if test="businessOrderNo != null">
+            AND a.business_order_no like concat('%',#{businessOrderNo, jdbcType=VARCHAR},'%')
+        </if>
+        AND a.inquiry_status in
+        <foreach item="item" index="index" collection="status" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        order by a.quote_end_date desc
+    </select>
+
+    <!-- 查询指定车商人员全部的询价单 -->
+    <select id="queryInquiryByAll" resultMap="inquiryQueryResultMap">
+        select distinct
+        inquiry_id,
+        reservation_id,
+        make_order_person_name,
+        make_order_person_iphone,
+        make_order_person_role,
+        order_receiving_deadline,
+        quote_deadline,
+        inquiry_status,
+        approval_status,
+        quote_end_price,
+        quote_end_date,
+        order_abandoned_reason,
+        customer_name,
+        customer_iphone,
+        customer_intention,
+        deal_price_end,
+        estimated_transfer_time,
+        brand_chinese_describe,
+        brand,
+        car_series,
+        car_series_chinese_describe,
+        car_type,
+        car_type_chinese_describe,
+        licensing_date,
+        driving_mileage,
+        car_year,
+        car_year_chinese_describe,
+        licensing_city,
+        licensing_province,
+        color,
+        license_plate_num ,
+        vin_code,
+        transfer_times,
+        using_nature,
+        reservation_detection_address,
+        reservation_detection_date,
+        business_order_no,
+        generate_acquisitions_time,
+        first_escalation_time,
+        second_escalation_time,
+        old_car_confirmation_time,
+        approved_time,
+        overrule_time,
+        close_time,
+        remarks,
+        upload_file_time,
+        customer_expect_price,
+        org_name from(
+        <if test="storeIds != null">
+            select distinct a.* from(
+            select (@i:= @i+1) as sort,
+            a.inquiry_id,
+			a.reservation_id,
+			a.make_order_person_name,
+			a.make_order_person_iphone,
+			a.make_order_person_role,
+			a.order_receiving_deadline,
+			a.quote_deadline,
+			a.inquiry_status,
+			a.approval_status,
+			a.quote_end_price,
+			a.quote_end_date,
+			a.order_abandoned_reason,
+			a.customer_name,
+			a.customer_iphone,
+			a.customer_intention,
+			a.deal_price_end,
+			a.estimated_transfer_time,
+			a.business_order_no,
+			a.generate_acquisitions_time,
+			a.first_escalation_time,
+			a.second_escalation_time,
+			a.old_car_confirmation_time,
+			a.approved_time,
+			a.overrule_time,
+			a.close_time,
+			a.remarks,
+			a.upload_file_time,
+			b.brand_chinese_describe,
+			b.brand,
+			b.car_series_chinese_describe,
+			b.car_series,
+			b.car_type_chinese_describe,
+			b.car_type,
+			b.licensing_date,
+			b.driving_mileage,
+			b.car_year_chinese_describe,
+			b.car_year,
+			b.licensing_city,
+			b.licensing_province,
+			b.color,
+			b.license_plate_num ,
+			b.vin_code,
+			b.transfer_times,
+			b.using_nature,
+			c.reservation_detection_address,
+			c.reservation_detection_date,
+			c.customer_expect_price,
+			<!-- tssi.user_name make_order_person_name,
+			tssi.phone_number make_order_person_iphone,
+			tssi.role_code make_order_person_role, -->
+			tsi.org_name
+            from t_psi_car_dealer_inquiry a,t_psi_inquiry_cars b,t_psi_customer_reservation_msg c,
+			<!-- t_sys_store_staff_info tssi, -->
+			t_sys_store_info tsi,
+            ( select @i:=100000000000)as sorttable
+            where a.inquiry_id = b.inquiry_id
+            and a.reservation_id = c.reservation_id
+            and a.is_delete != '00'
+            <!-- and a.created_by = tssi.party_id
+			and a.store_id = tssi.store_id -->
+			and a.store_id = tsi.store_id
+			<!-- and tssi.role_code in ( 'RE006', 'RE005', '7163020210223314224','4467720210223534254', 'SH', 'ME', 'MO', 'PMO' ) -->
+            and a.inquiry_status ='0901'
+            <if test="carDealerId != null">
+                and a.car_dealer_id = #{carDealerId, jdbcType=BIGINT}
+            </if>
+            and a.store_id in
+            <foreach item="item" index="index" collection="storeIds" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+            <if test="businessOrderNo != null">
+                AND a.business_order_no like concat('%',#{businessOrderNo, jdbcType=VARCHAR},'%')
+            </if>) a
+            union all
+        </if>
+        select distinct b.* from(select (@j:= @j+1) as sort,
+        	a.inquiry_id,
+			a.reservation_id,
+			a.make_order_person_name,
+			a.make_order_person_iphone,
+			a.make_order_person_role,
+			a.order_receiving_deadline,
+			a.quote_deadline,
+			a.inquiry_status,
+			a.approval_status,
+			a.quote_end_price,
+			a.quote_end_date,
+			a.order_abandoned_reason,
+			a.customer_name,
+			a.customer_iphone,
+			a.customer_intention,
+			a.deal_price_end,
+			a.estimated_transfer_time,
+			a.business_order_no,
+			a.generate_acquisitions_time,
+			a.first_escalation_time,
+			a.second_escalation_time,
+			a.old_car_confirmation_time,
+			a.approved_time,
+			a.overrule_time,
+			a.close_time,
+			a.remarks,
+			a.upload_file_time,
+			b.brand_chinese_describe,
+			b.brand,
+			b.car_series_chinese_describe,
+			b.car_series,
+			b.car_type_chinese_describe,
+			b.car_type,
+			b.licensing_date,
+			b.driving_mileage,
+			b.car_year_chinese_describe,
+			b.car_year,
+			b.licensing_city,
+			b.licensing_province,
+			b.color,
+			b.license_plate_num ,
+			b.vin_code,
+			b.transfer_times,
+			b.using_nature,
+			c.reservation_detection_address,
+			c.reservation_detection_date,
+			c.customer_expect_price,
+			<!-- tssi.user_name make_order_person_name,
+			tssi.phone_number make_order_person_iphone,
+			tssi.make_order_person_role, -->
+			tsi.org_name
+        from t_psi_car_dealer_inquiry a,t_psi_inquiry_cars b,t_psi_customer_reservation_msg c,
+			<!-- t_sys_store_staff_info tssi, -->
+			t_sys_store_info tsi,
+        ( select @j:=200000000000) as sorttable
+        where a.inquiry_id = b.inquiry_id
+        and a.reservation_id = c.reservation_id
+        and a.is_delete != '00'
+        <!-- and a.created_by = tssi.party_id
+		and a.store_id = tssi.store_id -->
+		and a.store_id = tsi.store_id
+		<!-- and tssi.role_code in ( 'RE006', 'RE005', '7163020210223314224','4467720210223534254', 'SH', 'ME', 'MO', 'PMO' ) -->
+        and a.inquiry_status in('0902','0911','0921','0922')
+        <if test="carDealerId != null">
+            and a.car_dealer_id = #{carDealerId, jdbcType=BIGINT}
+        </if>
+        and a.car_dealer_staff_id = #{carDealerStaffId, jdbcType=BIGINT}
+        <if test="businessOrderNo != null">
+            AND a.business_order_no like concat('%',#{businessOrderNo, jdbcType=VARCHAR},'%')
+        </if>
+        order by a.inquiry_status) b
+        union all
+        select distinct c.* from(
+        select (@z:= @z+1) as sort,
+        	a.inquiry_id,
+			a.reservation_id,
+			a.make_order_person_name,
+			a.make_order_person_iphone,
+			a.make_order_person_role,
+			a.order_receiving_deadline,
+			a.quote_deadline,
+			a.inquiry_status,
+			a.approval_status,
+			a.quote_end_price,
+			a.quote_end_date,
+			a.order_abandoned_reason,
+			a.customer_name,
+			a.customer_iphone,
+			a.customer_intention,
+			a.deal_price_end,
+			a.estimated_transfer_time,
+			a.business_order_no,
+			a.generate_acquisitions_time,
+			a.first_escalation_time,
+			a.second_escalation_time,
+			a.old_car_confirmation_time,
+			a.approved_time,
+			a.overrule_time,
+			a.close_time,
+			a.remarks,
+			a.upload_file_time,
+			b.brand_chinese_describe,
+			b.brand,
+			b.car_series_chinese_describe,
+			b.car_series,
+			b.car_type_chinese_describe,
+			b.car_type,
+			b.licensing_date,
+			b.driving_mileage,
+			b.car_year_chinese_describe,
+			b.car_year,
+			b.licensing_city,
+			b.licensing_province,
+			b.color,
+			b.license_plate_num ,
+			b.vin_code,
+			b.transfer_times,
+			b.using_nature,
+			c.reservation_detection_address,
+			c.reservation_detection_date,
+			c.customer_expect_price,
+			<!-- tssi.user_name make_order_person_name,
+			tssi.phone_number make_order_person_iphone,
+			tssi.role_code make_order_person_role, -->
+			tsi.org_name
+        from t_psi_car_dealer_inquiry a,t_psi_inquiry_cars b,t_psi_customer_reservation_msg c,
+			<!-- t_sys_store_staff_info tssi, -->
+			t_sys_store_info tsi,
+        ( select @z:=300000000000)as sorttable
+        where a.inquiry_id = b.inquiry_id
+        and a.reservation_id = c.reservation_id
+        and a.is_delete != '00'
+        <!-- and a.created_by = tssi.party_id
+		and a.store_id = tssi.store_id -->
+		and a.store_id = tsi.store_id
+		<!-- and tssi.role_code in ( 'RE006', 'RE005', '7163020210223314224','4467720210223534254', 'SH', 'ME', 'MO', 'PMO' ) -->
+        and a.inquiry_status in('0909','0912','0917','0918','0919','0923','0929')
+        <if test="carDealerId != null">
+            and a.car_dealer_id = #{carDealerId, jdbcType=BIGINT}
+        </if>
+        and a.car_dealer_staff_id = #{carDealerStaffId, jdbcType=BIGINT}
+        <if test="businessOrderNo != null">
+            AND a.business_order_no like concat('%',#{businessOrderNo, jdbcType=VARCHAR},'%')
+        </if>
+        order by a.issued_car_dealer_date desc) c) d order by d.sort
+    </select>
+
+    <!-- 根据预约id和状态查询询价单-->
+    <select id="selectByReservationId"
+            resultMap="com.exp.ucmp.dao.IPsiCarDealerInquiryDao.psiCarDealerInquiryResultMap">
+        SELECT
+        <include refid="com.exp.ucmp.dao.IPsiCarDealerInquiryDao.t_psi_car_dealer_inquiry_Column_List"/>
+        FROM t_psi_car_dealer_inquiry a
+        where a.reservation_id = #{reservationId, jdbcType=BIGINT}
+        and a.inquiry_status in
+        <foreach item="item" index="index" collection="status" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <!-- 根据预约id查询所分配车商的报价记录及车辆信息-->
+    <select id="quotingById" resultType="com.exp.ucmp.carDealer.dto.QuotingDto">
+        select a.inquiry_id                as inquiryId,
+               a.reservation_id            as reservationId,
+               a.updated_by                as updatedBy,
+               a.quote_end_price           as quoteEndPrice,
+               a.car_dealer_id             as carDealerId,
+               a.customer_iphone           as customerIphone,
+               a.inquiry_status            as inquiryStatus,
+               b.brand                     as brand,
+               b.brand_chinese_describe    as brandChineseDescribe,
+               b.car_type                  as carType,
+               b.car_type_chinese_describe as carTypeChineseDescribe,
+               b.licensing_city            as licensingCity,
+               b.licensing_date            as licensingDate,
+               b.driving_mileage           as drivingMileage,
+               b.color                     as color,
+               b.license_plate_num         as licensePlateNum,
+               b.vin_code                  as vinCode,
+               b.transfer_times            as transferTimes,
+               b.using_nature              as usingNature
+        from t_psi_car_dealer_inquiry a,
+             t_psi_inquiry_cars b
+        where a.inquiry_id = b.inquiry_id
+          AND a.reservation_id = #{inquiryId, jdbcType=BIGINT}
+        order by a.quote_end_price desc, a.quote_end_date
+    </select>
+
+    <sql id="inquiryQuotingDao_list">
+        a.inquiry_id,
+        a.reservation_id,
+        a.make_order_person_name,
+        a.make_order_person_iphone,
+        a.make_order_person_role,
+        a.order_receiving_deadline,
+        a.quote_deadline,
+        a.inquiry_status,
+        a.approval_status,
+        a.quote_end_price,
+        a.quote_end_date,
+        a.order_abandoned_reason,
+        a.customer_name,
+        a.customer_iphone,
+        a.customer_intention,
+        a.deal_price_end,
+        a.estimated_transfer_time,
+        a.business_order_no,
+        a.generate_acquisitions_time,
+        a.first_escalation_time,
+        a.second_escalation_time,
+        a.old_car_confirmation_time,
+        a.approved_time,
+        a.overrule_time,
+        a.close_time,
+        a.remarks,
+        a.upload_file_time,
+        b.brand_chinese_describe,
+        b.brand,
+        b.car_series_chinese_describe,
+        b.car_series,
+        b.car_type_chinese_describe,
+        b.car_type,
+        b.licensing_date,
+        b.driving_mileage,
+        b.car_year_chinese_describe,
+        b.car_year,
+        b.licensing_city,
+        b.licensing_province,
+        b.color,
+        b.license_plate_num ,
+        b.vin_code,
+        b.transfer_times,
+        b.using_nature,
+        c.reservation_detection_address,
+        c.reservation_detection_date,
+        c.customer_expect_price
+    </sql>
+
+    <update id="updateQuotingStatus" parameterType="com.exp.ucmp.entity.PsiCarDealerInquiryEntity">
+        UPDATE t_psi_car_dealer_inquiry
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="inquiryStatus != null">
+                inquiry_status = #{inquiryStatus, jdbcType=VARCHAR},
+            </if>
+            <if test="orderAbandonedReason != null">
+                order_abandoned_reason = #{orderAbandonedReason, jdbcType=VARCHAR},
+            </if>
+            <if test="updatedBy != null">
+                updated_by = #{updatedBy, jdbcType=BIGINT},
+            </if>
+            <if test="updatedDate != null">
+                updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+        WHERE car_dealer_id = #{carDealerId, jdbcType=BIGINT}
+        AND car_dealer_staff_id = #{carDealerStaffId, jdbcType=BIGINT}
+        <if test="inquiryId !=null and inquiryId !=0">
+        and	inquiry_id = #{inquiryId, jdbcType=BIGINT}
+        </if>
+        <if test="inquiryId ==null or inquiryId ==0">
+        and	reservation_id = #{reservationId, jdbcType=BIGINT}
+        </if>
+    </update>
+
+    <select id="quotedMaterialList" resultType="com.exp.ucmp.carDealer.dto.AcquisitionAllFileDto">
+        SELECT a.material_id    as materialId,
+               a.reservation_id as reservationId,
+               a.material_type  as materialType,
+               a.upload_person  as uploadPerson,
+               a.upload_date    as uploadDate
+        FROM t_psi_acquisition_material a
+        WHERE a.reservation_id = #{reservationId} and a.material_type in ('9009','9010')
+    </select>
+    
+    <select id="countRecord" resultType="int">
+  	select
+		count(1)
+	from
+		t_sys_call_out_record tcor
+	where
+		tcor.userData = #{userData}
+  </select>
+</mapper>

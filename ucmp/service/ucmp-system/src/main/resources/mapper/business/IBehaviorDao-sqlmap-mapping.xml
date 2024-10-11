@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exp.ucmp.behavior.dao.IBehaviorDao">
+  <select id="queryResponseByUrl" resultType="java.util.HashMap">
+	SELECT 
+	    a.behavior_id as id, c.behavior_response as response
+	FROM
+	    t_sys_user_behavior a,
+	    t_sys_user_behavior_params b,
+	    t_sys_user_behavior_response c
+	WHERE
+	    a.behavior_id = b.behavior_id
+	        AND b.request_id = c.request_id
+	        AND a.user_id = #{userId, jdbcType=BIGINT}
+	        AND a.behavior_target_url LIKE concat('%', #{behaviorTargetUrl, jdbcType=VARCHAR})
+	        AND a.behavior_time <![CDATA[ > ]]>  #{lowerLimitTime, jdbcType=BIGINT}
+  </select>
+  
+</mapper>

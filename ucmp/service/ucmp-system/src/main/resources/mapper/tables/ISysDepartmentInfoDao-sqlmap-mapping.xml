@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.ISysDepartmentInfoDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.SysDepartmentInfoEntity" >
+    INSERT INTO t_sys_department_info 
+       (
+          department_id,
+          department_code,
+          department_name,
+          department_type,
+          is_delete,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date
+        ) VALUES (
+          #{departmentId, jdbcType=BIGINT},
+          #{departmentCode, jdbcType=VARCHAR},
+          #{departmentName, jdbcType=VARCHAR},
+          #{departmentType, jdbcType=VARCHAR},
+          #{isDelete, jdbcType=VARCHAR},
+          #{createdBy, jdbcType=BIGINT},
+          #{createdDate, jdbcType=TIMESTAMP},
+          #{updatedBy, jdbcType=BIGINT},
+          #{updatedDate, jdbcType=TIMESTAMP}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.SysDepartmentInfoEntity" >
+    INSERT INTO t_sys_department_info
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="departmentId != null" >
+          department_id,
+          </if>
+        <if test="departmentCode != null" >
+          department_code,
+          </if>
+        <if test="departmentName != null" >
+          department_name,
+          </if>
+        <if test="departmentType != null" >
+          department_type,
+          </if>
+        <if test="isDelete != null" >
+          is_delete,
+          </if>
+        <if test="createdBy != null" >
+          created_by,
+          </if>
+        <if test="createdDate != null" >
+          created_date,
+          </if>
+        <if test="updatedBy != null" >
+          updated_by,
+          </if>
+        <if test="updatedDate != null" >
+          updated_date,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="departmentId != null" >
+          #{departmentId, jdbcType=BIGINT},
+          </if>
+        <if test="departmentCode != null" >
+          #{departmentCode, jdbcType=VARCHAR},
+          </if>
+        <if test="departmentName != null" >
+          #{departmentName, jdbcType=VARCHAR},
+          </if>
+        <if test="departmentType != null" >
+          #{departmentType, jdbcType=VARCHAR},
+          </if>
+        <if test="isDelete != null" >
+          #{isDelete, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_sys_department_info 
+       (
+          department_id,
+          department_code,
+          department_name,
+          department_type,
+          is_delete,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.departmentId, jdbcType=BIGINT},
+	          #{item.departmentCode, jdbcType=VARCHAR},
+	          #{item.departmentName, jdbcType=VARCHAR},
+	          #{item.departmentType, jdbcType=VARCHAR},
+	          #{item.isDelete, jdbcType=VARCHAR},
+	          #{item.createdBy, jdbcType=BIGINT},
+	          #{item.createdDate, jdbcType=TIMESTAMP},
+	          #{item.updatedBy, jdbcType=BIGINT},
+	          #{item.updatedDate, jdbcType=TIMESTAMP}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.SysDepartmentInfoEntity" >
+    UPDATE t_sys_department_info SET 
+          department_code = #{departmentCode, jdbcType=VARCHAR},
+          department_name = #{departmentName, jdbcType=VARCHAR},
+          department_type = #{departmentType, jdbcType=VARCHAR},
+          is_delete = #{isDelete, jdbcType=VARCHAR},
+          created_by = #{createdBy, jdbcType=BIGINT},
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND department_id = #{departmentId, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.SysDepartmentInfoEntity" >
+    UPDATE t_sys_department_info
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="departmentCode != null" >
+          department_code = #{departmentCode, jdbcType=VARCHAR},
+          </if>
+        <if test="departmentName != null" >
+          department_name = #{departmentName, jdbcType=VARCHAR},
+          </if>
+        <if test="departmentType != null" >
+          department_type = #{departmentType, jdbcType=VARCHAR},
+          </if>
+        <if test="isDelete != null" >
+          is_delete = #{isDelete, jdbcType=VARCHAR},
+          </if>
+        <if test="createdBy != null" >
+          created_by = #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND department_id = #{departmentId, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_sys_department_info SET 
+	          department_code = #{item.departmentCode, jdbcType=VARCHAR},
+	          department_name = #{item.departmentName, jdbcType=VARCHAR},
+	          department_type = #{item.departmentType, jdbcType=VARCHAR},
+	          is_delete = #{item.isDelete, jdbcType=VARCHAR},
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND department_id = #{item.departmentId, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_sys_department_info
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.departmentCode != null" >
+	          department_code = #{item.departmentCode, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.departmentName != null" >
+	          department_name = #{item.departmentName, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.departmentType != null" >
+	          department_type = #{item.departmentType, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.isDelete != null" >
+	          is_delete = #{item.isDelete, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.createdBy != null" >
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.createdDate != null" >
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.updatedBy != null" >
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.updatedDate != null" >
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND department_id = #{item.departmentId, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.SysDepartmentInfoPk" >
+    DELETE FROM t_sys_department_info
+    WHERE
+     <trim prefixOverrides="AND">
+           AND department_id = #{departmentId, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.SysDepartmentInfoEntity" >
+    DELETE FROM t_sys_department_info
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="departmentId != null" >
+          AND department_id = #{departmentId, jdbcType=BIGINT}
+        </if>
+        <if test="departmentCode != null and departmentCode != ''" >
+          AND department_code = #{departmentCode, jdbcType=VARCHAR}
+        </if>
+        <if test="departmentName != null and departmentName != ''" >
+          AND department_name = #{departmentName, jdbcType=VARCHAR}
+        </if>
+        <if test="departmentType != null and departmentType != ''" >
+          AND department_type = #{departmentType, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="sysDepartmentInfoResultMap" type="com.exp.ucmp.entity.SysDepartmentInfoEntity" >
+      <constructor>
+       <idArg column="department_id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="department_code" property="departmentCode" jdbcType="VARCHAR" />
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
+    <result column="department_type" property="departmentType" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="VARCHAR" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="t_sys_department_info_Column_List" >
+    a.department_id,
+    a.department_code,
+    a.department_name,
+    a.department_type,
+    a.is_delete,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.SysDepartmentInfoPk" resultMap="sysDepartmentInfoResultMap">
+    SELECT 
+    <include refid="t_sys_department_info_Column_List" />
+      FROM t_sys_department_info a
+     WHERE 1 = 1
+       AND a.department_id = #{departmentId, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.SysDepartmentInfoEntity" resultMap="sysDepartmentInfoResultMap">
+    SELECT 
+    <include refid="t_sys_department_info_Column_List" />
+      FROM t_sys_department_info a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="departmentId != null" >
+          AND a.department_id = #{departmentId, jdbcType=BIGINT}
+        </if>
+        <if test="departmentCode != null and departmentCode != ''" >
+          AND a.department_code = #{departmentCode, jdbcType=VARCHAR}
+        </if>
+        <if test="departmentName != null and departmentName != ''" >
+          AND a.department_name = #{departmentName, jdbcType=VARCHAR}
+        </if>
+        <if test="departmentType != null and departmentType != ''" >
+          AND a.department_type = #{departmentType, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND a.is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.SysDepartmentInfoEntity" resultType="int">
+    SELECT count(1) FROM t_sys_department_info a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="departmentId != null" >
+          AND a.department_id = #{departmentId, jdbcType=BIGINT}
+        </if>
+        <if test="departmentCode != null and departmentCode != ''" >
+          AND a.department_code = #{departmentCode, jdbcType=VARCHAR}
+        </if>
+        <if test="departmentName != null and departmentName != ''" >
+          AND a.department_name = #{departmentName, jdbcType=VARCHAR}
+        </if>
+        <if test="departmentType != null and departmentType != ''" >
+          AND a.department_type = #{departmentType, jdbcType=VARCHAR}
+        </if>
+        <if test="isDelete != null and isDelete != ''" >
+          AND a.is_delete = #{isDelete, jdbcType=VARCHAR}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+</mapper>

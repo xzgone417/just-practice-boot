@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.storeApp.dao.PsiReplaceManageDao">
+    <select id="selectReplaceCluesDetails" resultType="com.exp.ucmp.storeApp.dto.ReplaceCluesDetailsDto"
+            parameterType="com.exp.ucmp.storeApp.dto.ReplaceCluesDetailsQueryDto">
+        SELECT crt.quote_deadline                AS quoteDeadline,
+               crt.reservation_id                AS reservationId,
+               crt.business_order_no             AS businessOrderNo,
+               crt.shut_cause                    AS shutCause,
+               crt.shut_date                     AS shutDate,
+               crt.shut_describe                 AS shutDescribe,
+               crt.estimate_deal_price           AS estimateDealPrice,
+               crt.quote_merchants_name          AS quoteMerchantsName,
+               cars.brand                        AS brand,
+               cars.brand_chinese_describe       AS brandChineseDescribe,
+               cars.car_series                   AS carSeries,
+               cars.car_series_chinese_describe  AS carSeriesChineseDescribe,
+               cars.car_year                     AS carYear,
+               cars.car_year_chinese_describe    AS carYearChineseDescribe,
+               cars.car_type                     AS carType,
+               cars.car_type_chinese_describe    AS carTypeChineseDescribe,
+               cars.licensing_city               AS licensingCity,
+               cars.licensing_date               AS licensingDate,
+               cars.driving_mileage              AS drivingMileage,
+               msg.reservation_detection_date    AS reservationDetectionDate,
+               msg.reservation_detection_address AS reservationDetectionAddress,
+               msg.customer_expect_price         AS customerExpectPrice,
+               msg.order_receiving_deadline      AS orderReceivingDeadline,
+               ff.customer_name                  AS customerName,
+               ff.customer_iphone                AS customerIphone,
+               ff.clues_source                   AS cluesSource
+        FROM t_psi_customer_reservation_track crt
+                 INNER JOIN
+             (SELECT cc.reservation_id,
+                     cc.brand,
+                     cc.brand_chinese_describe,
+                     cc.car_series,
+                     cc.car_series_chinese_describe,
+                     cc.car_year,
+                     cc.car_year_chinese_describe,
+                     cc.car_type,
+                     cc.car_type_chinese_describe,
+                     cc.licensing_city,
+                     cc.licensing_date,
+                     cc.driving_mileage
+              FROM t_psi_customer_cars cc) AS cars ON cars.reservation_id = crt.reservation_id
+                 INNER JOIN
+             (SELECT crm.reservation_id,
+                     crm.reservation_detection_date,
+                     crm.reservation_detection_address,
+                     crm.customer_expect_price,
+                     crm.order_receiving_deadline
+              FROM t_psi_customer_reservation_msg crm) msg ON msg.reservation_id = crt.reservation_id
+                 INNER JOIN
+             (
+                 select f.customer_name,
+                        f.customer_id,
+                        f.customer_iphone,
+                        f.clues_source
+                 from t_psi_customer_basic_information f
+             ) ff on ff.customer_id = crt.customer_id
+        where crt.reservation_id = #{reservationId, jdbcType=BIGINT}
+    </select>
+
+    <select id="selectPartnerDetailsOrderSort" resultType="com.exp.ucmp.pertner.dto.SysPartnerDetailsDto">
+        SELECT
+            a.partner_id AS partnerId,
+            a.partner_code AS partnerCode,
+            a.partner_charge_person AS partnerChargePerson,
+            a.charge_person_iphone AS chargePersonIphone,
+            a.partner_name AS partnerName,
+            a.partner_join_role AS partnerJoinRole,
+            a.partner_status AS partnerStatus,
+            a.partner_address AS partnerAddress,
+            a.partner_abbreviation AS partnerAbbreviation,
+            a.partner_order AS partnerOrder
+        FROM
+            t_sys_partner_details a
+        WHERE
+            a.is_delete = 0
+        ORDER BY
+            a.partner_order IS NULL,
+            a.partner_order DESC,
+            a.created_date DESC
+    </select>
+
+    <!-- 最新更新：合作商有多个人员负责同一门店，在店端显示最新的一条 -->
+    <select id="selectCarDealer" resultType="com.exp.ucmp.storeApp.dto.CarDealerMsgDto"
+            parameterType="com.exp.ucmp.storeApp.dto.CarDealerMsgQueryDto">
+        SELECT
+            pd.partner_id AS partnerId,
+            pd.partner_name AS partnerName,
+            pd.partner_abbreviation AS partnerAbbreviation,
+            pd.partner_order AS partnerOrder,
+            psi.partner_staff_name AS partnerChargePerson,
+            psi.partner_staff_iphone AS chargePersonIphone
+        FROM
+            ( SELECT partner_id FROM t_sys_partner_staff_store_rela WHERE is_enable = '01' AND store_id =  #{storeId} GROUP BY partner_id ) ssr
+            INNER JOIN t_sys_partner_details pd ON ssr.partner_id = pd.partner_id
+            INNER JOIN (
+                SELECT
+                    ssr2.partner_id,
+                    ssr2.store_id,
+                    max( psi.created_date ) AS create_time
+                FROM
+                    t_sys_partner_staff_store_rela ssr2
+                    INNER JOIN t_sys_partner_staff_info psi ON ssr2.party_id = psi.party_id
+                WHERE
+                    ssr2.is_enable = '01'
+                GROUP BY
+                    ssr2.partner_id,ssr2.store_id
+            ) newPsi ON pd.partner_id = newPsi.partner_id
+            LEFT JOIN t_sys_partner_staff_info psi ON newPsi.create_time = psi.created_date
+            LEft JOIN  t_sys_store_partner_rela spr ON spr.partner_id = pd.partner_id
+            AND spr.store_id= #{storeId}
+        WHERE
+            pd.is_delete = '0'
+            AND pd.partner_status = '01'
+            AND spr.is_enable ='01'
+            AND psi.is_delete = '00'
+            AND newPsi.store_id =  #{storeId}
+            <if test="partnerAbbreviation !=null and partnerAbbreviation!=''">
+            AND pd.partner_abbreviation =#{partnerAbbreviation}
+            </if>
+        ORDER BY
+            pd.created_date DESC
+            <!-- pd.partner_order IS NULL,pd.partner_order DESC,-->
+    </select>
+    <!--
+    <select id="selectCarDealer" resultType="com.exp.ucmp.storeApp.dto.CarDealerMsgDto"
+            parameterType="com.exp.ucmp.storeApp.dto.CarDealerMsgQueryDto">
+        SELECT
+            pd.partner_id AS partnerId,
+            pd.partner_name AS partnerName,
+            pd.partner_abbreviation AS partnerAbbreviation,
+            pd.partner_order AS partnerOrder,
+            psi.partner_staff_name AS partnerChargePerson,
+            psi.partner_staff_iphone AS chargePersonIphone
+        FROM
+            t_sys_partner_staff_store_rela ssr
+            JOIN t_sys_partner_details pd ON ssr.partner_id = pd.partner_id
+            JOIN t_sys_partner_staff_info psi ON ssr.party_id = psi.party_id
+        WHERE
+            ssr.is_enable = '01'
+            AND pd.is_delete = '0'
+            AND pd.partner_status = '01'
+            AND psi.is_delete = '00'
+            AND ssr.store_id = #{storeId, jdbcType=BIGINT}
+        ORDER BY
+            pd.partner_order IS NULL,
+            pd.partner_order DESC,
+            pd.created_date DESC
+    </select>
+    -->
+    <!-- 本品收购的车商只能是高合官方 -->
+    <!-- <select id="selectHipiCarDealer" resultType="com.exp.ucmp.storeApp.dto.CarDealerMsgDto">
+    	
+    </select> -->
+
+    <select id="selectReplaceClues" resultType="com.exp.ucmp.storeApp.dto.ReplaceCluesDetailsDto"
+            parameterType="com.exp.ucmp.storeApp.dto.ReplaceCluesDetailsQueryDto">
+        SELECT crt.quote_deadline AS quoteDeadline,
+        crt.deal_price_end AS dealPriceEnd,
+        crt.other_brand_inquiry_id AS otherBrandInquiryId,
+        crt.reservation_id AS reservationId,
+        crt.make_order_person_name AS makeOrderPersonName,
+        crt.make_order_person_iphone AS makeOrderPersonIphone,
+        crt.track_status AS trackStatus,
+        crt.quote_deadline AS quote_deadline,
+        crt.business_order_no AS businessOrderNo,
+        crt.order_receiving_deadline AS orderReceivingDeadline,
+        crt.created_date AS createdDate,
+        crt.estimate_deal_price AS estimateDealPrice,
+        crt.quote_merchants_name AS quoteMerchantsName,
+        crt.store_id AS storeId,
+        crt.shut_describe AS shutDescribe,
+        cars.brand AS brand,
+        cars.brand_chinese_describe AS brandChineseDescribe,
+        cars.car_series AS carSeries,
+        cars.car_series_chinese_describe AS carSeriesChineseDescribe,
+        cars.car_year AS carYear,
+        cars.car_year_chinese_describe AS carYearChineseDescribe,
+        cars.car_type AS carType,
+        cars.car_type_chinese_describe AS carTypeChineseDescribe,
+        cars.licensing_city AS licensingCity,
+        cars.licensing_date AS licensingDate,
+        cars.driving_mileage AS drivingMileage,
+        msg.reservation_detection_date AS reservationDetectionDate,
+        msg.reservation_detection_address AS reservationDetectionAddress,
+        msg.customer_expect_price AS customerExpectPrice,
+        msg.order_receiving_deadline AS orderReceivingDeadline,
+        ff.customer_name AS customerName,
+        ff.customer_iphone AS customerIphone,
+        ff.clues_source AS cluesSource,
+        (SELECT COUNT(1) FROM t_psi_new_car_order WHERE reservation_id = crt.reservation_id) as link,
+        (SELECT COUNT(1) FROM t_psi_car_dealer_inquiry where reservation_id = crt.reservation_id and inquiry_status = '0902') as signAll,
+        (case when crt.track_status in ('0701','0702','0703','0704') then crt.track_status
+        	  when cs.inquiry_status = '0921' and cs.approval_status not in ('1305','1309') then cs.inquiry_status
+        	  when cs.inquiry_status = '0922' then cs.inquiry_status
+        	  when cs.inquiry_status = '0909' then cs.inquiry_status
+        	  when cs.inquiry_status = '0918' then cs.inquiry_status
+        	  when cs.inquiry_status in ('0919','0929') then cs.inquiry_status
+        	  when cs.inquiry_status = '0923' and cs.approval_status in ('1301','1302','1303') then cs.approval_status
+        	  when cs.inquiry_status = '0923' and cs.approval_status in ('1304','1306') then cs.approval_status
+        	  when cs.approval_status = '1305' then cs.approval_status
+        	  when cs.approval_status = '1309' then cs.approval_status
+        	  end) inquiryStatus,
+        (case when crt.track_status in ('0701','0702') then '待接单'
+        	  when crt.track_status in ('0703','0704') then '待检测'
+        	  when cs.inquiry_status = '0921' and cs.approval_status not in ('1305','1309') then '已报价待收购'
+        	  when cs.inquiry_status = '0922' then '已收购待过户'
+        	  when cs.inquiry_status = '0909' then '放弃接单'
+        	  when cs.inquiry_status = '0918' then '逾期未报价'
+        	  when cs.inquiry_status in ('0919','0929') then '战败'
+        	  when cs.inquiry_status = '0923' and cs.approval_status in ('1301','1302','1303') then '已过户待审批'
+        	  when cs.inquiry_status = '0923' and cs.approval_status in ('1304','1306') then '审批通过'
+        	  when cs.approval_status = '1305' then '审批驳回'
+        	  when cs.approval_status = '1309' then '审批关闭'
+        	  end)inquiryStatusName
+        FROM t_psi_customer_reservation_track crt
+        INNER JOIN t_psi_customer_cars AS cars ON cars.reservation_id = crt.reservation_id
+        INNER JOIN t_psi_customer_reservation_msg msg ON msg.reservation_id = crt.reservation_id
+        INNER JOIN t_psi_customer_basic_information ff on ff.customer_id = crt.customer_id
+        LEFT JOIN t_psi_car_dealer_inquiry cs ON cs.reservation_id = crt.reservation_id
+        where
+            crt.is_delete != '00'
+            and crt.store_id = #{storeId, jdbcType=BIGINT}
+            <if test="trackStatus.size>0">
+               and crt.track_status in
+                <foreach collection="trackStatus" index="index" item="item" open="("
+                         separator="," close=")">
+                    #{trackStatus[${index}]}
+                </foreach>
+            </if>
+            <if test="filterStatus.size>0">
+                    and ( crt.track_status in
+                    <foreach collection="filterStatus" index="index" item="item" open="(" separator="," close=")">
+                        #{filterStatus[${index}]}
+                    </foreach>
+             or cs.inquiry_status in
+                    <foreach collection="filterStatus" index="index" item="item" open="(" separator="," close=")">
+                        #{filterStatus[${index}]}
+                    </foreach>
+                )
+            </if>
+            --  已完成列表筛选
+            <if test="status != null and status != ''">
+                and ((cs.inquiry_status =  #{status} and cs.approval_status not in ('1305','1309'))
+                <if test="status == '1303'">
+                    or (cs.approval_status in ('1301','1302','1303') and cs.inquiry_status != '0921')
+                </if>
+                <if test="status == '1305'">
+                   or cs.approval_status = '1305'
+               </if>
+               <if test="status == '1304'">
+                   or (cs.approval_status in ('1304','1306') and cs.inquiry_status ='0923')
+               </if>
+                )
+            </if>
+            --  已关闭列表筛选
+            <if test="closedStatus != null and closedStatus != ''">
+                and
+                <if test="closedStatus == '0918' or closedStatus == '0909'">
+                    cs.inquiry_status = #{closedStatus}
+                </if>
+                <if test="closedStatus == '0919'">
+                    cs.inquiry_status in ('0919','0929')
+                </if>
+                <if test="closedStatus == '1309'">
+                    cs.approval_status = #{closedStatus}
+                </if>
+            </if>
+            <if test="consultantId != null">
+                and crt.consultant_id = #{consultantId, jdbcType=BIGINT}
+            </if>
+            <if test="managerId != null">
+                and (crt.manager_id = #{managerId, jdbcType=BIGINT} or crt.consultant_id = #{consultantId, jdbcType=BIGINT})
+            </if>
+            <if test="businessOrderNo != null and businessOrderNo != ''">
+                and crt.business_order_no like concat('%',#{businessOrderNo, jdbcType=VARCHAR},'%')
+            </if>
+        <if test="trackStatus.size>0">
+            <if test="trackStatus.get(0) == '0701'">
+                ORDER BY crt.track_status,crt.created_date,crt.order_receiving_deadline
+            </if>
+            <if test="trackStatus.get(0) == '0703'">
+                ORDER BY crt.track_status,crt.created_date,crt.quote_deadline
+            </if>
+            <if test="trackStatus.get(0) == '0705'">
+                ORDER BY crt.customer_intention , link , crt.deal_price_end DESC , crt.track_status DESC
+            </if>
+            <if test="trackStatus.get(0) == '0709'">
+                ORDER BY crt.shut_date DESC
+            </if>
+        </if>
+    </select>
+
+    <select id="selectCarDealerInfo" resultType="com.exp.ucmp.storeApp.dto.CarDealerMsgDto"
+            parameterType="com.exp.ucmp.storeApp.dto.CarDealerMsgQueryDto">
+        SELECT d.partner_id           AS partnerId,
+               d.partner_name         AS partnerName,
+               d.partner_abbreviation AS partnerAbbreviation,
+               i.partner_staff_name   AS partnerChargePerson,
+               i.partner_staff_iphone AS chargePersonIphone,
+               p.order_receiving_date AS orderReceivingDate,
+               p.quote_end_date       AS quoteEndDate,
+               p.quote_end_price      AS quoteEndPrice,
+               p.inquiry_status       AS inquiryStatus
+        FROM t_psi_car_dealer_inquiry p,
+             t_sys_partner_details d,
+             t_sys_partner_staff_info i,
+             t_sys_partner_staff_store_rela r
+        WHERE d.partner_id = p.car_dealer_id
+          and p.car_dealer_id = r.partner_id
+          and p.store_id = r.store_id
+          and r.party_id = i.party_id
+          and i.party_id = p.car_dealer_staff_id
+          and d.is_delete = '0'
+          and d.partner_status = '01'
+          and i.is_delete = '00'
+          and r.is_enable = '01'
+          AND p.reservation_id = #{reservationId, jdbcType=BIGINT}
+--         ORDER BY r.created_date DESC LIMIT 1
+    </select>
+
+    <select id="selectCarDealerInfoPendingOrder" resultType="com.exp.ucmp.storeApp.dto.CarDealerMsgDto"
+            parameterType="com.exp.ucmp.storeApp.dto.CarDealerMsgQueryDto">
+        SELECT d.partner_id           AS partnerId,
+               d.partner_name         AS partnerName,
+               d.partner_abbreviation AS partnerAbbreviation,
+               i.partner_staff_name   AS partnerChargePerson,
+               i.partner_staff_iphone AS chargePersonIphone,
+               p.order_receiving_date AS orderReceivingDate,
+               p.quote_end_date       AS quoteEndDate,
+               p.quote_end_price      AS quoteEndPrice,
+               p.inquiry_status       AS inquiryStatus
+        FROM t_psi_car_dealer_inquiry p,
+             t_sys_partner_details d,
+             t_sys_partner_staff_info i,
+             t_sys_partner_staff_store_rela r
+        WHERE d.partner_id = p.car_dealer_id
+          and p.car_dealer_id = r.partner_id
+          and p.store_id = r.store_id
+          and r.party_id = i.party_id
+--           and i.party_id = p.car_dealer_staff_id
+          and d.is_delete = '0'
+          and d.partner_status = '01'
+          and i.is_delete = '00'
+          and r.is_enable = '01'
+          AND p.reservation_id = #{reservationId, jdbcType=BIGINT}
+        ORDER BY r.created_date DESC LIMIT 1
+    </select>
+
+
+    <select id="selectCarDealerSignIn" resultType="com.exp.ucmp.storeApp.dto.CarDealerMsgDto"
+            parameterType="com.exp.ucmp.storeApp.dto.CarDealerMsgQueryDto">
+        SELECT d.partner_id           AS partnerId,
+               d.partner_name         AS partnerName,
+               d.partner_abbreviation AS partnerAbbreviation,
+               i.partner_staff_name   AS partnerChargePerson,
+               i.partner_staff_iphone AS chargePersonIphone,
+               p.order_receiving_date AS orderReceivingDate,
+               p.quote_end_date       AS quoteEndDate,
+               p.quote_end_price      AS quoteEndPrice,
+               p.quote_deadline       AS quoteDeadline,
+               p.inquiry_status       AS inquiryStatus
+        FROM t_psi_car_dealer_inquiry p,
+             t_sys_partner_details d,
+             t_sys_partner_staff_info i
+        WHERE d.partner_id = p.car_dealer_id
+          AND p.car_dealer_staff_id = i.party_id
+          AND p.reservation_id = #{reservationId, jdbcType=BIGINT}
+    </select>
+
+
+    <select id="sendMessagePerson" resultType="java.util.HashMap"
+            parameterType="java.util.HashMap">
+        SELECT
+            s.partner_staff_iphone AS partnerStaffIphone
+        FROM
+            t_sys_partner_staff_info s
+        WHERE
+            s.is_delete = '00'
+          AND s.party_id IN (
+            SELECT
+                d.party_id
+            FROM
+                t_sys_partner_staff_store_rela d
+            WHERE
+                d.is_enable = '01'
+              AND d.partner_id = #{partnerId, jdbcType=BIGINT}
+
+              AND d.store_id = #{storeId, jdbcType=BIGINT})
+
+    </select>
+
+    <update id="updateSelective" parameterType="com.exp.ucmp.entity.PsiCustomerReservationTrackEntity" >
+        UPDATE t_psi_customer_reservation_track
+        <trim prefix="SET" suffixOverrides="," >
+            <if test="infoId != null" >
+                info_id = #{infoId, jdbcType=BIGINT},
+            </if>
+            <if test="customerId != null" >
+                customer_id = #{customerId, jdbcType=BIGINT},
+            </if>
+            <if test="storeId != null" >
+                store_id = #{storeId, jdbcType=BIGINT},
+            </if>
+            <if test="consultantId != null" >
+                consultant_id = #{consultantId, jdbcType=BIGINT},
+            </if>
+            <if test="managerId != null" >
+                manager_id = #{managerId, jdbcType=BIGINT},
+            </if>
+            <if test="storeManagerId != null" >
+                store_manager_id = #{storeManagerId, jdbcType=BIGINT},
+            </if>
+            <if test="makeOrderPersonName != null" >
+                make_order_person_name = #{makeOrderPersonName, jdbcType=VARCHAR},
+            </if>
+            <if test="makeOrderPersonIphone != null" >
+                make_order_person_iphone = #{makeOrderPersonIphone, jdbcType=VARCHAR},
+            </if>
+            <if test="makeOrderPersonRole != null" >
+                make_order_person_role = #{makeOrderPersonRole, jdbcType=VARCHAR},
+            </if>
+            <if test="quoteMerchantsName != null" >
+                quote_merchants_name = #{quoteMerchantsName, jdbcType=VARCHAR},
+            </if>
+            <if test="businessType != null" >
+                business_type = #{businessType, jdbcType=VARCHAR},
+            </if>
+            <if test="businessOrderNo != null" >
+                business_order_no = #{businessOrderNo, jdbcType=VARCHAR},
+            </if>
+            <if test="businessClassify != null" >
+                business_classify = #{businessClassify, jdbcType=VARCHAR},
+            </if>
+            <if test="agreeDescribe != null" >
+                agree_describe = #{agreeDescribe, jdbcType=VARCHAR},
+            </if>
+            <if test="orderReceivingDeadline != null" >
+                order_receiving_deadline = #{orderReceivingDeadline, jdbcType=TIMESTAMP},
+            </if>
+            <if test="quoteDeadline != null" >
+                quote_deadline = #{quoteDeadline, jdbcType=TIMESTAMP},
+            </if>
+            <if test="otherBrandInquiryId != null" >
+                other_brand_inquiry_id = #{otherBrandInquiryId, jdbcType=BIGINT},
+            </if>
+            <if test="oneselfBrandInquiryId != null" >
+                oneself_brand_inquiry_id = #{oneselfBrandInquiryId, jdbcType=BIGINT},
+            </if>
+            <if test="estimateDealPrice != null" >
+                estimate_deal_price = #{estimateDealPrice, jdbcType=BIGINT},
+            </if>
+            <if test="dealPriceEnd != null" >
+                deal_price_end = #{dealPriceEnd, jdbcType=BIGINT},
+            </if>
+            <if test="customerIntention != null" >
+                customer_intention = #{customerIntention, jdbcType=VARCHAR},
+            </if>
+            <if test="shutCause != null" >
+                shut_cause = #{shutCause, jdbcType=VARCHAR},
+            </if>
+            <if test="shutCauseDetails != null" >
+                shut_cause_details = #{shutCauseDetails, jdbcType=VARCHAR},
+            </if>
+            <if test="shutDescribe != null" >
+                shut_describe = #{shutDescribe, jdbcType=VARCHAR},
+            </if>
+            <if test="shutDate != null" >
+                shut_date = #{shutDate, jdbcType=TIMESTAMP},
+            </if>
+            <if test="trackStatus != null" >
+                track_status = #{trackStatus, jdbcType=VARCHAR},
+            </if>
+            <if test="isDelete != null" >
+                is_delete = #{isDelete, jdbcType=VARCHAR},
+            </if>
+            <if test="createdBy != null" >
+                created_by = #{createdBy, jdbcType=BIGINT},
+            </if>
+            <if test="createdDate != null" >
+                created_date = #{createdDate, jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedBy != null" >
+                updated_by = #{updatedBy, jdbcType=BIGINT},
+            </if>
+            <if test="updatedDate != null" >
+                updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+        WHERE
+        <trim prefixOverrides="AND">
+            AND reservation_id = #{reservationId, jdbcType=BIGINT}
+        </trim>
+            AND track_status = '0701'
+    </update>
+    
+    <update id="updateDealerApprovalStatus">
+    update
+		t_psi_car_dealer_inquiry tdi
+	set
+		tdi.approval_status = '1306',
+		tdi.updated_date = now(),
+		tdi.updated_by = #{partyId}
+	where
+		tdi.reservation_id = #{reservationId}
+    </update>
+    
+    <update id="updateAcquisitionApprovalStatus">
+    update
+		t_psi_car_acquisition tca
+	set
+		tca.approval_status = '1306',
+		tca.updated_date = now(),
+		tca.updated_by = #{partyId}
+	where
+		tca.reservation_id = #{reservationId}
+    </update>
+    
+    <update id="updateApprovalStatus">
+    update
+		t_rep_replacement_approval tra
+	set
+		tra.approval_status = '1306',
+		tra.updated_date = now(),
+		tra.updated_by = #{partyId}
+	where
+		tra.reservation_id = #{reservationId}
+    </update>
+</mapper>

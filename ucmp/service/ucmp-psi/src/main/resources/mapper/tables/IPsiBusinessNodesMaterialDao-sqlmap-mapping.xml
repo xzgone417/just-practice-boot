@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exp.ucmp.dao.IPsiBusinessNodesMaterialDao" >
+  
+  <insert id="insert" parameterType="com.exp.ucmp.entity.PsiBusinessNodesMaterialEntity" >
+    INSERT INTO t_psi_business_nodes_material 
+       (
+          id,
+          business_nodes,
+          business_nodes_name,
+          material_type,
+          material_type_name,
+          material_sequence,
+          material_count,
+          is_upload,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date
+        ) VALUES (
+          #{id, jdbcType=BIGINT},
+          #{businessNodes, jdbcType=VARCHAR},
+          #{businessNodesName, jdbcType=VARCHAR},
+          #{materialType, jdbcType=VARCHAR},
+          #{materialTypeName, jdbcType=VARCHAR},
+          #{materialSequence, jdbcType=INTEGER},
+          #{materialCount, jdbcType=INTEGER},
+          #{isUpload, jdbcType=INTEGER},
+          #{createdBy, jdbcType=BIGINT},
+          #{createdDate, jdbcType=TIMESTAMP},
+          #{updatedBy, jdbcType=BIGINT},
+          #{updatedDate, jdbcType=TIMESTAMP}
+        )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.exp.ucmp.entity.PsiBusinessNodesMaterialEntity" >
+    INSERT INTO t_psi_business_nodes_material
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="id != null" >
+          id,
+          </if>
+        <if test="businessNodes != null" >
+          business_nodes,
+          </if>
+        <if test="businessNodesName != null" >
+          business_nodes_name,
+          </if>
+        <if test="materialType != null" >
+          material_type,
+          </if>
+        <if test="materialTypeName != null" >
+          material_type_name,
+          </if>
+        <if test="materialSequence != null" >
+          material_sequence,
+          </if>
+        <if test="materialCount != null" >
+          material_count,
+          </if>
+        <if test="isUpload != null" >
+          is_upload,
+          </if>
+        <if test="createdBy != null" >
+          created_by,
+          </if>
+        <if test="createdDate != null" >
+          created_date,
+          </if>
+        <if test="updatedBy != null" >
+          updated_by,
+          </if>
+        <if test="updatedDate != null" >
+          updated_date,
+          </if>
+      </trim>
+    VALUES
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="id != null" >
+          #{id, jdbcType=BIGINT},
+          </if>
+        <if test="businessNodes != null" >
+          #{businessNodes, jdbcType=VARCHAR},
+          </if>
+        <if test="businessNodesName != null" >
+          #{businessNodesName, jdbcType=VARCHAR},
+          </if>
+        <if test="materialType != null" >
+          #{materialType, jdbcType=VARCHAR},
+          </if>
+        <if test="materialTypeName != null" >
+          #{materialTypeName, jdbcType=VARCHAR},
+          </if>
+        <if test="materialSequence != null" >
+          #{materialSequence, jdbcType=INTEGER},
+          </if>
+        <if test="materialCount != null" >
+          #{materialCount, jdbcType=INTEGER},
+          </if>
+        <if test="isUpload != null" >
+          #{isUpload, jdbcType=INTEGER},
+          </if>
+        <if test="createdBy != null" >
+          #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+  </insert>
+  <insert id="batchInsert" parameterType="java.util.List" >
+        
+    INSERT INTO t_psi_business_nodes_material 
+       (
+          id,
+          business_nodes,
+          business_nodes_name,
+          material_type,
+          material_type_name,
+          material_sequence,
+          material_count,
+          is_upload,
+          created_by,
+          created_date,
+          updated_by,
+          updated_date
+        ) VALUES 
+      <foreach collection="list" item="item" index="index" separator=",">
+     	(
+	          #{item.id, jdbcType=BIGINT},
+	          #{item.businessNodes, jdbcType=VARCHAR},
+	          #{item.businessNodesName, jdbcType=VARCHAR},
+	          #{item.materialType, jdbcType=VARCHAR},
+	          #{item.materialTypeName, jdbcType=VARCHAR},
+	          #{item.materialSequence, jdbcType=INTEGER},
+	          #{item.materialCount, jdbcType=INTEGER},
+	          #{item.isUpload, jdbcType=INTEGER},
+	          #{item.createdBy, jdbcType=BIGINT},
+	          #{item.createdDate, jdbcType=TIMESTAMP},
+	          #{item.updatedBy, jdbcType=BIGINT},
+	          #{item.updatedDate, jdbcType=TIMESTAMP}
+        )
+       </foreach>
+  </insert>
+  <update id="update" parameterType="com.exp.ucmp.entity.PsiBusinessNodesMaterialEntity" >
+    UPDATE t_psi_business_nodes_material SET 
+          business_nodes = #{businessNodes, jdbcType=VARCHAR},
+          business_nodes_name = #{businessNodesName, jdbcType=VARCHAR},
+          material_type = #{materialType, jdbcType=VARCHAR},
+          material_type_name = #{materialTypeName, jdbcType=VARCHAR},
+          material_sequence = #{materialSequence, jdbcType=INTEGER},
+          material_count = #{materialCount, jdbcType=INTEGER},
+          is_upload = #{isUpload, jdbcType=INTEGER},
+          created_by = #{createdBy, jdbcType=BIGINT},
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+     WHERE
+     <trim prefixOverrides="AND">
+           AND id = #{id, jdbcType=BIGINT} 
+     </trim>
+  </update>
+  
+  <update id="updateSelective" parameterType="com.exp.ucmp.entity.PsiBusinessNodesMaterialEntity" >
+    UPDATE t_psi_business_nodes_material
+      <trim prefix="SET" suffixOverrides="," >
+        <if test="businessNodes != null" >
+          business_nodes = #{businessNodes, jdbcType=VARCHAR},
+          </if>
+        <if test="businessNodesName != null" >
+          business_nodes_name = #{businessNodesName, jdbcType=VARCHAR},
+          </if>
+        <if test="materialType != null" >
+          material_type = #{materialType, jdbcType=VARCHAR},
+          </if>
+        <if test="materialTypeName != null" >
+          material_type_name = #{materialTypeName, jdbcType=VARCHAR},
+          </if>
+        <if test="materialSequence != null" >
+          material_sequence = #{materialSequence, jdbcType=INTEGER},
+          </if>
+        <if test="materialCount != null" >
+          material_count = #{materialCount, jdbcType=INTEGER},
+          </if>
+        <if test="isUpload != null" >
+          is_upload = #{isUpload, jdbcType=INTEGER},
+          </if>
+        <if test="createdBy != null" >
+          created_by = #{createdBy, jdbcType=BIGINT},
+          </if>
+        <if test="createdDate != null" >
+          created_date = #{createdDate, jdbcType=TIMESTAMP},
+          </if>
+        <if test="updatedBy != null" >
+          updated_by = #{updatedBy, jdbcType=BIGINT},
+          </if>
+        <if test="updatedDate != null" >
+          updated_date = #{updatedDate, jdbcType=TIMESTAMP},
+          </if>
+      </trim>
+      WHERE
+     <trim prefixOverrides="AND">
+           AND id = #{id, jdbcType=BIGINT}
+     </trim>
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_business_nodes_material SET 
+	          business_nodes = #{item.businessNodes, jdbcType=VARCHAR},
+	          business_nodes_name = #{item.businessNodesName, jdbcType=VARCHAR},
+	          material_type = #{item.materialType, jdbcType=VARCHAR},
+	          material_type_name = #{item.materialTypeName, jdbcType=VARCHAR},
+	          material_sequence = #{item.materialSequence, jdbcType=INTEGER},
+	          material_count = #{item.materialCount, jdbcType=INTEGER},
+	          is_upload = #{item.isUpload, jdbcType=INTEGER},
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP}
+	     WHERE
+	     <trim prefixOverrides="AND">
+	           AND id = #{item.id, jdbcType=BIGINT} 
+	     </trim>
+     </foreach>
+  </update>
+  
+  <update id="batchUpdateSelective" parameterType="java.util.List" >
+     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    UPDATE t_psi_business_nodes_material
+	      <trim prefix="SET" suffixOverrides="," >
+	        <if test="item.businessNodes != null" >
+	          business_nodes = #{item.businessNodes, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.businessNodesName != null" >
+	          business_nodes_name = #{item.businessNodesName, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.materialType != null" >
+	          material_type = #{item.materialType, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.materialTypeName != null" >
+	          material_type_name = #{item.materialTypeName, jdbcType=VARCHAR},
+	          </if>
+	        <if test="item.materialSequence != null" >
+	          material_sequence = #{item.materialSequence, jdbcType=INTEGER},
+	          </if>
+	        <if test="item.materialCount != null" >
+	          material_count = #{item.materialCount, jdbcType=INTEGER},
+	          </if>
+	        <if test="item.isUpload != null" >
+	          is_upload = #{item.isUpload, jdbcType=INTEGER},
+	          </if>
+	        <if test="item.createdBy != null" >
+	          created_by = #{item.createdBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.createdDate != null" >
+	          created_date = #{item.createdDate, jdbcType=TIMESTAMP},
+	          </if>
+	        <if test="item.updatedBy != null" >
+	          updated_by = #{item.updatedBy, jdbcType=BIGINT},
+	          </if>
+	        <if test="item.updatedDate != null" >
+	          updated_date = #{item.updatedDate, jdbcType=TIMESTAMP},
+	          </if>
+	      </trim>
+	      WHERE
+	     <trim prefixOverrides="AND">
+	           AND id = #{item.id, jdbcType=BIGINT}
+	     </trim>
+     </foreach>
+  </update>
+  
+  <delete id="delete" parameterType="com.exp.ucmp.pk.PsiBusinessNodesMaterialPk" >
+    DELETE FROM t_psi_business_nodes_material
+    WHERE
+     <trim prefixOverrides="AND">
+           AND id = #{id, jdbcType=BIGINT}
+     </trim>
+  </delete>
+  
+  <delete id="deleteBySelective" parameterType="com.exp.ucmp.entity.PsiBusinessNodesMaterialEntity" >
+    DELETE FROM t_psi_business_nodes_material
+    WHERE
+     <trim prefixOverrides="AND" >
+        <if test="id != null" >
+          AND id = #{id, jdbcType=BIGINT}
+        </if>
+        <if test="businessNodes != null and businessNodes != ''" >
+          AND business_nodes = #{businessNodes, jdbcType=VARCHAR}
+        </if>
+        <if test="businessNodesName != null and businessNodesName != ''" >
+          AND business_nodes_name = #{businessNodesName, jdbcType=VARCHAR}
+        </if>
+        <if test="materialType != null and materialType != ''" >
+          AND material_type = #{materialType, jdbcType=VARCHAR}
+        </if>
+        <if test="materialTypeName != null and materialTypeName != ''" >
+          AND material_type_name = #{materialTypeName, jdbcType=VARCHAR}
+        </if>
+        <if test="materialSequence != null" >
+          AND material_sequence = #{materialSequence, jdbcType=INTEGER}
+        </if>
+        <if test="materialCount != null" >
+          AND material_count = #{materialCount, jdbcType=INTEGER}
+        </if>
+        <if test="isUpload != null" >
+          AND is_upload = #{isUpload, jdbcType=INTEGER}
+        </if>
+        <if test="createdBy != null" >
+          AND created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+     </trim>
+  </delete>
+  
+  <resultMap id="psiBusinessNodesMaterialResultMap" type="com.exp.ucmp.entity.PsiBusinessNodesMaterialEntity" >
+      <constructor>
+       <idArg column="id" javaType="Long" jdbcType="BIGINT"/>
+    </constructor>
+    <result column="business_nodes" property="businessNodes" jdbcType="VARCHAR" />
+    <result column="business_nodes_name" property="businessNodesName" jdbcType="VARCHAR" />
+    <result column="material_type" property="materialType" jdbcType="VARCHAR" />
+    <result column="material_type_name" property="materialTypeName" jdbcType="VARCHAR" />
+    <result column="material_sequence" property="materialSequence" jdbcType="INTEGER" />
+    <result column="material_count" property="materialCount" jdbcType="INTEGER" />
+    <result column="is_upload" property="isUpload" jdbcType="INTEGER" />
+    <result column="created_by" property="createdBy" jdbcType="BIGINT" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="BIGINT" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="t_psi_business_nodes_material_Column_List" >
+    a.id,
+    a.business_nodes,
+    a.business_nodes_name,
+    a.material_type,
+    a.material_type_name,
+    a.material_sequence,
+    a.material_count,
+    a.is_upload,
+    a.created_by,
+    a.created_date,
+    a.updated_by,
+    a.updated_date
+  </sql>
+  
+  <select id="load" parameterType="com.exp.ucmp.pk.PsiBusinessNodesMaterialPk" resultMap="psiBusinessNodesMaterialResultMap">
+    SELECT 
+    <include refid="t_psi_business_nodes_material_Column_List" />
+      FROM t_psi_business_nodes_material a
+     WHERE 1 = 1
+       AND a.id = #{id, jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBySelective" parameterType="com.exp.ucmp.entity.PsiBusinessNodesMaterialEntity" resultMap="psiBusinessNodesMaterialResultMap">
+    SELECT 
+    <include refid="t_psi_business_nodes_material_Column_List" />
+      FROM t_psi_business_nodes_material a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="id != null" >
+          AND a.id = #{id, jdbcType=BIGINT}
+        </if>
+        <if test="businessNodes != null and businessNodes != ''" >
+          AND a.business_nodes = #{businessNodes, jdbcType=VARCHAR}
+        </if>
+        <if test="businessNodesName != null and businessNodesName != ''" >
+          AND a.business_nodes_name = #{businessNodesName, jdbcType=VARCHAR}
+        </if>
+        <if test="materialType != null and materialType != ''" >
+          AND a.material_type = #{materialType, jdbcType=VARCHAR}
+        </if>
+        <if test="materialTypeName != null and materialTypeName != ''" >
+          AND a.material_type_name = #{materialTypeName, jdbcType=VARCHAR}
+        </if>
+        <if test="materialSequence != null" >
+          AND a.material_sequence = #{materialSequence, jdbcType=INTEGER}
+        </if>
+        <if test="materialCount != null" >
+          AND a.material_count = #{materialCount, jdbcType=INTEGER}
+        </if>
+        <if test="isUpload != null" >
+          AND a.is_upload = #{isUpload, jdbcType=INTEGER}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+  <select id="selectBySelectiveCount" parameterType="com.exp.ucmp.entity.PsiBusinessNodesMaterialEntity" resultType="int">
+    SELECT count(1) FROM t_psi_business_nodes_material a
+      <trim prefix="WHERE" prefixOverrides="AND" >
+        <if test="id != null" >
+          AND a.id = #{id, jdbcType=BIGINT}
+        </if>
+        <if test="businessNodes != null and businessNodes != ''" >
+          AND a.business_nodes = #{businessNodes, jdbcType=VARCHAR}
+        </if>
+        <if test="businessNodesName != null and businessNodesName != ''" >
+          AND a.business_nodes_name = #{businessNodesName, jdbcType=VARCHAR}
+        </if>
+        <if test="materialType != null and materialType != ''" >
+          AND a.material_type = #{materialType, jdbcType=VARCHAR}
+        </if>
+        <if test="materialTypeName != null and materialTypeName != ''" >
+          AND a.material_type_name = #{materialTypeName, jdbcType=VARCHAR}
+        </if>
+        <if test="materialSequence != null" >
+          AND a.material_sequence = #{materialSequence, jdbcType=INTEGER}
+        </if>
+        <if test="materialCount != null" >
+          AND a.material_count = #{materialCount, jdbcType=INTEGER}
+        </if>
+        <if test="isUpload != null" >
+          AND a.is_upload = #{isUpload, jdbcType=INTEGER}
+        </if>
+        <if test="createdBy != null" >
+          AND a.created_by = #{createdBy, jdbcType=BIGINT}
+        </if>
+        <if test="createdDate != null" >
+          AND a.created_date = #{createdDate, jdbcType=TIMESTAMP}
+        </if>
+        <if test="updatedBy != null" >
+          AND a.updated_by = #{updatedBy, jdbcType=BIGINT}
+        </if>
+        <if test="updatedDate != null" >
+          AND a.updated_date = #{updatedDate, jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+  </select>
+</mapper>
