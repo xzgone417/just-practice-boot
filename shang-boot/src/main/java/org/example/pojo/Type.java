@@ -8,7 +8,7 @@ import lombok.Data;
 /**
  * @TableName news_type
  */
-@TableName(value ="news_type")
+//@TableName(value ="news_type")
 @Data
 public class Type implements Serializable {
     private Integer tid;

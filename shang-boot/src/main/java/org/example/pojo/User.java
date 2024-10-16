@@ -8,7 +8,7 @@ import lombok.Data;
 /**
  * @TableName news_user
  */
-@TableName(value ="news_user")
+//@TableName(value ="news_user")
 @Data
 public class User implements Serializable {
     private Integer uid;

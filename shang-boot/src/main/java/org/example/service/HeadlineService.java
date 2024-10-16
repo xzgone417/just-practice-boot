@@ -2,6 +2,8 @@ package org.example.service;
 
 import org.example.pojo.Headline;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.example.pojo.PortalVo;
+import org.example.utils.Result;
 
 /**
 * @author Redmi
@@ -10,4 +12,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface HeadlineService extends IService<Headline> {
 
+    Result findNewPage(PortalVo portalVo);
+
+    Result showHeadlineDetail(Integer hid);
 }

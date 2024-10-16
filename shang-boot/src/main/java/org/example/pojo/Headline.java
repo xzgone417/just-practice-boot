@@ -10,9 +10,10 @@ import lombok.Data;
 /**
  * @TableName news_headline
  */
-@TableName(value = "news_headline")
+//@TableName(value = "news_headline")
 @Data
 public class Headline implements Serializable {
+    @TableId
     private Integer hid;
 
     private String title;
