@@ -75,6 +75,11 @@ public class HeadlineServiceImpl extends ServiceImpl<HeadlineMapper, Headline>
         pageInfoMap.put("headline",headLineDetail);
         return Result.ok(pageInfoMap);
     }
+
+    @Override
+    public Result publish(Headline headline) {
+        return null;
+    }
 }
 
 
