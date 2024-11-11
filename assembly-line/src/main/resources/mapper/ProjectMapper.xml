@@ -5,15 +5,15 @@
 <mapper namespace="xyz.xzgone.assemblyline.mapper.ProjectMapper">
 
     <resultMap id="BaseResultMap" type="xyz.xzgone.assemblyline.pojo.Project">
-            <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="title" column="title" jdbcType="VARCHAR"/>
-            <result property="version" column="version" jdbcType="INTEGER"/>
-            <result property="children" column="children" jdbcType="OTHER"/>
-            <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <id property="pid" column="pid" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="children" column="children" jdbcType="OTHER"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
     </resultMap>
-
     <sql id="Base_Column_List">
-        id,title,version,
-        children,is_deleted
+        pid, title, version,
+                children, is_deleted
     </sql>
+
 </mapper>

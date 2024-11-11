@@ -13,7 +13,7 @@ import java.io.Serializable;
 @TableName(value = "project")
 public class Project implements Serializable {
     @TableId
-    private Integer id;
+    private Integer pid;
 
     private String title;
     @Version
