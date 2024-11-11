@@ -1,0 +1,30 @@
+# server
+server:
+  port: 7171
+  servlet:
+    context-path: /
+# ?????
+spring:
+  application:
+    name: assembly-line
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      url: jdbc:mysql:///time_statistics_db
+      username: root
+      password: xzgone1
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+# mybatis-plus???
+mybatis-plus:
+  type-aliases-package: xyz.xzgone.assemblyline.pojo
+  global-config:
+    db-config:
+      logic-delete-field: isDeleted  #??????
+      id-type: auto #???????
+
+#jwt??
+jwt:
+  token:
+    tokenExpiration: 120 #????,????
+    tokenSignKey: xzgone1  #???????? ???
