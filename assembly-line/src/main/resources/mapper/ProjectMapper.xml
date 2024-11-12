@@ -8,12 +8,14 @@
         <id property="pid" column="pid" jdbcType="INTEGER"/>
         <result property="title" column="title" jdbcType="VARCHAR"/>
         <result property="version" column="version" jdbcType="INTEGER"/>
-        <result property="children" column="children" jdbcType="OTHER"/>
         <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
     </resultMap>
     <sql id="Base_Column_List">
         pid, title, version,
-                children, is_deleted
+        is_deleted
     </sql>
 
+    <!--    <select id="">-->
+    <!--        -->
+    <!--    </select>-->
 </mapper>

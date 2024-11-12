@@ -2,6 +2,7 @@ package xyz.xzgone.assemblyline.service;
 
 import xyz.xzgone.assemblyline.pojo.Project;
 import com.baomidou.mybatisplus.extension.service.IService;
+import xyz.xzgone.assemblyline.utils.TheResult;
 
 /**
 * @author Tencent_GO
@@ -10,4 +11,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface ProjectService extends IService<Project> {
 
+    TheResult<Project> publish(Project project);
 }

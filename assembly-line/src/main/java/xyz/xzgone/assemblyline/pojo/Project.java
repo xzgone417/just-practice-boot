@@ -19,8 +19,6 @@ public class Project implements Serializable {
     @Version
     private Integer version;
 
-    private Object children;
-
     private Integer isDeleted;
 
 
