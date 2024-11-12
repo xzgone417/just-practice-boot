@@ -15,9 +15,9 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
-    @GetMapping("/gui")
+    @GetMapping("/get")
     public String get() {
-        return "cehsiyicdsdssssssssss";
+        return "测试project使得否跑通";
     }
 
     @PostMapping("publish")
