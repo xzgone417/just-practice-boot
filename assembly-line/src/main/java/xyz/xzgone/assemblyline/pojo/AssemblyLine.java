@@ -1,9 +1,6 @@
 package xyz.xzgone.assemblyline.pojo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +11,7 @@ import java.io.Serializable;
  */
 @Setter
 @Getter
-@TableName(value ="assembly_line")
+@TableName(value = "assembly_line")
 public class AssemblyLine implements Serializable {
     private Integer id;
 
@@ -35,7 +32,7 @@ public class AssemblyLine implements Serializable {
     private String lineLink;
 
     private String sheetId;
-
+    @Version
     private Integer version;
 
     private Integer isDeleted;

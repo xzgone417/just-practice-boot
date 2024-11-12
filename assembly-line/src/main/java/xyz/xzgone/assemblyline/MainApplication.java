@@ -12,10 +12,10 @@ import org.springframework.context.annotation.Bean;
 
 @MapperScan("xyz.xzgone.assemblyline.mapper")
 @SpringBootApplication
-public class AssemblyLineApplication {
+public class MainApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AssemblyLineApplication.class, args);
+        SpringApplication.run(MainApplication.class, args);
     }
 
     //    配置mybatis-plus插件

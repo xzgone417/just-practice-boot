@@ -25,13 +25,13 @@ public class AssemblyLineController {
     }
 
     @GetMapping("/findProject")
-    public TheResult<List<AssemblyLine>> findProject(String projectId) {
+    public TheResult<List<AssemblyLine>> findProject(@RequestParam String projectId) {
         List<AssemblyLine> list = assemblyLineService.findProject(projectId);
         return TheResult.ok(list);
     }
+
     @PostMapping("publish")
     public TheResult<AssemblyLine> publish(@RequestBody AssemblyLine assemblyLine) {
-        TheResult<AssemblyLine> theResult = assemblyLineService.publish(assemblyLine);
-        return theResult;
+        return assemblyLineService.publish(assemblyLine);
     }
 }
