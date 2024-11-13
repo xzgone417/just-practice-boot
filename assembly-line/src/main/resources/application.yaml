@@ -8,12 +8,25 @@ spring:
   application:
     name: assembly-line
   datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    druid:
-      url: jdbc:mysql://9.135.5.67:3306/time_statistics_db
-      username: tsync
-      password: tsync@2022
-      driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://9.135.5.67:3306/time_statistics_db
+    username: tsync
+    password: tsync@2022
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      idle-timeout: 30000
+      pool-name: SpringBootHikariCP
+      max-lifetime: 60000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+#  datasource:
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    druid:
+#      url: jdbc:mysql://9.135.5.67:3306/time_statistics_db
+#      username: tsync
+#      password: tsync@2022
+#      driver-class-name: com.mysql.cj.jdbc.Driver
 
 # mybatis-plus???
 mybatis-plus:
