@@ -16,6 +16,8 @@ public interface AssemblyLineMapper extends BaseMapper<AssemblyLine> {
     List<AssemblyLine> findAll();
 
     List<AssemblyLine> findProject(String projectId);
+
+    void publish(AssemblyLine assemblyLine);
 }
 
 

@@ -25,6 +25,16 @@
         line_id,line_name,line_link,
         sheet_id,version,is_deleted
     </sql>
+
+    <insert id="publish">
+        INSERT INTO assembly_line
+        (project_id,project_name,doc_id,doc_name,doc_link,line_id,line_name,line_link,sheet_id)
+        VALUES
+        (#{projectId},#{projectName},#{docId},#{docName},#{docLink},#{lineId},#{lineName},#{lineLink},#{sheetId})
+        ON DUPLICATE KEY UPDATE
+        line_link = VALUES(line_link)
+    </insert>
+
     <select id="findAll" resultType="xyz.xzgone.assemblyline.pojo.AssemblyLine">
         SELECT * FROM assembly_line
     </select>

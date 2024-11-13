@@ -24,7 +24,7 @@ public class AssemblyLineServiceImpl extends ServiceImpl<AssemblyLineMapper, Ass
 
     @Override
     public TheResult<AssemblyLine> publish(AssemblyLine assemblyLine) {
-        assemblyLineMapper.insert(assemblyLine);
+        assemblyLineMapper.publish(assemblyLine);
         return TheResult.ok(null);
     }
 
