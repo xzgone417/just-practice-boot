@@ -10,9 +10,9 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
-      url: jdbc:mysql://9.134.123.19:3306/time_statistics_db
-      username: root
-      password: 99BD874E123EBA56!
+      url: jdbc:mysql://9.135.5.67:3306/time_statistics_db
+      username: tsync
+      password: tsync@2022
       driver-class-name: com.mysql.cj.jdbc.Driver
 
 # mybatis-plus???
