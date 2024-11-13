@@ -12,7 +12,7 @@ spring:
     druid:
       url: jdbc:mysql:///time_statistics_db
       username: root
-      password: xzgone1
+      password: 99BD874E123EBA56!
       driver-class-name: com.mysql.cj.jdbc.Driver
 
 # mybatis-plus???
