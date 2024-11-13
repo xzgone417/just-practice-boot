@@ -2,7 +2,6 @@ package xyz.xzgone.assemblyline.service;
 
 import xyz.xzgone.assemblyline.pojo.AssemblyLine;
 import com.baomidou.mybatisplus.extension.service.IService;
-import xyz.xzgone.assemblyline.pojo.Project;
 import xyz.xzgone.assemblyline.utils.TheResult;
 
 import java.util.List;
