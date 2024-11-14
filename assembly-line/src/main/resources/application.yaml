@@ -8,9 +8,9 @@ spring:
   application:
     name: assembly-line
   datasource:
-    url: jdbc:mysql://9.135.5.67:3306/time_statistics_db
-    username: tsync
-    password: tsync@2022
+    url: jdbc:mysql:///time_statistics_db
+    username: root
+    password: xzgone1
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       minimum-idle: 5
