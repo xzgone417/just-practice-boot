@@ -3,7 +3,7 @@ server:
   port: 7271
   servlet:
     context-path: /
-# ?????
+# database
 spring:
   application:
     name: assembly-line
@@ -28,16 +28,16 @@ spring:
 #      password: tsync@2022
 #      driver-class-name: com.mysql.cj.jdbc.Driver
 
-# mybatis-plus???
+# mybatis-plus
 mybatis-plus:
-  type-aliases-package: xyz.xzgone.builder-pipeline.modal
+  type-aliases-package: xyz.xzgone.builderpipeline.modal
   global-config:
     db-config:
       logic-delete-field: isDeleted  #??????
       id-type: auto #???????
 
-#jwt??
+#jwt
 #jwt:
 #  token:
-#    tokenExpiration: 120 #????,????
-#    tokenSignKey: xzgone1  #???????? ???
+#    tokenExpiration: 120 #time
+#    tokenSignKey: xzgone1  #key

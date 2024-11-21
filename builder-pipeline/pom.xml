@@ -101,7 +101,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
-                    <mainClass>xyz.xzgone.builderpipeline.BuilderPipelineApplication</mainClass>
+                    <mainClass>xyz.xzgone.builderpipeline.MainApplication</mainClass>
                     <skip>true</skip>
                 </configuration>
                 <executions>
