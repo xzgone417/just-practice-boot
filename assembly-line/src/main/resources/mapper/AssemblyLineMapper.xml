@@ -30,22 +30,34 @@
         INSERT INTO assembly_line
         (project_id, project_name, doc_id, doc_name, doc_link, line_id, line_name, line_link, sheet_id)
         VALUES (#{projectId}, #{projectName}, #{docId}, #{docName}, #{docLink}, #{lineId}, #{lineName}, #{lineLink},
-        #{sheetId})
-        ON DUPLICATE KEY UPDATE
-        project_id = VALUES (project_id),
-        project_name = VALUES (project_name),
-        doc_name = VALUES (doc_name),
-        doc_link = VALUES (doc_link),
-        line_id = VALUES (line_id),
-        line_name = VALUES (line_name),
-        line_link = VALUES (line_link)
+                #{sheetId})
+        ON DUPLICATE KEY UPDATE project_id   = VALUES(project_id),
+                                project_name = VALUES(project_name),
+                                doc_name     = VALUES(doc_name),
+                                doc_link     = VALUES(doc_link),
+                                line_id      = VALUES(line_id),
+                                line_name    = VALUES(line_name),
+                                line_link    = VALUES(line_link)
     </insert>
 
     <select id="findAll" resultType="xyz.xzgone.assemblyline.pojo.AssemblyLine">
-        SELECT * FROM assembly_line
+        SELECT *
+        FROM assembly_line
     </select>
     <select id="findProject" resultType="xyz.xzgone.assemblyline.pojo.AssemblyLine">
-        SELECT * FROM assembly_line
+        SELECT *
+        FROM assembly_line
         WHERE project_id = #{projectId}
     </select>
+
+    <select id="findNames" resultType="xyz.xzgone.assemblyline.pojo.AssemblyLine">
+        SELECT * /* 其他字段 */
+        FROM assembly_line
+        WHERE project_id IN
+        <foreach item="name" collection="names" open="(" separator="," close=")">
+            #{name}
+        </foreach>
+        ORDER BY id
+    </select>
+
 </mapper>
