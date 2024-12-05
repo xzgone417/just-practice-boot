@@ -22,7 +22,7 @@ public interface AssemblyLineMapper extends BaseMapper<AssemblyLine> {
 
     void publish(AssemblyLine assemblyLine);
 
-//    Page<AssemblyLine> findNames(Page<AssemblyLine> page, String[] names);
+    //    Page<AssemblyLine> findNames(Page<AssemblyLine> page, String[] names);
     IPage<AssemblyLine> findNames(Page<AssemblyLine> page, @Param("names") String[] names);
 }
 

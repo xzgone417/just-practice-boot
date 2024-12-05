@@ -14,7 +14,7 @@ import java.util.List;
 */
 public interface AssemblyLineService extends IService<AssemblyLine> {
 
-    TheResult<AssemblyLine> publish(AssemblyLine assemblyLine);
+    TheResult<?> publish(AssemblyLine assemblyLine);
 
     List<AssemblyLine> findAll();
 

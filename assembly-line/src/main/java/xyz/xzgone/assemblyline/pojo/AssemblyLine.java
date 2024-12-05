@@ -32,6 +32,7 @@ public class AssemblyLine implements Serializable {
     private String lineLink;
 
     private String sheetId;
+
     @Version
     private Integer version;
 

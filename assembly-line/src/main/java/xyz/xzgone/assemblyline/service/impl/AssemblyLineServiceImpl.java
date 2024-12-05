@@ -2,6 +2,9 @@ package xyz.xzgone.assemblyline.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import xyz.xzgone.assemblyline.pojo.AssemblyLine;
 import xyz.xzgone.assemblyline.service.AssemblyLineService;
 import xyz.xzgone.assemblyline.mapper.AssemblyLineMapper;
@@ -24,15 +27,19 @@ public class AssemblyLineServiceImpl extends ServiceImpl<AssemblyLineMapper, Ass
     private AssemblyLineMapper assemblyLineMapper;
 
     @Override
-    public TheResult<AssemblyLine> publish(AssemblyLine assemblyLine) {
-        assemblyLineMapper.publish(assemblyLine);
-        return TheResult.ok(null);
+    @Transactional
+    public TheResult<?> publish(AssemblyLine assemblyLine) {
+        try {
+            assemblyLineMapper.publish(assemblyLine);
+            return TheResult.ok(null);
+        } catch (Exception e) {
+            return TheResult.ok(e);
+        }
     }
 
     @Override
     public List<AssemblyLine> findAll() {
         return assemblyLineMapper.findAll();
-
     }
 
     @Override

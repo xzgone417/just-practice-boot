@@ -34,7 +34,7 @@ public class AssemblyLineController {
 
 
     @PostMapping("publish")
-    public TheResult<AssemblyLine> publish(@RequestBody AssemblyLine assemblyLine) {
+    public TheResult<?> publish(@RequestBody AssemblyLine assemblyLine) {
         return assemblyLineService.publish(assemblyLine);
     }
 
