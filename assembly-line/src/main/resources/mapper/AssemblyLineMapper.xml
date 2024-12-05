@@ -57,7 +57,7 @@
         <foreach item="name" collection="names" open="(" separator="," close=")">
             #{name}
         </foreach>
-        ORDER BY id
+        ORDER BY id DESC
     </select>
 
 </mapper>
