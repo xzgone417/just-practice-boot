@@ -1,5 +1,6 @@
 package xyz.xzgone.assemblyline.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import xyz.xzgone.assemblyline.pojo.AssemblyLine;
 import com.baomidou.mybatisplus.extension.service.IService;
 import xyz.xzgone.assemblyline.utils.TheResult;
@@ -18,4 +19,6 @@ public interface AssemblyLineService extends IService<AssemblyLine> {
     List<AssemblyLine> findAll();
 
     List<AssemblyLine> findProject(String projectId);
+
+    Page<AssemblyLine> findNames(int pageNum, int pageSize, String[] names);
 }

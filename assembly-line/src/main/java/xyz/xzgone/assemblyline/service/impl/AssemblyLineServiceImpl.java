@@ -7,6 +7,7 @@ import xyz.xzgone.assemblyline.service.AssemblyLineService;
 import xyz.xzgone.assemblyline.mapper.AssemblyLineMapper;
 import org.springframework.stereotype.Service;
 import xyz.xzgone.assemblyline.utils.TheResult;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import java.util.List;
 
@@ -30,15 +31,21 @@ public class AssemblyLineServiceImpl extends ServiceImpl<AssemblyLineMapper, Ass
 
     @Override
     public List<AssemblyLine> findAll() {
-        List<AssemblyLine> onceList = assemblyLineMapper.findAll();
-        return onceList;
+        return assemblyLineMapper.findAll();
+
     }
 
     @Override
     public List<AssemblyLine> findProject(String projectId) {
-        List<AssemblyLine> onceList = assemblyLineMapper.findProject(projectId);
-        return onceList;
+        return assemblyLineMapper.findProject(projectId);
     }
+
+    @Override
+    public Page<AssemblyLine> findNames(int pageNum, int pageSize, String[] names) {
+        Page<AssemblyLine> page = new Page<>(pageNum, pageSize);
+        return (Page<AssemblyLine>) this.getBaseMapper().findNames(page, names);
+    }
+
 }
 
 
