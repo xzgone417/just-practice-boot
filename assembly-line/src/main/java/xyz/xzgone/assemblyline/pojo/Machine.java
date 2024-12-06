@@ -1,18 +1,17 @@
 package xyz.xzgone.assemblyline.pojo;
 
 import com.baomidou.mybatisplus.annotation.*;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.io.Serializable;
 
+import lombok.Data;
+
 /**
- * @TableName assembly_line
+ * @TableName machine
  */
-@Setter
-@Getter
-@TableName(value = "assembly_line")
-public class AssemblyLine implements Serializable {
+@TableName(value = "machine")
+@Data
+public class Machine implements Serializable {
     private Integer id;
 
     private String projectId;
@@ -24,20 +23,10 @@ public class AssemblyLine implements Serializable {
     private String docName;
 
     private String docLink;
-
-    private String lineId;
-
-    private String lineName;
-
-    private String lineLink;
-
-    private String sheetId;
-
     @Version
     private Integer version;
 
     private Integer isDeleted;
 
     private static final long serialVersionUID = 1L;
-
 }

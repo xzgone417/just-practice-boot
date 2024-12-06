@@ -51,7 +51,7 @@
     </select>
 
     <select id="findNames" resultType="xyz.xzgone.assemblyline.pojo.AssemblyLine">
-        SELECT * /* 其他字段 */
+        SELECT *
         FROM assembly_line
         WHERE project_id IN
         <foreach item="name" collection="names" open="(" separator="," close=")">
