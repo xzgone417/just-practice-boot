@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.xzgone.assemblyline.mapper.MachineMapper">
+
+    <resultMap id="BaseResultMap" type="xyz.xzgone.assemblyline.pojo.Machine">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="projectId" column="project_id" jdbcType="VARCHAR"/>
+        <result property="projectName" column="project_name" jdbcType="VARCHAR"/>
+        <result property="docId" column="doc_id" jdbcType="VARCHAR"/>
+        <result property="docName" column="doc_name" jdbcType="VARCHAR"/>
+        <result property="docLink" column="doc_link" jdbcType="VARCHAR"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,project_id,project_name,
+        doc_id,doc_name,doc_link,
+        version,is_deleted
+    </sql>
+
+    <insert id="publish">
+        INSERT INTO machine (doc_id, project_id, project_name, doc_name, doc_link)
+        VALUES (#{docId}, #{projectId}, #{projectName}, #{docName}, #{docLink}) ON DUPLICATE KEY
+        UPDATE
+            project_id =
+        VALUES (project_id), project_name =
+        VALUES (project_name), doc_name =
+        VALUES (doc_name), doc_link =
+        VALUES (doc_link)
+    </insert>
+
+    <select id="findAll" resultType="xyz.xzgone.assemblyline.pojo.Machine">
+        SELECT *
+        FROM machine
+    </select>
+
+    <select id="findNames" resultType="xyz.xzgone.assemblyline.pojo.Machine">
+        SELECT *
+        FROM machine
+        WHERE project_id IN
+        <foreach item="name" collection="names" open="(" separator="," close=")">
+            #{name}
+        </foreach>
+        ORDER BY id DESC
+    </select>
+
+    <select id="findLink" resultType="xyz.xzgone.assemblyline.pojo.Machine">
+        SELECT *
+        FROM machine
+        WHERE doc_link LIKE CONCAT(#{docLink}, '%')
+    </select>
+</mapper>
