@@ -51,6 +51,6 @@
     <select id="findLink" resultType="xyz.xzgone.assemblyline.pojo.Machine">
         SELECT *
         FROM machine
-        WHERE doc_link LIKE CONCAT(#{docLink}, '%')
+        WHERE SUBSTRING_INDEX(doc_link, '?', 1) LIKE CONCAT('%', SUBSTRING_INDEX(#{docLink}, '?', 1))
     </select>
 </mapper>
